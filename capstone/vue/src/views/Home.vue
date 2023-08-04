@@ -2,14 +2,14 @@
   <div class="home">
     <h1>Home</h1>
     <p>You must be authenticated to see this</p>
-    <input placeholder="Search Games"  type="text" v-model="search.title" />
+    <input placeholder="Search Games"  type="text" v-model="search" />
     <select v-model="select"> 
       <option v-for="game in games" v-bind:key="game.id" >
        {{game.title}}
     </option>
     </select>
     <game-card-vue
-      v-for="game in games"
+      v-for="game in filteredList"
       v-bind:key="game.id"
       v-bind:item="game"
     />
@@ -38,13 +38,13 @@ export default {
           description: "a game",
         },
         {
-          id: 1,
+          id: 2,
           title: "Red Dead Redemption",
           release_date: "09/13/2019",
           description: "a cowboy game",
         },
         {
-          id: 1,
+          id: 3,
           title: "Grand Theft Auto V",
           release_date: "09/17/2013",
           description: "a violent game",
