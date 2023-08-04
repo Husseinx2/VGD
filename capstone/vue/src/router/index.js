@@ -5,7 +5,7 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
-
+import AddGame from '../views/AddGame.vue'
 Vue.use(Router)
 
 /**
@@ -35,6 +35,14 @@ const router = new Router({
       component: Login,
       meta: {
         requiresAuth: false
+      }
+    },
+    {
+      path:"/addGame",
+      Name: "AddGame",
+      component:AddGame,
+      meta: {
+        requiresAuth:true
       }
     },
     {
