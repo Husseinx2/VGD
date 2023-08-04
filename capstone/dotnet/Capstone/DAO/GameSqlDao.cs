@@ -10,15 +10,15 @@ namespace Capstone.DAO
     {
         private string connectionString = "";
 
-        private string sqlListGames = "SELECT game.id, title, description, esrb_rating, release_date FROM game";
-        private string sqlGetGame = "SELECT game.id, title, description, esrb_rating, release_date from game WHERE game.id = @id;";
+        private string sqlListGames = "SELECT game_id, title, description, esrb_rating, release_date FROM game";
+        private string sqlGetGame = "SELECT game_id, title, description, esrb_rating, release_date from game WHERE game.id = @id;";
         private string sqlAddGame = "INSERT INTO game (title, description, esrb_rating, release_date) " +
             "OUTPUT INSERTED.id " +
             "VALUES (@title, @description, @esrb_rating, @release_date);";
-        private string SqlUpdateGame = "UPDATE game SET title=@title, description=@description, esrb_rating=@esrb_rating, " +
+        private string sqlUpdateGame = "UPDATE game SET title=@title, description=@description, esrb_rating=@esrb_rating, " +
             "release_date=@release_date " +
             "WHERE id = @id;";
-        private string SqlDeleteGame = "DELETE FROM game WHERE is=@id;";
+        private string sqlDeleteGame = "DELETE FROM game WHERE id=@id;";
 
 
         public GameSqlDao(string connectionString)
@@ -103,7 +103,7 @@ namespace Capstone.DAO
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand(SqlUpdateGame, conn))
+                using (SqlCommand cmd = new SqlCommand(sqlUpdateGame, conn))
                 {
                     cmd.Parameters.AddWithValue("@title", game.Title);
                     cmd.Parameters.AddWithValue("@description", game.Description);
@@ -124,7 +124,7 @@ namespace Capstone.DAO
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand(SqlDeleteGame, conn))
+                using (SqlCommand cmd = new SqlCommand(sqlDeleteGame, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", gameId);
 
@@ -138,8 +138,8 @@ namespace Capstone.DAO
         private Game MapRowToGame(SqlDataReader reader)
         {
             Game game = new Game();
-            game.Id = Convert.ToInt32(reader["Id"]);
-            game.Title = Convert.ToString(reader["Title"]);
+            game.Id = Convert.ToInt32(reader["game_id"]);
+            game.Title = Convert.ToString(reader["title"]);
             game.Description = Convert.ToString(reader["description"]);
             game.ESRBRating = Convert.ToString(reader["esrb_rating"]);
             game.ReleaseDate = Convert.ToDateTime(reader["release_date"]);
