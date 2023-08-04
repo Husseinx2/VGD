@@ -11,15 +11,14 @@ namespace Capstone.DAO
         private string connectionString = "";
 
         private string sqlListGames = "SELECT game_id, title, description, esrb_rating, release_date FROM game";
-        private string sqlGetGame = "SELECT game_id, title, description, esrb_rating, release_date from game WHERE game.id = @id;";
+        private string sqlGetGame = "SELECT game_id, title, description, esrb_rating, release_date from game WHERE game_id = @id;";
         private string sqlAddGame = "INSERT INTO game (title, description, esrb_rating, release_date) " +
-            "OUTPUT INSERTED.id " +
+            "OUTPUT INSERTED.game_id " +
             "VALUES (@title, @description, @esrb_rating, @release_date);";
         private string sqlUpdateGame = "UPDATE game SET title=@title, description=@description, esrb_rating=@esrb_rating, " +
             "release_date=@release_date " +
             "WHERE id = @id;";
-        private string sqlDeleteGame = "DELETE FROM game WHERE id=@id;";
-
+        private string sqlDeleteGame = "DELETE FROM game WHERE game_id=@id;";
 
         public GameSqlDao(string connectionString)
         {
@@ -133,7 +132,6 @@ namespace Capstone.DAO
                 }
             }
         }
-
 
         private Game MapRowToGame(SqlDataReader reader)
         {

@@ -22,6 +22,12 @@ namespace Capstone.Controllers
             return Ok(gameDao.ListGames());
         }
 
+        [HttpGet("{gameId}")]
+        public ActionResult<List<Game>> GetGames(int gameId)
+        {
+            return Ok(gameDao.GetGame(gameId));
+        }
+
         [HttpPost()]
         public ActionResult<Game> AddGame(Game game)
         {
@@ -51,8 +57,12 @@ namespace Capstone.Controllers
             {
                 return Ok(newGame);
             }
-
         }
 
+        [HttpDelete("{gameId}")]
+        public ActionResult<Game> DeleteGame(int gameId)
+        {
+            return Ok(gameDao.DeleteGame(gameId));
+        }
     }
 }
