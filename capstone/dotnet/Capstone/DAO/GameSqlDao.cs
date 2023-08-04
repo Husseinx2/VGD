@@ -18,7 +18,7 @@ namespace Capstone.DAO
         private string SqlUpdateGame = "UPDATE game SET title=@title, description=@description, esrb_rating=@esrb_rating, " +
             "release_date=@release_date " +
             "WHERE id = @id;";
-        private string SqlDeleteGame = "DELETE FROM game WHERE is=@id;";
+        private string SqlDeleteGame = "DELETE FROM game WHERE id=@id;";
 
 
         public GameSqlDao(string connectionString)
