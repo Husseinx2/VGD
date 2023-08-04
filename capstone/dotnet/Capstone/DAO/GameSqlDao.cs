@@ -20,7 +20,6 @@ namespace Capstone.DAO
             "WHERE id = @id;";
         private string sqlDeleteGame = "DELETE FROM game WHERE game_id=@id;";
 
-
         public GameSqlDao(string connectionString)
         {
             this.connectionString = connectionString;
