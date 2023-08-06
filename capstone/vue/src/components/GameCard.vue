@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>{{ item.title }}</h1>
-    <h2>Description</h2>
+    <router-link :to="{ name: 'game', params:{id: item.id }}">{{ item.title }}</router-link>
+    <h4>Description</h4>
     <p>{{ item.description }}</p>
     <h2>Release Date</h2>
     <h3>{{ new Date(item.releaseDate).toLocaleString("en", options) }}</h3>
