@@ -5,16 +5,18 @@
     <p>{{ item.description }}</p>
     <h2>Release Date</h2>
     <h3>{{ new Date(item.releaseDate).toLocaleString("en", options) }}</h3>
+   <span v-show="$store.state.user.role == 'admin'" >
     <router-link
-      v-show="$store.state.user.role == 'admin'"
+    
       v-bind:to="{ name: 'edit', params: { id: item.id } }"
     >
       Edit</router-link
     >
     ||
-    <router-link to="/" v-show="$store.state.user.role == 'admin'"
+    <router-link to="/" 
       >Delete</router-link
     >
+    </span>
   </div>
 </template>
 
