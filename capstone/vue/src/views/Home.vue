@@ -1,13 +1,27 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
+    <header>
+      <table>
+        <td>
+      <p>VGD</p>
+        </td>
+        <td>
+     <input placeholder="Search"  type="text" v-model="search" />
+        </td>
+        <td>
+          <button type="submit">Submit</button>
+        </td>
+      </table>
+
+
+    </header>
     <p>You must be authenticated to see this</p>
-    <input placeholder="Search Games"  type="text" v-model="search" />
-    <select v-model="select"> 
+
+    <!-- <select v-model="select"> 
       <option v-for="game in games" v-bind:key="game.id" >
        {{game.title}}
     </option>
-    </select>
+    </select> -->
     <section>
     <game-card-vue
       v-for="game in filteredList"

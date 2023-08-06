@@ -1,13 +1,13 @@
 <template>
   <div>
-<add-pet-form-vue />
+<add-game-form-vue />
  </div>
 </template>
 
 <script>
-import AddPetFormVue from '../components/AddGameForm.vue'
+import AddGameFormVue from '../components/AddGameForm.vue'
 export default {
-components: {AddPetFormVue}
+components: {AddGameFormVue}
 }
 </script>
 
