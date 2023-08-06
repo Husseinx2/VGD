@@ -30,20 +30,27 @@ namespace Capstone.DAO
         {
             List<Game> games = new List<Game>();
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand(sqlListGames, conn))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlListGames, conn))
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            Game game = MapRowToGame(reader);
-                            games.Add(game);
+                            while (reader.Read())
+                            {
+                                Game game = MapRowToGame(reader);
+                                games.Add(game);
+                            }
                         }
                     }
                 }
+            }
+            catch (SqlException)
+            {
+                return null;
             }
 
             return games;
@@ -52,21 +59,27 @@ namespace Capstone.DAO
         public Game GetGame(int gameId)
         {
             Game game = null;
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand(sqlGetGame, conn))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    cmd.Parameters.AddWithValue("@game_id", gameId);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlGetGame, conn))
                     {
-                        if (reader.Read())
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            game = MapRowToGame(reader);
+                            if (reader.Read())
+                            {
+                                game = MapRowToGame(reader);
+                            }
                         }
                     }
                 }
+            }
+            catch (SqlException)
+            {
+                return null;
             }
 
             return game;
@@ -75,61 +88,81 @@ namespace Capstone.DAO
         public Game AddGame(Game game)
         {
             game.Id = 0;
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand(sqlAddGame, conn))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    cmd.Parameters.AddWithValue("@title", game.Title);
-                    cmd.Parameters.AddWithValue("@description", game.Description);
-                    cmd.Parameters.AddWithValue("@esrb_rating", game.ESRBRating);
-                    cmd.Parameters.AddWithValue("@release_date", game.ReleaseDate);
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlAddGame, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@title", game.Title);
+                        cmd.Parameters.AddWithValue("@description", game.Description);
+                        cmd.Parameters.AddWithValue("@esrb_rating", game.ESRBRating);
+                        cmd.Parameters.AddWithValue("@release_date", game.ReleaseDate);
 
-                    game.Id = (int)cmd.ExecuteScalar();
+                        game.Id = (int)cmd.ExecuteScalar();
+                    }
                 }
             }
-
+            catch (SqlException)
+            {
+                return null;
+            }
             return GetGame(game.Id);
         }
 
         public Game UpdateGame(Game game)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand(sqlUpdateGame, conn))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    cmd.Parameters.AddWithValue("@game_id", game.Id);
-                    cmd.Parameters.AddWithValue("@title", game.Title);
-                    cmd.Parameters.AddWithValue("@description", game.Description);
-                    cmd.Parameters.AddWithValue("@esrb_rating", game.ESRBRating);
-                    cmd.Parameters.AddWithValue("@release_date", game.ReleaseDate);
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlUpdateGame, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", game.Id);
+                        cmd.Parameters.AddWithValue("@title", game.Title);
+                        cmd.Parameters.AddWithValue("@description", game.Description);
+                        cmd.Parameters.AddWithValue("@esrb_rating", game.ESRBRating);
+                        cmd.Parameters.AddWithValue("@release_date", game.ReleaseDate);
 
-                    int count = cmd.ExecuteNonQuery();
+                        int count = cmd.ExecuteNonQuery();
 
-                    return count == 1 ? game : null;
+                        return count == 1 ? game : null;
+                    }
                 }
+            }
+            catch (SqlException)
+            {
+                return null;
             }
         }
 
         public bool DeleteGame(int gameId)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand(sqlDeleteGame, conn))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    cmd.Parameters.AddWithValue("@game_id", gameId);
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlDeleteGame, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
 
-                    int count = cmd.ExecuteNonQuery();
-                    return count == 1;
+                        int count = cmd.ExecuteNonQuery();
+                        return count == 1;
+                    }
                 }
+            }
+            catch (SqlException)
+            {
+                return false;
             }
         }
 
         private Game MapRowToGame(SqlDataReader reader)
         {
+
             Game game = new Game();
 
             game.Id = Convert.ToInt32(reader["game_id"]);
@@ -139,6 +172,6 @@ namespace Capstone.DAO
             game.ReleaseDate = Convert.ToDateTime(reader["release_date"]);
 
             return game;
-        }    
+        }
     }
 }
