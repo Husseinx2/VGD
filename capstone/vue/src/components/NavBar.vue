@@ -5,7 +5,9 @@
       <p>VGD</p>
         </td>
         <td>
-     <input placeholder="Search"  type="text" v-model="search" />
+     <input placeholder="Search"  type="text" v-model="search" :for="game in filteredList"
+        v-bind:key="game.id"
+        v-bind:item="game"/>
         </td>
         <td>
           <button type="submit">Submit</button>
@@ -15,6 +17,7 @@
 </template>
 
 <script>
+
 export default {
 
 }
