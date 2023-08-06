@@ -1,22 +1,7 @@
 <template>
   <div class="home">
-    <header>
-      <table>
-        <td>
-      <p>VGD</p>
-        </td>
-        <td>
-     <input placeholder="Search"  type="text" v-model="search" />
-        </td>
-        <td>
-          <button type="submit">Submit</button>
-        </td>
-      </table>
 
-
-    </header>
     <p>You must be authenticated to see this</p>
-    <input placeholder="Search Games" type="text" v-model="search" />
     <router-link to="/addGame" v-show="$store.state.user.role == 'admin'">
     <h2> <b>Add A Game</b></h2></router-link> 
     <section>
