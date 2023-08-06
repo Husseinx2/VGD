@@ -5,6 +5,7 @@
       <p>VGD</p>
         </td>
         <td>
+
      <input placeholder="Search"  type="text" v-model="search" 
         v-for="game in filteredList"
         v-bind:key="game.id"
