@@ -4,7 +4,10 @@
     <h2>Description</h2>
     <p>{{ item.description }}</p>
     <h2>Release Date</h2>
+    <h3>{{ new Date(item.releaseDate).toLocaleString("en", options) }}</h3>
     <h3>{{new Date(item.releaseDate).toLocaleString('en', options)}}</h3>
+
+     <router-link v-show="$store.state.user.role == 'admin'" to="name">  Edit</router-link>   ||    <router-link to="/" v-show="$store.state.user.role == 'admin'">Delete</router-link>  
 
     <router-link
       v-show="$store.state.user.role == 'admin'"

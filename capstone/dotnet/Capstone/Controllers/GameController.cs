@@ -48,6 +48,7 @@ namespace Capstone.Controllers
         {
             Game newGame = gameDao.UpdateGame(game);
 
+
             if (newGame == null)
             {
                 return BadRequest();
