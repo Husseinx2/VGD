@@ -22,6 +22,7 @@ export default new Vuex.Store({
     activeGame: {
       id: 0,
       title: '',
+      description: ''
     },
     token: currentToken || '',
     user: currentUser || {},
