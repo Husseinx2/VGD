@@ -11,7 +11,7 @@
       type="text"
       name="esrbrRating"
       placeholder="rating"
-      v-model="game.ESRBRating"
+      v-model="game.esrbRating"
     />
     <input type="date" name="releaseDate" v-model="game.releaseDate" />
     <br />
@@ -28,7 +28,7 @@ export default {
         id: 0,
         title: "",
         description: "",
-        ESRBRating: "",
+        esrbRating: "",
         releaseDate: "",
       },
     };
