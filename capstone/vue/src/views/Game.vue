@@ -22,6 +22,9 @@ export default {
       .getGame(this.id)
       .then((response) => {
         this.game = response.data;
+        if (!this.game) {
+          this.$router.push({name: 'notFound'});
+        }
       })
       .catch((error) => {
         if (error.response) {
@@ -38,6 +41,8 @@ export default {
           console.log("Error getting game: make request");
         }
       });
+
+ 
   },
 };
 </script>
