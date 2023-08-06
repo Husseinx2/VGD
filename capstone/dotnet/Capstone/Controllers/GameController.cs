@@ -23,7 +23,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("{gameId}")]
-        public ActionResult<List<Game>> GetGames(int gameId)
+        public ActionResult<Game> GetGame(int gameId)
         {
             return Ok(gameDao.GetGame(gameId));
         }
@@ -47,7 +47,6 @@ namespace Capstone.Controllers
         public ActionResult<Game> UpdateGame(Game game)
         {
             Game newGame = gameDao.UpdateGame(game);
-
 
             if (newGame == null)
             {
