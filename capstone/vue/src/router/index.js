@@ -6,6 +6,7 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 import AddGame from '../views/AddGame.vue'
+import EditGame from '../views/EditGame.vue'
 Vue.use(Router)
 
 /**
@@ -42,6 +43,14 @@ const router = new Router({
       Name: "AddGame",
       component:AddGame,
       meta: {
+        requiresAuth:true
+      }
+    },
+    {
+      path:'/editGame',
+      name:'edit',
+      component:EditGame,
+      meta:{
         requiresAuth:true
       }
     },
