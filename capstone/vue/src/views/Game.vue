@@ -37,10 +37,12 @@ export default {
           // Request was *not* made
           console.log("Error getting game: make request");
         }
+        this.$router.push("/*")
       });
   },
 };
 </script>
 
-<style>
+<style scoped>
+ 
 </style>
