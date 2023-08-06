@@ -8,6 +8,8 @@ import store from '../store/index'
 import AddGame from '../views/AddGame.vue'
 import Game from '../views/Game.vue'
 import EditGame from '../views/EditGame.vue'
+import NotFound from '../views/NotFound.vue'
+import deleteGame from '../views/DeleteGame.vue'
 
 Vue.use(Router)
 
@@ -32,11 +34,13 @@ const router = new Router({
         requiresAuth: true
       }
     },
+    
     {
       path: '/game/:id',
       name: 'game',
       component: Game,
     },
+
     {
       path: "/login",
       name: "login",
@@ -44,6 +48,15 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
+    },
+
+    {
+       path:"/delete/:id",
+       name:"delete",
+       component:deleteGame,
+       meta:{
+         requiresAuth:true
+       }
     },
     {
       path:"/addGame",
@@ -53,6 +66,7 @@ const router = new Router({
         requiresAuth:true
       }
     },
+
     {
       path:'/editGame/:id',
       name:'edit',
@@ -61,6 +75,7 @@ const router = new Router({
         requiresAuth:true
       }
     },
+
     {
       path: "/logout",
       name: "logout",
@@ -69,6 +84,7 @@ const router = new Router({
         requiresAuth: false
       }
     },
+
     {
       path: "/register",
       name: "register",
@@ -76,6 +92,12 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
+    },
+
+    {
+      path: "*",
+      name: "notFound",
+      component: NotFound,
     },
   ]
 })
