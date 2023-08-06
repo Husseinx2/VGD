@@ -12,7 +12,10 @@ export default {
   addGame(newGame) {
     return axios.post("/game", newGame);
   },
-
+  editGame(game) {
+    console.log("Reached")
+   return axios.put(`/game/${game.id}`, game)
+  },
   deleteGame(id) {
     return axios.delete("/game",id)
   },
