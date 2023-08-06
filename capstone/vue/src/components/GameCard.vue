@@ -1,10 +1,10 @@
 <template>
   <div>
     <router-link :to="{ name: 'game', params:{id: item.id }}">{{ item.title }}</router-link>
-    <h2>Description</h2>
+    <h4>Description</h4>
     <p>{{ item.description }}</p>
-    <h2>Release Date</h2>
-    <h3>{{ new Date(item.releaseDate).toLocaleString("en", options) }}</h3>
+    <h4>Release Date:</h4>
+    <p>{{ new Date(item.releaseDate).toLocaleString("en", options) }}</p>
    <span v-show="$store.state.user.role == 'admin'" >
     <router-link
     
