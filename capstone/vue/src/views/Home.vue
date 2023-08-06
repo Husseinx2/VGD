@@ -2,18 +2,15 @@
   <div class="home">
     <h1>Home</h1>
     <p>You must be authenticated to see this</p>
-    <input placeholder="Search Games"  type="text" v-model="search" />
-    <select v-model="select"> 
-      <option v-for="game in games" v-bind:key="game.id" >
-       {{game.title}}
-    </option>
-    </select>
+    <input placeholder="Search Games" type="text" v-model="search" />
+    <router-link to="/addGame" v-show="$store.state.user.role == 'admin'">
+    <h2> <b>Add A Game</b></h2></router-link> 
     <section>
-    <game-card-vue
-      v-for="game in filteredList"
-      v-bind:key="game.id"
-      v-bind:item="game"
-    />
+      <game-card-vue
+        v-for="game in filteredList"
+        v-bind:key="game.id"
+        v-bind:item="game"
+      />
     </section>
   </div>
 </template>
@@ -26,27 +23,20 @@ export default {
   data() {
     return {
       newGame: {},
-      search:"",
-      select: {
-        id: "0",
-        title: "",
-        release_date: "",
-        description: "",
-      },
+      search: "",
+
       games: [],
     };
   },
   components: { GameCardVue },
   computed: {
-     filteredList(){
-       return this.games.filter((game) => {
-         return (
-            game.title.toLowerCase().includes(this.search)
-         )
-       })
-     }
+    filteredList() {
+      return this.games.filter((game) => {
+        return game.title.toLowerCase().includes(this.search);
+      });
+    },
   },
-  
+
   methods: {
     createNewGame() {
       if (this.newGame.title) {
@@ -64,9 +54,7 @@ export default {
             } else if (error.request) {
               // There is no error.response, but error.request exists
               // Request was made, but no response was received
-              console.log(
-                "Error adding game: unable to communicate to server"
-              );
+              console.log("Error adding game: unable to communicate to server");
             } else {
               // Neither error.response and error.request exist
               // Request was *not* made
@@ -74,7 +62,6 @@ export default {
             }
           });
       }
-      
     },
     loadGames() {
       gameService
@@ -92,9 +79,7 @@ export default {
           } else if (error.request) {
             // There is no error.response, but error.request exists
             // Request was made, but no response was received
-            console.log(
-              "Error loading games: unable to communicate to server"
-            );
+            console.log("Error loading games: unable to communicate to server");
           } else {
             // Neither error.response and error.request exist
             // Request was *not* made
@@ -102,12 +87,10 @@ export default {
           }
         });
     },
-    
   },
-  created(){
-      this.loadGames(); 
-  }
-
+  created() {
+    this.loadGames();
+  },
 };
 </script>
 
