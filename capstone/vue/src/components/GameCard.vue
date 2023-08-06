@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ item.title }}</h1>
+    <router-link :to="{ name: 'game', params:{id: item.id }}">{{ item.title }}</router-link>
     <h2>Description</h2>
     <p>{{ item.description }}</p>
     <h2>Release Date</h2>
