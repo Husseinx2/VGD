@@ -9,6 +9,7 @@ import AddGame from '../views/AddGame.vue'
 import Game from '../views/Game.vue'
 import EditGame from '../views/EditGame.vue'
 import NotFound from '../views/NotFound.vue'
+import deleteGame from '../views/DeleteGame.vue'
 
 Vue.use(Router)
 
@@ -49,6 +50,14 @@ const router = new Router({
       }
     },
 
+    {
+       path:"/delete/:id",
+       name:"delete",
+       component:deleteGame,
+       meta:{
+         requiresAuth:true
+       }
+    },
     {
       path:"/addGame",
       Name: "AddGame",

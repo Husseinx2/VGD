@@ -60,7 +60,7 @@ namespace Capstone.Controllers
         }
 
         [HttpDelete("{gameId}")]
-        public ActionResult<Game> DeleteGame(int gameId)
+        public ActionResult<bool> DeleteGame(int gameId)
         {
             return Ok(gameDao.DeleteGame(gameId));
         }

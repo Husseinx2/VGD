@@ -17,7 +17,7 @@ export default {
    return axios.put(`/game/${game.id}`, game)
   },
   deleteGame(id) {
-    return axios.delete("/game",id)
+    return axios.delete(`/game/${id}`)
   },
 
 };
