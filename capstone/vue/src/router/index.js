@@ -54,7 +54,7 @@ const router = new Router({
       }
     },
     {
-      path:'/editGame:id',
+      path:'/editGame/:id',
       name:'edit',
       component:EditGame,
       meta:{
