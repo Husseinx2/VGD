@@ -1,25 +1,23 @@
 <template>
   <div>
-    <h1>
-      {{ game.title }}
-    </h1>
-    <form v-on:click.prevent>
+    <b-form class="edit" v-on:click.prevent>
       <label for="title">Title: </label>
-      <input v-model="game.title" name="title" type="text" />
+      <b-form-input v-model="game.title" :state="titleState" name="title" type="text" aria-describedby="input-live-help input-live-feedback" />
+      <b-form-invalid-feedback id="input-live-feedback">Enter at least 1 letter</b-form-invalid-feedback>
       <br />
       <label for="description">Description:</label>
       <br />
-      <textarea name="description" v-model="game.description"> </textarea>
+      <b-form-textarea name="description" v-model="game.description"> </b-form-textarea>
       <br />
-      <label for="rating">ESBR Rating</label>
-      <input type="text" name="rating" v-model="game.esrbRating" />
+      <label for="description">ESRB Rating:</label>
+      <b-form-select :options="options" type="text" name="rating" v-model="game.esrbRating"></b-form-select>
+      <br />
+      <br />
       <label for="date">Release Date:</label>
-      <input v-model="game.releaseDate" type="date" name="date" />
+      <b-form-datepicker v-model="game.releaseDate" type="date" name="date" />
       <br />
-      <br />
-
     <input type="submit" v-on:click="submitEdit" />
-    </form>
+    </b-form>
   </div>
 </template>
 
@@ -28,13 +26,30 @@ import gameService from "../services/GameService.js";
 export default {
   data() {
     return {
-      game: {},
+      options:[
+        {value: null, text: 'Select ESRB Rating'},
+        {value: 'eC', text: 'Early Childhood (eC)'},
+        {value: 'E', text: 'Everyone (E)'},
+        {value: 'T', text: 'Teen (T)'},
+        {value: 'M', text: 'Mature (M)'},
+        {value: 'Ao', text: 'Adults Only (Ao)'},
+        {value: 'RP', text: 'Rating Pending (RP)'}
+      ],
+      game: {
+        title: '',
+        esrbRating: '',
+      },
     };
   },
+  computed: {
+    titleState() {
+        return this.game.title.length > 0 ? true : false
+      }
+    },
   methods: {
     submitEdit () {
       console.log("Reached")
-      if (this.game) {
+      if (this.game.esrbRating != null && this.titleState) {
         gameService.editGame(this.game).then(() => {
           gameService.list();
           this.$router.push("/");
@@ -55,4 +70,5 @@ textarea {
   width: 50%;
   height: 150px;
 }
+
 </style>
