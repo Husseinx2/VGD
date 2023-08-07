@@ -1,12 +1,14 @@
 <template>
     <header>
       <b-navbar v-show="$store.state.user.role == 'user' || $store.state.user.role == 'admin'">
-        <b-navbar-brand>VGD</b-navbar-brand>
+        <b-navbar-brand href="/">VGD</b-navbar-brand>
         <b-nav-form>
-          <b-form-input size="sm" placeholder="Search"></b-form-input>
+          <b-form-input type="search" size="sm" placeholder="Search">
+            </b-form-input>
           <b-button size="sm" type="submit">Search</b-button>
         </b-nav-form>
         <b-navbar-nav>
+          <b-nav-item href="addGame" :show="$store.state.user.role == 'admin'">Add a Game</b-nav-item>
         <b-nav-item class="logout" href="logout">Logout</b-nav-item>
         </b-navbar-nav>
       </b-navbar>
@@ -36,7 +38,7 @@ export default {
       gameService
         .list()
         .then((response) => {
-          console.log("Reached created in Home.vue");
+          console.log("Reached created in NavBar.vue");
           console.log(response);
           this.games = response.data;
         })
