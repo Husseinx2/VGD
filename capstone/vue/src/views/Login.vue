@@ -1,25 +1,27 @@
 <template>
   <div id="login">
-    <form @submit.prevent="login">
-      <h1 style="padding-top: 15px">Please Sign In</h1>
-      <div role="alert" v-if="invalidCredentials" style="color: red; padding-bottom: 15px">
-        Invalid username and password!
-      </div>
-      <div style="color: green; padding-bottom: 15px" role="alert" v-if="this.$route.query.registration">
-        Thank you for registering, please sign in.
-      </div>
-      <div class="form-input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
-      </div>
-      <div class="form-input-group" style="margin-left: 3px">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
-      </div>
-      <button type="submit">Sign in</button>
-      <p style="padding-top: 10px">
-      <router-link :to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
-    </form>
+    <main class="form-signin w100 m-auto">
+      <form @submit.prevent="login">
+        <h1 style="padding-top: 15px">Please Sign In</h1>
+        <div role="alert" v-if="invalidCredentials" style="color: red; padding-bottom: 15px">
+          Invalid username and password!
+        </div>
+        <div style="color: green; padding-bottom: 15px" role="alert" v-if="this.$route.query.registration">
+          Thank you for registering, please sign in.
+        </div>
+        <div class="form-input-group form-floating">
+          <label for="username">Username</label>
+          <input type="text" id="username" v-model="user.username" required autofocus />
+        </div>
+        <div class="form-input-group form-floating" style="margin-left: 3px">
+          <label for="password">Password</label>
+          <input type="password" id="password" v-model="user.password" required />
+        </div>
+        <button class="btn btn-primary py-2" type="submit">Sign in</button>
+        <p style="padding-top: 10px">
+        <router-link :to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
+      </form>
+    </main>
   </div>
 </template>
 <script>

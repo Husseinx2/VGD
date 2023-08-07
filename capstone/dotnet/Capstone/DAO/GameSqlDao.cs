@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Security.Policy;
 
 namespace Capstone.DAO
 {
@@ -51,13 +52,17 @@ namespace Capstone.DAO
         private readonly string sqlGetCompanyIdByName = "SELECT company_id FROM company " +
             "WHERE company_name = @company_name;";
         
-        // TODO: Implement this for genre, platform, developer, publisher
         private readonly string sqlUpdateGame = "UPDATE game SET title=@title, description=@description, esrb_rating=@esrb_rating, " +
              "release_date=@release_date " +
             "WHERE game_id = @game_id;";
 
         private readonly string sqlDeleteGame = "DELETE game_genre WHERE game_genre.game_id = @game_id;" +
             "DELETE game_publisher WHERE game_publisher.game_id = @game_id;" +
+            "DELETE game_developer WHERE game_developer.game_id = @game_id;" +
+            "DELETE game_platform WHERE game_platform.game_id = @game_id;" +
+            "DELETE game where game.game_id = @game_id;";
+
+        private readonly string sqlDeleteJunctionData = "DELETE game_publisher WHERE game_publisher.game_id = @game_id;" +
             "DELETE game_developer WHERE game_developer.game_id = @game_id;" +
             "DELETE game_platform WHERE game_platform.game_id = @game_id;" +
             "DELETE game where game.game_id = @game_id;";
@@ -144,30 +149,7 @@ namespace Capstone.DAO
                         game.Id = (int)cmd.ExecuteScalar();
                     }
 
-                    foreach (string genreName in game.Genres)
-                    {
-                        // TODO: Add the ability to add new genres
-                        int genreId = GetGenreIdByName(genreName);
-                        AddGameGenre(game.Id, genreId);
-                    }
-
-                    foreach (string platformName in game.Platforms)
-                    {
-                        int platformId = GetPlatformIdByName(platformName);
-                        AddGamePlatform(game.Id, platformId);
-                    }
-
-                    foreach (string developerName in game.Developers)
-                    {
-                        int developerId = GetCompanyIdByName(developerName);
-                        AddGameDeveloper(game.Id, developerId);
-                    }
-
-                    foreach (string publisherName in game.Publishers)
-                    {
-                        int publisherId = GetCompanyIdByName(publisherName);
-                        AddGamePublisher(game.Id, publisherId);
-                    }
+                    AddJunctionData(game);
                 }
             }
             catch (SqlException)
@@ -194,6 +176,9 @@ namespace Capstone.DAO
                         cmd.Parameters.AddWithValue("@release_date", game.ReleaseDate);
 
                         int count = cmd.ExecuteNonQuery();
+
+                        DeleteJunctionData(game.Id);
+                        AddJunctionData(game);
 
                         return count == 1 ? game : null;
                     }
@@ -514,6 +499,63 @@ namespace Capstone.DAO
             return true;
         }
 
+        public bool AddJunctionData(Game game)
+        {
+            try
+            {
+                foreach (string genreName in game.Genres)
+                {
+                    // TODO: Add the ability to add new genres
+                    int genreId = GetGenreIdByName(genreName);
+                    AddGameGenre(game.Id, genreId);
+                }
+
+                foreach (string platformName in game.Platforms)
+                {
+                    int platformId = GetPlatformIdByName(platformName);
+                    AddGamePlatform(game.Id, platformId);
+                }
+
+                foreach (string developerName in game.Developers)
+                {
+                    int developerId = GetCompanyIdByName(developerName);
+                    AddGameDeveloper(game.Id, developerId);
+                }
+
+                foreach (string publisherName in game.Publishers)
+                {
+                    int publisherId = GetCompanyIdByName(publisherName);
+                    AddGamePublisher(game.Id, publisherId);
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+       
+            return true;
+        }
+        public bool DeleteJunctionData(int gameId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlDeleteJunctionData, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+                        int count = cmd.ExecuteNonQuery();
+                        return count == 1;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+        }
+
         private Game MapRowToGame(SqlDataReader reader)
         {
 
@@ -529,7 +571,6 @@ namespace Capstone.DAO
             game.Platforms = GetPlatformsById(game.Id);
             game.Developers = GetDevelopersById(game.Id);
             game.Publishers = GetPublishersById(game.Id);
-
             return game;
         }
     }
