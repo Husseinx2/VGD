@@ -1,18 +1,18 @@
 <template>
   <div id="login">
     <form @submit.prevent="login">
-      <h1 >Please Sign In</h1>
+      <h1 style="padding-top: 15px">Please Sign In</h1>
       <div role="alert" v-if="invalidCredentials" style="color: red; padding-bottom: 15px">
         Invalid username and password!
       </div>
-      <div role="alert" v-if="this.$route.query.registration">
+      <div style="color: green; padding-bottom: 15px" role="alert" v-if="this.$route.query.registration">
         Thank you for registering, please sign in.
       </div>
       <div class="form-input-group">
         <label for="username">Username</label>
         <input type="text" id="username" v-model="user.username" required autofocus />
       </div>
-      <div class="form-input-group">
+      <div class="form-input-group" style="margin-left: 3px">
         <label for="password">Password</label>
         <input type="password" id="password" v-model="user.password" required />
       </div>
