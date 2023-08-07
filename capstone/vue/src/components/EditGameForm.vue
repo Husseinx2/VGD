@@ -180,12 +180,10 @@ export default {
     submitEdit() {
       console.log("Reached");
       if (
-        this.game.esrbRating != null &&
         this.titleState &&
         this.descriptionState &&
         this.esrbRatingState &&
         this.releaseDateState &&
-        this.genresState &&
         this.genresState &&
         this.platformsState &&
         this.publisherState &&
