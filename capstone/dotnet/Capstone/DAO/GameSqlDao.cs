@@ -29,6 +29,10 @@ namespace Capstone.DAO
             "JOIN game_developer ON game.game_id = game_developer.game_id " +
             "JOIN company ON game_developer.developer_id = company.company_id " +
             "WHERE game.game_id = @game_id;";
+        private string sqlGetPublishersById = "SELECT company_name FROM game " +
+            "JOIN game_publisher ON game.game_id = game_publisher.game_id " +
+            "JOIN company ON game_publisher.publisher_id = company.company_id " +
+            "WHERE game.game_id = @game_id;";
 
         public GameSqlDao(string connectionString)
         {
@@ -215,8 +219,33 @@ namespace Capstone.DAO
 
         public List<string> GetPublishersById(int gameId)
         {
-            // TODO:
-            return new List<string>();
+            List<string> publishers = new List<string>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlGetPublishersById, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string item = Convert.ToString(reader["company_name"]);
+                                publishers.Add(item);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return new List<string>();
+            }
+
+            return publishers;
         }
 
         private Game MapRowToGame(SqlDataReader reader)
