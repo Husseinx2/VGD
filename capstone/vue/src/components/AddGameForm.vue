@@ -1,5 +1,5 @@
 <template>
-  <b-form v-on:click.prevent >
+  <b-form v-on:click.prevent>
     <b-form-group id="title" label="Title" label-for="titleInput">
       <b-form-input
         id="titleInput"
@@ -22,10 +22,15 @@
       <b-form-input
         id="descriptionInput"
         v-model="game.description"
+        :state="descriptionState"
+        aria-describedby="input-live-feedback2"
         type="text"
         placeholder="Game Description"
         required
       ></b-form-input>
+      <b-form-invalid-feedback id="input-live-feedback2"
+        >Enter at least 1 letter</b-form-invalid-feedback
+      >
     </b-form-group>
     <!-- esrb rating -->
     <label for="description">ESRB Rating:</label>
@@ -34,12 +39,25 @@
       type="text"
       name="rating"
       v-model="game.esrbRating"
+      :state="esrbRatingState"
+      aria-describedby="input-live-feedback3"
       required
     ></b-form-select>
+    <b-form-invalid-feedback id="input-live-feedback3"
+      >Enter a valid rating</b-form-invalid-feedback
+    >
     <!-- date -->
-     <label for="date">Release Date:</label>
-      <b-form-datepicker v-model="game.releaseDate" type="date" name="date" />
-
+    <label for="date">Release Date:</label>
+    <b-form-datepicker
+      v-model="game.releaseDate"
+      :state="releaseDateState"
+      aria-describedby="input-live-feedback4"
+      type="date"
+      name="date"
+    />
+    <b-form-invalid-feedback id="input-live-feedback4"
+      >Enter a valid date</b-form-invalid-feedback
+    >
     <!-- genre -->
     <div>
       <label for="genre">Type a new genre and press enter</label>
@@ -47,7 +65,12 @@
         input-id="genre"
         placeholder="Add genre.."
         v-model="game.genres"
+        :state="genresState"
+        aria-describedby="input-live-feedback5"
       ></b-form-tags>
+      <b-form-invalid-feedback id="input-live-feedback"
+        >Please enter valid genre(s)</b-form-invalid-feedback
+      >
       <br />
 
       <!-- platforms -->
@@ -64,7 +87,12 @@
         input-id="platforms"
         placeholder="Add platform.."
         v-model="game.platforms"
+        :state="platformsState"
+        aria-describedby="input-live-feedback6"
       ></b-form-tags>
+      <b-form-invalid-feedback id="input-live-feedback6"
+        >Please enter valid platform(s)</b-form-invalid-feedback
+      >
       <br />
 
       <!-- publishers -->
@@ -73,7 +101,12 @@
         input-id="Publishers"
         placeholder="Add Publishers.."
         v-model="game.publishers"
+        :state="publisherState"
+        aria-describedby="input-live-feedback7"
       ></b-form-tags>
+      <b-form-invalid-feedback id="input-live-feedback7"
+        >Please enter valid publisher(s)</b-form-invalid-feedback
+      >
       <br />
 
       <!-- developers -->
@@ -82,7 +115,12 @@
         input-id="developers"
         placeholder="Add Developers.."
         v-model="game.developers"
+        :state="developersState"
+        aria-describedby="input-live-feedback8"
       ></b-form-tags>
+      <b-form-invalid-feedback id="input-live-feedback8"
+        >Please enter valid developer(s)</b-form-invalid-feedback
+      >
     </div>
     <br />
     <br />
@@ -122,7 +160,16 @@ export default {
   },
   methods: {
     addGame() {
-      if (this.game.title) {
+      if (
+        this.titleState &&
+        this.descriptionState &&
+        this.esrbRatingState &&
+        this.releaseDateState &&
+        this.genresState &&
+        this.platformsState &&
+        this.publisherState &&
+        this.developersState
+      ) {
         GameService.addGame(this.game)
           .then(() => {
             this.game = {};
@@ -147,6 +194,27 @@ export default {
   computed: {
     titleState() {
       return this.game.title.length > 0 ? true : false;
+    },
+    descriptionState() {
+      return this.game.description.length > 0 ? true : false;
+    },
+    esrbRatingState() {
+      return this.game.esrbRating != null ? true : false;
+    },
+    releaseDateState() {
+      return this.game.releaseDate != "" ? true : false;
+    },
+    genresState() {
+      return this.game.genres != "" ? true : false;
+    },
+    platformsState() {
+      return this.game.platforms != "" ? true : false;
+    },
+    publisherState() {
+      return this.game.publishers != "" ? true : false;
+    },
+    developersState() {
+      return this.game.developers != "" ? true : false;
     },
   },
 };
