@@ -1,8 +1,8 @@
 <template>
   <div>
-    <b-form class="edit" @submit="addGame" @reset="reset">
+    <b-form class="edit" v-on:click.prevent>
       <label for="title">Title: </label>
-      <b-form-input v-model="game.title" :state="titleState" name="title" type="text" aria-describedby="input-live-help input-live-feedback" />
+      <b-form-input v-model="game.title" :state="titleState" name="title" type="text"  aria-describedby="input-live-help input-live-feedback" />
       <b-form-invalid-feedback id="input-live-feedback">Enter at least 1 letter</b-form-invalid-feedback>
       <br />
       <label for="description">Description:</label>
@@ -14,9 +14,53 @@
       <br />
       <br />
       <label for="date">Release Date:</label>
-      <b-form-datepicker  type="date" name="date" />
+      <b-form-datepicker v-model="game.releaseDate" type="date" name="date" />
       <br />
-    <input type="submit"  />
+         <!-- genre -->
+    <div>
+      <label for="genre">Type a new genre and press enter</label>
+      <b-form-tags
+        input-id="genre"
+        placeholder="Add genre.."
+        v-model="game.Genres"
+      ></b-form-tags>
+      <br />
+
+      <!-- platforms -->
+      <label for="platforms"
+        >Type a new platform and press enter
+        <span class="bracket"
+          >(NES, Xbox 360, Xbox one, PlayStation 3, PlayStation 4, PlayStation
+          5, PC, Nintendo 64, GameCube, Xbox X/S)</span
+        ></label
+      >
+      <br />
+
+      <b-form-tags
+        input-id="platforms"
+        placeholder="Add platform.."
+        v-model="game.Platforms"
+      ></b-form-tags>
+      <br />
+
+      <!-- publishers -->
+      <label for="Publishers">Type a new Publisher and press enter </label>
+      <b-form-tags
+        input-id="Publishers"
+        placeholder="Add Publishers.."
+        v-model="game.Publishers"
+      ></b-form-tags>
+      <br />
+
+      <!-- developers -->
+      <label for="developers">Type a new Developer and press enter </label>
+      <b-form-tags
+        input-id="developers"
+        placeholder="add Developers.."
+        v-model="game.Developers"
+      ></b-form-tags>
+    </div>
+    <input type="submit"  v-on:click="submitEdit" />
     </b-form>
   </div>
 </template>
