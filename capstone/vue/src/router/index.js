@@ -55,7 +55,8 @@ const router = new Router({
        name:"delete",
        component:deleteGame,
        meta:{
-         requiresAuth:true
+         requiresAuth:true,
+         hideNavbar: true
        }
     },
     {
