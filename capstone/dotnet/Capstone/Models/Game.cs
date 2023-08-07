@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Capstone.Models
 {
@@ -9,5 +10,9 @@ namespace Capstone.Models
         public string Description { get; set; }
         public string ESRBRating { get; set; }
         public DateTime ReleaseDate { get; set; }
+        public List<string> Genres { get; set; }
+        public List<string> Platforms { get; set; }
+        public List<string> Developers { get; set; }
+        public List<string> Publishers { get; set; }
     }
 }
