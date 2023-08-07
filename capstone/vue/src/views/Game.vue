@@ -7,6 +7,7 @@
 <script>
 import gameService from "../services/GameService";
 import GameDetailsVue from '../components/GameDetails.vue';
+
 export default {
   components: {  GameDetailsVue},
   data() {
