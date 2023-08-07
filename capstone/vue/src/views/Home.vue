@@ -1,7 +1,7 @@
 <template>
   <div class="home">
 
-    <p>You must be authenticated to see this</p>
+    <p style="color: #8d0cc2; padding-left: 16px; padding-top: 10px">You must be authenticated to see this</p>
     <section>
       <game-card-vue
         v-for="game in filteredList"

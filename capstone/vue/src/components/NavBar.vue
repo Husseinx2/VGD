@@ -63,5 +63,7 @@ export default {
 </script>
 
 <style>
-
+header{
+  background-color: #c5e2ff
+}
 </style>
