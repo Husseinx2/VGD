@@ -5,11 +5,10 @@
 </template>
 
 <script>
-import GameCard from "../components/GameCard.vue";
+import GameCard from '../components/GameCard.vue';
 import gameService from "../services/GameService";
-
 export default {
-  components: { GameCard },
+  components: {  GameCard},
   data() {
     return {
       id: 0,
