@@ -10,6 +10,7 @@ export default {
   },
 
   addGame(newGame) {
+    console.log(newGame)
     return axios.post("/game", newGame);
   },
   editGame(game) {
