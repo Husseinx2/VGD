@@ -164,6 +164,30 @@ namespace Capstone.DAO
             }
         }
 
+        public List<string> GetGenresById(int gameId)
+        {
+            // TODO:
+            return new List<string>();
+        }
+
+        public List<string> GetPlatformsById(int gameId)
+        {
+            // TODO:
+            return new List<string>();
+        }
+
+        public List<string> GetDevelopersById(int gameIde)
+        {
+            // TODO:
+            return new List<string>();
+        }
+
+        public List<string> GetPublishersById(int gameId)
+        {
+            // TODO:
+            return new List<string>();
+        }
+
         private Game MapRowToGame(SqlDataReader reader)
         {
 
@@ -174,6 +198,11 @@ namespace Capstone.DAO
             game.Description = Convert.ToString(reader["description"]);
             game.ESRBRating = Convert.ToString(reader["esrb_rating"]);
             game.ReleaseDate = Convert.ToDateTime(reader["release_date"]);
+
+            game.Genres = GetGenresById(game.Id);
+            game.Platforms = GetPlatformsById(game.Id);
+            game.Developers = GetDevelopersById(game.Id);
+            game.Publishers = GetPublishersById(game.Id);
 
             return game;
         }
