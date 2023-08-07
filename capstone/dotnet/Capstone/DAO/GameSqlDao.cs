@@ -30,6 +30,10 @@ namespace Capstone.DAO
             "JOIN company ON game_developer.developer_id = company.company_id " +
             "WHERE game.game_id = @game_id;";
 
+        private string sqlGetGenreById = "SELECT genre_name FROM game " +
+            "JOIN game_genre ON game.game_id = game_genre.game_id " +
+            "WHERE game.game_id = @game_id;";
+
         public GameSqlDao(string connectionString)
         {
             this.connectionString = connectionString;
@@ -171,8 +175,34 @@ namespace Capstone.DAO
 
         public List<string> GetGenresById(int gameId)
         {
-            // TODO:
-            return new List<string>();
+            List<string> genres = new List<string>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlGetGenreById, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string item = Convert.ToString(reader["genre_name"]);
+                                genres.Add(item);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return new List<string>();
+            }
+
+            return genres;
         }
 
         public List<string> GetPlatformsById(int gameId)
