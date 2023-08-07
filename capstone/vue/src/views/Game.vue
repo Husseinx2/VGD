@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <game-card v-bind:item="game" />
+  <div class="game">
+    <game-details-vue v-bind:item="game" />
   </div>
 </template>
 
 <script>
-import GameCard from '../components/GameCard.vue';
 import gameService from "../services/GameService";
+import GameDetailsVue from '../components/GameDetails.vue';
 export default {
-  components: {  GameCard},
+  components: {  GameDetailsVue},
   data() {
     return {
       id: 0,
