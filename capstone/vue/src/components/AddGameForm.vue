@@ -7,8 +7,9 @@
         type="text"
         placeholder="Game Title"
         required
-        :state="titleState"
-        aria-describedby="input-live-help input-live-feedback"
+        :state="formTitle"
+        @change="titleState"
+        aria-describedby="input-live-feedback"
       ></b-form-input>
       <b-form-invalid-feedback id="input-live-feedback"
         >Enter at least 1 letter</b-form-invalid-feedback
@@ -22,7 +23,8 @@
       <b-form-input
         id="descriptionInput"
         v-model="game.description"
-        :state="descriptionState"
+        :state="formComplete"
+        @change="descriptionState"
         aria-describedby="input-live-feedback2"
         type="text"
         placeholder="Game Description"
@@ -39,7 +41,8 @@
       type="text"
       name="rating"
       v-model="game.esrbRating"
-      :state="esrbRatingState"
+      :state="formComplete"
+      @change="esrbRatingState"
       aria-describedby="input-live-feedback3"
       required
     ></b-form-select>
@@ -50,7 +53,8 @@
     <label for="date">Release Date:</label>
     <b-form-datepicker
       v-model="game.releaseDate"
-      :state="releaseDateState"
+      :state="formComplete"
+      @change="releaseDateState"
       aria-describedby="input-live-feedback4"
       type="date"
       name="date"
@@ -65,7 +69,8 @@
         input-id="genre"
         placeholder="Add genre.."
         v-model="game.genres"
-        :state="genresState"
+        :state="formComplete"
+        @change="genresState"
         aria-describedby="input-live-feedback5"
       ></b-form-tags>
       <b-form-invalid-feedback id="input-live-feedback"
@@ -87,7 +92,8 @@
         input-id="platforms"
         placeholder="Add platform.."
         v-model="game.platforms"
-        :state="platformsState"
+        :state="formComplete"
+        @change="platformsState"
         aria-describedby="input-live-feedback6"
       ></b-form-tags>
       <b-form-invalid-feedback id="input-live-feedback6"
@@ -101,7 +107,8 @@
         input-id="Publishers"
         placeholder="Add Publishers.."
         v-model="game.publishers"
-        :state="publisherState"
+        :state="formComplete"
+        @change="publisherState"
         aria-describedby="input-live-feedback7"
       ></b-form-tags>
       <b-form-invalid-feedback id="input-live-feedback7"
@@ -115,7 +122,8 @@
         input-id="developers"
         placeholder="Add Developers.."
         v-model="game.developers"
-        :state="developersState"
+        :state="formComplete"
+        @change="developersState"
         aria-describedby="input-live-feedback8"
       ></b-form-tags>
       <b-form-invalid-feedback id="input-live-feedback8"
@@ -136,6 +144,9 @@ import GameService from "../services/GameService";
 export default {
   data() {
     return {
+      formComplete:null,
+      formTitle: null,
+      formDescription: null,
       game: {
         id: 0,
         title: "",
@@ -159,6 +170,9 @@ export default {
     };
   },
   methods: {
+    titleState() {
+      return this.game.title.length > 0 ? this.formTitle = true : false;
+    },
     addGame() {
       if (
         this.titleState &&
@@ -179,11 +193,14 @@ export default {
             console.log("error adding game");
           });
       }
+      else (
+        this.formComplete = false
+      )
     },
     reset() {
       this.game.title = "";
       this.game.description = "";
-      this.game.esrbRating = "";
+      this.game.esrbRating = null;
       this.game.releaseDate = "";
       this.game.genres = [];
       this.game.platforms = [];
@@ -192,9 +209,7 @@ export default {
     },
   },
   computed: {
-    titleState() {
-      return this.game.title.length > 0 ? true : false;
-    },
+
     descriptionState() {
       return this.game.description.length > 0 ? true : false;
     },
