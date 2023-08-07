@@ -7,8 +7,8 @@
             </b-form-input>
           <b-button  size="sm" type="submit" @click="navigateToGame(game)">Search</b-button>
         </b-nav-form>
-        <b-navbar-nav>
-          <b-nav-item href="addGame" v-show="$store.state.user.role == 'admin'">Add a Game</b-nav-item>
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item class="addGame" href="addGame" v-show="$store.state.user.role == 'admin'">Add a Game</b-nav-item>
         <b-nav-item class="logout" href="logout">Logout</b-nav-item>
         </b-navbar-nav>
       </b-navbar>
@@ -65,8 +65,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 header{
   background-color: #c5e2ff
 }
+
 </style>
