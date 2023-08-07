@@ -52,7 +52,6 @@ namespace Capstone.DAO
         private readonly string sqlGetCompanyIdByName = "SELECT company_id FROM company " +
             "WHERE company_name = @company_name;";
         
-        // TODO: Implement this for genre, platform, developer, publisher
         private readonly string sqlUpdateGame = "UPDATE game SET title=@title, description=@description, esrb_rating=@esrb_rating, " +
              "release_date=@release_date " +
             "WHERE game_id = @game_id;";
