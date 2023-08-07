@@ -1,5 +1,5 @@
 <template>
-  <b-form @submit="addGame" @reset="reset">
+  <b-form v-on:click.prevent >
     <b-form-group id="title" label="Title" label-for="titleInput">
       <b-form-input
         id="titleInput"
