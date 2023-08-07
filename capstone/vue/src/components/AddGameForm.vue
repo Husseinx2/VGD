@@ -1,5 +1,5 @@
 <template>
-  <b-form v-on:click.prevent>
+  <b-form @submit="addGame" @reset="reset">
     <b-form-group id="title" label="Title" label-for="titleInput">
       <b-form-input
         id="titleInput"
@@ -10,6 +10,9 @@
         :state="titleState"
         aria-describedby="input-live-help input-live-feedback"
       ></b-form-input>
+      <b-form-invalid-feedback id="input-live-feedback"
+        >Enter at least 1 letter</b-form-invalid-feedback
+      >
     </b-form-group>
     <b-form-group
       id="description"
@@ -34,24 +37,19 @@
       required
     ></b-form-select>
     <!-- date -->
-    <b-form-group id="date" label="Description" label-for="dateInput">
-      <b-form-input
-        id="dateInput"
-        v-model="game.releaseDate"
-        type="date"
-        placeholder="Game Release Date"
-        required
-      ></b-form-input>
-    </b-form-group>
+     <label for="date">Release Date:</label>
+      <b-form-datepicker v-model="game.releaseDate" type="date" name="date" />
 
     <!-- genre -->
     <div>
       <label for="genre">Type a new genre and press enter</label>
       <b-form-tags
         input-id="genre"
-        placeholder="add genre.."
+        placeholder="Add genre.."
         v-model="game.Genres"
       ></b-form-tags>
+      <br />
+
       <!-- platforms -->
       <label for="platforms"
         >Type a new platform and press enter
@@ -60,24 +58,29 @@
           5, PC, Nintendo 64, GameCube, Xbox X/S)</span
         ></label
       >
+      <br />
+
       <b-form-tags
         input-id="platforms"
-        placeholder="add platform.."
+        placeholder="Add platform.."
         v-model="game.Platforms"
       ></b-form-tags>
+      <br />
+
       <!-- publishers -->
       <label for="Publishers">Type a new Publisher and press enter </label>
       <b-form-tags
         input-id="Publishers"
-        placeholder="add Publishers.."
+        placeholder="Add Publishers.."
         v-model="game.Publishers"
       ></b-form-tags>
+      <br />
 
       <!-- developers -->
       <label for="developers">Type a new Developer and press enter </label>
       <b-form-tags
         input-id="developers"
-        placeholder="add developers.."
+        placeholder="add Developers.."
         v-model="game.Developers"
       ></b-form-tags>
     </div>
@@ -104,7 +107,7 @@ export default {
         Genres: [],
         Platforms: [],
         Developers: [],
-        Publishers:[]
+        Publishers: [],
       },
       options: [
         { value: null, text: "Select ESRB Rating" },
