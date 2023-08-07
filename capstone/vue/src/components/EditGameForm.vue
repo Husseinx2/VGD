@@ -179,7 +179,18 @@ export default {
   methods: {
     submitEdit() {
       console.log("Reached");
-      if (this.game.esrbRating != null && this.titleState) {
+      if (
+        this.game.esrbRating != null &&
+        this.titleState &&
+        this.descriptionState &&
+        this.esrbRatingState &&
+        this.releaseDateState &&
+        this.genresState &&
+        this.genresState &&
+        this.platformsState &&
+        this.publisherState &&
+        this.developersState
+      ) {
         gameService.editGame(this.game).then(() => {
           gameService.list();
           this.$router.push("/");
