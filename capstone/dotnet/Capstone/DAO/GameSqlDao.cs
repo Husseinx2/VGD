@@ -529,7 +529,6 @@ namespace Capstone.DAO
             game.Platforms = GetPlatformsById(game.Id);
             game.Developers = GetDevelopersById(game.Id);
             game.Publishers = GetPublishersById(game.Id);
-
             return game;
         }
     }

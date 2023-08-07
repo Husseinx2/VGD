@@ -136,6 +136,7 @@ INSERT INTO company (company_name) VALUES ('Ubisoft')
 INSERT INTO company (company_name) VALUES ('Sega')
 INSERT INTO company (company_name) VALUES ('Microsoft')
 INSERT INTO company (company_name) VALUES ('Square Enix')
+INSERT INTO company (company_name) VALUES ('Ark System Works')
 
 INSERT INTO game_developer (game_id,developer_id) VALUES (1,1);
 INSERT INTO game_developer (game_id,developer_id) VALUES (2,2);
