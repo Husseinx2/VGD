@@ -1,5 +1,6 @@
 ﻿using Capstone.DAO.Interfaces;
 using Capstone.Models;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -18,12 +19,16 @@ namespace Capstone.DAO
         private string sqlUpdateGame = "UPDATE game SET title=@title, description=@description, esrb_rating=@esrb_rating, " +
             "release_date=@release_date " +
             "WHERE game_id = @game_id;";
-        // TODO: Update sqlDeleteGame to delete game with foreign key contraints
         private string sqlDeleteGame = "DELETE game_genre WHERE game_genre.game_id = @game_id;" +
             "DELETE game_publisher WHERE game_publisher.game_id = @game_id;" +
             "DELETE game_developer WHERE game_developer.game_id = @game_id;" +
             "DELETE game_platform WHERE game_platform.game_id = @game_id;" +
             "DELETE game where game.game_id = @game_id;";
+
+        private string sqlGetDevelopersById = "SELECT company_name FROM game " +
+            "JOIN game_developer ON game.game_id = game_developer.game_id " +
+            "JOIN company ON game_developer.developer_id = company.company_id " +
+            "WHERE game.game_id = @game_id;";
 
         public GameSqlDao(string connectionString)
         {
@@ -176,10 +181,36 @@ namespace Capstone.DAO
             return new List<string>();
         }
 
-        public List<string> GetDevelopersById(int gameIde)
+        public List<string> GetDevelopersById(int gameId)
         {
-            // TODO:
-            return new List<string>();
+            List<string> developers = new List<string>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlGetDevelopersById, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string item = Convert.ToString(reader["company_name"]);
+                                developers.Add(item);
+                  
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return new List<string>();
+            }
+
+            return developers;
         }
 
         public List<string> GetPublishersById(int gameId)
