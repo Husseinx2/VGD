@@ -46,7 +46,7 @@
       <b-form-tags
         input-id="genre"
         placeholder="Add genre.."
-        v-model="game.Genres"
+        v-model="game.genres"
       ></b-form-tags>
       <br />
 
@@ -63,7 +63,7 @@
       <b-form-tags
         input-id="platforms"
         placeholder="Add platform.."
-        v-model="game.Platforms"
+        v-model="game.platforms"
       ></b-form-tags>
       <br />
 
@@ -72,7 +72,7 @@
       <b-form-tags
         input-id="Publishers"
         placeholder="Add Publishers.."
-        v-model="game.Publishers"
+        v-model="game.publishers"
       ></b-form-tags>
       <br />
 
@@ -81,7 +81,7 @@
       <b-form-tags
         input-id="developers"
         placeholder="Add Developers.."
-        v-model="game.Developers"
+        v-model="game.developers"
       ></b-form-tags>
     </div>
     <br />
@@ -104,10 +104,10 @@ export default {
         description: "",
         esrbRating: null,
         releaseDate: "",
-        Genres: [],
-        Platforms: [],
-        Developers: [],
-        Publishers: [],
+        genres: [],
+        platforms: [],
+        developers: [],
+        publishers: [],
       },
       options: [
         { value: null, text: "Select ESRB Rating" },
@@ -136,9 +136,12 @@ export default {
     reset() {
       this.game.title = "";
       this.game.description = "";
-      this.game.genre = "";
       this.game.esrbRating = "";
       this.game.releaseDate = "";
+      this.game.genres = [];
+      this.game.platforms = [];
+      this.game.developers = [];
+      this.game.publishers = [];
     },
   },
   computed: {
