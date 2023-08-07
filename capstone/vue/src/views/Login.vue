@@ -22,10 +22,8 @@
     </form>
   </div>
 </template>
-
 <script>
 import authService from "../services/AuthService";
-
 export default {
   name: "login",
   components: {},
@@ -51,7 +49,6 @@ export default {
         })
         .catch(error => {
           const response = error.response;
-
           if (response.status === 401) {
             this.invalidCredentials = true;
           }
@@ -60,7 +57,6 @@ export default {
   }
 };
 </script>
-
 <style scoped>
 .form-input-group {
   margin-bottom: 1rem;
@@ -71,7 +67,6 @@ label {
 form {
   text-align: center;
 }
-
 h1 {
   padding-bottom: 14px;
   font-family:Georgia, 'Times New Roman', Times, serif
