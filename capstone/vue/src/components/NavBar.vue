@@ -1,7 +1,7 @@
 <template>
     <header>
       <b-navbar v-show="$store.state.user.role == 'user' || $store.state.user.role == 'admin'">
-        <b-navbar-brand>VGD</b-navbar-brand>
+        <b-navbar-brand href="/">VGD</b-navbar-brand>
         <b-nav-form>
           <b-form-input type="search" size="sm" placeholder="Search">
             </b-form-input>
