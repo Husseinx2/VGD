@@ -85,7 +85,7 @@ export default {
         description: "",
         esrbRating: null,
         releaseDate: "",
-        Genres: [],
+        genres: [],
         Platforms: [],
         Developers: [],
         Publishers: [],
