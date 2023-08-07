@@ -80,7 +80,7 @@
       <label for="developers">Type a new Developer and press enter </label>
       <b-form-tags
         input-id="developers"
-        placeholder="add Developers.."
+        placeholder="Add Developers.."
         v-model="game.Developers"
       ></b-form-tags>
     </div>

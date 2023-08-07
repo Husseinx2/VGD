@@ -56,9 +56,9 @@
       <label for="developers">Type a new Developer and press enter </label>
       <b-form-tags
         input-id="developers"
-        placeholder="add Developers.."
+        placeholder="Add Developers.."
         v-model="game.Developers"
-      ></b-form-tags>
+      > </b-form-tags>
     </div>
     <input type="submit"  v-on:click="submitEdit" />
     </b-form>
@@ -79,9 +79,16 @@ export default {
         {value: 'Ao', text: 'Adults Only (Ao)'},
         {value: 'RP', text: 'Rating Pending (RP)'}
       ],
-      game: {
-        title: '',
-        esrbRating: '',
+     game: {
+        id: 0,
+        title: "",
+        description: "",
+        esrbRating: null,
+        releaseDate: "",
+        Genres: [],
+        Platforms: [],
+        Developers: [],
+        Publishers: [],
       },
     };
   },
@@ -114,5 +121,8 @@ textarea {
   width: 50%;
   height: 150px;
 }
-
+.bracket {
+  font-size: 10px;
+  color: grey;
+}
 </style>
