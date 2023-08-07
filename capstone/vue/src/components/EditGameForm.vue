@@ -41,7 +41,16 @@
       <br />
       <br />
       <label for="date">Release Date:</label>
-      <b-form-datepicker v-model="game.releaseDate" type="date" name="date" />
+      <b-form-datepicker
+        v-model="game.releaseDate"
+        :state="releaseDateState"
+        type="date"
+        name="date"
+        aria-describedby="input-live-feedback4"
+      />
+      <b-form-invalid-feedback id="input-live-feedback4"
+        >Please select a valid date</b-form-invalid-feedback
+      >
       <br />
       <!-- genre -->
       <div>
@@ -50,7 +59,12 @@
           input-id="genre"
           placeholder="Add genre.."
           v-model="game.genres"
+          :state="genresState"
+          aria-describedby="input-live-feedback5"
         ></b-form-tags>
+        <b-form-invalid-feedback id="input-live-feedback5"
+          >Please select genre(s)</b-form-invalid-feedback
+        >
         <br />
 
         <!-- platforms -->
@@ -67,7 +81,12 @@
           input-id="platforms"
           placeholder="Add platform.."
           v-model="game.platforms"
+          :state="platformsState"
+          aria-describedby="input-live-feedback6"
         ></b-form-tags>
+        <b-form-invalid-feedback id="input-live-feedback6"
+          >Please select platform(s)</b-form-invalid-feedback
+        >
         <br />
 
         <!-- publishers -->
@@ -76,7 +95,12 @@
           input-id="Publishers"
           placeholder="Add Publishers.."
           v-model="game.publishers"
+          :state="publisherState"
+          aria-describedby="input-live-feedback7"
         ></b-form-tags>
+        <b-form-invalid-feedback id="input-live-feedback7"
+          >Please select publisher(s)</b-form-invalid-feedback
+        >
         <br />
 
         <!-- developers -->
@@ -85,8 +109,14 @@
           input-id="developers"
           placeholder="Add Developers.."
           v-model="game.developers"
+          :state="developersState"
+          aria-describedby="input-live-feedback8"
         >
         </b-form-tags>
+        <b-form-invalid-feedback id="input-live-feedback8"
+          >Please select developer(s)</b-form-invalid-feedback
+        >
+        <br />
       </div>
       <input type="submit" v-on:click="submitEdit" />
     </b-form>
@@ -130,18 +160,33 @@ export default {
     esrbRatingState() {
       return this.game.esrbRating != null ? true : false;
     },
-  },
-    methods: {
-      submitEdit() {
-        console.log("Reached");
-        if (this.game.esrbRating != null && this.titleState) {
-          gameService.editGame(this.game).then(() => {
-            gameService.list();
-            this.$router.push("/");
-          });
-        }
-      },
+    releaseDateState() {
+      return this.game.releaseDate != "" ? true : false;
     },
+    genresState() {
+      return this.game.genres != "" ? true : false;
+    },
+    platformsState() {
+      return this.game.platforms != "" ? true : false;
+    },
+    publisherState() {
+      return this.game.publishers != "" ? true : false;
+    },
+    developersState() {
+      return this.game.developers != "" ? true : false;
+    },
+  },
+  methods: {
+    submitEdit() {
+      console.log("Reached");
+      if (this.game.esrbRating != null && this.titleState) {
+        gameService.editGame(this.game).then(() => {
+          gameService.list();
+          this.$router.push("/");
+        });
+      }
+    },
+  },
   created() {
     gameService.getGame(this.$route.params.id).then((response) => {
       this.game = response.data;
