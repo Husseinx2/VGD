@@ -34,8 +34,14 @@ namespace Capstone.DAO
             "JOIN company ON game_publisher.publisher_id = company.company_id " +
             "WHERE game.game_id = @game_id;";
 
-        private string sqlGetGenreById = "SELECT genre_name FROM game " +
+        private string sqlGetGenresById = "SELECT genre_name FROM game " +
             "JOIN game_genre ON game.game_id = game_genre.game_id " +
+            "JOIN genre ON genre.genre_id = game_genre.genre_id " +
+            "WHERE game.game_id = @game_id;";
+
+        private string sqlGetPlatformsById = "SELECT platform_name FROM game " +
+            "JOIN game_platform ON game_platform.game_id = game.game_id " +
+            "JOIN platform ON platform.platform_id = game_platform.platform_id " +
             "WHERE game.game_id = @game_id;";
 
         public GameSqlDao(string connectionString)
@@ -186,7 +192,7 @@ namespace Capstone.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlGetGenreById, conn))
+                    using (SqlCommand cmd = new SqlCommand(sqlGetGenresById, conn))
                     {
                         cmd.Parameters.AddWithValue("@game_id", gameId);
                         using (SqlDataReader reader = cmd.ExecuteReader())
@@ -211,8 +217,33 @@ namespace Capstone.DAO
 
         public List<string> GetPlatformsById(int gameId)
         {
-            // TODO:
-            return new List<string>();
+            List<string> platforms = new List<string>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlGetPlatformsById, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string item = Convert.ToString(reader["platform_name"]);
+                                platforms.Add(item);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return new List<string>();
+            }
+
+            return platforms;
         }
 
         public List<string> GetDevelopersById(int gameId)
