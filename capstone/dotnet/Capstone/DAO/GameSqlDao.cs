@@ -19,7 +19,11 @@ namespace Capstone.DAO
             "release_date=@release_date " +
             "WHERE game_id = @game_id;";
         // TODO: Update sqlDeleteGame to delete game with foreign key contraints
-        private string sqlDeleteGame = "DELETE FROM game WHERE game_id=@game_id;";
+        private string sqlDeleteGame = "DELETE game_genre WHERE game_genre.game_id = @game_id;" +
+            "DELETE game_publisher WHERE game_publisher.game_id = @game_id;" +
+            "DELETE game_developer WHERE game_developer.game_id = @game_id;" +
+            "DELETE game_platform WHERE game_platform.game_id = @game_id;" +
+            "DELETE game where game.game_id = @game_id;";
 
         public GameSqlDao(string connectionString)
         {
