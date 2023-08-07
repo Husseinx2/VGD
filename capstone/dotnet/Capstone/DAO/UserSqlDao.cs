@@ -149,11 +149,11 @@ namespace Capstone.DAO
         private User MapRowToUser(SqlDataReader reader)
         {
             User user = new User();
-            //user.UserId = Convert.ToInt32(reader["user_id"]);
-            //user.Username = Convert.ToString(reader["username"]);
-            //user.PasswordHash = Convert.ToString(reader["password_hash"]);
-            //user.Salt = Convert.ToString(reader["salt"]);
-            //user.Role = Convert.ToString(reader["user_role"]);
+            user.UserId = Convert.ToInt32(reader["user_id"]);
+            user.Username = Convert.ToString(reader["username"]);
+            user.PasswordHash = Convert.ToString(reader["password_hash"]);
+            user.Salt = Convert.ToString(reader["salt"]);
+            user.Role = Convert.ToString(reader["user_role"]);
             return user;
         }
     }

@@ -7,6 +7,8 @@
         type="text"
         placeholder="Game Title"
         required
+        :state="titleState"
+        aria-describedby="input-live-help input-live-feedback"
       ></b-form-input>
     </b-form-group>
     <b-form-group
@@ -23,14 +25,14 @@
       ></b-form-input>
     </b-form-group>
     <!-- esrb rating -->
-    <b-form-group id="rating" label="Rating" label-for="ratingInput">
-      <b-form-select
-        id="ratingInput"
-        v-model="game.esrbRating"
-        :options="ratings"
-        required
-      ></b-form-select>
-    </b-form-group>
+    <label for="description">ESRB Rating:</label>
+    <b-form-select
+      :options="options"
+      type="text"
+      name="rating"
+      v-model="game.esrbRating"
+      required
+    ></b-form-select>
     <!-- date -->
     <b-form-group id="date" label="Description" label-for="dateInput">
       <b-form-input
@@ -44,11 +46,39 @@
 
     <!-- genre -->
     <div>
-      <label for="tags-basic">Type a new genre and press enter</label>
+      <label for="genre">Type a new genre and press enter</label>
       <b-form-tags
-        input-id="tags-basic"
+        input-id="genre"
         placeholder="add genre.."
-        v-model="game.genre"
+        v-model="game.Genres"
+      ></b-form-tags>
+      <!-- platforms -->
+      <label for="platforms"
+        >Type a new platform and press enter
+        <span class="bracket"
+          >(NES, Xbox 360, Xbox one, PlayStation 3, PlayStation 4, PlayStation
+          5, PC, Nintendo 64, GameCube, Xbox X/S)</span
+        ></label
+      >
+      <b-form-tags
+        input-id="platforms"
+        placeholder="add platform.."
+        v-model="game.Platforms"
+      ></b-form-tags>
+      <!-- publishers -->
+      <label for="Publishers">Type a new Publisher and press enter </label>
+      <b-form-tags
+        input-id="Publishers"
+        placeholder="add Publishers.."
+        v-model="game.Publishers"
+      ></b-form-tags>
+
+      <!-- developers -->
+      <label for="developers">Type a new Developer and press enter </label>
+      <b-form-tags
+        input-id="developers"
+        placeholder="add developers.."
+        v-model="game.Developers"
       ></b-form-tags>
     </div>
     <br />
@@ -69,11 +99,22 @@ export default {
         id: 0,
         title: "",
         description: "",
-        esrbRating: "",
+        esrbRating: null,
         releaseDate: "",
-        genre: [],
+        Genres: [],
+        Platforms: [],
+        Developers: [],
+        Publishers:[]
       },
-      ratings: ["M", "E"],
+      options: [
+        { value: null, text: "Select ESRB Rating" },
+        { value: "eC", text: "Early Childhood (eC)" },
+        { value: "E", text: "Everyone (E)" },
+        { value: "T", text: "Teen (T)" },
+        { value: "M", text: "Mature (M)" },
+        { value: "Ao", text: "Adults Only (Ao)" },
+        { value: "RP", text: "Rating Pending (RP)" },
+      ],
     };
   },
   methods: {
@@ -85,7 +126,7 @@ export default {
             this.$router.push({ name: "home" });
           })
           .catch(() => {
-            console.log("error adding game")
+            console.log("error adding game");
           });
       }
     },
@@ -97,8 +138,17 @@ export default {
       this.game.releaseDate = "";
     },
   },
+  computed: {
+    titleState() {
+      return this.game.title.length > 0 ? true : false;
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped>
+.bracket {
+  font-size: 10px;
+  color: grey;
+}
 </style>
