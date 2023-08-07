@@ -3,9 +3,9 @@
       <b-navbar  v-show="$store.state.user.role == 'user' || $store.state.user.role == 'admin'">
         <b-navbar-brand href="/">VGD</b-navbar-brand>
         <b-nav-form >
-          <b-form-input type="search" size="sm" placeholder="Search">
+          <b-form-input v-if="!$route.meta.hideNavbar" type="search" size="sm" placeholder="Search">
             </b-form-input>
-          <b-button  size="sm" type="submit">Search</b-button>
+          <b-button v-if="!$route.meta.hideNavbar" size="sm" type="submit">Search</b-button>
         </b-nav-form>
         <b-navbar-nav class="ml-auto">
           <b-nav-item class="addGame" href="addGame" v-show="$store.state.user.role == 'admin'">Add a Game</b-nav-item>
