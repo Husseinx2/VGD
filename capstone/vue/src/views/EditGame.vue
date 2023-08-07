@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form class="edit" v-on:click.prevent>
+    <b-form class="edit" @submit="addGame" @reset="reset">
       <label for="title">Title: </label>
       <b-form-input v-model="game.title" :state="titleState" name="title" type="text" aria-describedby="input-live-help input-live-feedback" />
       <b-form-invalid-feedback id="input-live-feedback">Enter at least 1 letter</b-form-invalid-feedback>
@@ -14,9 +14,9 @@
       <br />
       <br />
       <label for="date">Release Date:</label>
-      <b-form-datepicker v-model="game.releaseDate" type="date" name="date" />
+      <b-form-datepicker  type="date" name="date" />
       <br />
-    <input type="submit" v-on:click="submitEdit" />
+    <input type="submit"  />
     </b-form>
   </div>
 </template>
