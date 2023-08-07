@@ -1,20 +1,15 @@
 <template>
-      <header>
-      <table>
-        <td>
-      <p>VGD</p>
-        </td>
-        <td>
-
-     <input placeholder="Search"  type="text" v-model="search" 
-        v-for="game in filteredList"
-        v-bind:key="game.id"
-        v-bind:item="game"/>
-        </td>
-        <td>
-          <button type="submit">Submit</button>
-        </td>
-      </table>
+    <header>
+      <b-navbar v-show="$store.state.user.role == 'user' || $store.state.user.role == 'admin'">
+        <b-navbar-brand>VGD</b-navbar-brand>
+        <b-nav-form>
+          <b-form-input size="sm" placeholder="Search"></b-form-input>
+          <b-button size="sm" type="submit">Search</b-button>
+        </b-nav-form>
+        <b-navbar-nav>
+        <b-nav-item class="logout" href="logout">Logout</b-nav-item>
+        </b-navbar-nav>
+      </b-navbar>
     </header>
 </template>
 
