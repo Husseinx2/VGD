@@ -151,56 +151,20 @@ namespace Capstone.DAO
 
                     foreach (string platformName in game.Platforms)
                     {
-                        int platformId;
-
-                        using (SqlCommand cmd = new SqlCommand(sqlGetPlatformIdByName, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@platform_name", platformName);
-                            platformId = (int)cmd.ExecuteScalar();
-                        }
-
-                        using (SqlCommand cmd = new SqlCommand(sqlAddGamePlatform, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@game_id", game.Id);
-                            cmd.Parameters.AddWithValue("@platform_id", platformId);
-                            cmd.ExecuteNonQuery();
-                        }
+                        int platformId = GetPlatformIdByName(platformName);
+                        AddGamePlatform(game.Id, platformId);
                     }
 
-                    foreach (string companyName in game.Developers)
+                    foreach (string developerName in game.Developers)
                     {
-                        int developerId;
-
-                        using (SqlCommand cmd = new SqlCommand(sqlGetCompanyIdByName, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@company_name", companyName);
-                            developerId = (int)cmd.ExecuteScalar();
-                        }
-
-                        using (SqlCommand cmd = new SqlCommand(sqlAddGameDeveloper, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@game_id", game.Id);
-                            cmd.Parameters.AddWithValue("@developer_id", developerId);
-                            cmd.ExecuteNonQuery();
-                        }
+                        int developerId = GetCompanyIdByName(developerName);
+                        AddGameDeveloper(game.Id, developerId);
                     }
 
-                    foreach (string companyName in game.Publishers)
+                    foreach (string publisherName in game.Publishers)
                     {
-                        int publisherId;
-
-                        using (SqlCommand cmd = new SqlCommand(sqlGetCompanyIdByName, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@company_name", companyName);
-                            publisherId = (int)cmd.ExecuteScalar();
-                        }
-
-                        using (SqlCommand cmd = new SqlCommand(sqlAddGamePublisher, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@game_id", game.Id);
-                            cmd.Parameters.AddWithValue("@publisher_id", publisherId);
-                            cmd.ExecuteNonQuery();
-                        }
+                        int publisherId = GetCompanyIdByName(publisherName);
+                        AddGamePublisher(game.Id, publisherId);
                     }
                 }
             }
@@ -433,6 +397,29 @@ namespace Capstone.DAO
             return platformId;
         }
 
+        public int GetCompanyIdByName(string companyName)
+        {
+            int companyId;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlGetCompanyIdByName, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@company_name", companyName);
+                        companyId = (int)cmd.ExecuteScalar();
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return 0;
+            }
+
+            return companyId;
+        }
+
         public bool AddGameGenre(int gameId, int genreId)
         {
             try
@@ -444,6 +431,75 @@ namespace Capstone.DAO
                     {
                         cmd.Parameters.AddWithValue("@game_id", gameId);
                         cmd.Parameters.AddWithValue("@genre_id", genreId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool AddGamePlatform(int gameId, int platformId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlAddGamePlatform, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+                        cmd.Parameters.AddWithValue("@platform_id", platformId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool AddGameDeveloper(int gameId, int developerId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlAddGameDeveloper, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+                        cmd.Parameters.AddWithValue("@developer_id", developerId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool AddGamePublisher(int gameId, int publisherId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlAddGamePublisher, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+                        cmd.Parameters.AddWithValue("@publisher_id", publisherId);
                         cmd.ExecuteNonQuery();
                     }
                 }
