@@ -2,8 +2,6 @@
   <div class="home">
 
     <p>You must be authenticated to see this</p>
-    <router-link to="/addGame" v-show="$store.state.user.role == 'admin'">
-    <h2> <b>Add A Game</b></h2></router-link> 
     <section>
       <game-card-vue
         v-for="game in filteredList"
@@ -94,4 +92,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>
