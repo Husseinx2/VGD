@@ -3,12 +3,12 @@
       <b-navbar  v-show="$store.state.user.role == 'user' || $store.state.user.role == 'admin'">
         <b-navbar-brand href="/">VGD</b-navbar-brand>
         <b-nav-form >
-          <b-form-input type="search" size="sm" placeholder="Search">
+          <b-form-input v-if="!$route.meta.hideNavbar" type="search" size="sm" placeholder="Search">
             </b-form-input>
-          <b-button  size="sm" type="submit" @click="navigateToGame(game)">Search</b-button>
+          <b-button v-if="!$route.meta.hideNavbar" size="sm" type="submit">Search</b-button>
         </b-nav-form>
-        <b-navbar-nav>
-          <b-nav-item href="addGame" v-show="$store.state.user.role == 'admin'">Add a Game</b-nav-item>
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item class="addGame" href="addGame" v-show="$store.state.user.role == 'admin'">Add a Game</b-nav-item>
         <b-nav-item class="logout" href="logout">Logout</b-nav-item>
         </b-navbar-nav>
       </b-navbar>
@@ -17,12 +17,10 @@
 </template>
 
 <script>
-import gameService from "../services/GameService";
 export default {
   data() {
     return {
       newGame: {},
-      search: "",
       games: [],
     };
   },
@@ -33,40 +31,12 @@ export default {
       });
     },
   },
-    methods: {
-        loadGames() {
-      gameService
-        .list()
-        .then((response) => {
-          console.log("Reached created in NavBar.vue");
-          console.log(response);
-          this.games = response.data;
-        })
-        .catch((error) => {
-          if (error.response) {
-            // error.response exists
-            // Request was made, but response has error status (4xx or 5xx)
-            console.log("Error loading games: ", error.response.status);
-          } else if (error.request) {
-            // There is no error.response, but error.request exists
-            // Request was made, but no response was received
-            console.log("Error loading games: unable to communicate to server");
-          } else {
-            // Neither error.response and error.request exist
-            // Request was *not* made
-            console.log("Error loading games: make request");
-          }
-        });
-    },
-    navigateToGame(game){
-      this.$router.push(`/game/${game.id}`);
-    }
-    },
 }
 </script>
 
-<style>
+<style scoped>
 header{
   background-color: #c5e2ff
 }
+
 </style>

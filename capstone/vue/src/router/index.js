@@ -55,7 +55,8 @@ const router = new Router({
        name:"delete",
        component:deleteGame,
        meta:{
-         requiresAuth:true
+         requiresAuth:true,
+         hideNavbar: true
        }
     },
     {
@@ -63,7 +64,8 @@ const router = new Router({
       Name: "AddGame",
       component:AddGame,
       meta: {
-        requiresAuth:true
+        requiresAuth:true,
+        hideNavbar: true
       }
     },
 
@@ -72,7 +74,8 @@ const router = new Router({
       name:'edit',
       component:EditGame,
       meta:{
-        requiresAuth:true
+        requiresAuth:true,
+        hideNavbar: true
       }
     },
 
