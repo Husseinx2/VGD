@@ -20,19 +20,16 @@ export default {
       this.$router.push("/");
     },
     deleteGame() {
-      GameService.deleteGame(this.game.id).then((response) => {
-        if (response.data) {
-          this.$router.push("/");
-        }
-        else {
-          console.log("delete problem")
-        }
+      GameService.deleteGame(this.game.id).then(() => {
+        this.$router.push("/");
       });
     },
   },
   created() {
     GameService.getGame(this.$route.params.id).then((response) => {
       this.game = response.data;
+    }).catch(() => {
+      console.log("delete Error")
     });
   },
 };
