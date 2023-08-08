@@ -6,7 +6,7 @@
         class="form__input"
         id="titleInput"
         v-model="$v.game.title.$model"
-        :state="validateTitle('title')"
+        :state="validateState('title')"
         type="text"
         placeholder="Game Title"
         required
@@ -24,7 +24,7 @@
       <b-form-textarea
         id="descriptionInput"
         v-model.trim="$v.game.description.$model"
-        :state="validateDescription('description')"
+        :state="validateState('description')"
         aria-describedby="input-live-feedback2"
         type="text"
         placeholder="Game Description"
@@ -35,37 +35,43 @@
       >
     </b-form-group>
     <!-- esrb rating -->
+    <b-form-group>
     <label for="description">ESRB Rating:</label>
     <b-form-select
       :options="options"
       type="text"
       name="rating"
       v-model="$v.game.esrbRating.$model"
-      :state="validateEsrbRating('esrbRating')"
+      :state="validateState('esrbRating')"
       aria-describedby="input-live-feedback3"
       required
     ></b-form-select>
     <b-form-invalid-feedback id="input-live-feedback3"
       >Enter a valid rating</b-form-invalid-feedback
     >
+    </b-form-group>
     <!-- date -->
+    <b-form-group>
     <label for="date">Release Date:</label>
     <b-form-datepicker
       v-model="$v.game.releaseDate.$model"
-      :state="validateReleaseDate('releaseDate')"
+      :state="validateState('releaseDate')"
       aria-describedby="input-live-4"
       type="date"
       name="date"
       required
     />
-
+   <b-form-invalid-feedback id="input-live-4"
+    >Enter a valid date</b-form-invalid-feedback
+      >
+    </b-form-group>
 
     <!-- Image -->
     <b-form-group id="urlInput" label="Image Url" label-for="urlInput">
       <b-form-input
         id="urlInput"
         v-model="$v.game.imageUrl.$model"
-        :state="validateUrl('imageUrl')"
+        :state="validateState('imageUrl')"
         aria-describedby="input-live-feedback2"
         type="text"
         placeholder="Image Url"
@@ -77,29 +83,22 @@
     </b-form-group>
 
     <!-- genre -->
-    <div>
+    <b-form-group>
       <label for="genre">Select genre(s):</label>
       <b-form-tags
         required
         input-id="genre"
         placeholder="Pick some"
-        :options="allGenres"
         v-model="$v.game.genres.$model"
-        :multiple="true"
-        :close-on-select="false"
-        track-by="value"
-        :custom-label="nameReturn"
-        label="value"
-        :taggable="true"
-        @tag="addTag"
-        aria-describedby="input-live-feedback5"
+        aria-describedby="input-live-5"
         tag-placeholder="Add this as new tag"
       ></b-form-tags>
-      <b-form-invalid-feedback id="input-live-feedback"
+      <b-form-invalid-feedback id="input-live-5"
         >Please enter valid genre(s)</b-form-invalid-feedback
       >
-      <br />
+    </b-form-group>
 
+    <b-form-group>
       <!-- platforms -->
       <label for="platforms"
         >Type a new platform and press enter
@@ -108,53 +107,52 @@
           5, PC, Nintendo 64, GameCube, Xbox X/S)</span
         ></label
       >
-      <br />
-
       <b-form-tags
         input-id="platforms"
         placeholder="Add platform.."
         v-model="$v.game.platforms.$model"
-        :state="validatePlatforms('platforms')"
+        :state="validateState('platforms')"
         required
-        aria-describedby="input-live-feedback6"
+        aria-describedby="input-live-6"
       ></b-form-tags>
-      <b-form-invalid-feedback id="input-live-feedback6"
+      <b-form-invalid-feedback id="input-live-6"
         >Please enter valid platform(s)</b-form-invalid-feedback
       >
+    </b-form-group>
       <br />
-
+    <b-form-group>
       <!-- publishers -->
       <label for="Publishers">Type a new Publisher and press enter </label>
       <b-form-tags
         input-id="Publishers"
         placeholder="Add Publishers.."
         v-model="$v.game.publishers.$model"
-        :state="validatePublishers('publishers')"
+        :state="validateState('publishers')"
         required
-        aria-describedby="input-live-feedback7"
+        aria-describedby="input-live-7"
       ></b-form-tags>
-      <b-form-invalid-feedback id="input-live-feedback7"
+      <b-form-invalid-feedback id="input-live-7"
         >Please enter valid publisher(s)</b-form-invalid-feedback
       >
+    </b-form-group>
       <br />
-
+    <b-form-group>
       <!-- developers -->
       <label for="developers">Type a new Developer and press enter </label>
       <b-form-tags
         input-id="developers"
         placeholder="Add Developers.."
         v-model="$v.game.developers.$model"
-        :state="validateDevelopers('developers')"
+        :state="validateState('developers')"
         required
-        aria-describedby="input-live-feedback8"
+        aria-describedby="inp-liv-8"
       ></b-form-tags>
-      <b-form-invalid-feedback id="input-live-feedback8"
+      <b-form-invalid-feedback id="inp-liv-8"
         >Please enter valid developer(s)</b-form-invalid-feedback
       >
-    </div>
+    </b-form-group>
     <br />
-    <br />
-    <b-button type="submit" v-on:click="addGame" variant="primary"
+    <b-button type="submit" variant="primary"
       >Submit</b-button
     >
     <b-button type="reset" v-on:click="reset" variant="danger">Reset</b-button>
@@ -162,11 +160,9 @@
 </template>
 
 <script>
-
-import { required, minLength, alpha } from "vuelidate/lib/validators";
+import { required, minLength, alpha, url } from "vuelidate/lib/validators";
 import GameService from "../services/GameService";
 export default {
-
   data() {
     return {
       game: {
@@ -189,19 +185,6 @@ export default {
         { value: "M", text: "Mature (M)" },
         { value: "Ao", text: "Adults Only (Ao)" },
         { value: "RP", text: "Rating Pending (RP)" },
-      ],
-      allGenres: [
-        { value: "Platformer" },
-        { value: "Third-Person Shooter" },
-        { value: "First-Person Shooter" },
-        { value: "Action" },
-        { value: "Adventure" },
-        { value: "Puzzle" },
-        { value: "Open-World" },
-        { value: "Horror" },
-        { value: "Sports" },
-        { value: "Role-Playing" },
-        { value: "Fighting" },
       ],
     };
   },
@@ -235,60 +218,21 @@ export default {
         required
       },
       imageUrl: {
-        required
+        required,
+        url
       }
     },
   },
   methods: {
-    addTag(newTag) {
-      const tag = {
-        value: newTag,
-      };
-      this.allGenres.push(tag);
-    },
-    nameReturn({ value }) {
-      return `${value}`;
-    },
     onSubmit() {
       this.$v.game.$touch();
       if (this.$v.game.$anyError) {
         return;
       }
+      this.addGame();
     },
-    validateTitle(title) {
-      const { $dirty, $error } = this.$v.game[title];
-      return $dirty ? !$error : null;
-    },
-    validateDescription(description) {
-      const { $dirty, $error } = this.$v.game[description];
-      return $dirty ? !$error : null;
-    },
-    validateReleaseDate(releaseDate) {
-      const { $dirty, $error } = this.$v.game[releaseDate];
-      return $dirty ? !$error : null;
-    },
-    validateEsrbRating(esrbRating) {
-      const { $dirty, $error } = this.$v.game[esrbRating];
-      return $dirty ? !$error : null;
-    },
-    validateGenres(genres) {
-      const { $dirty, $error } = this.$v.game[genres];
-      return $dirty ? !$error : null;
-    },
-    validatePublishers(publishers) {
-      const { $dirty, $error } = this.$v.game[publishers];
-      return $dirty ? !$error : null;
-    },
-    validateDevelopers(developers) {
-      const { $dirty, $error } = this.$v.game[developers];
-      return $dirty ? !$error : null;
-    },
-    validateUrl(imageUrl){
-      const { $dirty, $error } = this.$v.game[imageUrl];
-      return $dirty ? !$error : null;
-    },
-    validatePlatforms(platforms){
-      const { $dirty, $error } = this.$v.game[platforms];
+    validateState(state) {
+      const { $dirty, $error } = this.$v.game[state];
       return $dirty ? !$error : null;
     },
     addGame() {
