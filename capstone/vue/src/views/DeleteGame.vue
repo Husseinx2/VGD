@@ -1,9 +1,16 @@
 <template>
-  <div>
-    <h1>Are You sure you want to delete {{ game.title }}?</h1>
+  <div class="container">
+    <h1>Are you sure you want to delete {{ game.title }}?</h1>
     <br />
-    <button v-on:click="deleteGame" class="red">yes</button> ||
-    <button v-on:click="push">No</button>
+
+    <div class="b-btn-toolbar">
+      <b-button-group class="mx-4">
+        <button class="btn btn-danger" v-on:click="deleteGame">Yes</button>
+      </b-button-group>
+      <b-button-group class="mx-1">
+        <button class="btn btn-secondary" v-on:click="push">No</button>
+      </b-button-group>
+    </div>
   </div>
 </template>
 
@@ -26,17 +33,16 @@ export default {
     },
   },
   created() {
-    GameService.getGame(this.$route.params.id).then((response) => {
-      this.game = response.data;
-    }).catch(() => {
-      console.log("delete Error")
-    });
+    GameService.getGame(this.$route.params.id)
+      .then((response) => {
+        this.game = response.data;
+      })
+      .catch(() => {
+        console.log("delete Error");
+      });
   },
 };
 </script>
 
 <style>
-.red {
-  background-color: red;
-}
 </style>
