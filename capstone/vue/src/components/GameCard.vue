@@ -2,8 +2,8 @@
   <div class="card">
     <router-link :to="{ name: 'game', params: { id: item.id } }">
       <h1>{{ item.title }}</h1>
-      <h2>Release Date</h2>
-      <h3>{{ new Date(item.releaseDate).toLocaleString("en", options) }}</h3>
+      <p>{{ item.description }}</p>
+      <p>{{ new Date(item.releaseDate).toLocaleString("en", options) }}</p>
       <span v-show="$store.state.user.role == 'admin'">
         <div class="b-btn-toolbar">
           <b-button-group class="mx-1">
