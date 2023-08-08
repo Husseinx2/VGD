@@ -1,5 +1,5 @@
 <template>
-  <div id="register" class="text-center" style="padding-bottom: 14px; font-family:Georgia, 'Times New Roman', Times, serif">
+  <div id="register" class="text-center " style="padding-bottom: 14px; font-family:Georgia, 'Times New Roman', Times, serif">
     <form @submit.prevent="register">
       <h1 style="padding-top: 15px">Create Account</h1>
       <div style="color: red; padding-bottom: 15px" role="alert" v-if="registrationErrors">
@@ -17,7 +17,7 @@
         <label for="confirmPassword">Confirm Password</label>
         <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
       </div>
-      <button type="submit">Create Account</button>
+      <button class="btn btn-primary py-2" type="submit">Create Account</button>
       <p style="padding-top: 10px"><router-link :to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
     </form>
   </div>
