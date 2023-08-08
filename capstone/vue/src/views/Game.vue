@@ -1,16 +1,19 @@
 <template>
   <div class="game">
-    <game-details-vue v-bind:item="game" />
+    <game-description v-bind:item="game" />
+    <game-details v-bind:item="game" />
   </div>
 </template>
 
 <script>
 import gameService from "../services/GameService";
-import GameDetailsVue from '../components/GameDetails.vue';
+import GameDescription from '../components/GameDescription.vue';
+import GameDetails from '../components/GameDetails.vue';
 
 export default {
-  components: {  GameDetailsVue},
+  components: { GameDescription, GameDetails},
   data() {
+
     return {
       id: 0,
       game: {},
