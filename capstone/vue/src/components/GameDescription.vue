@@ -1,7 +1,6 @@
 <template>
   <div class="card container my-5">
     <div class="p-5 text-center bg-body-tertiary rounded-3">
-      <router-link :to="{ name: 'game', params: { id: item.id } }">
         <b-img :src="item.imageUrl" fluid alt=""></b-img>
         <h1>{{ item.title }}</h1>
         <p>{{ item.description }}</p>
@@ -25,7 +24,6 @@
             </b-button-group>
           </div>
         </span>
-      </router-link>
     </div>
   </div>
 </template>
