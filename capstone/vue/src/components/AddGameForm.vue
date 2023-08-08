@@ -64,8 +64,8 @@
     <b-form-group id="urlInput" label="Image Url" label-for="urlInput">
       <b-form-input
         id="urlInput"
-        v-model="game.imageUrl"
-        :state="urlState"
+        v-model="$v.game.imageUrl.$model"
+        :state="validateUrl('imageUrl')"
         aria-describedby="input-live-feedback2"
         type="text"
         placeholder="Image Url"
@@ -113,8 +113,9 @@
       <b-form-tags
         input-id="platforms"
         placeholder="Add platform.."
-        v-model="game.platforms"
-        :state="platformsState"
+        v-model="$v.game.platforms.$model"
+        :state="validatePlatforms('platforms')"
+        required
         aria-describedby="input-live-feedback6"
       ></b-form-tags>
       <b-form-invalid-feedback id="input-live-feedback6"
@@ -127,8 +128,9 @@
       <b-form-tags
         input-id="Publishers"
         placeholder="Add Publishers.."
-        v-model="game.publishers"
-        :state="publisherState"
+        v-model="$v.game.publishers.$model"
+        :state="validatePublishers('publishers')"
+        required
         aria-describedby="input-live-feedback7"
       ></b-form-tags>
       <b-form-invalid-feedback id="input-live-feedback7"
@@ -141,8 +143,9 @@
       <b-form-tags
         input-id="developers"
         placeholder="Add Developers.."
-        v-model="game.developers"
-        :state="developersState"
+        v-model="$v.game.developers.$model"
+        :state="validateDevelopers('developers')"
+        required
         aria-describedby="input-live-feedback8"
       ></b-form-tags>
       <b-form-invalid-feedback id="input-live-feedback8"
@@ -222,6 +225,18 @@ export default {
       genres: {
         required,
       },
+      platforms: {
+        required
+      },
+      publishers: {
+        required
+      },
+      developers: {
+        required
+      },
+      imageUrl: {
+        required
+      }
     },
   },
   methods: {
@@ -254,6 +269,26 @@ export default {
     },
     validateEsrbRating(esrbRating) {
       const { $dirty, $error } = this.$v.game[esrbRating];
+      return $dirty ? !$error : null;
+    },
+    validateGenres(genres) {
+      const { $dirty, $error } = this.$v.game[genres];
+      return $dirty ? !$error : null;
+    },
+    validatePublishers(publishers) {
+      const { $dirty, $error } = this.$v.game[publishers];
+      return $dirty ? !$error : null;
+    },
+    validateDevelopers(developers) {
+      const { $dirty, $error } = this.$v.game[developers];
+      return $dirty ? !$error : null;
+    },
+    validateUrl(imageUrl){
+      const { $dirty, $error } = this.$v.game[imageUrl];
+      return $dirty ? !$error : null;
+    },
+    validatePlatforms(platforms){
+      const { $dirty, $error } = this.$v.game[platforms];
       return $dirty ? !$error : null;
     },
     addGame() {
