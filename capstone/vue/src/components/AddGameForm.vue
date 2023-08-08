@@ -61,6 +61,27 @@
     <b-form-invalid-feedback id="input-live-feedback4"
       >Enter a valid date</b-form-invalid-feedback
     >
+
+    <!-- Image -->
+    <b-form-group
+      id="urlInput"
+      label="Image Url"
+      label-for="urlInput"
+    >
+      <b-form-input
+        id="urlInput"
+        v-model="game.imageUrl"
+        :state="urlState"
+        aria-describedby="input-live-feedback2"
+        type="text"
+        placeholder="Image Url"
+        required
+      ></b-form-input>
+      <b-form-invalid-feedback id="input-live-feedback2"
+        >Enter at least 1 letter</b-form-invalid-feedback
+      >
+    </b-form-group>
+
     <!-- genre -->
     <div>
       <label for="genre">Select genre(s):</label>
@@ -151,12 +172,16 @@ export default {
   components: { Multiselect },
   data() {
     return {
+      formComplete: null,
+      formTitle: null,
+      formDescription: null,
       game: {
         id: 0,
         title: "",
         description: "",
         esrbRating: null,
         releaseDate: "",
+        imageUrl:"",
         genres: [],
         platforms: [],
         developers: [],
@@ -231,7 +256,7 @@ export default {
     addGame() {
       if (
         this.game
-      ) {
+      ){
         GameService.addGame(this.game)
           .then(() => {
             this.game = {};
@@ -240,13 +265,14 @@ export default {
           .catch(() => {
             console.log("error adding game");
           });
-      }
+      } else this.formComplete = false;
     },
     reset() {
       this.game.title = "";
       this.game.description = "";
       this.game.esrbRating = null;
       this.game.releaseDate = "";
+      this.game.imageUrl
       this.game.genres = [];
       this.game.platforms = [];
       this.game.developers = [];
@@ -265,6 +291,9 @@ export default {
     },
     releaseDateState() {
       return this.game.releaseDate != "" ? true : false;
+    },
+     urlState() {
+      return this.game.imageUrl != "" ? true : false;
     },
     genresState() {
       return this.game.genres != "" ? true : false;

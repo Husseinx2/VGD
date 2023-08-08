@@ -66,6 +66,21 @@
           >Please select genre(s)</b-form-invalid-feedback
         >
         <br />
+        <!-- Image -->
+        <b-form-group id="urlInput" label="Image Url" label-for="urlInput">
+          <b-form-input
+            id="urlInput"
+            v-model="game.imageUrl"
+            :state="urlState"
+            aria-describedby="input-live-feedback2"
+            type="text"
+            placeholder="Image Url"
+            required
+          ></b-form-input>
+          <b-form-invalid-feedback id="input-live-feedback2"
+            >Enter at least 1 letter</b-form-invalid-feedback
+          >
+        </b-form-group>
 
         <!-- platforms -->
         <label for="platforms"
@@ -143,6 +158,7 @@ export default {
         description: "",
         esrbRating: null,
         releaseDate: "",
+        imageUrl: "",
         genres: [],
         platforms: [],
         developers: [],
@@ -162,6 +178,9 @@ export default {
     },
     releaseDateState() {
       return this.game.releaseDate != "" ? true : false;
+    },
+    urlState() {
+      return this.game.imageUrl != "" ? true : false;
     },
     genresState() {
       return this.game.genres != "" ? true : false;
@@ -185,6 +204,7 @@ export default {
         this.esrbRatingState &&
         this.releaseDateState &&
         this.genresState &&
+        this.game.imageUrl &&
         this.platformsState &&
         this.publisherState &&
         this.developersState

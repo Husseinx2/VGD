@@ -39,8 +39,7 @@ export default {
 
 <style scoped>
 .container {
-  position: relative;
-  top: 250px;
+
   display: grid;
   grid-template: 1fr 1fr ;
   grid-template-areas:

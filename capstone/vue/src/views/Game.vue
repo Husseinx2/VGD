@@ -49,5 +49,7 @@ export default {
 </script>
 
 <style scoped>
- 
+ .game {
+   margin:50px
+ }
 </style>
