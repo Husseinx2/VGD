@@ -11,6 +11,7 @@ import EditGame from '../views/EditGame.vue'
 import NotFound from '../views/NotFound.vue'
 import deleteGame from '../views/DeleteGame.vue'
 import Unauthorized from '../views/Unauthorized.vue'
+import search from '../views/Search.vue'
 Vue.use(Router)
 
 /**
@@ -34,13 +35,13 @@ const router = new Router({
         requiresAuth: true
       }
     },
-    
+
     {
       path: '/game/:id',
       name: 'game',
       component: Game,
+      
     },
-
     {
       path: "/login",
       name: "login",
@@ -51,35 +52,44 @@ const router = new Router({
     },
 
     {
-       path:"/delete/:id",
-       name:"delete",
-       component:deleteGame,
-       meta:{
-         requiresAuth:true,
-         hideNavbar: true,
-         adminOnly:true
-       }
+      path: "/delete/:id",
+      name: "delete",
+      component: deleteGame,
+      meta: {
+        requiresAuth: true,
+        hideNavbar: true,
+        adminOnly: true
+      }
     },
     {
-      path:"/addGame",
+      path: "/addGame",
       Name: "AddGame",
-      component:AddGame,
+      component: AddGame,
       meta: {
-        requiresAuth:true,
+        requiresAuth: true,
         hideNavbar: true,
-        adminOnly:true
+        adminOnly: true
 
       }
     },
 
     {
-      path:'/editGame/:id',
-      name:'edit',
-      component:EditGame,
-      meta:{
-        requiresAuth:true,
+      path: '/editGame/:id',
+      name: 'edit',
+      component: EditGame,
+      meta: {
+        requiresAuth: true,
         hideNavbar: true,
-        adminOnly:true
+        adminOnly: true
+      }
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: search,
+      meta: {
+        requiresAuth: true,
+        hideNavbar: true
       }
     },
 
@@ -107,8 +117,8 @@ const router = new Router({
       component: NotFound,
     },
     {
-      path:"/unauthorized",
-      name:"unauthorized",
+      path: "/unauthorized",
+      name: "unauthorized",
       component: Unauthorized
     }
   ]
@@ -117,7 +127,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // Determine if the route requires Authentication
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
- const adminOnly = to.matched.some(x => x.meta.adminOnly) 
+  const adminOnly = to.matched.some(x => x.meta.adminOnly)
   // If it does and they are not logged in, send the user to "/login"
   if (requiresAuth && store.state.token === '') {
     next("/login");
@@ -125,7 +135,7 @@ router.beforeEach((to, from, next) => {
     // Else let them go to their next destination
     next();
   }
-  if(adminOnly && store.state.user.role == 'user') {
+  if (adminOnly && store.state.user.role == 'user') {
     next("/unauthorized")
   }
   else {
