@@ -8,6 +8,7 @@
         v-for="game in filteredList"
         v-bind:key="game.id"
         v-bind:item="game"
+         
       />
     </section>
   </div>
