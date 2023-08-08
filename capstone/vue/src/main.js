@@ -12,7 +12,7 @@ Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 Vue.use(FormSelectPlugin)
 Vue.use(Vuelidate)
-Vue.component('multiselect', Multiselect)
+Vue.component('VueMultiselect', Multiselect)
 Vue.config.productionTip = false
 
 axios.defaults.baseURL = process.env.VUE_APP_REMOTE_API;

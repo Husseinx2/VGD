@@ -6,7 +6,7 @@
         class="form__input"
         id="titleInput"
         v-model="$v.game.title.$model"
-        :state="validateState('title')"
+        :state="validateTitle('title')"
         type="text"
         placeholder="Game Title"
         required
@@ -24,7 +24,7 @@
       <b-form-textarea
         id="descriptionInput"
         v-model.trim="$v.game.description.$model"
-        :state="validateState('description')"
+        :state="validateDescription('description')"
         aria-describedby="input-live-feedback2"
         type="text"
         placeholder="Game Description"
@@ -41,7 +41,7 @@
       type="text"
       name="rating"
       v-model="$v.game.esrbRating.$model"
-      :state="validateState('esrbRating')"
+      :state="validateEsrbRating('esrbRating')"
       aria-describedby="input-live-feedback3"
       required
     ></b-form-select>
@@ -52,7 +52,7 @@
     <label for="date">Release Date:</label>
     <b-form-datepicker
       v-model="$v.game.releaseDate.$model"
-      :state="validateState('releaseDate')"
+      :state="validateReleaseDate('releaseDate')"
       aria-describedby="input-live-feedback4"
       type="date"
       name="date"
@@ -87,7 +87,6 @@
         placeholder="Pick some"
         :options="allGenres"
         v-model="$v.game.genres.$model"
-        :state="validateState('genres')"
         :multiple="true"
         :close-on-select="false"
         track-by="value"
@@ -238,13 +237,25 @@ export default {
       return `${value}`;
     },
     onSubmit() {
-      this.$v.form.$touch();
-      if (this.$v.form.$anyError) {
+      this.$v.game.$touch();
+      if (this.$v.game.$anyError) {
         return;
       }
     },
-    validateState(title) {
+    validateTitle(title) {
       const { $dirty, $error } = this.$v.game[title];
+      return $dirty ? !$error : null;
+    },
+    validateDescription(description) {
+      const { $dirty, $error } = this.$v.game[description];
+      return $dirty ? !$error : null;
+    },
+    validateReleaseDate(releaseDate) {
+      const { $dirty, $error } = this.$v.game[releaseDate];
+      return $dirty ? !$error : null;
+    },
+    validateEsrbRating(esrbRating) {
+      const { $dirty, $error } = this.$v.game[esrbRating];
       return $dirty ? !$error : null;
     },
     addGame() {
@@ -271,39 +282,10 @@ export default {
       this.game.publishers = [];
     },
   },
-  computed: {
-    titleState() {
-      return this.game.title.length > 0 ? true : false;
-    },
-    descriptionState() {
-      return this.game.description.length > 0 ? true : false;
-    },
-    esrbRatingState() {
-      return this.game.esrbRating != null ? true : false;
-    },
-    releaseDateState() {
-      return this.game.releaseDate != "" ? true : false;
-    },
-    urlState() {
-      return this.game.imageUrl != "" ? true : false;
-    },
-    genresState() {
-      return this.game.genres != "" ? true : false;
-    },
-    platformsState() {
-      return this.game.platforms != "" ? true : false;
-    },
-    publisherState() {
-      return this.game.publishers != "" ? true : false;
-    },
-    developersState() {
-      return this.game.developers != "" ? true : false;
-    },
-  },
 };
 </script>
 
-<style scoped>
+<style scoped src="vue-multiselect/dist/vue-multiselect.min.css">
 .bracket {
   font-size: 10px;
   color: grey;
