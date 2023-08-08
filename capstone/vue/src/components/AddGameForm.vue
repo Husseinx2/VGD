@@ -57,6 +57,27 @@
     <b-form-invalid-feedback id="input-live-feedback4"
       >Enter a valid date</b-form-invalid-feedback
     >
+
+    <!-- Image -->
+    <b-form-group
+      id="urlInput"
+      label="Image Url"
+      label-for="urlInput"
+    >
+      <b-form-input
+        id="urlInput"
+        v-model="game.imageUrl"
+        :state="urlState"
+        aria-describedby="input-live-feedback2"
+        type="text"
+        placeholder="Image Url"
+        required
+      ></b-form-input>
+      <b-form-invalid-feedback id="input-live-feedback2"
+        >Enter at least 1 letter</b-form-invalid-feedback
+      >
+    </b-form-group>
+
     <!-- genre -->
     <div>
       <label for="genre">Type a new genre and press enter</label>
@@ -135,7 +156,7 @@ import GameService from "../services/GameService";
 export default {
   data() {
     return {
-      formComplete:null,
+      formComplete: null,
       formTitle: null,
       formDescription: null,
       game: {
@@ -144,6 +165,7 @@ export default {
         description: "",
         esrbRating: null,
         releaseDate: "",
+        imageUrl:"",
         genres: [],
         platforms: [],
         developers: [],
@@ -161,7 +183,6 @@ export default {
     };
   },
   methods: {
-
     addGame() {
       if (
         this.titleState &&
@@ -171,7 +192,8 @@ export default {
         this.genresState &&
         this.platformsState &&
         this.publisherState &&
-        this.developersState
+        this.developersState && 
+        this.urlState
       ) {
         GameService.addGame(this.game)
           .then(() => {
@@ -181,16 +203,14 @@ export default {
           .catch(() => {
             console.log("error adding game");
           });
-      }
-      else (
-        this.formComplete = false
-      )
+      } else this.formComplete = false;
     },
     reset() {
       this.game.title = "";
       this.game.description = "";
       this.game.esrbRating = null;
       this.game.releaseDate = "";
+      this.game.imageUrl
       this.game.genres = [];
       this.game.platforms = [];
       this.game.developers = [];
@@ -209,6 +229,9 @@ export default {
     },
     releaseDateState() {
       return this.game.releaseDate != "" ? true : false;
+    },
+     urlState() {
+      return this.game.imageUrl != "" ? true : false;
     },
     genresState() {
       return this.game.genres != "" ? true : false;
