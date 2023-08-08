@@ -19,6 +19,7 @@ namespace Capstone.DAO
         private readonly string sqlAddGame = "INSERT INTO game (title, description, esrb_rating, release_date) " +
             "OUTPUT INSERTED.game_id " +
             "VALUES (@title, @description, @esrb_rating, @release_date) ";
+
         private readonly string sqlAddGameGenre = "INSERT INTO game_genre (game_id, genre_id) " +
             "VALUES (@game_id, @genre_id) ";
         private readonly string sqlAddGamePlatform = "INSERT INTO game_platform (game_id, platform_id) " +
@@ -27,6 +28,13 @@ namespace Capstone.DAO
             "VALUES (@game_id, @developer_id) ";
         private readonly string sqlAddGamePublisher = "INSERT INTO game_publisher (game_id, publisher_id) " +
             "VALUES (@game_id, @publisher_id) ";
+
+        private readonly string sqlAddGenre = "INSERT INTO genre (genre_name) " +
+           "VALUES (@genre_name) ";
+        private readonly string sqlAddPlatform = "INSERT INTO platform (platform_name) " +
+           "VALUES (@platform_name) ";
+        private readonly string sqlAddCompany = "INSERT INTO company (company_name) " +
+           "VALUES (@company_name) ";
 
         private readonly string sqlGetGenresById = "SELECT genre_name FROM game " +
            "JOIN game_genre ON game.game_id = game_genre.game_id " +
@@ -62,10 +70,10 @@ namespace Capstone.DAO
             "DELETE game_platform WHERE game_platform.game_id = @game_id;" +
             "DELETE game where game.game_id = @game_id;";
 
-        private readonly string sqlDeleteJunctionData = "DELETE game_publisher WHERE game_publisher.game_id = @game_id;" +
+        private readonly string sqlDeleteJunctionData = "DELETE game_genre WHERE game_genre.game_id = @game_id;" +
+            "DELETE game_publisher WHERE game_publisher.game_id = @game_id;" +
             "DELETE game_developer WHERE game_developer.game_id = @game_id;" +
-            "DELETE game_platform WHERE game_platform.game_id = @game_id;" +
-            "DELETE game where game.game_id = @game_id;";
+            "DELETE game_platform WHERE game_platform.game_id = @game_id;";
 
         public GameSqlDao(string connectionString)
         {
@@ -349,7 +357,7 @@ namespace Capstone.DAO
                     using (SqlCommand cmd = new SqlCommand(sqlGetGenreIdByName, conn))
                     {
                         cmd.Parameters.AddWithValue("@genre_name", genreName);
-                        genreId = (int)cmd.ExecuteScalar();
+                        genreId = (int)(cmd.ExecuteScalar() ?? 0);
                     }
                 }
             }
@@ -372,7 +380,7 @@ namespace Capstone.DAO
                     using (SqlCommand cmd = new SqlCommand(sqlGetPlatformIdByName, conn))
                     {
                         cmd.Parameters.AddWithValue("@platform_name", platformName);
-                        platformId = (int)cmd.ExecuteScalar();
+                        platformId = (int)(cmd.ExecuteScalar() ?? 0);
                     }
                 }
             }
@@ -395,7 +403,7 @@ namespace Capstone.DAO
                     using (SqlCommand cmd = new SqlCommand(sqlGetCompanyIdByName, conn))
                     {
                         cmd.Parameters.AddWithValue("@company_name", companyName);
-                        companyId = (int)cmd.ExecuteScalar();
+                        companyId = (int)(cmd.ExecuteScalar() ?? 0);
                     }
                 }
             }
@@ -499,32 +507,125 @@ namespace Capstone.DAO
             return true;
         }
 
+        public bool AddGenre(string genreName)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlAddGenre, conn))
+                    { 
+                        cmd.Parameters.AddWithValue("@genre_name", genreName);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool AddPlatform(string platformName)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlAddPlatform, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@platform_name", platformName);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool AddCompany(string companyName)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlAddCompany, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@company_name", companyName);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public bool AddJunctionData(Game game)
         {
             try
             {
                 foreach (string genreName in game.Genres)
                 {
-                    // TODO: Add the ability to add new genres
                     int genreId = GetGenreIdByName(genreName);
+
+                    if (genreId == 0)
+                    {
+                        AddGenre(genreName);
+                        genreId = GetGenreIdByName(genreName);
+                    }
+
                     AddGameGenre(game.Id, genreId);
                 }
 
                 foreach (string platformName in game.Platforms)
                 {
                     int platformId = GetPlatformIdByName(platformName);
+
+                    if (platformId == 0)
+                    {
+                        AddPlatform(platformName);
+                        platformId = GetPlatformIdByName(platformName);
+                    }
+
                     AddGamePlatform(game.Id, platformId);
                 }
 
                 foreach (string developerName in game.Developers)
                 {
                     int developerId = GetCompanyIdByName(developerName);
+
+                    if (developerId == 0)
+                    {
+                        AddCompany(developerName);
+                        developerId = GetCompanyIdByName(developerName);
+                    }
+
                     AddGameDeveloper(game.Id, developerId);
                 }
 
                 foreach (string publisherName in game.Publishers)
                 {
                     int publisherId = GetCompanyIdByName(publisherName);
+
+                    if (publisherId == 0)
+                    {
+                        AddCompany(publisherName);
+                        publisherId = GetCompanyIdByName(publisherName);
+                    }
+
                     AddGamePublisher(game.Id, publisherId);
                 }
             }
