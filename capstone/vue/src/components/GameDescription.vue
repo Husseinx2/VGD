@@ -42,20 +42,4 @@ export default {
 </script>
 
 <style scoped>
-
-div.card {
-  border: 1px solid blue;
-  width: 50%;
-  border-radius: 50px;
-  text-align: center;
-  background-color: aqua;
-  margin: 10px;
-}
-
-
-div.card:hover {
-  border: 1px solid black;
-  background-color: rgb(17, 206, 206);
-  cursor: pointer;
-}
 </style>
