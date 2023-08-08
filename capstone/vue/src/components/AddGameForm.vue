@@ -53,14 +53,12 @@
     <b-form-datepicker
       v-model="$v.game.releaseDate.$model"
       :state="validateReleaseDate('releaseDate')"
-      aria-describedby="input-live-feedback4"
+      aria-describedby="input-live-4"
       type="date"
       name="date"
       required
     />
-    <b-form-invalid-feedback id="input-live-feedback4"
-      >Enter a valid date</b-form-invalid-feedback
-    >
+
 
     <!-- Image -->
     <b-form-group id="urlInput" label="Image Url" label-for="urlInput">
@@ -81,7 +79,7 @@
     <!-- genre -->
     <div>
       <label for="genre">Select genre(s):</label>
-      <multiselect
+      <b-form-tags
         required
         input-id="genre"
         placeholder="Pick some"
@@ -96,7 +94,7 @@
         @tag="addTag"
         aria-describedby="input-live-feedback5"
         tag-placeholder="Add this as new tag"
-      ></multiselect>
+      ></b-form-tags>
       <b-form-invalid-feedback id="input-live-feedback"
         >Please enter valid genre(s)</b-form-invalid-feedback
       >
@@ -161,11 +159,11 @@
 </template>
 
 <script>
-import Multiselect from "vue-multiselect";
+
 import { required, minLength, alpha } from "vuelidate/lib/validators";
 import GameService from "../services/GameService";
 export default {
-  components: { Multiselect },
+
   data() {
     return {
       game: {
