@@ -10,7 +10,7 @@ import Game from '../views/Game.vue'
 import EditGame from '../views/EditGame.vue'
 import NotFound from '../views/NotFound.vue'
 import deleteGame from '../views/DeleteGame.vue'
-
+import Unauthorized from '../views/Unauthorized.vue'
 Vue.use(Router)
 
 /**
@@ -106,6 +106,11 @@ const router = new Router({
       name: "notFound",
       component: NotFound,
     },
+    {
+      path:"/unauthorized",
+      name:"unauthorized",
+      component: Unauthorized
+    }
   ]
 })
 
@@ -121,7 +126,7 @@ router.beforeEach((to, from, next) => {
     next();
   }
   if(adminOnly && store.state.user.role == 'user') {
-    next("/*")
+    next("/unauthorized")
   }
   else {
     next();

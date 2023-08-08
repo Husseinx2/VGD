@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Page access is not authorized.</h1>
+    <h1>Page access is not authorized, Contact your Admin.</h1>
   </div>
 </template>
 
