@@ -63,11 +63,7 @@
     >
 
     <!-- Image -->
-    <b-form-group
-      id="urlInput"
-      label="Image Url"
-      label-for="urlInput"
-    >
+    <b-form-group id="urlInput" label="Image Url" label-for="urlInput">
       <b-form-input
         id="urlInput"
         v-model="game.imageUrl"
@@ -96,10 +92,11 @@
         :close-on-select="false"
         track-by="value"
         :custom-label="nameReturn"
-        label="name"
+        label="value"
         :taggable="true"
         @tag="addTag"
         aria-describedby="input-live-feedback5"
+        tag-placeholder="Add this as new tag"
       ></multiselect>
       <b-form-invalid-feedback id="input-live-feedback"
         >Please enter valid genre(s)</b-form-invalid-feedback
@@ -165,23 +162,20 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect';
-import {required, minLength, alpha, } from 'vuelidate/lib/validators';
+import Multiselect from "vue-multiselect";
+import { required, minLength, alpha } from "vuelidate/lib/validators";
 import GameService from "../services/GameService";
 export default {
   components: { Multiselect },
   data() {
     return {
-      formComplete: null,
-      formTitle: null,
-      formDescription: null,
       game: {
         id: 0,
         title: "",
         description: "",
         esrbRating: null,
         releaseDate: "",
-        imageUrl:"",
+        imageUrl: "",
         genres: [],
         platforms: [],
         developers: [],
@@ -197,66 +191,64 @@ export default {
         { value: "RP", text: "Rating Pending (RP)" },
       ],
       allGenres: [
-        { value: "Platformer"},
-        { value: "Third-Person Shooter"},
-        { value: "First-Person Shooter"},
-        { value: "Action"},
-        { value: "Adventure"},
-        { value: "Puzzle"},
-        { value: "Open-World"},
-        { value: "Horror"},
-        { value: "Sports"},
-        { value: "Role-Playing"},
-        { value: "Fighting"},
+        { value: "Platformer" },
+        { value: "Third-Person Shooter" },
+        { value: "First-Person Shooter" },
+        { value: "Action" },
+        { value: "Adventure" },
+        { value: "Puzzle" },
+        { value: "Open-World" },
+        { value: "Horror" },
+        { value: "Sports" },
+        { value: "Role-Playing" },
+        { value: "Fighting" },
       ],
     };
   },
-    validations: {
-      game: {
-    title: {
-      required,
-      minLength: minLength(1)
+  validations: {
+    game: {
+      title: {
+        required,
+        minLength: minLength(1),
+      },
+      description: {
+        required,
+        minLength: minLength(1),
+      },
+      esrbRating: {
+        required,
+        alpha,
+      },
+      releaseDate: {
+        required,
+      },
+      genres: {
+        required,
+      },
     },
-    description: {
-      required,
-      minLength: minLength(1)
-    },
-    esrbRating: {
-      required,
-      alpha
-    },
-    releaseDate: {
-      required,
-    },
-    genres: {
-      required
-    }
-    }
   },
   methods: {
     addTag(newTag) {
       const tag = {
-        value: newTag
-      }
-      this.allGenres.push(tag)
+        value: newTag,
+      };
+      this.allGenres.push(tag);
     },
-    nameReturn ({value}) {
+    nameReturn({ value }) {
       return `${value}`;
     },
     onSubmit() {
       this.$v.form.$touch();
-      if(this.$v.form.$anyError){
+      if (this.$v.form.$anyError) {
         return;
       }
     },
     validateState(title) {
-      const {$dirty, $error } = this.$v.game[title];
+      const { $dirty, $error } = this.$v.game[title];
       return $dirty ? !$error : null;
     },
     addGame() {
-      if (
-        this.game
-      ){
+      if (this.game) {
         GameService.addGame(this.game)
           .then(() => {
             this.game = {};
@@ -272,7 +264,7 @@ export default {
       this.game.description = "";
       this.game.esrbRating = null;
       this.game.releaseDate = "";
-      this.game.imageUrl
+      this.game.imageUrl;
       this.game.genres = [];
       this.game.platforms = [];
       this.game.developers = [];
@@ -292,7 +284,7 @@ export default {
     releaseDateState() {
       return this.game.releaseDate != "" ? true : false;
     },
-     urlState() {
+    urlState() {
       return this.game.imageUrl != "" ? true : false;
     },
     genresState() {

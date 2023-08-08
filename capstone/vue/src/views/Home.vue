@@ -21,7 +21,6 @@ export default {
     return {
       newGame: {},
       search: "",
-
       games: [],
     };
   },
