@@ -32,34 +32,6 @@
         </template>
       </b-card>
     </router-link>
-
-    <!-- <div class="card">
-      <router-link :to="{ name: 'game', params: { id: item.id } }">
-        <b-img :src="item.imageUrl" fluid alt=""></b-img>
-        <h1>{{ item.title }}</h1>
-        <p>{{ item.description }}</p>
-        <p>{{ new Date(item.releaseDate).toLocaleString("en", options) }}</p>
-        <span v-show="$store.state.user.role == 'admin'">
-          <div class="b-btn-toolbar">
-            <b-button-group class="mx-1">
-              <b-button
-                class="btn btn-warning"
-                v-bind:to="{ name: 'edit', params: { id: item.id } }"
-              >
-                Edit</b-button
-              >
-            </b-button-group>
-            <b-button-group class="mx-1">
-              <b-button
-                class="btn btn-danger"
-                v-bind:to="{ name: 'delete', params: { id: item.id } }"
-                >Delete</b-button
-              >
-            </b-button-group>
-          </div>
-        </span>
-      </router-link> -->
-    <!-- </div> -->
   </div>
 </template>
 
@@ -75,13 +47,13 @@ export default {
 </script>
 
 <style scoped>
+
 div.card {
   border: 1px solid rgb(187, 187, 206);
   width: 40%;
-  /* border-radius: 50px; */
   text-align: center;
-  /* margin: 10px; */
 }
+
 
 div.card:hover {
   border: 1px solid black;
