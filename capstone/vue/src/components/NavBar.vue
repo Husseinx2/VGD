@@ -20,6 +20,8 @@
 export default {
   data() {
     return {
+      title: '',
+      description: '',
       newGame: {},
       games: [],
     };
