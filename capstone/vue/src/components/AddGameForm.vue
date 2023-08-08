@@ -1,9 +1,12 @@
 <template>
-  <b-form v-on:click.prevent class="needs-validation">
-    <b-form-group id="title" label="Title" label-for="titleInput">
+  <b-form @submit.stop.prevent="onSubmit">
+    <b-form-group class="titleInput">
+      <label>Title</label>
       <b-form-input
+        class="form__input"
         id="titleInput"
-        v-model="game.title"
+        v-model="$v.game.title.$model"
+        :state="validateState('title')"
         type="text"
         placeholder="Game Title"
         required
@@ -18,15 +21,15 @@
       label="Description"
       label-for="descriptionInput"
     >
-      <b-form-input
+      <b-form-textarea
         id="descriptionInput"
-        v-model="game.description"
-        :state="descriptionState"
+        v-model.trim="$v.game.description.$model"
+        :state="validateState('description')"
         aria-describedby="input-live-feedback2"
         type="text"
         placeholder="Game Description"
         required
-      ></b-form-input>
+      ></b-form-textarea>
       <b-form-invalid-feedback id="input-live-feedback2"
         >Enter at least 1 letter</b-form-invalid-feedback
       >
@@ -37,8 +40,8 @@
       :options="options"
       type="text"
       name="rating"
-      v-model="game.esrbRating"
-      :state="esrbRatingState"
+      v-model="$v.game.esrbRating.$model"
+      :state="validateState('esrbRating')"
       aria-describedby="input-live-feedback3"
       required
     ></b-form-select>
@@ -48,11 +51,12 @@
     <!-- date -->
     <label for="date">Release Date:</label>
     <b-form-datepicker
-      v-model="game.releaseDate"
-      :state="releaseDateState"
+      v-model="$v.game.releaseDate.$model"
+      :state="validateState('releaseDate')"
       aria-describedby="input-live-feedback4"
       type="date"
       name="date"
+      required
     />
     <b-form-invalid-feedback id="input-live-feedback4"
       >Enter a valid date</b-form-invalid-feedback
@@ -80,14 +84,23 @@
 
     <!-- genre -->
     <div>
-      <label for="genre">Type a new genre and press enter</label>
-      <b-form-tags
+      <label for="genre">Select genre(s):</label>
+      <multiselect
+        required
         input-id="genre"
-        placeholder="Add genre.."
-        v-model="game.genres"
-        :state="genresState"
+        placeholder="Pick some"
+        :options="allGenres"
+        v-model="$v.game.genres.$model"
+        :state="validateState('genres')"
+        :multiple="true"
+        :close-on-select="false"
+        track-by="value"
+        :custom-label="nameReturn"
+        label="name"
+        :taggable="true"
+        @tag="addTag"
         aria-describedby="input-live-feedback5"
-      ></b-form-tags>
+      ></multiselect>
       <b-form-invalid-feedback id="input-live-feedback"
         >Please enter valid genre(s)</b-form-invalid-feedback
       >
@@ -152,8 +165,11 @@
 </template>
 
 <script>
+import Multiselect from 'vue-multiselect';
+import {required, minLength, alpha, } from 'vuelidate/lib/validators';
 import GameService from "../services/GameService";
 export default {
+  components: { Multiselect },
   data() {
     return {
       formComplete: null,
@@ -180,21 +196,67 @@ export default {
         { value: "Ao", text: "Adults Only (Ao)" },
         { value: "RP", text: "Rating Pending (RP)" },
       ],
+      allGenres: [
+        { value: "Platformer"},
+        { value: "Third-Person Shooter"},
+        { value: "First-Person Shooter"},
+        { value: "Action"},
+        { value: "Adventure"},
+        { value: "Puzzle"},
+        { value: "Open-World"},
+        { value: "Horror"},
+        { value: "Sports"},
+        { value: "Role-Playing"},
+        { value: "Fighting"},
+      ],
     };
   },
+    validations: {
+      game: {
+    title: {
+      required,
+      minLength: minLength(1)
+    },
+    description: {
+      required,
+      minLength: minLength(1)
+    },
+    esrbRating: {
+      required,
+      alpha
+    },
+    releaseDate: {
+      required,
+    },
+    genres: {
+      required
+    }
+    }
+  },
   methods: {
+    addTag(newTag) {
+      const tag = {
+        value: newTag
+      }
+      this.allGenres.push(tag)
+    },
+    nameReturn ({value}) {
+      return `${value}`;
+    },
+    onSubmit() {
+      this.$v.form.$touch();
+      if(this.$v.form.$anyError){
+        return;
+      }
+    },
+    validateState(title) {
+      const {$dirty, $error } = this.$v.game[title];
+      return $dirty ? !$error : null;
+    },
     addGame() {
       if (
-        this.titleState &&
-        this.descriptionState &&
-        this.esrbRatingState &&
-        this.releaseDateState &&
-        this.genresState &&
-        this.platformsState &&
-        this.publisherState &&
-        this.developersState && 
-        this.urlState
-      ) {
+        this.game
+      ){
         GameService.addGame(this.game)
           .then(() => {
             this.game = {};
