@@ -1,6 +1,8 @@
 <template>
   <div class="container">
     <h1 class="title">{{ item.title }}</h1>
+    <img v-bind:src="item.imageUrl" />
+
     Description:
     <p class="description">{{ item.description }}</p>
 
@@ -38,34 +40,36 @@ export default {
 </script>
 
 <style scoped>
+img {
+  justify-self: center;
+}
 .container {
-
   display: grid;
-  grid-template: 1fr 1fr ;
+  grid-template: 1fr 1fr;
   grid-template-areas:
     ". title "
     "description"
     "genre "
     "platforms "
     "developers "
-    "publishers "
+    "publishers ";
 }
 .title {
   grid-area: "title";
 }
 .description {
-grid-area: "description";
+  grid-area: "description";
 }
 .genre {
   grid-area: genre;
 }
 .platforms {
-  grid-area:"platforms"
+  grid-area: "platforms";
 }
-.developers{
+.developers {
   grid-area: "developers";
 }
-.publishers { 
+.publishers {
   grid-area: "publishers";
 }
 P,
