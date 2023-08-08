@@ -1,6 +1,7 @@
 <template>
   <div class="card">
     <router-link :to="{ name: 'game', params: { id: item.id } }">
+      <b-img :src=item.imageUrl fluid alt="Responsive image"></b-img> 
       <h1>{{ item.title }}</h1>
       <p>{{ item.description }}</p>
       <p>{{ new Date(item.releaseDate).toLocaleString("en", options) }}</p>

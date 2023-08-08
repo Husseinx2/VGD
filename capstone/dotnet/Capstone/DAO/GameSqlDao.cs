@@ -13,12 +13,12 @@ namespace Capstone.DAO
     {
         private readonly string connectionString = "";
 
-        private readonly string sqlListGames = "SELECT game_id, title, description, esrb_rating, release_date FROM game";
-        private readonly string sqlGetGame = "SELECT game_id, title, description, esrb_rating, release_date from game WHERE game_id = @game_id;";
+        private readonly string sqlListGames = "SELECT game_id, title, description, esrb_rating, release_date, image_url FROM game";
+        private readonly string sqlGetGame = "SELECT game_id, title, description, esrb_rating, release_date, image_url from game WHERE game_id = @game_id;";
 
-        private readonly string sqlAddGame = "INSERT INTO game (title, description, esrb_rating, release_date) " +
+        private readonly string sqlAddGame = "INSERT INTO game (title, description, esrb_rating, release_date, image_url) " +
             "OUTPUT INSERTED.game_id " +
-            "VALUES (@title, @description, @esrb_rating, @release_date) ";
+            "VALUES (@title, @description, @esrb_rating, @release_date, @image_url) ";
 
         private readonly string sqlAddGameGenre = "INSERT INTO game_genre (game_id, genre_id) " +
             "VALUES (@game_id, @genre_id) ";
@@ -61,7 +61,7 @@ namespace Capstone.DAO
             "WHERE company_name = @company_name;";
         
         private readonly string sqlUpdateGame = "UPDATE game SET title=@title, description=@description, esrb_rating=@esrb_rating, " +
-             "release_date=@release_date " +
+             "release_date=@release_date, image_url=@image_url " +
             "WHERE game_id = @game_id;";
 
         private readonly string sqlDeleteGame = "DELETE game_genre WHERE game_genre.game_id = @game_id;" +
@@ -153,6 +153,7 @@ namespace Capstone.DAO
                         cmd.Parameters.AddWithValue("@description", game.Description);
                         cmd.Parameters.AddWithValue("@esrb_rating", game.ESRBRating);
                         cmd.Parameters.AddWithValue("@release_date", game.ReleaseDate);
+                        cmd.Parameters.AddWithValue("@image_url", game.ImageUrl);
 
                         game.Id = (int)cmd.ExecuteScalar();
                     }
@@ -182,6 +183,7 @@ namespace Capstone.DAO
                         cmd.Parameters.AddWithValue("@description", game.Description);
                         cmd.Parameters.AddWithValue("@esrb_rating", game.ESRBRating);
                         cmd.Parameters.AddWithValue("@release_date", game.ReleaseDate);
+                        cmd.Parameters.AddWithValue("@image_url", game.ImageUrl);
 
                         int count = cmd.ExecuteNonQuery();
 
@@ -667,6 +669,7 @@ namespace Capstone.DAO
             game.Description = Convert.ToString(reader["description"]);
             game.ESRBRating = Convert.ToString(reader["esrb_rating"]);
             game.ReleaseDate = Convert.ToDateTime(reader["release_date"]);
+            game.ImageUrl = Convert.ToString(reader["image_url"]);
 
             game.Genres = GetGenresById(game.Id);
             game.Platforms = GetPlatformsById(game.Id);

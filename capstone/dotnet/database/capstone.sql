@@ -21,6 +21,7 @@ CREATE TABLE game (
 	description varchar (MAX) NOT NULL,
 	esrb_rating varchar (10) NOT NULL,
 	release_date DATE NOT NULL,
+	image_url varchar (MAX) NOT NULL,
 	CONSTRAINT PK_games PRIMARY KEY (game_id)
 )
 
@@ -88,9 +89,9 @@ CREATE TABLE game_genre (
 
 --populate default data
 --game
-INSERT INTO game (title, description, esrb_rating, release_date) VALUES ('Super Mario Bros','Super Mario Bros. is a platform game. In the game, Mario must race through the Mushroom Kingdom and save Princess Toadstool (later Princess Peach) from Bowser. Mario jumps, runs, and walks across each level. The worlds are full of enemies and platforms, and open holes.','E','09/13/1985');
-INSERT INTO game (title, description, esrb_rating, release_date) VALUES ('Grand Theft Auto V','Grand Theft Auto V is an action-adventure game played from either a third-person or first-person perspective. Players complete missions—linear scenarios with set objectives—to progress through the story. Outside of the missions, players may freely roam the open world.','M','09/17/2013');
-INSERT INTO game (title, description, esrb_rating, release_date) VALUES ('Prey',' In Prey, you awaken aboard Talos I, a space station orbiting the moon in the year 2032. You are the key subject of an experiment meant to alter humanity forever – but things have gone terribly wrong. The space station has been overrun by hostile aliens and you are now being hunted.','M','05/15/2017');
+INSERT INTO game (title, description, esrb_rating, release_date, image_url) VALUES ('Super Mario Bros','Super Mario Bros. is a platform game. In the game, Mario must race through the Mushroom Kingdom and save Princess Toadstool (later Princess Peach) from Bowser. Mario jumps, runs, and walks across each level. The worlds are full of enemies and platforms, and open holes.','E','09/13/1985','https://img-grouvee-com.b-cdn.net/upload/cache/28/d1/28d1a59b8cc9631f5fe0141dc6c06542.jpg');
+INSERT INTO game (title, description, esrb_rating, release_date, image_url) VALUES ('Grand Theft Auto V','Grand Theft Auto V is an action-adventure game played from either a third-person or first-person perspective. Players complete missions—linear scenarios with set objectives—to progress through the story. Outside of the missions, players may freely roam the open world.','M','09/17/2013', 'https://img-grouvee-com.b-cdn.net/upload/cache/ed/42/ed42cf726c8299b8ee36e0b34754ad61.jpg');
+INSERT INTO game (title, description, esrb_rating, release_date, image_url) VALUES ('Prey',' In Prey, you awaken aboard Talos I, a space station orbiting the moon in the year 2032. You are the key subject of an experiment meant to alter humanity forever – but things have gone terribly wrong. The space station has been overrun by hostile aliens and you are now being hunted.','M','05/15/2017', 'https://img-grouvee-com.b-cdn.net/upload/cache/cb/f6/cbf6710ef76b9a48bf3f8fe72658d6f5.jpg');
 
 
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
