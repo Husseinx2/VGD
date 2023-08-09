@@ -3,6 +3,9 @@
     <p style="color: #8d0cc2; padding-left: 16px; padding-top: 10px">
       You must be authenticated to see this
     </p>
+    <b-alert :show="gameAdded" variant="success" role="alert">
+      Game Added
+    </b-alert>
     <section>
       <game-card-vue
         v-for="game in filteredList"
@@ -32,6 +35,10 @@ export default {
       return this.games.filter((game) => {
         return game.title.toLowerCase().includes(this.search);
       });
+    },
+    gameAdded() {
+      console.log("reached gameAdded")
+      return this.$store.state.gameAdded;
     },
   },
 

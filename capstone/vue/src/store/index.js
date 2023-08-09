@@ -18,10 +18,14 @@ if(currentToken != null) {
 
 export default new Vuex.Store({
   state: {
+    gameAdded: false,
     token: currentToken || '',
     user: currentUser || {},
   },
   mutations: {
+    GAME_ADDED(state, payload) {
+      state.gameAdded = payload;
+    },
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
       localStorage.setItem('token', token);
