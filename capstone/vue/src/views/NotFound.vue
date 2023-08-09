@@ -3,3 +3,9 @@
     <h1>Page not found. Please try again.</h1>
   </div>
 </template>
+
+<style scoped>
+div {
+  background-color:whitesmoke;
+}
+</style>
