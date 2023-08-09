@@ -20,7 +20,7 @@ namespace Capstone.DAO
         private readonly string sqlUpdateRatings = "UPDATE ratings SET game_id=@game_id, user_id=@user_id, rating_value=@rating_value, " +
              "rating_datetime=@rating_datetime " +
             "WHERE ratings_id = @ratings_id;";
-        public List<Rating> ListGames()
+        public List<Rating> ListRatingsByGameId(int ratingId)
         {
             List<Rating> ratings = new List<Rating>();
 
@@ -76,7 +76,7 @@ namespace Capstone.DAO
             return rating;
         }
 
-        public Rating GetRating(int ratingsId)
+        public Rating GetRating(int ratingId, int userId)
         {
             Rating rating = null;
             try
@@ -86,7 +86,7 @@ namespace Capstone.DAO
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(sqlGetRatings, conn))
                     {
-                        cmd.Parameters.AddWithValue("@ratings_id", ratingsId);
+                        cmd.Parameters.AddWithValue("@ratings_id", ratingId);
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
@@ -105,12 +105,12 @@ namespace Capstone.DAO
             return rating;
         }
 
-        public bool DeleteRating(int gameId)
+        public bool DeleteRating(int ratingId)
         {
             throw new System.NotImplementedException();
-        } 
+        }
 
-        public Rating UpdateRating(int gameId, int userId)
+        public Rating UpdateRating(int ratingId, int userId)
         {
             throw new System.NotImplementedException();
         }
@@ -127,4 +127,5 @@ namespace Capstone.DAO
             rating.DatePosted = Convert.ToDateTime(reader["rating_datetime"]);
             return rating;
         }
+    }
 }
