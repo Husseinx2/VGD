@@ -65,6 +65,7 @@ namespace Capstone
             services.AddSingleton<IPasswordHasher>(ph => new PasswordHasher());
             services.AddTransient<IUserDao>(m => new UserSqlDao(connectionString));
             services.AddTransient<IGameDao>(m => new GameSqlDao(connectionString));
+            services.AddTransient<IRatingDao>(m => new RatingSqlDao(connectionString));
 
         }
 
@@ -90,6 +91,8 @@ namespace Capstone
             {
                 endpoints.MapControllers();
             });
+
+
         }
     }
 }
