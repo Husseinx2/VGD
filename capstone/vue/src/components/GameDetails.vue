@@ -6,6 +6,10 @@
           <th scope="row">Release Date</th>
           <td>{{ new Date(item.releaseDate).toLocaleString("en", options)  }}</td>
         </tr>
+         <tr>
+          <th scope="row">ESRB Rating</th>
+          <td>{{ item.esrbRating }}</td>
+        </tr>
         <tr>
           <th scope="row">Genre(s)</th>
           <td>{{ item.genres.join(", ") }}</td>

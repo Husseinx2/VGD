@@ -25,7 +25,6 @@
       <b-img :src="item.imageUrl" fluid alt=""></b-img>
       <h1>{{ item.title }}</h1>
       <p>{{ item.description }}</p>
-      <p>{{ new Date(item.releaseDate).toLocaleString("en", options) }}</p>
     </div>
   </div>
 </template>
@@ -33,11 +32,6 @@
 <script>
 export default {
   props: ["item"],
-  data() {
-    return {
-      options: { year: "numeric", month: "long", day: "numeric" },
-    };
-  },
 };
 </script>
 
