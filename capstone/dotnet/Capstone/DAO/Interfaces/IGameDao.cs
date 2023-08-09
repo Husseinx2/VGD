@@ -14,5 +14,6 @@ namespace Capstone.DAO.Interfaces
         public Game UpdateGame(Game game);
 
         public bool DeleteGame(int gameId);
+
     }
 }
