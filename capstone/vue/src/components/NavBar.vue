@@ -11,7 +11,7 @@
           v-if="!$route.meta.hideNavbar"
           size="sm"
           v-model="search"
-          placeholder="Search"
+          placeholder="Search Games"
         >
         </b-form-input>
         <b-button
@@ -19,24 +19,28 @@
           v-on:click="searchGames"
           size="sm"
           type="submit"
-          >Search</b-button
-        >
+          ><b-icon icon="search"></b-icon>
+        </b-button>
       </b-nav-form>
       <router-link v-if="!$route.meta.hideNavbar" to="/Advancedsearch">
-        Advanced searched 
+        Advanced search
       </router-link>
       <b-alert v-model="showAlert" variant="danger" dismissible>
         Not Found!
       </b-alert>
 
       <b-navbar-nav class="ml-auto">
-        <b-nav-item
+        <router-link
           class="addGame"
-          href="addGame"
+          to="/addGame"
           v-show="$store.state.user.role == 'admin'"
-          >Add a Game</b-nav-item
         >
-        <b-nav-item class="logout" href="logout">Logout</b-nav-item>
+          <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
+          Add a Game
+        </router-link>
+        <b-button variant="outline-info" to="/logout" class="mb-2">
+          <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+        </b-button>
       </b-navbar-nav>
     </b-navbar>
   </header>
@@ -112,5 +116,11 @@ export default {
 <style scoped>
 header {
   background-color: #c5e2ff;
+}
+.addGame {
+  position: relative;
+  right: 10px;
+  top: 4px;
+  font-size: 20px;
 }
 </style>
