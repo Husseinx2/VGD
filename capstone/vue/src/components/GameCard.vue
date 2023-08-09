@@ -4,9 +4,11 @@
       <b-card class="my-2" footer-tag="footer">
         <template #header>
           <h2 class="mb-0">
-            <b-link class="title-link" v-bind:to="{ name: 'game', params: { id: item.id } }">{{
-              item.title
-            }}</b-link>
+            <b-link
+              class="title-link"
+              v-bind:to="{ name: 'game', params: { id: item.id } }"
+              >{{ item.title }}</b-link
+            >
           </h2>
         </template>
         <router-link v-bind:to="{ name: 'game', params: { id: item.id } }">
@@ -18,14 +20,14 @@
             class="btn btn-warning"
             v-bind:to="{ name: 'edit', params: { id: item.id } }"
           >
-            Edit</b-button
-          >
+             Edit  <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
+          </b-button>
         </b-button-group>
         <b-button-group class="mx-1" v-show="$store.state.user.role == 'admin'">
           <b-button
             class="btn btn-danger"
             v-bind:to="{ name: 'delete', params: { id: item.id } }"
-            >Delete</b-button
+            >Delete   <b-icon icon="trash" aria-hidden="true" > </b-icon> </b-button
           >
         </b-button-group>
         <template #footer>
@@ -59,5 +61,4 @@ div.card {
 .title-link {
   color: black;
 }
-
 </style>

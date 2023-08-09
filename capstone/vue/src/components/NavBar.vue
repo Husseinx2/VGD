@@ -38,7 +38,7 @@
           <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
           Add a Game
         </router-link>
-        <b-button variant="outline-info" href="logout" class="mb-2">
+        <b-button variant="outline-info" to="/logout" class="mb-2">
           <b-icon icon="power" aria-hidden="true"></b-icon> Logout
         </b-button>
       </b-navbar-nav>

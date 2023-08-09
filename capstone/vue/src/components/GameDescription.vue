@@ -8,15 +8,15 @@
               class="btn btn-warning"
               v-bind:to="{ name: 'edit', params: { id: item.id } }"
             >
-              Edit</b-button
-            >
+              Edit <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
+            </b-button>
           </b-button-group>
           <b-button-group class="mx-1">
             <b-button
               class="btn btn-danger"
               v-bind:to="{ name: 'delete', params: { id: item.id } }"
-              >Delete</b-button
-            >
+              >Delete <b-icon icon="trash" aria-hidden="true"></b-icon
+            ></b-button>
           </b-button-group>
         </div>
       </span>
