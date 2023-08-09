@@ -44,12 +44,25 @@ namespace Capstone.Controllers
             }
         }
 
+        [HttpGet("{gameId}/{userId}")]
+        public ActionResult<Rating> GetRating(int gameId, int userId)
+        {
+            Rating rating = ratingDao.GetRating(gameId, userId);
+            if (rating != null)
+            {
+                return Ok(rating);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost()]
         public ActionResult<Rating> AddRating(Rating rating)
         {
-            rating.RatingId = 0;
             Rating newRating = ratingDao.AddRating(rating);
-            if (newRating != null || newRating.RatingId == 0)
+            if (newRating != null)
             {
                 return Ok(newRating);
             } 
