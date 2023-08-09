@@ -18,7 +18,7 @@
             Edit</b-button
           >
         </b-button-group>
-        <b-button-group class="mx-1">
+        <b-button-group class="mx-1" v-show="$store.state.user.role == 'admin'">
           <b-button
             class="btn btn-danger"
             v-bind:to="{ name: 'delete', params: { id: item.id } }"
