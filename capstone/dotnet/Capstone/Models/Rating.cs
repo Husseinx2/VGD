@@ -8,6 +8,6 @@ namespace Capstone.Models
         public int UserId { get; set; }
         public int GameId { get; set; }
         public int RatingValue { get; set; }
-        public DateTime RatingDatetime { get; set; }
+        public DateTime RatingDateTime { get; set; }
     }
 }
