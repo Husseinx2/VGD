@@ -159,7 +159,7 @@ namespace Capstone.DAO
 
                         int count = cmd.ExecuteNonQuery();
 
-                        return true;
+                        return count == 1;
                     }
                 }
             }
