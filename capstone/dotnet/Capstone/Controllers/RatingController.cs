@@ -20,7 +20,7 @@ namespace Capstone.Controllers
         public ActionResult<List<Rating>> ListRatingsByGameId(int gameId)
         {
             List<Rating> ratings = ratingDao.ListRatingsByGameId(gameId);
-            if (ratings != null)
+            if (ratings != null && ratings.Count == 0)
             {
                 return Ok(ratings);
             }
