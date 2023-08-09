@@ -5,7 +5,7 @@ namespace Capstone.DAO.Interfaces
 {
     public interface IRatingDao
     {
-        public List<Rating> ListRating();
+        public List<Rating> ListRatings();
 
         public Rating GetRating(int gameId, int userId);
 
