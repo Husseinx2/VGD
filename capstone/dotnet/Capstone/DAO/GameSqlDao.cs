@@ -64,16 +64,22 @@ namespace Capstone.DAO
              "release_date=@release_date, image_url=@image_url " +
             "WHERE game_id = @game_id;";
 
-        private readonly string sqlDeleteGame = "DELETE game_genre WHERE game_genre.game_id = @game_id;" +
-            "DELETE game_publisher WHERE game_publisher.game_id = @game_id;" +
-            "DELETE game_developer WHERE game_developer.game_id = @game_id;" +
-            "DELETE game_platform WHERE game_platform.game_id = @game_id;" +
-            "DELETE game where game.game_id = @game_id;";
+        private readonly string sqlDeleteGame = "DELETE game where game.game_id = @game_id;";
 
-        private readonly string sqlDeleteJunctionData = "DELETE game_genre WHERE game_genre.game_id = @game_id;" +
+        private readonly string sqlDeleteGameJunction = "DELETE game_genre WHERE game_genre.game_id = @game_id;" +
             "DELETE game_publisher WHERE game_publisher.game_id = @game_id;" +
             "DELETE game_developer WHERE game_developer.game_id = @game_id;" +
             "DELETE game_platform WHERE game_platform.game_id = @game_id;";
+
+        private readonly string sqlGetCompany = "SELECT company_name FROM company;";
+
+        private readonly string sqlGetPlatform = "SELECT platform_name FROM platform " +
+            "JOIN game_platform ON game_platform.platform_id = platform.platform_id " +
+            "JOIN game ON game.game_id = game_platform.game_id;";
+
+        private readonly string sqlGetGenre = "SELECT genre_name FROM genre; " +
+            "JOIN game_genre ON game_genre.genre_id = genre.genre_id " +
+            "JOIN game ON game.game_id = game_genre.game_id;";
 
         public GameSqlDao(string connectionString)
         {
@@ -158,7 +164,7 @@ namespace Capstone.DAO
                         game.Id = (int)cmd.ExecuteScalar();
                     }
 
-                    AddJunctionData(game);
+                    AddGameJunction(game);
                 }
             }
             catch (SqlException)
@@ -187,8 +193,8 @@ namespace Capstone.DAO
 
                         int count = cmd.ExecuteNonQuery();
 
-                        DeleteJunctionData(game.Id);
-                        AddJunctionData(game);
+                        DeleteGameJunction(game.Id);
+                        AddGameJunction(game);
 
                         return count == 1 ? game : null;
                     }
@@ -204,6 +210,8 @@ namespace Capstone.DAO
         {
             try
             {
+                DeleteGameJunction(gameId);
+
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
@@ -575,7 +583,7 @@ namespace Capstone.DAO
             return true;
         }
 
-        public bool AddJunctionData(Game game)
+        public bool AddGameJunction(Game game)
         {
             try
             {
@@ -638,14 +646,14 @@ namespace Capstone.DAO
        
             return true;
         }
-        public bool DeleteJunctionData(int gameId)
+        public bool DeleteGameJunction(int gameId)
         {
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlDeleteJunctionData, conn))
+                    using (SqlCommand cmd = new SqlCommand(sqlDeleteGameJunction, conn))
                     {
                         cmd.Parameters.AddWithValue("@game_id", gameId);
                         int count = cmd.ExecuteNonQuery();
@@ -657,6 +665,93 @@ namespace Capstone.DAO
             {
                 return false;
             }
+        }
+
+        public Game GetCompany(string companyName)
+        {
+            Game company = null;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlGetCompany, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@company_name", companyName);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                company = MapRowToGame(reader);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+
+            return company;
+        }
+
+        public Game GetPlatform(string platformName)
+        {
+            Game platform = null;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlGetPlatform, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@platform_name", platformName);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                platform = MapRowToGame(reader);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+
+            return platform;
+        }
+
+        public Game GetGenre(string genreName)
+        {
+            Game genre = null;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlGetGenre, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@genre_name", genreName);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                genre = MapRowToGame(reader);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+
+            return genre;
         }
 
         private Game MapRowToGame(SqlDataReader reader)

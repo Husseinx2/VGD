@@ -73,4 +73,7 @@ h1 {
   padding-bottom: 14px;
   font-family:Georgia, 'Times New Roman', Times, serif
 }
+main{
+  background-color:whitesmoke;
+}
 </style>

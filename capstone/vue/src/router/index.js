@@ -12,6 +12,8 @@ import NotFound from '../views/NotFound.vue'
 import deleteGame from '../views/DeleteGame.vue'
 import Unauthorized from '../views/Unauthorized.vue'
 import search from '../views/Search.vue'
+import AdvancedSearch from '../views/AdvancedSearch.vue'
+
 Vue.use(Router)
 
 /**
@@ -72,6 +74,15 @@ const router = new Router({
 
       }
     },
+    {
+      path:"/Advancedsearch",
+      Name:"Advancedsearch",
+      component:AdvancedSearch,
+      meta: {
+        requiresAuth: true,
+        hideNavbar: false,
+      }
+    },
 
     {
       path: '/editGame/:id',
@@ -89,7 +100,7 @@ const router = new Router({
       component: search,
       meta: {
         requiresAuth: true,
-        hideNavbar: true
+        hideNavbar: false
       }
     },
 
