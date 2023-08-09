@@ -21,7 +21,7 @@ namespace Capstone.DAO
         private readonly string sqlDeleteRating = "DELETE rating where rating.game_id = @game_id AND rating.user_id = @user_id";
         private readonly string sqlUpdateRating = "UPDATE rating SET game_id=@game_id, user_id=@user_id, rating_value=@rating_value, " +
              "rating_datetime=@rating_datetime " +
-            "WHERE rating_id = @ratings_id;";
+            "WHERE game_id = @game_id AND user_id = user_id;";
 
         public RatingSqlDao(string connectionString)
         {
@@ -194,10 +194,6 @@ namespace Capstone.DAO
             {
                 return null;
             }
-        }
-        public List<Rating> ListRatingByUserId(int userId)
-        {
-            throw new NotImplementedException();
         }
 
         private Rating MapRowToRating(SqlDataReader reader)

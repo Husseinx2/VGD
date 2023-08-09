@@ -1,6 +1,7 @@
 <template>
   <div class="game">
     <game-description v-bind:item="game" />
+    <ratings-card v-bind:item="game" />
     <game-details v-bind:item="game" />
   </div>
 </template>
@@ -9,9 +10,10 @@
 import gameService from "../services/GameService";
 import GameDescription from '../components/GameDescription.vue';
 import GameDetails from '../components/GameDetails.vue';
+import RatingsCard from '../components/RatingsCard.vue';
 
 export default {
-  components: { GameDescription, GameDetails},
+  components: { GameDescription, GameDetails, RatingsCard},
   data() {
 
     return {
@@ -54,5 +56,6 @@ export default {
 <style scoped>
  .game {
    margin:50px
+   
  }
 </style>

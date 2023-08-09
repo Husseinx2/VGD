@@ -15,6 +15,7 @@
           <b-card-img v-bind:src="item.imageUrl" style="max-width: 20rem" />
         </router-link>
         <b-card-text class="description">{{ item.description }}</b-card-text>
+        <avg-rating-for-game /> <!--This is importing the average star rating-->
         <b-button-group class="mx-1" v-show="$store.state.user.role == 'admin'">
           <b-button
             class="btn btn-warning"
@@ -41,7 +42,9 @@
 </template>
 
 <script>
+import avgRatingForGame from "../components/AvgRatingForGame.vue";
 export default {
+  components: {avgRatingForGame},
   props: ["item"],
   data() {
     return {
