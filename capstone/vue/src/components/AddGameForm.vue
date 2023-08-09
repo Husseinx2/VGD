@@ -78,7 +78,7 @@
         required
       ></b-form-input>
       <b-form-invalid-feedback id="input-live-feedback2"
-        >Enter at least 1 letter</b-form-invalid-feedback
+        >Please use the correct url format</b-form-invalid-feedback
       >
     </b-form-group>
 
@@ -156,6 +156,12 @@
       >Submit</b-button
     >
     <b-button type="reset" v-on:click="reset" variant="danger">Reset</b-button>
+
+    <b-form-group>
+    <b-modal id="myForm">
+      <p>Game Submitted!</p>
+    </b-modal>
+    </b-form-group>
   </b-form>
 </template>
 
@@ -165,6 +171,7 @@ import GameService from "../services/GameService";
 export default {
   data() {
     return {
+      formComplete: false,
       game: {
         id: 0,
         title: "",
@@ -240,12 +247,13 @@ export default {
         GameService.addGame(this.game)
           .then(() => {
             this.game = {};
+            this.formComplete = false;
             this.$router.push({ name: "home" });
           })
           .catch(() => {
             console.log("error adding game");
           });
-      } else this.formComplete = false;
+      }
     },
     reset() {
       this.game.title = "";
