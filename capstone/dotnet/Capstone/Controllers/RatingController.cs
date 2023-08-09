@@ -19,8 +19,13 @@ namespace Capstone.Controllers
         [HttpGet("game/{gameId}")]
         public ActionResult<List<Rating>> ListRatingsByGameId(int gameId)
         {
+<<<<<<< HEAD
             List<Rating> ratings = ratingDao.ListRatingByGameId(gameId);
             if (ratings != null && ratings.Count != 0)
+=======
+            List<Rating> ratings = ratingDao.ListRatingsByGameId(gameId);
+            if (ratings != null)
+>>>>>>> fe087d160fb9ba93eff8e66019f65b296849c0e2
             {
                 return Ok(ratings);
             }

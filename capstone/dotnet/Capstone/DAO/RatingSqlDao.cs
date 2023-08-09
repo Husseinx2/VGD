@@ -100,8 +100,8 @@ namespace Capstone.DAO
                     {
                         cmd.Parameters.AddWithValue("@game_id", rating.GameId);
                         cmd.Parameters.AddWithValue("@user_id", rating.UserId);
-                        cmd.Parameters.AddWithValue("@rating_value", rating.Value);
-                        cmd.Parameters.AddWithValue("@rating_datetime", rating.DatePosted);
+                        cmd.Parameters.AddWithValue("@rating_value", rating.RatingValue);
+                        cmd.Parameters.AddWithValue("@rating_datetime", rating.RatingDateTime);
 
                     }
                 }
@@ -180,8 +180,8 @@ namespace Capstone.DAO
                     {
                         cmd.Parameters.AddWithValue("@game_id", rating.GameId);
                         cmd.Parameters.AddWithValue("@user_id", rating.UserId);
-                        cmd.Parameters.AddWithValue("@rating_value", rating.Value);
-                        cmd.Parameters.AddWithValue("@rating_datetime", rating.DatePosted);
+                        cmd.Parameters.AddWithValue("@rating_value", rating.RatingValue);
+                        cmd.Parameters.AddWithValue("@rating_datetime", rating.RatingDateTime);
 
                         int count = cmd.ExecuteNonQuery();
 
@@ -206,8 +206,8 @@ namespace Capstone.DAO
 
             rating.GameId = Convert.ToInt32(reader["game_id"]);
             rating.UserId = Convert.ToInt32(reader["user_id"]);
-            rating.Value = Convert.ToInt32(reader["rating_value"]);
-            rating.DatePosted = Convert.ToDateTime(reader["rating_datetime"]);
+            rating.RatingValue = Convert.ToInt32(reader["rating_value"]);
+            rating.RatingDateTime = Convert.ToDateTime(reader["rating_datetime"]);
             return rating;
         }
     }
