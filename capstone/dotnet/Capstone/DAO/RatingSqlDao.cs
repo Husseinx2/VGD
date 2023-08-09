@@ -10,8 +10,8 @@ namespace Capstone.DAO
     {
         private readonly string connectionString = "";
 
-        private readonly string sqlListRatingsByGameId = "SELECT rating_id, game_id, user_id, rating_value, rating_datetime FROM rating  WHERE rating.game_id = @game_id";
-        private readonly string sqlListRatingsByUserId = "SELECT rating_id, game_id, user_id, rating_value, rating_datetime FROM rating WHERE rating.user_id = @user_id";
+        private readonly string sqlListRatingsByGameId = "SELECT  game_id, user_id, rating_value, rating_datetime FROM rating  WHERE rating.game_id = @game_id";
+        private readonly string sqlListRatingsByUserId = "SELECT  game_id, user_id, rating_value, rating_datetime FROM rating WHERE rating.user_id = @user_id";
 
         private readonly string sqlGetRating = "SELECT rating_id, game_id, user_id, rating_value, rating_datetime FROM rating " +
             "WHERE rating_id = @rating_id;";
@@ -91,7 +91,6 @@ namespace Capstone.DAO
         }
         public Rating AddRating(Rating rating)
         {
-            rating.RatingId = 0;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -104,7 +103,6 @@ namespace Capstone.DAO
                         cmd.Parameters.AddWithValue("@rating_value", rating.Value);
                         cmd.Parameters.AddWithValue("@rating_datetime", rating.DatePosted);
 
-                        rating.RatingId = (int)cmd.ExecuteScalar();
                     }
                 }
             }
@@ -180,7 +178,6 @@ namespace Capstone.DAO
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(sqlUpdateRating, conn))
                     {
-                        cmd.Parameters.AddWithValue("@rating_id", rating.RatingId);
                         cmd.Parameters.AddWithValue("@game_id", rating.GameId);
                         cmd.Parameters.AddWithValue("@user_id", rating.UserId);
                         cmd.Parameters.AddWithValue("@rating_value", rating.Value);
@@ -207,7 +204,6 @@ namespace Capstone.DAO
 
             Rating rating = new Rating();
 
-            rating.RatingId = Convert.ToInt32(reader["rating_id"]);
             rating.GameId = Convert.ToInt32(reader["game_id"]);
             rating.UserId = Convert.ToInt32(reader["user_id"]);
             rating.Value = Convert.ToInt32(reader["rating_value"]);
