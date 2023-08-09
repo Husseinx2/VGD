@@ -64,5 +64,23 @@ namespace Capstone.Controllers
         {
             return Ok(gameDao.DeleteGame(gameId));
         }
+
+        [HttpGet("genres")]
+        public ActionResult<List<string>> ListGenres()
+        {
+            return Ok(gameDao.ListGenres());
+        }
+
+        [HttpGet("platforms")]
+        public ActionResult<List<string>> ListPlatforms()
+        {
+            return Ok(gameDao.ListPlatforms());
+        }
+
+        [HttpGet("companies")]
+        public ActionResult<List<string>> ListCompanies()
+        {
+            return Ok(gameDao.ListCompanies());
+        }
     }
 }
