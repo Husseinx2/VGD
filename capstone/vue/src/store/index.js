@@ -18,6 +18,7 @@ if(currentToken != null) {
 
 export default new Vuex.Store({
   state: {
+    gameEdited: false,
     gameAdded: false,
     token: currentToken || '',
     user: currentUser || {},
@@ -25,6 +26,9 @@ export default new Vuex.Store({
   mutations: {
     GAME_ADDED(state, payload) {
       state.gameAdded = payload;
+    },
+    GAME_EDITED(state,payload) {
+      state.gameEdited = payload;
     },
     SET_AUTH_TOKEN(state, token) {
       state.token = token;

@@ -238,6 +238,7 @@ export default {
       ) {
         gameService.editGame(this.game).then(() => {
           gameService.list();
+          this.$store.commit("GAME_EDITED",true);
           this.$router.push("/");
         });
       }
