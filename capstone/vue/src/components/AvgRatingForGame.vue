@@ -29,7 +29,7 @@ export default {
       }
     },
     GetRatings() {
-      ratingService.getRatingByGameId(this.gameId).then((response) => {
+      ratingService.getRatingByGameId(this.game.id).then((response) => {
         this.ratings = response.data;
       });
     },
