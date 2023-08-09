@@ -7,6 +7,8 @@ namespace Capstone.DAO.Interfaces
     {
         public List<Rating> ListRatingsByGameId(int gameId);
 
+        public List<Rating> ListRatingsByUserId(int userId);
+
         public Rating GetRating(int gameId, int userId);
 
         public Rating AddRating(int gameId, int userId);
