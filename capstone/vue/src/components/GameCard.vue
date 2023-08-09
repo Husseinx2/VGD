@@ -15,21 +15,22 @@
           <b-card-img v-bind:src="item.imageUrl" style="max-width: 20rem" />
         </router-link>
         <b-card-text class="description">{{ item.description }}</b-card-text>
-        <avg-rating-for-game /> <!--This is importing the average star rating-->
+        <avg-rating-for-game v-bind:game="item" />
+        <!--This is importing the average star rating-->
         <b-button-group class="mx-1" v-show="$store.state.user.role == 'admin'">
           <b-button
             class="btn btn-warning"
             v-bind:to="{ name: 'edit', params: { id: item.id } }"
           >
-             Edit  <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
+            Edit <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
           </b-button>
         </b-button-group>
         <b-button-group class="mx-1" v-show="$store.state.user.role == 'admin'">
           <b-button
             class="btn btn-danger"
             v-bind:to="{ name: 'delete', params: { id: item.id } }"
-            >Delete   <b-icon icon="trash" aria-hidden="true" > </b-icon> </b-button
-          >
+            >Delete <b-icon icon="trash" aria-hidden="true"> </b-icon>
+          </b-button>
         </b-button-group>
         <template #footer>
           <h3>
@@ -44,7 +45,7 @@
 <script>
 import avgRatingForGame from "../components/AvgRatingForGame.vue";
 export default {
-  components: {avgRatingForGame},
+  components: { avgRatingForGame },
   props: ["item"],
   data() {
     return {

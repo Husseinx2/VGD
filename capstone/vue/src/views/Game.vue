@@ -63,7 +63,5 @@ export default {
  .desc {
    margin:50px
  }
- .rating{
-   
- }
+
 </style>
