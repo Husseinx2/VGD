@@ -25,5 +25,7 @@ export default {
 </script>
 
 <style>
-
+footer {
+  background-color:whitesmoke;
+}
 </style>
