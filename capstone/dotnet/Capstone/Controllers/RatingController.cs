@@ -19,7 +19,7 @@ namespace Capstone.Controllers
         [HttpGet("game/{gameId}")]
         public ActionResult<List<Rating>> ListRatingsByGameId(int gameId)
         {
-            List<Rating> ratings = ratingDao.ListRatingsByGameId(gameId);
+            List<Rating> ratings = ratingDao.ListRatingByGameId(gameId);
             if (ratings != null && ratings.Count != 0)
             {
                 return Ok(ratings);

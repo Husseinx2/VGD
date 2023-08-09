@@ -28,7 +28,7 @@ namespace Capstone.DAO
             this.connectionString = connectionString;
         }
 
-        public List<Rating> ListRatingsByGameId(int gameId)
+        public List<Rating> ListRatingByGameId(int gameId)
         {
             List<Rating> ratings = new List<Rating>();
 
@@ -144,7 +144,7 @@ namespace Capstone.DAO
         }
 
         public bool DeleteRating(int gameId, int userId)
-        {
+        { 
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -210,7 +210,5 @@ namespace Capstone.DAO
             rating.DatePosted = Convert.ToDateTime(reader["rating_datetime"]);
             return rating;
         }
-
-        
     }
 }
