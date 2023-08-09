@@ -22,8 +22,8 @@
           >Search</b-button
         >
       </b-nav-form>
-      <router-link to="/Advancedsearch">
-        Advanced searched
+      <router-link v-if="!$route.meta.hideNavbar" to="/Advancedsearch">
+        Advanced searched 
       </router-link>
       <b-alert v-model="showAlert" variant="danger" dismissible>
         Not Found!
