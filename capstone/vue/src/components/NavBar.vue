@@ -11,7 +11,7 @@
           v-if="!$route.meta.hideNavbar"
           size="sm"
           v-model="search"
-          placeholder="Search"
+          placeholder="Search Games"
         >
         </b-form-input>
         <b-button
@@ -19,11 +19,11 @@
           v-on:click="searchGames"
           size="sm"
           type="submit"
-          >Search</b-button
-        >
+          ><b-icon icon="search"></b-icon>
+        </b-button>
       </b-nav-form>
       <router-link v-if="!$route.meta.hideNavbar" to="/Advancedsearch">
-        Advanced searched
+        Advanced search
       </router-link>
       <b-alert v-model="showAlert" variant="danger" dismissible>
         Not Found!
