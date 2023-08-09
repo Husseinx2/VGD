@@ -1,6 +1,6 @@
 <template>
   <div>
-<add-game-form-vue />
+<add-game-form-vue class="addGame" />
  </div>
 </template>
 
@@ -11,6 +11,10 @@ components: {AddGameFormVue}
 }
 </script>
 
-<style>
-
+<style scoped>
+.addGame{
+  width: 50%;
+  margin-left:25%;
+  padding-right: 10%
+}
 </style>

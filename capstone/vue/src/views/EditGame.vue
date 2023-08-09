@@ -1,6 +1,6 @@
 <template>
   <div>
-<edit-game-form-vue />
+<edit-game-form-vue class="editGame" />
  </div>
 </template>
 
@@ -11,6 +11,10 @@ components: {EditGameFormVue}
 }
 </script>
 
-<style>
-
+<style scoped>
+.editGame{
+  width: 50%;
+  margin-left:25%;
+  padding-right: 10%
+}
 </style>

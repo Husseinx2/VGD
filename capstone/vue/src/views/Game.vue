@@ -1,8 +1,14 @@
 <template>
-  <div class="game">
+  <div>
+    <section class="desc">
     <game-description v-bind:item="game" />
+    </section>
+    <section class="rating">
     <ratings-card v-bind:item="game" />
+    </section>
+    <section class="detail">
     <game-details v-bind:item="game" />
+    </section>
   </div>
 </template>
 
@@ -54,8 +60,10 @@ export default {
 </script>
 
 <style scoped>
- .game {
+ .desc {
    margin:50px
+ }
+ .rating{
    
  }
 </style>

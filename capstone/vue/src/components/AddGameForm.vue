@@ -1,4 +1,4 @@
-<template style="width: 120px">
+<template>
   <b-form @submit.stop.prevent="onSubmit">
     <b-form-group class="titleInput">
       <label>Title</label>
