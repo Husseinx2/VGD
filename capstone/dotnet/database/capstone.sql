@@ -33,7 +33,15 @@ CREATE TABLE users (
 	user_role varchar(50) NOT NULL
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 )
-
+CREATE TABLE ratings (
+    game_id int NOT NULL,
+    user_id int NOT NULL,
+    rating_value int NOT NULL,
+    rating_datetime DATE NOT NULL,
+    CONSTRAINT [PK_ratings] PRIMARY KEY (game_id,user_id),
+    CONSTRAINT [FK_ratings_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id),
+    CONSTRAINT [FK_ratings_users] FOREIGN KEY (user_id) REFERENCES [users] (user_id)
+)
 CREATE TABLE  genre (
     genre_id int IDENTITY(1,1) NOT NULL,
 	genre_name varchar (200) NOT NULL,
@@ -96,6 +104,12 @@ INSERT INTO game (title, description, esrb_rating, release_date, image_url) VALU
 
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
+--ratings
+INSERT INTO ratings (game_id, user_id, rating_value, rating_datetime) VALUES (1,1,4, '08/09/2023');
+INSERT INTO ratings (game_id, user_id, rating_value, rating_datetime) VALUES (1,2,3, '08/09/2023');
+INSERT INTO ratings (game_id, user_id, rating_value, rating_datetime) VALUES (2,1,3, '08/08/2023');
+INSERT INTO ratings (game_id, user_id, rating_value, rating_datetime) VALUES (3,2,5, '08/08/2023');
+
 --genre 
 INSERT INTO genre (genre_name) VALUES ('Platformer');
 INSERT INTO genre (genre_name) VALUES ('Third-Person Shooter');
