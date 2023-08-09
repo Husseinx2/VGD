@@ -49,11 +49,25 @@ namespace Capstone.Controllers
             }
         }
 
+        [HttpGet("{gameId}/{userId}")]
+        public ActionResult<Rating> GetRating(int gameId, int userId)
+        {
+            Rating rating = ratingDao.GetRating(gameId, userId);
+            if (rating != null)
+            {
+                return Ok(rating);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost()]
         public ActionResult<Rating> AddRating(Rating rating)
         {
             Rating newRating = ratingDao.AddRating(rating);
-            if (newRating != null )
+            if (newRating != null)
             {
                 return Ok(newRating);
             } 
@@ -77,10 +91,10 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpDelete("/{gameId}/{userId}")]
+        [HttpDelete("{gameId}/{userId}")]
         public ActionResult<bool> DeleteRating(int gameId,int userId)
         {
-            bool result =ratingDao.DeleteRating(gameId,userId);
+            bool result = ratingDao.DeleteRating(gameId,userId);
             if (result)
             {
                 return Ok(result);

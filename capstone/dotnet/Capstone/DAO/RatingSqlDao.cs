@@ -13,15 +13,15 @@ namespace Capstone.DAO
         private readonly string sqlListRatingsByGameId = "SELECT  game_id, user_id, rating_value, rating_datetime FROM rating  WHERE rating.game_id = @game_id";
         private readonly string sqlListRatingsByUserId = "SELECT  game_id, user_id, rating_value, rating_datetime FROM rating WHERE rating.user_id = @user_id";
 
-        private readonly string sqlGetRating = "SELECT rating_id, game_id, user_id, rating_value, rating_datetime FROM rating " +
-            "WHERE rating_id = @rating_id;";
+        private readonly string sqlGetRating = "SELECT game_id, user_id, rating_value, rating_datetime FROM rating " +
+            "WHERE game_id = @game_id AND user_id = @user_id;";
         private readonly string sqlAddRating = "INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) " +
             "OUTPUT INSERTED.rating_id " +
             "VALUES (@game_id, @user_id, @rating_value, @rating_datetime) ";
         private readonly string sqlDeleteRating = "DELETE rating where rating.game_id = @game_id AND rating.user_id = @user_id";
         private readonly string sqlUpdateRating = "UPDATE rating SET game_id=@game_id, user_id=@user_id, rating_value=@rating_value, " +
              "rating_datetime=@rating_datetime " +
-            "WHERE rating_id = @ratings_id;";
+            "WHERE game_id = @game_id AND user_id = user_id;";
 
         public RatingSqlDao(string connectionString)
         {
@@ -114,7 +114,7 @@ namespace Capstone.DAO
             return rating;
         }
 
-        public Rating GetRating(int ratingId, int userId)
+        public Rating GetRating(int gameId, int userId)
         {
             Rating rating = null;
             try
@@ -124,7 +124,8 @@ namespace Capstone.DAO
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(sqlGetRating, conn))
                     {
-                        cmd.Parameters.AddWithValue("@rating_id", ratingId);
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+                        cmd.Parameters.AddWithValue("@user_id", userId);
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
@@ -158,7 +159,7 @@ namespace Capstone.DAO
 
                         int count = cmd.ExecuteNonQuery();
 
-                        return true;
+                        return count == 1;
                     }
                 }
             }
@@ -193,10 +194,6 @@ namespace Capstone.DAO
             {
                 return null;
             }
-        }
-        public List<Rating> ListRatingByUserId(int userId)
-        {
-            throw new NotImplementedException();
         }
 
         private Rating MapRowToRating(SqlDataReader reader)
