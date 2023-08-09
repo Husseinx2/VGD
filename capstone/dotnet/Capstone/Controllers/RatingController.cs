@@ -47,9 +47,8 @@ namespace Capstone.Controllers
         [HttpPost()]
         public ActionResult<Rating> AddRating(Rating rating)
         {
-            rating.RatingId = 0;
             Rating newRating = ratingDao.AddRating(rating);
-            if (newRating != null || newRating.RatingId == 0)
+            if (newRating != null )
             {
                 return Ok(newRating);
             } 
