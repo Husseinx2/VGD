@@ -10,17 +10,17 @@ namespace Capstone.DAO
     {
         private readonly string connectionString = "";
 
-        private readonly string sqlListRatings = "SELECT ratings_id, game_id, user_id, rating_value, rating_datetime FROM ratings";
-        private readonly string sqlGetRatings = "SELECT ratings_id, game_id, user_id, rating_value, rating_datetime FROM ratings " +
-            "WHERE ratings_id = @ratings_id;";
-        private readonly string sqlAddRatings = "INSERT INTO ratings (game_id, user_id, rating_value, rating_datetime) " +
-            "OUTPUT INSERTED.ratings_id " +
+        private readonly string sqlListRating = "SELECT rating_id, game_id, user_id, rating_value, rating_datetime FROM rating";
+        private readonly string sqlGetRating = "SELECT rating_id, game_id, user_id, rating_value, rating_datetime FROM rating " +
+            "WHERE rating_id = @rating_id;";
+        private readonly string sqlAddRating = "INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) " +
+            "OUTPUT INSERTED.rating_id " +
             "VALUES (@game_id, @user_id, @rating_value, @rating_datetime) ";
-        private readonly string sqlDeleteRatings = "DELETE ratings where ratings.ratings_id = @ratings_id;";
-        private readonly string sqlUpdateRatings = "UPDATE ratings SET game_id=@game_id, user_id=@user_id, rating_value=@rating_value, " +
+        private readonly string sqlDeleteRating = "DELETE rating where rating.rating_id = @rating_id;";
+        private readonly string sqlUpdateRating = "UPDATE rating SET game_id=@game_id, user_id=@user_id, rating_value=@rating_value, " +
              "rating_datetime=@rating_datetime " +
-            "WHERE ratings_id = @ratings_id;";
-        public List<Rating> ListRatingsByGameId(int ratingId)
+            "WHERE rating_id = @ratings_id;";
+        public List<Rating> ListRatingByGameId(int gameId)
         {
             List<Rating> ratings = new List<Rating>();
 
@@ -29,7 +29,7 @@ namespace Capstone.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlListRatings, conn))
+                    using (SqlCommand cmd = new SqlCommand(sqlListRating, conn))
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
@@ -57,7 +57,7 @@ namespace Capstone.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlAddRatings, conn))
+                    using (SqlCommand cmd = new SqlCommand(sqlAddRating, conn))
                     {
                         cmd.Parameters.AddWithValue("@game_id", rating.GameId);
                         cmd.Parameters.AddWithValue("@user_id", rating.UserId);
@@ -84,9 +84,9 @@ namespace Capstone.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlGetRatings, conn))
+                    using (SqlCommand cmd = new SqlCommand(sqlGetRating, conn))
                     {
-                        cmd.Parameters.AddWithValue("@ratings_id", ratingId);
+                        cmd.Parameters.AddWithValue("@rating_id", ratingId);
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
@@ -107,12 +107,57 @@ namespace Capstone.DAO
 
         public bool DeleteRating(int ratingId)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlDeleteRating, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@rating_id", ratingId);
+
+                        int count = cmd.ExecuteNonQuery();
+
+                        return true;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
         }
 
-        public Rating UpdateRating(int ratingId, int userId)
+
+        public Rating UpdateRating(Rating rating)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlUpdateRating, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@rating_id", rating.RatingId);
+                        cmd.Parameters.AddWithValue("@game_id", rating.GameId);
+                        cmd.Parameters.AddWithValue("@user_id", rating.UserId);
+                        cmd.Parameters.AddWithValue("@rating_value", rating.Value);
+                        cmd.Parameters.AddWithValue("@rating_datetime", rating.DatePosted);
+
+                        int count = cmd.ExecuteNonQuery();
+
+                        return rating;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+        }
+        public List<Rating> ListRatingByUserId(int userId)
+        {
+            throw new NotImplementedException();
         }
 
         private Rating MapRowToRating(SqlDataReader reader)
@@ -120,12 +165,14 @@ namespace Capstone.DAO
 
             Rating rating = new Rating();
 
-            rating.RatingId = Convert.ToInt32(reader["ratings_id"]);
+            rating.RatingId = Convert.ToInt32(reader["rating_id"]);
             rating.GameId = Convert.ToInt32(reader["game_id"]);
             rating.UserId = Convert.ToInt32(reader["user_id"]);
             rating.Value = Convert.ToInt32(reader["rating_value"]);
             rating.DatePosted = Convert.ToDateTime(reader["rating_datetime"]);
             return rating;
         }
+
+        
     }
 }
