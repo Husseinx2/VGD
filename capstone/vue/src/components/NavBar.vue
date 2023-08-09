@@ -23,7 +23,7 @@
         >
       </b-nav-form>
       <router-link v-if="!$route.meta.hideNavbar" to="/Advancedsearch">
-        Advanced searched 
+        Advanced searched
       </router-link>
       <b-alert v-model="showAlert" variant="danger" dismissible>
         Not Found!
@@ -36,7 +36,9 @@
           v-show="$store.state.user.role == 'admin'"
           >Add a Game</b-nav-item
         >
-        <b-nav-item class="logout" href="logout">Logout</b-nav-item>
+        <b-button variant="outline-info" href="logout" class="mb-2">
+          <b-icon icon="power" aria-hidden="true" ></b-icon> Logout
+        </b-button>
       </b-navbar-nav>
     </b-navbar>
   </header>
