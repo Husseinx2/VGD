@@ -152,19 +152,10 @@
       >
     </b-form-group>
     <br />
-    <b-button-group class="mx-1">
-      <b-button type="submit" variant="primary">Submit</b-button>
-    </b-button-group>
-    <b-button-group class="mx-1">
-      <b-button type="reset" v-on:click="reset" variant="danger"
-        >Reset</b-button
-      >
-    </b-button-group>
-    <b-form-group>
-      <b-modal id="myForm">
-        <p>Game Submitted!</p>
-      </b-modal>
-    </b-form-group>
+    <b-button type="submit" variant="primary"
+      >Submit</b-button
+    >
+    <b-button type="reset" v-on:click="reset" variant="danger">Reset</b-button>
   </b-form>
 </template>
 
@@ -174,7 +165,7 @@ import GameService from "../services/GameService";
 export default {
   data() {
     return {
-      formComplete: false,
+      gameAdded: false,
       game: {
         id: 0,
         title: "",
@@ -234,6 +225,7 @@ export default {
     },
   },
   methods: {
+    // checks for validation errors
     onSubmit() {
       this.$v.game.$touch();
       if (this.$v.game.$anyError) {
@@ -241,6 +233,7 @@ export default {
       }
       this.addGame();
     },
+    //reactively validates game forms
     validateState(state) {
       const { $dirty, $error } = this.$v.game[state];
       return $dirty ? !$error : null;
@@ -250,11 +243,12 @@ export default {
         GameService.addGame(this.game)
           .then(() => {
             this.game = {};
-            this.formComplete = false;
-            this.$router.push({ name: "home" });
+            this.$store.commit("GAME_ADDED", true);
+            this.$router.push("/");
           })
           .catch(() => {
             console.log("error adding game");
+            this.$store.commit("GAME-ADDED", false)
           });
       }
     },

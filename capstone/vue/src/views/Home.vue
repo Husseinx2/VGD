@@ -3,12 +3,18 @@
     <p style="color: #8d0cc2; padding-left: 16px; padding-top: 10px">
       You must be authenticated to see this
     </p>
+    <b-alert :show="gameAdded" variant="success" role="alert">
+      Game Successfully Added
+    </b-alert>
+
+    <b-alert :show="gameEdited" variant="success" role="alert">
+      Game Successfully Edited
+    </b-alert>
     <section>
       <game-card-vue
         v-for="game in filteredList"
         v-bind:key="game.id"
         v-bind:item="game"
-         
       />
     </section>
   </div>
@@ -32,6 +38,14 @@ export default {
       return this.games.filter((game) => {
         return game.title.toLowerCase().includes(this.search);
       });
+    },
+    gameAdded() {
+      console.log("reached gameAdded");
+      return this.$store.state.gameAdded;
+    },
+    gameEdited() {
+      console.log("reached gameEdited");
+      return this.$store.state.gameEdited;
     },
   },
 
