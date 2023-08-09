@@ -1,28 +1,33 @@
 <template>
   <div>
-    <router-link
-      class="d-flex justify-content-center"
-      v-bind:to="{ name: 'game', params: { id: item.id } }"
-    >
-      <b-card footer-tag="footer">
+    <div class="d-flex justify-content-center">
+      <b-card class="my-2" footer-tag="footer">
         <template #header>
-          <h2 class="mb-0">{{ item.title }}</h2>
+          <h2 class="mb-0">
+            <b-link
+              class="title-link"
+              v-bind:to="{ name: 'game', params: { id: item.id } }"
+              >{{ item.title }}</b-link
+            >
+          </h2>
         </template>
-        <b-card-img v-bind:src="item.imageUrl" style="max-width: 20rem" />
+        <router-link v-bind:to="{ name: 'game', params: { id: item.id } }">
+          <b-card-img v-bind:src="item.imageUrl" style="max-width: 20rem" />
+        </router-link>
         <b-card-text class="description">{{ item.description }}</b-card-text>
         <b-button-group class="mx-1" v-show="$store.state.user.role == 'admin'">
           <b-button
             class="btn btn-warning"
             v-bind:to="{ name: 'edit', params: { id: item.id } }"
           >
-            Edit</b-button
-          >
+             Edit  <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
+          </b-button>
         </b-button-group>
         <b-button-group class="mx-1" v-show="$store.state.user.role == 'admin'">
           <b-button
             class="btn btn-danger"
             v-bind:to="{ name: 'delete', params: { id: item.id } }"
-            >Delete</b-button
+            >Delete   <b-icon icon="trash" aria-hidden="true" > </b-icon> </b-button
           >
         </b-button-group>
         <template #footer>
@@ -31,7 +36,7 @@
           </h3>
         </template>
       </b-card>
-    </router-link>
+    </div>
   </div>
 </template>
 
@@ -53,10 +58,7 @@ div.card {
   text-align: center;
   color: black;
 }
-
-div.card:hover {
-  border: 1px solid black;
-  background-color: rgb(235, 243, 243);
-  cursor: pointer;
+.title-link {
+  color: black;
 }
 </style>

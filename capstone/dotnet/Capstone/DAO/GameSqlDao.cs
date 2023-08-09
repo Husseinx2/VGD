@@ -71,15 +71,11 @@ namespace Capstone.DAO
             "DELETE game_developer WHERE game_developer.game_id = @game_id;" +
             "DELETE game_platform WHERE game_platform.game_id = @game_id;";
 
-        private readonly string sqlGetCompany = "SELECT company_name FROM company;";
+        private readonly string sqlListGenres = "SELECT genre_name FROM genre;";
 
-        private readonly string sqlGetPlatform = "SELECT platform_name FROM platform " +
-            "JOIN game_platform ON game_platform.platform_id = platform.platform_id " +
-            "JOIN game ON game.game_id = game_platform.game_id;";
+        private readonly string sqlListPlatforms = "SELECT platform_name FROM platform;";
 
-        private readonly string sqlGetGenre = "SELECT genre_name FROM genre; " +
-            "JOIN game_genre ON game_genre.genre_id = genre.genre_id " +
-            "JOIN game ON game.game_id = game_genre.game_id;";
+        private readonly string sqlListCompanies = "SELECT company_name FROM company;";
 
         public GameSqlDao(string connectionString)
         {
@@ -667,22 +663,21 @@ namespace Capstone.DAO
             }
         }
 
-        public Game GetCompany(string companyName)
+        public List<string> ListGenres()
         {
-            Game company = null;
+            List<string> genres = new List<string>();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlGetCompany, conn))
+                    using (SqlCommand cmd = new SqlCommand(sqlListGenres, conn))
                     {
-                        cmd.Parameters.AddWithValue("@company_name", companyName);
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            if (reader.Read())
+                            while (reader.Read())
                             {
-                                company = MapRowToGame(reader);
+                                genres.Add(Convert.ToString(reader["genre_name"]));
                             }
                         }
                     }
@@ -690,28 +685,27 @@ namespace Capstone.DAO
             }
             catch (SqlException)
             {
-                return null;
+                return new List<string>();
             }
 
-            return company;
+            return genres;
         }
 
-        public Game GetPlatform(string platformName)
+        public List<string> ListPlatforms()
         {
-            Game platform = null;
+            List<string> platforms = new List<string>();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlGetPlatform, conn))
+                    using (SqlCommand cmd = new SqlCommand(sqlListPlatforms, conn))
                     {
-                        cmd.Parameters.AddWithValue("@platform_name", platformName);
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            if (reader.Read())
+                            while (reader.Read())
                             {
-                                platform = MapRowToGame(reader);
+                                platforms.Add(Convert.ToString(reader["platform_name"]));
                             }
                         }
                     }
@@ -719,28 +713,27 @@ namespace Capstone.DAO
             }
             catch (SqlException)
             {
-                return null;
+                return new List<string>();
             }
 
-            return platform;
+            return platforms;
         }
 
-        public Game GetGenre(string genreName)
+        public List<string> ListCompanies()
         {
-            Game genre = null;
+            List<string> companies = new List<string>();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlGetGenre, conn))
+                    using (SqlCommand cmd = new SqlCommand(sqlListCompanies, conn))
                     {
-                        cmd.Parameters.AddWithValue("@genre_name", genreName);
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            if (reader.Read())
+                            while (reader.Read())
                             {
-                                genre = MapRowToGame(reader);
+                                companies.Add(Convert.ToString(reader["company_name"]));
                             }
                         }
                     }
@@ -748,10 +741,10 @@ namespace Capstone.DAO
             }
             catch (SqlException)
             {
-                return null;
+                return new List<string>();
             }
 
-            return genre;
+            return companies;
         }
 
         private Game MapRowToGame(SqlDataReader reader)

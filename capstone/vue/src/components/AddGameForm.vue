@@ -36,33 +36,33 @@
     </b-form-group>
     <!-- esrb rating -->
     <b-form-group>
-    <label for="description">ESRB Rating:</label>
-    <b-form-select
-      :options="options"
-      type="text"
-      name="rating"
-      v-model="$v.game.esrbRating.$model"
-      :state="validateState('esrbRating')"
-      aria-describedby="input-live-feedback3"
-      required
-    ></b-form-select>
-    <b-form-invalid-feedback id="input-live-feedback3"
-      >Enter a valid rating</b-form-invalid-feedback
-    >
+      <label for="description">ESRB Rating:</label>
+      <b-form-select
+        :options="options"
+        type="text"
+        name="rating"
+        v-model="$v.game.esrbRating.$model"
+        :state="validateState('esrbRating')"
+        aria-describedby="input-live-feedback3"
+        required
+      ></b-form-select>
+      <b-form-invalid-feedback id="input-live-feedback3"
+        >Enter a valid rating</b-form-invalid-feedback
+      >
     </b-form-group>
     <!-- date -->
     <b-form-group>
-    <label for="date">Release Date:</label>
-    <b-form-datepicker
-      v-model="$v.game.releaseDate.$model"
-      :state="validateState('releaseDate')"
-      aria-describedby="input-live-4"
-      type="date"
-      name="date"
-      required
-    />
-   <b-form-invalid-feedback id="input-live-4"
-    >Enter a valid date</b-form-invalid-feedback
+      <label for="date">Release Date:</label>
+      <b-form-datepicker
+        v-model="$v.game.releaseDate.$model"
+        :state="validateState('releaseDate')"
+        aria-describedby="input-live-4"
+        type="date"
+        name="date"
+        required
+      />
+      <b-form-invalid-feedback id="input-live-4"
+        >Enter a valid date</b-form-invalid-feedback
       >
     </b-form-group>
 
@@ -119,7 +119,7 @@
         >Please enter valid platform(s)</b-form-invalid-feedback
       >
     </b-form-group>
-      <br />
+    <br />
     <b-form-group>
       <!-- publishers -->
       <label for="Publishers">Type a new Publisher and press enter </label>
@@ -135,7 +135,7 @@
         >Please enter valid publisher(s)</b-form-invalid-feedback
       >
     </b-form-group>
-      <br />
+    <br />
     <b-form-group>
       <!-- developers -->
       <label for="developers">Type a new Developer and press enter </label>
@@ -210,18 +210,18 @@ export default {
         required,
       },
       platforms: {
-        required
+        required,
       },
       publishers: {
-        required
+        required,
       },
       developers: {
-        required
+        required,
       },
       imageUrl: {
         required,
-        url
-      }
+        url,
+      },
     },
   },
   methods: {

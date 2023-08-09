@@ -22,7 +22,7 @@
           >Search</b-button
         >
       </b-nav-form>
-      <router-link to="/Advancedsearch">
+      <router-link v-if="!$route.meta.hideNavbar" to="/Advancedsearch">
         Advanced searched
       </router-link>
       <b-alert v-model="showAlert" variant="danger" dismissible>
@@ -30,13 +30,17 @@
       </b-alert>
 
       <b-navbar-nav class="ml-auto">
-        <b-nav-item
+        <router-link
           class="addGame"
-          href="addGame"
+          to="/addGame"
           v-show="$store.state.user.role == 'admin'"
-          >Add a Game</b-nav-item
         >
-        <b-nav-item class="logout" href="logout">Logout</b-nav-item>
+          <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
+          Add a Game
+        </router-link>
+        <b-button variant="outline-info" to="/logout" class="mb-2">
+          <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+        </b-button>
       </b-navbar-nav>
     </b-navbar>
   </header>
@@ -112,5 +116,11 @@ export default {
 <style scoped>
 header {
   background-color: #c5e2ff;
+}
+.addGame {
+  position: relative;
+  right: 10px;
+  top: 4px;
+  font-size: 20px;
 }
 </style>

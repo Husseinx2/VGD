@@ -15,5 +15,11 @@ namespace Capstone.DAO.Interfaces
 
         public bool DeleteGame(int gameId);
 
+        public List<string> ListGenres();
+
+        public List<string> ListPlatforms();
+
+        public List<string> ListCompanies();
+
     }
 }
