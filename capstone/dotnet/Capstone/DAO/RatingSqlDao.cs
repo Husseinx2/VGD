@@ -23,6 +23,11 @@ namespace Capstone.DAO
              "rating_datetime=@rating_datetime " +
             "WHERE rating_id = @ratings_id;";
 
+        public RatingSqlDao(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
+
         public List<Rating> ListRatingsByGameId(int gameId)
         {
             List<Rating> ratings = new List<Rating>();
