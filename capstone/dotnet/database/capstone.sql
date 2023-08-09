@@ -33,14 +33,14 @@ CREATE TABLE users (
 	user_role varchar(50) NOT NULL
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 )
-CREATE TABLE ratings (
+CREATE TABLE rating (
     game_id int NOT NULL,
     user_id int NOT NULL,
     rating_value int NOT NULL,
     rating_datetime DATE NOT NULL,
-    CONSTRAINT [PK_ratings] PRIMARY KEY (game_id,user_id),
-    CONSTRAINT [FK_ratings_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id),
-    CONSTRAINT [FK_ratings_users] FOREIGN KEY (user_id) REFERENCES [users] (user_id)
+    CONSTRAINT [PK_rating] PRIMARY KEY (game_id,user_id),
+    CONSTRAINT [FK_rating_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id),
+    CONSTRAINT [FK_rating_users] FOREIGN KEY (user_id) REFERENCES [users] (user_id)
 )
 CREATE TABLE  genre (
     genre_id int IDENTITY(1,1) NOT NULL,
@@ -101,14 +101,14 @@ INSERT INTO game (title, description, esrb_rating, release_date, image_url) VALU
 INSERT INTO game (title, description, esrb_rating, release_date, image_url) VALUES ('Grand Theft Auto V','Grand Theft Auto V is an action-adventure game played from either a third-person or first-person perspective. Players complete missions—linear scenarios with set objectives—to progress through the story. Outside of the missions, players may freely roam the open world.','M','09/17/2013', 'https://img-grouvee-com.b-cdn.net/upload/cache/ed/42/ed42cf726c8299b8ee36e0b34754ad61.jpg');
 INSERT INTO game (title, description, esrb_rating, release_date, image_url) VALUES ('Prey',' In Prey, you awaken aboard Talos I, a space station orbiting the moon in the year 2032. You are the key subject of an experiment meant to alter humanity forever – but things have gone terribly wrong. The space station has been overrun by hostile aliens and you are now being hunted.','M','05/15/2017', 'https://img-grouvee-com.b-cdn.net/upload/cache/cb/f6/cbf6710ef76b9a48bf3f8fe72658d6f5.jpg');
 
-
+--users
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
---ratings
-INSERT INTO ratings (game_id, user_id, rating_value, rating_datetime) VALUES (1,1,4, '08/09/2023');
-INSERT INTO ratings (game_id, user_id, rating_value, rating_datetime) VALUES (1,2,3, '08/09/2023');
-INSERT INTO ratings (game_id, user_id, rating_value, rating_datetime) VALUES (2,1,3, '08/08/2023');
-INSERT INTO ratings (game_id, user_id, rating_value, rating_datetime) VALUES (3,2,5, '08/08/2023');
+--rating
+INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) VALUES (1,1,4, '08/09/2023');
+INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) VALUES (1,2,3, '08/09/2023');
+INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) VALUES (2,1,3, '08/08/2023');
+INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) VALUES (3,2,5, '08/08/2023');
 
 --genre 
 INSERT INTO genre (genre_name) VALUES ('Platformer');
