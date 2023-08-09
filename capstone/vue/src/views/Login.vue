@@ -4,17 +4,17 @@
       <form @submit.prevent="login">
         <h1 style="padding-top: 15px">Please Sign In</h1>
         <div role="alert" v-if="invalidCredentials" style="color: red; padding-bottom: 15px">
-          Invalid username and password!
+         <b-icon icon="exclamation-circle-fill" variant="warning"></b-icon>  Invalid username and password!
         </div>
         <div style="color: green; padding-bottom: 15px" role="alert" v-if="this.$route.query.registration">
           Thank you for registering, please sign in.
         </div>
         <div class="form-input-group form-floating">
-          <label for="username">Username</label>
+          <label for="username">Username <b-icon icon="person-fill"/> </label>
           <input type="text" id="username" v-model="user.username" required autofocus />
         </div>
         <div class="form-input-group form-floating" style="margin-left: 3px">
-          <label for="password">Password</label>
+          <label for="password">Password <b-icon icon="lock-fill"/></label>
           <input type="password" id="password" v-model="user.password" required />
         </div>
         <button class="btn btn-primary py-2" type="submit">Sign in</button>
