@@ -20,7 +20,7 @@ namespace Capstone.Controllers
         public ActionResult<List<Rating>> ListRatingsByGameId(int gameId)
         {
             List<Rating> ratings = ratingDao.ListRatingsByGameId(gameId);
-            if (ratings != null && ratings.Count != 0)
+            if (ratings != null)
             {
                 return Ok(ratings);
             }
@@ -47,8 +47,9 @@ namespace Capstone.Controllers
         [HttpPost()]
         public ActionResult<Rating> AddRating(Rating rating)
         {
+            rating.RatingId = 0;
             Rating newRating = ratingDao.AddRating(rating);
-            if (newRating != null )
+            if (newRating != null || newRating.RatingId == 0)
             {
                 return Ok(newRating);
             } 

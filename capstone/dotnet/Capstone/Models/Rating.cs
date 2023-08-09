@@ -7,7 +7,7 @@ namespace Capstone.Models
     {
         public int UserId { get; set; }
         public int GameId { get; set; }
-        public int Value { get; set; }
-        public DateTime DatePosted { get; set; }
+        public int RatingValue { get; set; }
+        public DateTime RatingDatetime { get; set; }
     }
 }
