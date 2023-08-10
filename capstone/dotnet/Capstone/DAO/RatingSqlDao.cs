@@ -176,7 +176,7 @@ namespace Capstone.DAO
         }
 
         public bool DeleteRating(int gameId, int userId)
-        {
+        { 
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -255,7 +255,5 @@ namespace Capstone.DAO
 
             return rating;
         }
-
-        
     }
 }
