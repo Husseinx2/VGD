@@ -35,7 +35,7 @@
         </td>
         <td>
           <section class="rating">
-            <ratings-card v-bind:item="rating" />
+            <ratings-card v-bind:item="id" />
           </section>
         </td>
       </tbody>
