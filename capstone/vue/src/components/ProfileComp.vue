@@ -1,14 +1,12 @@
 <template>
     <section class="ProfileComp">
-        <p>Id: {{ item.id }}</p>
-        <p>Username: {{ item.usernme }}</p>
     </section>
 </template>
 
 <script>
 export default {
-    name: "profileComp",
-    props: ["item"],
+  name: "profileComp",
+  props: ["item"],
 };
 </script>
 
