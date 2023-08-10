@@ -19,11 +19,11 @@ namespace Capstone.DAO
             connectionString = dbConnectionString;
         }
 
-        public IList<User> GetUsers()
+        public IList<ReturnUser> GetUsers()
         {
-            IList<User> users = new List<User>();
+            IList<ReturnUser> users = new List<ReturnUser>();
 
-            string sql = "SELECT user_id, username, password_hash, salt, user_role FROM users";
+            string sql = "SELECT user_id, username, user_role FROM users";
 
             try
             {
@@ -36,7 +36,7 @@ namespace Capstone.DAO
 
                     while (reader.Read())
                     {
-                        User user = MapRowToUser(reader);
+                        ReturnUser user = MapRowTorReturnUser(reader);
                         users.Add(user);
                     }
                 }
@@ -156,5 +156,14 @@ namespace Capstone.DAO
             user.Role = Convert.ToString(reader["user_role"]);
             return user;
         }
+        private ReturnUser MapRowTorReturnUser(SqlDataReader reader)
+        {
+            ReturnUser user = new ReturnUser();
+            user.UserId = Convert.ToInt32(reader["user_id"]);
+            user.Username = Convert.ToString(reader["username"]);
+            user.Role = Convert.ToString(reader["user_role"]);
+            return user;
+        }
+
     }
 }
