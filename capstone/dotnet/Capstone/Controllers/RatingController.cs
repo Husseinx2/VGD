@@ -100,5 +100,32 @@ namespace Capstone.Controllers
             }
         }
 
+        [HttpDelete("game/{gameId}")]
+        public ActionResult<bool> DeleteRatingsByGameId(int gameId)
+        {
+            bool result = ratingDao.DeleteRatingsByGameId(gameId);
+            if (result)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return StatusCode(400, result);
+            }
+        }
+
+        [HttpDelete("user/{userId}")]
+        public ActionResult<bool> DeleteRatingsByUserId(int userId)
+        {
+            bool result = ratingDao.DeleteRatingsByUserId(userId);
+            if (result)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return StatusCode(400, result);
+            }
+        }
     }
 }
