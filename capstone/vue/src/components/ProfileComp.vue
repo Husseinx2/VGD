@@ -1,13 +1,31 @@
 <template>
   <section class="ProfileComp">
-       <h1> {{ $store.state.user.username }}</h1>
+       <h1> {{user.username}}</h1>
   </section>
 </template>
 
 <script>
+import UserService from '../services/UserService';
 export default {
     props:['item'],
   name: "profileComp",
+  data() {
+    return {
+      user:{}
+    }
+  },
+  methods: {
+    GetUser() {
+      console.log("reached")
+         UserService.GetUser(this.item).then((response) => {
+           this.user = response.data;
+         })
+    }
+      
+  },
+  created() {
+    this.GetUser();
+  }
 };
 </script>
 

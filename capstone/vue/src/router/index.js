@@ -135,7 +135,7 @@ const router = new Router({
       component: Unauthorized
     },
     {
-      path: "/profile",
+      path: "/profile/:id",
       name: "profile",
       component: Profile,
       meta: {

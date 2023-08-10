@@ -1,7 +1,7 @@
 <template>
   <div class= "container">
     <table class="table-secondary">
-      <tbody>
+      <tbody style="background-color: #e9f4ff">
         <tr>
           <th scope="row">Release Date</th>
           <td>{{ new Date(item.releaseDate).toLocaleString("en", options)  }}</td>
