@@ -139,7 +139,8 @@ const router = new Router({
       name: "profile",
       component: Profile,
       meta: {
-        requiresAuth:true
+        requiresAuth:true,
+        requiresAccess:true
       }
     },
     {
@@ -158,6 +159,7 @@ router.beforeEach((to, from, next) => {
   // Determine if the route requires Authentication
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
   const adminOnly = to.matched.some(x => x.meta.adminOnly)
+  const requiresAccess = to.matched.some(x => x.meta.requiresAccess)
   // If it does and they are not logged in, send the user to "/login"
   if (requiresAuth && store.state.token === '') {
     next("/login");
@@ -165,12 +167,24 @@ router.beforeEach((to, from, next) => {
     // Else let them go to their next destination
     next();
   }
+    // denies access to non users 
   if (adminOnly && store.state.user.role == 'user') {
     next("/unauthorized")
   }
   else {
     next();
   }
+//user profile restrictions
+  if (requiresAccess && store.state.user.role == 'user' && to.params.id != store.state.user.userId) {
+    next("/unauthorized")
+  }
+  else {
+    next();
+  }
+
+  
+
+
 });
 
 
