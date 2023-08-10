@@ -1,10 +1,16 @@
 <template>
   <div id="app">
     <div id="nav">
+      <header>
       <nav-bar />
+      </header>
     </div>
+    <body>
     <router-view />
+    </body>
+    <footer>
     <the-footer />
+    </footer>
   </div>
 </template>
 <script>
@@ -23,5 +29,13 @@ div {
 }
 * {
   background-color:whitesmoke;
+}
+body{
+  background-color: whitesmoke;
+  min-height: 100hv;
+}
+template{
+  height: 100%;
+  background-color: whitesmoke;
 }
 </style>
