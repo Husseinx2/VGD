@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Admin Only</h1>
-    <b-table select-mode="single" selectable hover :items="users"  @row-selected="onRowSelected"> </b-table>
+    <b-table select-mode="single" striped selectable hover :items="users"  @row-selected="onRowSelected"> </b-table>
   </div>
 </template>
 
