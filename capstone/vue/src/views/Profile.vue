@@ -19,9 +19,12 @@ components: {ProfileComp, ProfileRating},
 }
 </script>
 
-<style>
+<style scoped>
 div {
   background-color:whitesmoke;
+}
+main{
+  min-height: 100vh;
 }
 
 </style>
