@@ -40,9 +40,10 @@
         </router-link>
         <b-dropdown right text="Settings" variant="primary">
           <b-dropdown-item>
-            <b-button variant="outline-info" to="/logout" class="mb-2">
+            <b-icon icon="person" aria-hidden="true"></b-icon>Profile
+          </b-dropdown-item>
+          <b-dropdown-item to="/logout">
               <b-icon icon="power" aria-hidden="true"></b-icon> Logout
-            </b-button>
           </b-dropdown-item>
         </b-dropdown>
       </b-navbar-nav>
