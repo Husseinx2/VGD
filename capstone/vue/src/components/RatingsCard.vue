@@ -39,12 +39,12 @@ export default {
         this.rating.userId = this.$store.state.user.userId;
         const date = new Date().toJSON();
         this.rating.ratingDateTime = date;
-        RatingService.addNewRating(this.rating);
+        RatingService.addRating(this.rating);
       } else {
         console.log("existing");
         const date = new Date().toJSON();
         this.rating.ratingDateTime = date;
-        RatingService.updateExistingRating(this.rating);
+        RatingService.updateRating(this.rating);
       }
     },
   },

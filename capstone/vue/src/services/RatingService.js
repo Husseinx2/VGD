@@ -1,22 +1,28 @@
 import axios from 'axios';
 
 export default {
-  getRatingByGameId(id){
-    return axios.get(`/rating/game/${id}`);
+  listRatingsByGameId(gameId) {
+    return axios.get(`/rating/game/${gameId}`);
   },
-  getRating(gameId,userId){
+  listRatingsByUserId(userId) {
+    return axios.get(`/rating/user/${userId}`);
+  },
+  getRating(gameId, userId) {
     return axios.get(`/rating/${gameId}/${userId}`)
   },
-  getRatingByUserId(game,id){
-    return axios.get(`/rating/${game/id}`);
+  addRating(rating) {
+    return axios.post("/rating", rating);
   },
-  updateExistingRating(currentRating){
-    return axios.put('/rating',currentRating);
+  updateRating(rating) {
+    return axios.put('/rating', rating);
   },
-  addNewRating(newRating){
-    return axios.post("/rating", newRating);
+  deleteRating(gameId, userId) {
+    return axios.delete(`/rating/${gameId}/${userId}`);
   },
-  deleteCurrentRating(id){
-    return axios.delete(`/rating/${id}`);
-  }
+  deleteRatingsByGameId(gameId) {
+    return axios.delete(`/rating/game/${gameId}`);
+  },
+  deleteRatingsByUserId(userId) {
+    return axios.delete(`/rating/user/${userId}`);
+  },
 }
