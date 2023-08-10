@@ -1,12 +1,12 @@
 <template>
-    <section class="ProfileComp">
-    </section>
+  <section class="ProfileComp">
+       <h1> {{ $store.state.user.username }}</h1>
+  </section>
 </template>
 
 <script>
 export default {
   name: "profileComp",
-  props: ["item"],
 };
 </script>
 

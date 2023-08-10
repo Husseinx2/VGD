@@ -31,6 +31,7 @@ export default {
         ratingValue: null,
         ratingDateTime: null,
       },
+      hasRating: false,
       prevRating: {
         gameId: this.item,
         userId: this.$store.state.user.userId,
@@ -43,7 +44,7 @@ export default {
   methods: {
     updateRating() {
       this.rating.ratingDateTime = new Date().toJSON();
-      if (!this.prevRating.ratingValue) {
+      if (!this.hasRating) {
         if (this.rating.ratingValue) {
           console.log("add rating");
           RatingService.addRating(this.rating);
@@ -55,14 +56,14 @@ export default {
         console.log("update rating");
         RatingService.updateRating(this.rating);
       }
-      this.prevRating = { ...this.rating };
+      this.hasRating = this.rating.ratingValue != null
     },
   },
   created() {
     RatingService.getRating(this.item, this.$store.state.user.userId)
       .then((response) => {
         this.rating = response.data;
-        this.prevRating = { ...this.rating };
+        this.hasRating = true;
       })
       .catch(() => {
         this.rating = {
@@ -70,11 +71,7 @@ export default {
           userId: this.$store.state.user.userId,
           ratingValue: null,
         };
-        this.prevRating = {
-          gameId: this.item,
-          userId: this.$store.state.user.userId,
-          ratingValue: null,
-        };
+        this.hasRating = false;
       });
     console.log(this.rating);
   },
