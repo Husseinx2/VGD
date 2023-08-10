@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Admin Only</h1>
-    <b-table select-mode="single" selectable hover :items="users"  @row-selected="onRowSelected" > </b-table>
+    <b-table select-mode="single" selectable hover :items="users"  @row-selected="onRowSelected"> </b-table>
   </div>
 </template>
 
@@ -15,8 +15,8 @@ export default {
   },
   methods: {
   onRowSelected(item) {
-      console.log(item);
-      this.$router.push({name:"home",  params: { id: item.id }})
+      console.log(item[0].userId);
+      this.$router.push({ name: `profile`, params: { id: item[0].userId } })
    },
     getUsers() {
       UserService.listUsers()

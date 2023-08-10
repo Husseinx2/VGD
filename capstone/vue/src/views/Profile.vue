@@ -4,8 +4,8 @@
       <h1>
           Profile
       </h1>
-      <profile-comp v-bind:item="$store.state.user.userId" />
-      <profile-rating  v-bind:item="$store.state.user.userId"/>
+      <profile-comp v-bind:item="$route.params.id" />
+      <profile-rating  v-bind:item="$route.params.id"/>
       </main>
   </div>
 </template>
