@@ -31,6 +31,15 @@
             v-bind:to="{ name: 'delete', params: { id: item.id } }"
             >Delete <b-icon icon="trash" aria-hidden="true"> </b-icon>
           </b-button>
+          <b-modal
+            ok-variant="danger"
+            ok-title="DELETE"
+            cancel-title="CANCEL"
+            @ok="deleteGame"
+            id="my-modal"
+          >
+            Are you sure you want to delete {{ item.title }}?
+          </b-modal>
         </b-button-group>
         <template #footer>
           <h3>

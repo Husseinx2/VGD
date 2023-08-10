@@ -17,12 +17,16 @@ if(currentToken != null) {
 
 export default new Vuex.Store({
   state: {
+    gameDeleted: false,
     gameEdited: false,
     gameAdded: false,
     token: currentToken || '',
     user: currentUser || {},
   },
   mutations: {
+    GAME_DELETED(state,payload){
+      state.gameDeleted = payload;
+    },
     GAME_ADDED(state, payload) {
       state.gameAdded = payload;
     },
