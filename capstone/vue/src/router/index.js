@@ -13,6 +13,7 @@ import deleteGame from '../views/DeleteGame.vue'
 import Unauthorized from '../views/Unauthorized.vue'
 import search from '../views/Search.vue'
 import AdvancedSearch from '../views/AdvancedSearch.vue'
+import Profile from '../views/Profile.vue'
 
 Vue.use(Router)
 
@@ -131,6 +132,11 @@ const router = new Router({
       path: "/unauthorized",
       name: "unauthorized",
       component: Unauthorized
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: Profile
     }
   ]
 })
