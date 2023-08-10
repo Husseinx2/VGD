@@ -17,12 +17,11 @@ namespace Capstone.DAO
             "WHERE game_id = @game_id AND user_id = @user_id;";
         
         private readonly string sqlAddRating = "INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) " +
-            "OUTPUT INSERTED.rating_id " +
             "VALUES (@game_id, @user_id, @rating_value, @rating_datetime) ";
         
-        private readonly string sqlUpdateRating = "UPDATE rating SET game_id=@game_id, user_id=@user_id, rating_value=@rating_value, " +
+        private readonly string sqlUpdateRating = "UPDATE rating SET rating_value=@rating_value, " +
              "rating_datetime=@rating_datetime " +
-            "WHERE game_id = @game_id AND user_id = user_id;";
+            "WHERE game_id = @game_id AND user_id = @user_id;";
 
         private readonly string sqlDeleteRating = "DELETE rating where game_id = @game_id AND user_id = @user_id";
         private readonly string sqlDeleteRatingsByGameId = "DELETE rating where game_id = @game_id";
@@ -108,7 +107,7 @@ namespace Capstone.DAO
                         cmd.Parameters.AddWithValue("@user_id", rating.UserId);
                         cmd.Parameters.AddWithValue("@rating_value", rating.RatingValue);
                         cmd.Parameters.AddWithValue("@rating_datetime", rating.RatingDateTime);
-
+                        cmd.ExecuteNonQuery();
                     }
                 }
             }
