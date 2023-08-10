@@ -28,7 +28,8 @@
         <b-button-group class="mx-1" v-show="$store.state.user.role == 'admin'">
           <b-button
             class="btn btn-danger"
-            v-bind:to="{ name: 'delete', params: { id: item.id } }"
+            v-b-modal="`${item.title}`"
+            v-bind:key="item.id"
             >Delete <b-icon icon="trash" aria-hidden="true"> </b-icon>
           </b-button>
           <b-modal
@@ -36,7 +37,7 @@
             ok-title="DELETE"
             cancel-title="CANCEL"
             @ok="deleteGame"
-            id="my-modal"
+            v-bind:id="item.title"
           >
             Are you sure you want to delete {{ item.title }}?
           </b-modal>
@@ -53,6 +54,7 @@
 
 <script>
 import avgRatingForGame from "../components/AvgRatingForGame.vue";
+import gameService from "../services/GameService";
 export default {
   components: { avgRatingForGame },
   props: ["item"],
@@ -60,6 +62,14 @@ export default {
     return {
       options: { year: "numeric", month: "long", day: "numeric" },
     };
+  },
+  methods: {
+    deleteGame() {
+      gameService.deleteGame(this.item.id).then(() => {
+        this.$store.commit("GAME_DELETED", true);
+        location.reload();
+      });
+    },
   },
 };
 </script>
