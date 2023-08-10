@@ -44,6 +44,7 @@ export default {
   props: ["item"],
   data() {
     return {
+      starValue: null,
       id: 0,
       game: {},
     };
@@ -79,4 +80,7 @@ export default {
 </script>
 
 <style scoped>
+.rating{
+  margin-left: 25%
+}
 </style>
