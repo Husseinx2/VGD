@@ -14,6 +14,7 @@ import Unauthorized from '../views/Unauthorized.vue'
 import search from '../views/Search.vue'
 import AdvancedSearch from '../views/AdvancedSearch.vue'
 import Profile from '../views/Profile.vue'
+import Profiles from '../views/Profiles.vue'
 
 Vue.use(Router)
 
@@ -136,7 +137,19 @@ const router = new Router({
     {
       path: "/profile",
       name: "profile",
-      component: Profile
+      component: Profile,
+      meta: {
+        requiresAuth:true
+      }
+    },
+    {
+      path:"/profiles",
+      name:"profiles",
+      component:Profiles,
+      meta:{
+        requiresAuth: true,
+        adminOnly: true,
+      }
     }
   ]
 })

@@ -43,7 +43,7 @@
             <b-icon icon="person" aria-hidden="true"></b-icon>
             {{ $store.state.user.username }}
           </b-dropdown-item>
-          <b-dropdown-item to="/profile" v-show="$store.state.user.role == 'admin'">
+          <b-dropdown-item to="/profiles" v-show="$store.state.user.role == 'admin'">
             <b-icon
               icon="person-lines-fill"
               aria-hidden="true"
