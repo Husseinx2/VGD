@@ -1,28 +1,23 @@
 <template>
   <section class="ProfileRating">
-    <b-card v-for="rating in ratings" v-bind:key="rating.userId">
-      <b-card-header>Game: {{ rating.gameId }}</b-card-header>
-      <b-card-text> Rating: {{ rating.ratingValue }}</b-card-text>
-      <b-card-text
-        >Date:
-        {{
-          new Date(rating.ratingDateTime).toLocaleString("en", options)
-        }}</b-card-text
-      >
-    </b-card>
+    <rating-review-card
+      v-for="rating in ratings"
+      v-bind:key="rating.userId"
+      v-bind:rating="rating"
+    />
   </section>
 </template>
 
 <script>
 import ratingService from "../services/RatingService";
-
+import RatingReviewCard from "./RatingReviewCard.vue";
 export default {
   name: "profileRating",
+  components: { RatingReviewCard },
   props: ["item"],
   data() {
     return {
       ratings: [],
-      options: { year: "numeric", month: "long", day: "numeric" },
     };
   },
   methods: {
