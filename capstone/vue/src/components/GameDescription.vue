@@ -26,7 +26,7 @@
       <h1>{{ item.title }}</h1>
       <p>{{ item.description }}</p>
     </div>
-    <table>
+    <table class="table">
       <tbody>
         <td>
           <section class="detail">
@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style scoped>
-.rating {
-  margin-left: 25%;
+.table{
+  background-color: whitesmoke;
 }
 </style>
