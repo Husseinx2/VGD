@@ -1,7 +1,7 @@
 <template>
   <section class="ProfileRating">
      <b-card v-for="rating in ratings" v-bind:key="rating.userId" >
-        <b-card-header>Game: {{rating.gameId}}</b-card-header>
+        <b-card-header> Game: {{rating.gameId}}</b-card-header>
          <b-card-text> Rating: {{rating.ratingValue}}</b-card-text>
      </b-card>
   </section>
