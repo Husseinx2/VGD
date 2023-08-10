@@ -1,30 +1,30 @@
 <template>
   <div>
     <section class="desc">
-    <game-description v-bind:item="game" />
+      <game-description v-bind:item="game" />
     </section>
     <section class="rating">
-    <ratings-card v-bind:item="game" />
+      <ratings-card v-bind:item="rating" />
     </section>
     <section class="detail">
-    <game-details v-bind:item="game" />
+      <game-details v-bind:item="game" />
     </section>
   </div>
 </template>
 
 <script>
 import gameService from "../services/GameService";
-import GameDescription from '../components/GameDescription.vue';
-import GameDetails from '../components/GameDetails.vue';
-import RatingsCard from '../components/RatingsCard.vue';
-
+import GameDescription from "../components/GameDescription.vue";
+import GameDetails from "../components/GameDetails.vue";
+import RatingsCard from "../components/RatingsCard.vue";
+import RatingService from "../services/RatingService";
 export default {
-  components: { GameDescription, GameDetails, RatingsCard},
+  components: { GameDescription, GameDetails, RatingsCard },
   data() {
-
     return {
       id: 0,
       game: {},
+      rating: {},
     };
   },
   created() {
@@ -34,7 +34,7 @@ export default {
       .then((response) => {
         this.game = response.data;
         if (!this.game) {
-          this.$router.push({name: 'notFound'});
+          this.$router.push({ name: "notFound" });
         }
       })
       .catch((error) => {
@@ -51,17 +51,20 @@ export default {
           // Request was *not* made
           console.log("Error getting game: make request");
         }
-        this.$router.push("/*")
+        this.$router.push("/*");
       });
-
- 
+    ///ratings
+    RatingService.getRating(this.id, this.$store.state.user.userId).then((response) => {
+      this.rating = response.data;
+    }).catch(()=> {
+      this.rating = {}
+    })
   },
 };
 </script>
 
 <style scoped>
- .desc {
-   margin:50px
- }
-
+.desc {
+  margin: 50px;
+}
 </style>
