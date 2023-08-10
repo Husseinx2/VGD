@@ -39,10 +39,19 @@
           Add a Game
         </router-link>
         <b-dropdown right text="Settings" variant="primary">
-          <b-dropdown-item>
-            <b-button variant="outline-info" to="/logout" class="mb-2">
-              <b-icon icon="power" aria-hidden="true"></b-icon> Logout
-            </b-button>
+          <b-dropdown-item to="/profile">
+            <b-icon icon="person" aria-hidden="true"></b-icon>
+            {{ $store.state.user.username }}
+          </b-dropdown-item>
+          <b-dropdown-item to="/profile" v-show="$store.state.user.role == 'admin'">
+            <b-icon
+              icon="person-lines-fill"
+              aria-hidden="true"
+            ></b-icon>
+            profiles
+          </b-dropdown-item>
+          <b-dropdown-item to="/logout">
+            <b-icon icon="power" aria-hidden="true"></b-icon> Logout
           </b-dropdown-item>
         </b-dropdown>
       </b-navbar-nav>

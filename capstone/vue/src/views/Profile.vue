@@ -4,7 +4,7 @@
       <h1>
           Profile
       </h1>
-      <profile-comp v-bind:item="profile" />
+      <profile-comp />
 
       </main>
   </div>
