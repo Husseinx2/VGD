@@ -3,12 +3,16 @@
     <p style="color: #8d0cc2; padding-left: 16px; padding-top: 10px">
       You must be authenticated to see this
     </p>
-    <b-alert :show="gameAdded" variant="success" role="alert">
+    <b-alert :show="gameAdded" variant="success" role="alert" dismissible>
       Game Successfully Added
     </b-alert>
 
-    <b-alert :show="gameEdited" variant="success" role="alert">
+    <b-alert :show="gameEdited" variant="success" role="alert" dismissible>
       Game Successfully Edited
+    </b-alert>
+
+    <b-alert :show="gameDeleted" variant="success" dismissible role="alert">
+      Game Successfully Deleted
     </b-alert>
     <section>
       <game-card-vue
@@ -47,6 +51,9 @@ export default {
       console.log("reached gameEdited");
       return this.$store.state.gameEdited;
     },
+    gameDeleted() {
+      return this.$store.state.gameDeleted;
+    }
   },
 
   methods: {

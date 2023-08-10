@@ -14,10 +14,13 @@
           <b-button-group class="mx-1">
             <b-button
               class="btn btn-danger"
-              v-bind:to="{ name: 'delete', params: { id: item.id } }"
+              v-b-modal.my-modal
               >Delete <b-icon icon="trash" aria-hidden="true"></b-icon
             ></b-button>
           </b-button-group>
+            <b-modal title="Warning" ok-variant="danger" ok-title="DELETE" cancel-title="CANCEL" @ok="deleteGame" id="my-modal">
+                Are you sure you want to delete {{item.title}}?
+                </b-modal>
         </div>
       </span>
     </div>
@@ -56,6 +59,17 @@ export default {
       game: {},
     };
   },
+  methods:{
+    push() {
+      this.$router.push("/");
+    },
+    deleteGame() {
+      gameService.deleteGame(this.game.id).then(() => {
+        this.$store.commit("GAME_DELETED", true);
+        this.$router.push("/");
+      });
+    },
+  },
   created() {
     this.id = Number.parseInt(this.$route.params.id);
     gameService
@@ -82,7 +96,9 @@ export default {
         }
         this.$router.push("/*");
       });
-  }   
+      
+  },
+     
 };
 </script>
 
