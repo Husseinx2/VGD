@@ -21,5 +21,7 @@ namespace Capstone.DAO.Interfaces
 
         public List<string> ListCompanies();
 
+        public List<Game> Search(SearchParameters searchParams);
+
     }
 }
