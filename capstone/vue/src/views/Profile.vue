@@ -4,13 +4,18 @@
       <h1>
           Profile
       </h1>
+      <profile-comp v-bind:item="profile" />
+
       </main>
   </div>
 </template>
 
 <script>
-export default {
+import ProfileComp from '../components/ProfileComp.vue';
 
+
+export default {
+components: {ProfileComp}
 }
 </script>
 
@@ -18,4 +23,5 @@ export default {
 div {
   background-color:whitesmoke;
 }
+
 </style>

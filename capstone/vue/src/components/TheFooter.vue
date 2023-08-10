@@ -24,9 +24,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 footer {
   background-color:whitesmoke;
   margin-top: auto;
+  bottom: 0;
+  
 }
+
 </style>

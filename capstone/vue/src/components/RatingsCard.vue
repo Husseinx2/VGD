@@ -24,38 +24,57 @@ export default {
   data() {
     return {
       rating: {
-        gameId: null,
-        userId: 0,
-        ratingValue: 0,
-        ratingDateTime: 0,
+        gameId: this.item,
+        userId: this.$store.state.user.userId,
+        ratingValue: null,
+        ratingDateTime: null,
+      },
+      prevRating: {
+        gameId: this.item,
+        userId: this.$store.state.user.userId,
+        ratingValue: null,
+        ratingDateTime: null,
       },
     };
   },
 
   methods: {
     updateRating() {
-      if (!this.rating.userId) {
-        this.rating.gameId = this.item;
-        this.rating.userId = this.$store.state.user.userId;
-        const date = new Date().toJSON();
-        this.rating.ratingDateTime = date;
-        RatingService.addRating(this.rating);
+      this.rating.ratingDateTime = new Date().toJSON();
+      if (!this.prevRating.ratingValue) {
+        if (this.rating.ratingValue) {
+          console.log("add rating");
+          RatingService.addRating(this.rating);
+        }
+      } else if (!this.rating.ratingValue) {
+        console.log("delete rating");
+        RatingService.deleteRating(this.rating.gameId, this.rating.userId);
       } else {
-        console.log("existing");
-        const date = new Date().toJSON();
-        this.rating.ratingDateTime = date;
+        console.log("update rating");
         RatingService.updateRating(this.rating);
       }
+      this.prevRating = { ...this.rating };
     },
   },
   created() {
     RatingService.getRating(this.item, this.$store.state.user.userId)
       .then((response) => {
         this.rating = response.data;
+        this.prevRating = { ...this.rating };
       })
       .catch(() => {
-        this.rating = {};
+        this.rating = {
+          gameId: this.item,
+          userId: this.$store.state.user.userId,
+          ratingValue: null,
+        };
+        this.prevRating = {
+          gameId: this.item,
+          userId: this.$store.state.user.userId,
+          ratingValue: null,
+        };
       });
+    console.log(this.rating);
   },
 };
 </script>
