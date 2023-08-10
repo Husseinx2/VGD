@@ -6,5 +6,8 @@ export default {
     },
   getRatingByGameId(id){
     return axios.get(`/rating/game/${id}`);
+  },
+  getRatingByUserId(game,id){
+    return axios.get(`/rating/${game/id}`)
   }
 }
