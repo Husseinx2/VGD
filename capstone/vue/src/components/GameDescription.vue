@@ -27,36 +27,38 @@
       <p>{{ item.description }}</p>
     </div>
     <section class="rating">
-    <ratings-card v-bind:item="game" />
+      <ratings-card v-bind:item="rating" />
     </section>
     <section class="detail">
-    <game-details v-bind:item="game" />
+      <game-details v-bind:item="game" />
     </section>
   </div>
 </template>
 
 <script>
-import RatingsCard from '../components/RatingsCard.vue';
+import RatingsCard from "../components/RatingsCard.vue";
 import gameService from "../services/GameService";
-import GameDetails from '../components/GameDetails.vue';
+import GameDetails from "../components/GameDetails.vue";
+import RatingService from "../services/RatingService";
 export default {
-  components: {GameDetails, RatingsCard},
+  components: { GameDetails, RatingsCard },
   props: ["item"],
-    data() {
-
+  data() {
     return {
+      starValue: null,
       id: 0,
       game: {},
+      rating:{}
     };
   },
- created() {
+  created() {
     this.id = this.$route.params.id;
     gameService
       .getGame(this.id)
       .then((response) => {
         this.game = response.data;
         if (!this.game) {
-          this.$router.push({name: 'notFound'});
+          this.$router.push({ name: "notFound" });
         }
       })
       .catch((error) => {
@@ -73,13 +75,22 @@ export default {
           // Request was *not* made
           console.log("Error getting game: make request");
         }
-        this.$router.push("/*")
+        this.$router.push("/*");
       });
-
- 
+    //
+    RatingService.getRating(this.id, this.$store.state.user.userId)
+      .then((response) => {
+        this.rating = response.data;
+      })
+      .catch(() => {
+        this.rating = {};
+      });
   },
 };
 </script>
 
 <style scoped>
+.rating{
+  margin-left: 25%
+}
 </style>

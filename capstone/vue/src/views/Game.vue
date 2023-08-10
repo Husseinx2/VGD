@@ -1,20 +1,18 @@
 <template>
   <div>
     <section class="desc">
-    <game-description v-bind:item="game" />
+      <game-description v-bind:item="game" />
     </section>
-
+    
   </div>
 </template>
 
 <script>
 import gameService from "../services/GameService";
 import GameDescription from '../components/GameDescription.vue';
-
 export default {
   components: { GameDescription},
   data() {
-
     return {
       id: 0,
       game: {},
@@ -27,7 +25,7 @@ export default {
       .then((response) => {
         this.game = response.data;
         if (!this.game) {
-          this.$router.push({name: 'notFound'});
+          this.$router.push({ name: "notFound" });
         }
       })
       .catch((error) => {
@@ -44,17 +42,15 @@ export default {
           // Request was *not* made
           console.log("Error getting game: make request");
         }
-        this.$router.push("/*")
+        this.$router.push("/*");
       });
-
- 
+   
   },
 };
 </script>
 
 <style scoped>
- .desc {
-   margin:50px
- }
-
+.desc {
+  margin: 50px;
+}
 </style>
