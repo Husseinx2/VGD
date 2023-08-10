@@ -11,5 +11,7 @@ namespace Capstone.DAO.Interfaces
         public Rating AddRating(Rating rating);
         public Rating UpdateRating(Rating rating);
         public bool DeleteRating(int gameId,int userId);
+        public bool DeleteRatingsByGameId(int gameId);
+        public bool DeleteRatingsByUserId(int userId);
     }
 }

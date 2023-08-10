@@ -15,13 +15,19 @@ namespace Capstone.DAO
 
         private readonly string sqlGetRating = "SELECT game_id, user_id, rating_value, rating_datetime FROM rating " +
             "WHERE game_id = @game_id AND user_id = @user_id;";
+        
         private readonly string sqlAddRating = "INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) " +
             "OUTPUT INSERTED.rating_id " +
             "VALUES (@game_id, @user_id, @rating_value, @rating_datetime) ";
-        private readonly string sqlDeleteRating = "DELETE rating where rating.game_id = @game_id AND rating.user_id = @user_id";
+        
         private readonly string sqlUpdateRating = "UPDATE rating SET game_id=@game_id, user_id=@user_id, rating_value=@rating_value, " +
              "rating_datetime=@rating_datetime " +
             "WHERE game_id = @game_id AND user_id = user_id;";
+
+        private readonly string sqlDeleteRating = "DELETE rating where game_id = @game_id AND user_id = @user_id";
+        private readonly string sqlDeleteRatingsByGameId = "DELETE rating where game_id = @game_id";
+        private readonly string sqlDeleteRatingsByUserId = "DELETE rating where user_id = @user_id";
+
 
         public RatingSqlDao(string connectionString)
         {
@@ -144,32 +150,6 @@ namespace Capstone.DAO
             return rating;
         }
 
-        public bool DeleteRating(int gameId, int userId)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlDeleteRating, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@game_id", gameId);
-                        cmd.Parameters.AddWithValue("@user_id", userId);
-
-
-                        int count = cmd.ExecuteNonQuery();
-
-                        return count == 1;
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                return false;
-            }
-        }
-
-
         public Rating UpdateRating(Rating rating)
         {
             try
@@ -196,6 +176,74 @@ namespace Capstone.DAO
             }
         }
 
+        public bool DeleteRating(int gameId, int userId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlDeleteRating, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+                        cmd.Parameters.AddWithValue("@user_id", userId);
+
+
+                        int count = cmd.ExecuteNonQuery();
+                        return count == 1;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteRatingsByGameId(int gameId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlDeleteRatingsByGameId, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+            
+                        int count = cmd.ExecuteNonQuery();
+                        return count > 0;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteRatingsByUserId(int userId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlDeleteRatingsByUserId, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@user_id", userId);
+
+                        int count = cmd.ExecuteNonQuery();
+                        return count > 0;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+        }
+
         private Rating MapRowToRating(SqlDataReader reader)
         {
 
@@ -205,6 +253,7 @@ namespace Capstone.DAO
             rating.UserId = Convert.ToInt32(reader["user_id"]);
             rating.RatingValue = Convert.ToInt32(reader["rating_value"]);
             rating.RatingDateTime = Convert.ToDateTime(reader["rating_datetime"]);
+
             return rating;
         }
 
