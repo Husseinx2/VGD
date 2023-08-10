@@ -27,7 +27,7 @@
       <p>{{ item.description }}</p>
     </div>
     <section class="rating">
-      <ratings-card v-bind:item="rating" />
+      <ratings-card v-bind:item="id" />
     </section>
     <section class="detail">
       <game-details v-bind:item="game" />
@@ -39,7 +39,6 @@
 import RatingsCard from "../components/RatingsCard.vue";
 import gameService from "../services/GameService";
 import GameDetails from "../components/GameDetails.vue";
-import RatingService from "../services/RatingService";
 export default {
   components: { GameDetails, RatingsCard },
   props: ["item"],
@@ -47,7 +46,6 @@ export default {
     return {
       id: 0,
       game: {},
-      rating:{}
     };
   },
   created() {
@@ -76,15 +74,7 @@ export default {
         }
         this.$router.push("/*");
       });
-    //
-    RatingService.getRating(this.id, this.$store.state.user.userId)
-      .then((response) => {
-        this.rating = response.data;
-      })
-      .catch(() => {
-        this.rating = {};
-      });
-  },
+  }   
 };
 </script>
 
