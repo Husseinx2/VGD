@@ -26,7 +26,6 @@
       <h1>{{ item.title }}</h1>
       <p>{{ item.description }}</p>
     </div>
-<<<<<<< HEAD
     <table>
       <tbody>
         <td>
@@ -41,14 +40,6 @@
         </td>
       </tbody>
     </table>
-=======
-    <section class="rating">
-      <ratings-card v-bind:item="id" />
-    </section>
-    <section class="detail">
-      <game-details v-bind:item="game" />
-    </section>
->>>>>>> 6bcb4f3d464e74cd97bdfb851a0acd3776a28261
   </div>
 </template>
 
@@ -63,10 +54,6 @@ export default {
     return {
       id: 0,
       game: {},
-<<<<<<< HEAD
-      rating: {},
-=======
->>>>>>> 6bcb4f3d464e74cd97bdfb851a0acd3776a28261
     };
   },
   created() {

@@ -61,13 +61,8 @@ export default {
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-.label{
-    size-adjust: 10;
-=======
 .rating {
   align-content: center;
   vertical-align: middle;
->>>>>>> 6bcb4f3d464e74cd97bdfb851a0acd3776a28261
 }
 </style>
