@@ -53,7 +53,7 @@ export default {
         console.log("update rating");
         RatingService.updateRating(this.rating);
       }
-      this.prevRating = this.rating;
+      this.prevRating = { ...this.rating };
     },
     deleteRating() {},
   },
