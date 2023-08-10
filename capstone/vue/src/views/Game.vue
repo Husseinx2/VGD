@@ -3,23 +3,16 @@
     <section class="desc">
     <game-description v-bind:item="game" />
     </section>
-    <section class="rating">
-    <ratings-card v-bind:item="game" />
-    </section>
-    <section class="detail">
-    <game-details v-bind:item="game" />
-    </section>
+
   </div>
 </template>
 
 <script>
 import gameService from "../services/GameService";
 import GameDescription from '../components/GameDescription.vue';
-import GameDetails from '../components/GameDetails.vue';
-import RatingsCard from '../components/RatingsCard.vue';
 
 export default {
-  components: { GameDescription, GameDetails, RatingsCard},
+  components: { GameDescription},
   data() {
 
     return {
