@@ -39,12 +39,11 @@
           Add a Game
         </router-link>
         <b-dropdown right text="Settings" variant="primary">
-        <b-button variant="outline-info" to="/logout" class="mb-2">
-        <b-dropdown-item>
-          <b-icon icon="power" aria-hidden="true"></b-icon> Logout
-        </b-dropdown-item>
-        </b-button>
-        
+          <b-dropdown-item>
+            <b-button variant="outline-info" to="/logout" class="mb-2">
+              <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+            </b-button>
+          </b-dropdown-item>
         </b-dropdown>
       </b-navbar-nav>
     </b-navbar>

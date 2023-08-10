@@ -11,7 +11,7 @@ export default {
     return axios.get(`/rating/${game/id}`);
   },
   updateExistingRating(currentRating){
-    return axios.put(`/rating/${currentRating.id}}, rating`);
+    return axios.put('/rating',currentRating);
   },
   addNewRating(newRating){
     return axios.post("/rating", newRating);

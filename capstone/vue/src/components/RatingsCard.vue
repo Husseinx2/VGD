@@ -1,29 +1,73 @@
 <template>
-    <div>
-        <section>
-    <label class="label">How would you rate this game?</label>
-    </section>
-    <b-form-rating size="lg" no-border show-clear class="rating" id="rating-inline-center"  inline v-bind:value="item.ratingValue" color="orange"></b-form-rating>
+  <div>
+    <label for="rating-inline-center">How would you rate this game?</label>
+    <div v-on:click="updateRating">
+      <b-form-rating
+        size="lg"
+        no-border
+        show-clear
+        class="rating"
+        id="rating-inline-center"
+        inline
+        v-model="rating.ratingValue"
+        v-bind:value="rating.ratingValue"
+        color="orange"
+      ></b-form-rating>
+    </div>
   </div>
 </template>
 
 <script>
+import RatingService from "../services/RatingService";
 export default {
-    props:['item'],
- data() {
+  props: ["item"],
+  data() {
     return {
-        
-    }
- },
+      rating: {
+        gameId: null,
+        userId: 0,
+        ratingValue: 0,
+        ratingDateTime: 0,
+      },
+    };
+  },
 
-
- 
-
-}
+  methods: {
+    updateRating() {
+      if (!this.rating.userId) {
+        this.rating.gameId = this.item;
+        this.rating.userId = this.$store.state.user.userId;
+        const date = new Date().toJSON();
+        this.rating.ratingDateTime = date;
+        RatingService.addNewRating(this.rating);
+      } else {
+        console.log("existing");
+        const date = new Date().toJSON();
+        this.rating.ratingDateTime = date;
+        RatingService.updateExistingRating(this.rating);
+      }
+    },
+  },
+  created() {
+    RatingService.getRating(this.item, this.$store.state.user.userId)
+      .then((response) => {
+        this.rating = response.data;
+      })
+      .catch(() => {
+        this.rating = {};
+      });
+  },
+};
 </script>
 
 <style scoped>
+<<<<<<< HEAD
 .label{
     size-adjust: 10;
+=======
+.rating {
+  align-content: center;
+  vertical-align: middle;
+>>>>>>> 6bcb4f3d464e74cd97bdfb851a0acd3776a28261
 }
 </style>
