@@ -3,28 +3,19 @@
     <section class="desc">
       <game-description v-bind:item="game" />
     </section>
-    <section class="rating">
-      <ratings-card v-bind:item="rating" />
-    </section>
-    <section class="detail">
-      <game-details v-bind:item="game" />
-    </section>
+    
   </div>
 </template>
 
 <script>
 import gameService from "../services/GameService";
-import GameDescription from "../components/GameDescription.vue";
-import GameDetails from "../components/GameDetails.vue";
-import RatingsCard from "../components/RatingsCard.vue";
-import RatingService from "../services/RatingService";
+import GameDescription from '../components/GameDescription.vue';
 export default {
-  components: { GameDescription, GameDetails, RatingsCard },
+  components: { GameDescription},
   data() {
     return {
       id: 0,
       game: {},
-      rating: {},
     };
   },
   created() {
@@ -53,12 +44,7 @@ export default {
         }
         this.$router.push("/*");
       });
-    ///ratings
-    RatingService.getRating(this.id, this.$store.state.user.userId).then((response) => {
-      this.rating = response.data;
-    }).catch(()=> {
-      this.rating = {}
-    })
+   
   },
 };
 </script>

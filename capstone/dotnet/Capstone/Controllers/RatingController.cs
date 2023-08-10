@@ -16,7 +16,7 @@ namespace Capstone.Controllers
             this.ratingDao = ratingDao;
         }
 
-        [HttpGet("game/{gameId}")]
+        [HttpGet("game/{gameId}")] //gets a list of ratings for specific game
         public ActionResult<List<Rating>> ListRatingsByGameId(int gameId)
         {
             List<Rating> ratings = ratingDao.ListRatingsByGameId(gameId);
@@ -30,7 +30,7 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpGet("user/{userId}")]
+        [HttpGet("user/{userId}")] //gets a list of ratings by specific user
         public ActionResult<List<Rating>> ListRatingsByUserId(int userId)
         {
             List<Rating> ratings = ratingDao.ListRatingsByUserId(userId);
@@ -44,7 +44,7 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpGet("{gameId}/{userId}")]
+        [HttpGet("{gameId}/{userId}")] //gets a specific rating for a specific game
         public ActionResult<Rating> GetRating(int gameId, int userId)
         {
             Rating rating = ratingDao.GetRating(gameId, userId);
@@ -58,7 +58,7 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpPost()]
+        [HttpPost()] //Creates a new rating
         public ActionResult<Rating> AddRating(Rating rating)
         {
             Rating newRating = ratingDao.AddRating(rating);
@@ -72,7 +72,7 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpPut()]
+        [HttpPut()] //Edits a specific rating
         public ActionResult<Rating> UpdateRating(Rating rating)
         {
             Rating newRating = ratingDao.UpdateRating(rating);

@@ -6,6 +6,7 @@
       no-border
       v-model="AvgRating"
       readonly
+      color="orange"
     ></b-form-rating>
   </div>
 </template>
