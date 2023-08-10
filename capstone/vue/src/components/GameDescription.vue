@@ -87,7 +87,5 @@ export default {
 </script>
 
 <style scoped>
-.table{
-  background-color: whitesmoke;
-}
+
 </style>
