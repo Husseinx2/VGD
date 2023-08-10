@@ -6,6 +6,7 @@
 
 <script>
 export default {
+    props:['item'],
   name: "profileComp",
 };
 </script>
