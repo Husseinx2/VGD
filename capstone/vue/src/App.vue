@@ -21,7 +21,7 @@ export default {
 div {
   background-color:whitesmoke;
 }
-html{
+* {
   background-color:whitesmoke;
 }
 </style>
