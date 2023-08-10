@@ -22,5 +22,11 @@ namespace Capstone.Controllers
         {
             return Ok(userDao.GetUsers());
         }
+
+        [HttpGet("{userId}")]
+        public ActionResult<User> GetUserById(int userId)
+        {
+            return Ok(userDao.GetUserById(userId));
+        }
     }
 }
