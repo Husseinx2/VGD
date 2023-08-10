@@ -14,6 +14,7 @@
 import ProfileComp from '../components/ProfileComp.vue';
 import ProfileRating from '../components/ProfileRating.vue';
 
+
 export default {
 components: {ProfileComp, ProfileRating},
 }
