@@ -28,9 +28,8 @@ export default {
 footer {
   background-color:whitesmoke;
   margin-top: auto;
+  bottom: 0;
   
 }
-html {
-  background-color: whitesmoke;
-}
+
 </style>
