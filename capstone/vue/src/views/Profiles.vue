@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Admin Only</h1>
-    <b-table striped hover :items="users"> </b-table>
+    <b-table select-mode="single" selectable hover :items="users"  @row-selected="onRowSelected" > </b-table>
   </div>
 </template>
 
@@ -14,7 +14,10 @@ export default {
     };
   },
   methods: {
-    sortUsers() {},
+  onRowSelected(item) {
+      console.log(item);
+      this.$router.push({name:"home",  params: { id: item.id }})
+   },
     getUsers() {
       UserService.listUsers()
         .then((response) => {
