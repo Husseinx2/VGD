@@ -10,6 +10,10 @@
     <b-alert :show="gameEdited" variant="success" role="alert">
       Game Successfully Edited
     </b-alert>
+
+    <b-alert :show="gameDeleted" variant="success" role="alert">
+      Game Successfully Deleted
+    </b-alert>
     <section>
       <game-card-vue
         v-for="game in filteredList"
@@ -47,6 +51,9 @@ export default {
       console.log("reached gameEdited");
       return this.$store.state.gameEdited;
     },
+    gameDeleted() {
+      return this.$store.state.gameDeleted;
+    }
   },
 
   methods: {
