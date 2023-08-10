@@ -18,7 +18,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet()]
-        public ActionResult<List<User>> ListUsers()
+        public ActionResult<List<ReturnUser>> ListUsers()
         {
             return Ok(userDao.GetUsers());
         }

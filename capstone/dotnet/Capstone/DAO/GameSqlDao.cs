@@ -77,6 +77,23 @@ namespace Capstone.DAO
 
         private readonly string sqlListCompanies = "SELECT company_name FROM company;";
 
+        private readonly string sqlSearch = "SELECT DISTINCT game.game_id, title, description, esrb_rating, release_date, image_url FROM game " +
+            "JOIN game_genre ON game.game_id = game_genre.game_id " +
+            "JOIN genre ON game_genre.genre_id = genre.genre_id " +
+            "JOIN game_platform ON game.game_id = game_platform.game_id " +
+            "JOIN platform ON game_platform.platform_id = platform.platform_id " +
+            "JOIN game_developer ON game.game_id = game_developer.game_id " +
+            "JOIN company AS developer ON game_developer.developer_id = developer.company_id " +
+            "JOIN game_publisher ON game.game_id = game_publisher.game_id " +
+            "JOIN company AS publisher ON game_publisher.publisher_id = publisher.company_id " +
+            "WHERE (@title = '' OR title LIKE @title) " +
+            "AND (@esrb_rating = '' OR esrb_rating = @esrb_rating) " +
+            "AND (@year = 0 OR YEAR(release_date) = @year) " +
+            "AND (@genre_name = '' OR genre_name = @genre_name) " +
+            "AND (@platform_name = '' OR platform_name = @platform_name) " +
+            "AND (@developer_name = '' OR developer.company_name = @developer_name) " +
+            "AND (@publisher_name = '' OR publisher.company_name = @publisher_name) ";
+
         public GameSqlDao(string connectionString)
         {
             this.connectionString = connectionString;
@@ -745,6 +762,44 @@ namespace Capstone.DAO
             }
 
             return companies;
+        }
+
+        public List<Game> Search(SearchParameters searchParams)
+        {
+            List<Game> games = new List<Game>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlSearch, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@title", $"%{searchParams.Title}%");
+                        cmd.Parameters.AddWithValue("@year", searchParams.Year);
+                        cmd.Parameters.AddWithValue("@esrb_rating", searchParams.ESRBRating);
+                        cmd.Parameters.AddWithValue("@genre_name", searchParams.GenreName);
+                        cmd.Parameters.AddWithValue("@platform_name", searchParams.PlatformName);
+                        cmd.Parameters.AddWithValue("@developer_name", searchParams.DeveloperName);
+                        cmd.Parameters.AddWithValue("@publisher_name", searchParams.PublisherName);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Game game = MapRowToGame(reader);
+                                games.Add(game);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+
+            return games;
         }
 
         private Game MapRowToGame(SqlDataReader reader)

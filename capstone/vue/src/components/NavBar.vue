@@ -39,11 +39,11 @@
           Add a Game
         </router-link>
         <b-dropdown right text="Settings" variant="primary">
-          <b-dropdown-item to="/profile">
+          <b-dropdown-item  v-bind:to="{ name: 'profile', params: { id: $store.state.user.userId } }">
             <b-icon icon="person" aria-hidden="true"></b-icon>
             {{ $store.state.user.username }}
           </b-dropdown-item>
-          <b-dropdown-item to="/profile" v-show="$store.state.user.role == 'admin'">
+          <b-dropdown-item to="/profiles" v-show="$store.state.user.role == 'admin'">
             <b-icon
               icon="person-lines-fill"
               aria-hidden="true"
