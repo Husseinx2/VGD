@@ -35,7 +35,7 @@ export default {
       }
     },
     GetRatings() {
-      ratingService.getRatingByGameId(this.item.id).then((response) => {
+      ratingService.listRatingsByGameId(this.item.id).then((response) => {
         this.ratings = response.data;
       });
     },

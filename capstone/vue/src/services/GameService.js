@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default {
-  list() {
+  listGames() {
     return axios.get("/game");
   },
 

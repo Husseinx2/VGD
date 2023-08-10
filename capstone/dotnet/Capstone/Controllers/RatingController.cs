@@ -16,7 +16,8 @@ namespace Capstone.Controllers
             this.ratingDao = ratingDao;
         }
 
-        [HttpGet("game/{gameId}")] //gets a list of ratings for specific game
+        // Gets a list of ratings for specific game
+        [HttpGet("game/{gameId}")] 
         public ActionResult<List<Rating>> ListRatingsByGameId(int gameId)
         {
             List<Rating> ratings = ratingDao.ListRatingsByGameId(gameId);
@@ -30,7 +31,8 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpGet("user/{userId}")] //gets a list of ratings by specific user
+        //Gets a list of ratings by a specific user
+        [HttpGet("user/{userId}")] 
         public ActionResult<List<Rating>> ListRatingsByUserId(int userId)
         {
             List<Rating> ratings = ratingDao.ListRatingsByUserId(userId);
@@ -44,7 +46,8 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpGet("{gameId}/{userId}")] //gets a specific rating for a specific game
+        /// Gets a rating for a specific game by a specfic user
+        [HttpGet("{gameId}/{userId}")] 
         public ActionResult<Rating> GetRating(int gameId, int userId)
         {
             Rating rating = ratingDao.GetRating(gameId, userId);

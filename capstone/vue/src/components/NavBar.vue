@@ -89,7 +89,7 @@ export default {
 
     //loading games
     loadGames() {
-      GameService.list()
+      GameService.listGames()
         .then((response) => {
           console.log("Reached created in nav");
           this.games = response.data;
