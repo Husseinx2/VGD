@@ -92,5 +92,11 @@ namespace Capstone.Controllers
         {
             return Ok(gameDao.ListCompanies());
         }
+
+        [HttpPost("search")]
+        public ActionResult<List<Game>> Search(SearchParameters searchParams)
+        {
+            return Ok(gameDao.Search(searchParams));
+        }
     }
 }
