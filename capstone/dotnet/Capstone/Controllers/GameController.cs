@@ -19,7 +19,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet()]
-        public ActionResult<List<Game>> GetGames()
+        public ActionResult<List<Game>> ListGames()
         {
             return Ok(gameDao.ListGames());
         }
