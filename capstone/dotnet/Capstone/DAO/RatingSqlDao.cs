@@ -28,7 +28,7 @@ namespace Capstone.DAO
             this.connectionString = connectionString;
         }
 
-        public List<Rating> ListRatingByGameId(int gameId)
+        public List<Rating> ListRatingsByGameId(int gameId)
         {
             List<Rating> ratings = new List<Rating>();
 
