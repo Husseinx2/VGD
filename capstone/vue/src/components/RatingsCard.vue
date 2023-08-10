@@ -1,6 +1,8 @@
 <template>
     <div>
-    <label for="rating-inline-center">How would you rate this game?</label>
+        <section>
+    <label class="label">How would you rate this game?</label>
+    </section>
     <b-form-rating size="lg" no-border show-clear class="rating" id="rating-inline-center"  inline v-bind:value="item.ratingValue" color="orange"></b-form-rating>
   </div>
 </template>
@@ -21,10 +23,7 @@ export default {
 </script>
 
 <style scoped>
-.rating{
-    align-content: center;
-    vertical-align: middle;
-    
-    
+.label{
+    size-adjust: 10;
 }
 </style>

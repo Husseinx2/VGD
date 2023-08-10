@@ -26,12 +26,20 @@
       <h1>{{ item.title }}</h1>
       <p>{{ item.description }}</p>
     </div>
-    <section class="rating">
-      <ratings-card v-bind:item="rating" />
-    </section>
-    <section class="detail">
-      <game-details v-bind:item="game" />
-    </section>
+    <table>
+      <tbody>
+        <td>
+          <section class="detail">
+            <game-details v-bind:item="game" />
+          </section>
+        </td>
+        <td>
+          <section class="rating">
+            <ratings-card v-bind:item="rating" />
+          </section>
+        </td>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -45,10 +53,9 @@ export default {
   props: ["item"],
   data() {
     return {
-      starValue: null,
       id: 0,
       game: {},
-      rating:{}
+      rating: {},
     };
   },
   created() {
@@ -90,7 +97,7 @@ export default {
 </script>
 
 <style scoped>
-.rating{
-  margin-left: 25%
+.rating {
+  margin-left: 25%;
 }
 </style>
