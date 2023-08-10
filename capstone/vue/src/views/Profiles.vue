@@ -1,7 +1,15 @@
 <template>
   <div>
     <h1>Admin Only</h1>
-    <b-table select-mode="single" striped selectable hover :items="users"  @row-selected="onRowSelected"> </b-table>
+    <b-table
+      select-mode="single"
+      striped
+      selectable
+      hover
+      :items="users"
+      @row-selected="onRowSelected"
+    >
+    </b-table>
   </div>
 </template>
 
@@ -14,15 +22,14 @@ export default {
     };
   },
   methods: {
-  onRowSelected(item) {
+    onRowSelected(item) {
       console.log(item[0].userId);
-      this.$router.push({ name: `profile`, params: { id: item[0].userId } })
-   },
+      this.$router.push({ name: `profile`, params: { id: item[0].userId } });
+    },
     getUsers() {
       UserService.listUsers()
         .then((response) => {
           this.users = response.data;
-          
         })
         .catch(() => {
           console.log("error with server");
