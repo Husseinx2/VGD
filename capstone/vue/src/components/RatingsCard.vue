@@ -81,8 +81,4 @@ export default {
 </script>
 
 <style scoped>
-.rating {
-  align-content: center;
-  vertical-align: middle;
-}
 </style>

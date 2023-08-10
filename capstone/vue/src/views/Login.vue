@@ -74,11 +74,7 @@ h1 {
   font-family:Georgia, 'Times New Roman', Times, serif
 }
 main{
-  background-color:whitesmoke;
   min-height: 100vh;
-}
-* {
-  background-color: whitesmoke;
 }
 
 </style>
