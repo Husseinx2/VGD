@@ -77,7 +77,7 @@ export default {
     },
     loadGames() {
       gameService
-        .list()
+        .listGames()
         .then((response) => {
           console.log("Reached created in Home.vue");
           console.log(response);

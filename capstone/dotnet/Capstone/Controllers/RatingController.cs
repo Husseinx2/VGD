@@ -16,7 +16,8 @@ namespace Capstone.Controllers
             this.ratingDao = ratingDao;
         }
 
-        [HttpGet("game/{gameId}")]
+        // Gets a list of ratings for specific game
+        [HttpGet("game/{gameId}")] 
         public ActionResult<List<Rating>> ListRatingsByGameId(int gameId)
         {
             List<Rating> ratings = ratingDao.ListRatingsByGameId(gameId);
@@ -30,7 +31,8 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpGet("user/{userId}")]
+        //Gets a list of ratings by a specific user
+        [HttpGet("user/{userId}")] 
         public ActionResult<List<Rating>> ListRatingsByUserId(int userId)
         {
             List<Rating> ratings = ratingDao.ListRatingsByUserId(userId);
@@ -44,7 +46,8 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpGet("{gameId}/{userId}")]
+        /// Gets a rating for a specific game by a specfic user
+        [HttpGet("{gameId}/{userId}")] 
         public ActionResult<Rating> GetRating(int gameId, int userId)
         {
             Rating rating = ratingDao.GetRating(gameId, userId);
@@ -58,7 +61,7 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpPost()]
+        [HttpPost()] //Creates a new rating
         public ActionResult<Rating> AddRating(Rating rating)
         {
             Rating newRating = ratingDao.AddRating(rating);
@@ -72,7 +75,7 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpPut()]
+        [HttpPut()] //Edits a specific rating
         public ActionResult<Rating> UpdateRating(Rating rating)
         {
             Rating newRating = ratingDao.UpdateRating(rating);
@@ -100,5 +103,32 @@ namespace Capstone.Controllers
             }
         }
 
+        [HttpDelete("game/{gameId}")]
+        public ActionResult<bool> DeleteRatingsByGameId(int gameId)
+        {
+            bool result = ratingDao.DeleteRatingsByGameId(gameId);
+            if (result)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return StatusCode(400, result);
+            }
+        }
+
+        [HttpDelete("user/{userId}")]
+        public ActionResult<bool> DeleteRatingsByUserId(int userId)
+        {
+            bool result = ratingDao.DeleteRatingsByUserId(userId);
+            if (result)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return StatusCode(400, result);
+            }
+        }
     }
 }

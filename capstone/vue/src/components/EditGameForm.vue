@@ -237,7 +237,7 @@ export default {
         this.game
       ) {
         gameService.editGame(this.game).then(() => {
-          gameService.list();
+          gameService.listGames();
           this.$store.commit("GAME_EDITED",true);
           this.$router.push("/");
         });

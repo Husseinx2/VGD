@@ -1,6 +1,6 @@
 <template>
   <div id="login">
-    <main class="form-signin w100 m-auto">
+    <main class="loginPage">
       <form @submit.prevent="login">
         <h1 style="padding-top: 15px">Please Sign In</h1>
         <div role="alert" v-if="invalidCredentials" style="color: red; padding-bottom: 15px">
@@ -75,5 +75,10 @@ h1 {
 }
 main{
   background-color:whitesmoke;
+  min-height: 100vh;
 }
+* {
+  background-color: whitesmoke;
+}
+
 </style>

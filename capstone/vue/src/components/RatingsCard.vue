@@ -1,40 +1,68 @@
 <template>
-    <div>
+  <div>
     <label for="rating-inline-center">How would you rate this game?</label>
-    <b-form-rating size="lg" no-border show-clear class="rating" id="rating-inline-center" inline value="0" color="orange"></b-form-rating>
-    
+    <div v-on:click="updateRating">
+      <b-form-rating
+        size="lg"
+        no-border
+        show-clear
+        class="rating"
+        id="rating-inline-center"
+        inline
+        v-model="rating.ratingValue"
+        v-bind:value="rating.ratingValue"
+        color="orange"
+      ></b-form-rating>
+    </div>
   </div>
 </template>
 
 <script>
-import ratingService from "../services/RatingService.js";
+import RatingService from "../services/RatingService";
 export default {
- data() {
+  props: ["item"],
+  data() {
     return {
-        user: {
-            userRating: null,
-        }
-    }
- },
- methods: {
-    createRatingValue(){
-        if(this.user.userRating){
-            ratingService
-            .getRating(this.user.userRating)
-            .then(() => {
-            })
-            .catch()
-        }
-    }
- }
-}
+      rating: {
+        gameId: null,
+        userId: 0,
+        ratingValue: 0,
+        ratingDateTime: 0,
+      },
+    };
+  },
+
+  methods: {
+    updateRating() {
+      if (!this.rating.userId) {
+        this.rating.gameId = this.item;
+        this.rating.userId = this.$store.state.user.userId;
+        const date = new Date().toJSON();
+        this.rating.ratingDateTime = date;
+        RatingService.addRating(this.rating);
+      } else {
+        console.log("existing");
+        const date = new Date().toJSON();
+        this.rating.ratingDateTime = date;
+        RatingService.updateRating(this.rating);
+      }
+    },
+  },
+  created() {
+    RatingService.getRating(this.item, this.$store.state.user.userId)
+      .then((response) => {
+        this.rating = response.data;
+      })
+      .catch(() => {
+        this.rating = {};
+      });
+  },
+};
 </script>
 
 <style scoped>
-.rating{
-    align-content: center;
-    vertical-align: middle;
-    
-    
+.rating {
+  align-content: center;
+  vertical-align: middle;
 }
 </style>
