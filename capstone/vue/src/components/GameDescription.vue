@@ -1,5 +1,8 @@
 <template>
   <div class="card container my-5">
+    <b-alert :show="addReview" variant="success" dismissible role="alert">
+      Review Successfully Added
+    </b-alert>
     <div class="container mt-2">
       <span v-show="$store.state.user.role == 'admin'">
         <div class="b-btn-toolbar float-right">
@@ -12,15 +15,20 @@
             </b-button>
           </b-button-group>
           <b-button-group class="mx-1">
-            <b-button
-              class="btn btn-danger"
-              v-b-modal.my-modal
+            <b-button class="btn btn-danger" v-b-modal.my-modal
               >Delete <b-icon icon="trash" aria-hidden="true"></b-icon
             ></b-button>
           </b-button-group>
-            <b-modal title="Warning" ok-variant="danger" ok-title="DELETE" cancel-title="CANCEL" @ok="deleteGame" id="my-modal">
-                Are you sure you want to delete {{item.title}}?
-                </b-modal>
+          <b-modal
+            title="Warning"
+            ok-variant="danger"
+            ok-title="DELETE"
+            cancel-title="CANCEL"
+            @ok="deleteGame"
+            id="my-modal"
+          >
+            Are you sure you want to delete {{ item.title }}?
+          </b-modal>
         </div>
       </span>
     </div>
@@ -37,6 +45,15 @@
           </section>
         </td>
         <td>
+          <b-button @click="showAddReview = !showAddReview"
+            >Add Review</b-button
+          >
+          <b-form-group v-show="showAddReview">
+            <add-review-form />
+            <b-button type="submit">Submit</b-button>
+          </b-form-group>
+        </td>
+        <td>
           <section class="rating">
             <ratings-card v-bind:item="id" />
           </section>
@@ -47,19 +64,22 @@
 </template>
 
 <script>
+import reviewService from "../services/ReviewService.js";
+import addReviewForm from "../components/AddReviewForm.vue";
 import RatingsCard from "../components/RatingsCard.vue";
 import gameService from "../services/GameService";
 import GameDetails from "../components/GameDetails.vue";
 export default {
-  components: { GameDetails, RatingsCard },
+  components: { GameDetails, RatingsCard, addReviewForm },
   props: ["item"],
   data() {
     return {
+      showAddReview: false,
       id: 0,
       game: {},
     };
   },
-  methods:{
+  methods: {
     push() {
       this.$router.push("/");
     },
@@ -68,6 +88,19 @@ export default {
         this.$store.commit("GAME_DELETED", true);
         this.$router.push("/");
       });
+    },
+    addReview() {
+      if (this.review) {
+        reviewService
+          .addReview(this.review)
+          .then(() => {
+            this.review = {};
+            this.$store.commit("REVIEW_ADDED", true);
+          })
+          .catch(() => {
+            console.log("error adding review");
+          });
+      }
     },
   },
   created() {
@@ -96,12 +129,9 @@ export default {
         }
         this.$router.push("/*");
       });
-      
   },
-     
 };
 </script>
 
 <style scoped>
-
 </style>
