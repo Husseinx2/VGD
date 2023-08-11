@@ -45,15 +45,15 @@
           Add a Game
         </router-link>
         <b-dropdown right text="Settings" variant="primary">
-          <b-dropdown-item  v-bind:to="{ name: 'profile', params: { id: $store.state.user.userId } }">
+          <b-dropdown-item v-on:click="push">
             <b-icon icon="person" aria-hidden="true"></b-icon>
             {{ $store.state.user.username }}
           </b-dropdown-item>
-          <b-dropdown-item to="/profiles" v-show="$store.state.user.role == 'admin'">
-            <b-icon
-              icon="person-lines-fill"
-              aria-hidden="true"
-            ></b-icon>
+          <b-dropdown-item
+            to="/profiles"
+            v-show="$store.state.user.role == 'admin'"
+          >
+            <b-icon icon="person-lines-fill" aria-hidden="true"></b-icon>
             profiles
           </b-dropdown-item>
           <b-dropdown-item to="/logout">
@@ -71,10 +71,10 @@
             <div class="sidebar-work">
               <b-form-group>
                 <label>ESRB</label>
-                <b-form-tags
+                <b-form-input
                   v-model="esrbRating"
                   placeholder="Enter a rating"
-                ></b-form-tags>
+                ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Year</label>
@@ -85,31 +85,31 @@
               </b-form-group>
               <b-form-group>
                 <label>Genre</label>
-                <b-form-tags
+                <b-form-input
                   v-model="genreName"
                   placeholder="Enter genre(s)"
-                ></b-form-tags>
+                ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Platform</label>
-                <b-form-tags
+                <b-form-input
                   v-model="platformName"
                   placeholder="Enter platform(s)"
-                ></b-form-tags>
+                ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Developer</label>
-                <b-form-tags
+                <b-form-input
                   v-model="developerName"
                   placeholder="Enter developer(s)"
-                ></b-form-tags>
+                ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Publisher</label>
-                <b-form-tags
+                <b-form-input
                   v-model="publisherName"
                   placeholder="Enter publisher(s)"
-                ></b-form-tags>
+                ></b-form-input>
               </b-form-group>
             </div>
           </b-sidebar>
@@ -125,12 +125,12 @@ export default {
   data() {
     return {
       title: "",
-      genreName: [],
-      esrbRating: [],
+      genreName: "",
+      esrbRating: "",
       year: null,
-      platformName: [],
-      developerName: [],
-      publisherName: [],
+      platformName: "",
+      developerName: "",
+      publisherName: "",
       search: "",
       ids: [],
       games: [],
@@ -138,6 +138,13 @@ export default {
     };
   },
   methods: {
+    push() {
+      this.$router.push({
+        name: "profile",
+        params: { id: this.$store.state.user.userId },
+      });
+      location.reload();
+    },
     searchGames() {
       if (this.search) {
         console.log("reached");
