@@ -14,7 +14,7 @@
         <router-link v-bind:to="{ name: 'game', params: { id: item.id } }">
           <b-card-img v-bind:src="item.imageUrl" style="max-width: 20rem" />
         </router-link>
-        <b-card-text class="description">{{ item.description }}</b-card-text>
+        <b-card-text class="description" style="margin-top:20px">{{ item.description }}</b-card-text>
         <avg-rating-for-game v-bind:item="item" />
         <!--This is importing the average star rating-->
         <b-button-group class="mx-1" v-show="$store.state.user.role == 'admin'">
