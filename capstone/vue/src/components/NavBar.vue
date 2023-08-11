@@ -5,13 +5,9 @@
         $store.state.user.role == 'user' || $store.state.user.role == 'admin'
       "
     >
-<<<<<<< HEAD
-      <b-navbar-brand href="/">VGD</b-navbar-brand>
-=======
       <b-navbar-brand img src="\Images\VGD.jpg" href="/">
         <img class="navbar-logo" src="./..\Images\logo1.png" />
       </b-navbar-brand>
->>>>>>> 31279f1d17fafe49d8174283f141a7511a7902b0
       <b-nav-form v-on:click.prevent>
         <b-form-input
           v-if="!$route.meta.hideNavbar"
@@ -28,15 +24,11 @@
           ><b-icon icon="search"></b-icon>
         </b-button>
       </b-nav-form>
-<<<<<<< HEAD
-      <router-link v-if="!$route.meta.hideNavbar" to="/Advancedsearch">
-=======
       <b-button
         v-if="!$route.meta.hideNavbar"
         style="margin-left: 20px"
         v-b-toggle.sidebar-right
       >
->>>>>>> 31279f1d17fafe49d8174283f141a7511a7902b0
         Advanced search
       </b-button>
       <b-alert v-model="showAlert" variant="danger" dismissible>
@@ -68,8 +60,6 @@
             <b-icon icon="power" aria-hidden="true"></b-icon> Logout
           </b-dropdown-item>
         </b-dropdown>
-<<<<<<< HEAD
-=======
         <section class="sidebar-menu">
           <b-sidebar
             backdrop
@@ -124,7 +114,6 @@
             </div>
           </b-sidebar>
         </section>
->>>>>>> 31279f1d17fafe49d8174283f141a7511a7902b0
       </b-navbar-nav>
     </b-navbar>
   </header>
@@ -214,10 +203,7 @@ header {
   top: 4px;
   font-size: 20px;
 }
-<<<<<<< HEAD
-=======
 .navbar-logo {
   width: 75px;
 }
->>>>>>> 31279f1d17fafe49d8174283f141a7511a7902b0
 </style>
