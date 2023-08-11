@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label for="rating">Average Rating</label>
+    <label for="rating" style="font-weight:500">Average Rating</label>
     <b-form-rating
       size="sm"
       no-border

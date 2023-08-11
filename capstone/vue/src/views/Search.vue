@@ -23,7 +23,10 @@ export default {
       for (const [key, value] of searchParams.entries()) {
         searchParamsObject[key] = value;
       }
-      console.log(searchParamsObject);
+      
+      if (searchParamsObject.year) {
+        searchParamsObject.year = parseInt(searchParamsObject.year);
+      }
       return searchParamsObject;
       
     }

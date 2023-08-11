@@ -12,7 +12,7 @@
         <b-form-input
           v-if="!$route.meta.hideNavbar"
           size="sm"
-          v-model="title"
+          v-model="searchParameters.title"
           placeholder="Search Games"
         >
         </b-form-input>
@@ -45,7 +45,7 @@
           Add a Game
         </router-link>
         <b-dropdown right text="Settings" variant="primary">
-          <b-dropdown-item v-on:click="push">
+          <b-dropdown-item v-on:click="pushToProfile">
             <b-icon icon="person" aria-hidden="true"></b-icon>
             {{ $store.state.user.username }}
           </b-dropdown-item>
@@ -72,43 +72,43 @@
               <b-form-group>
                 <label>ESRB</label>
                 <b-form-input
-                  v-model="esrbRating"
+                  v-model="searchParameters.esrbRating"
                   placeholder="Enter a rating"
                 ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Year</label>
                 <b-form-input
-                  v-model="year"
+                  v-model="searchParameters.year"
                   placeholder="Enter a year"
                 ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Genre</label>
                 <b-form-input
-                  v-model="genreName"
-                  placeholder="Enter a genre"
+                  v-model="searchParameters.genreName"
+                  placeholder="Enter genre(s)"
                 ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Platform</label>
                 <b-form-input
-                  v-model="platformName"
-                  placeholder="Enter a platform"
+                  v-model="searchParameters.platformName"
+                  placeholder="Enter platform(s)"
                 ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Developer</label>
                 <b-form-input
-                  v-model="developerName"
-                  placeholder="Enter a developer"
+                  v-model="searchParameters.developerName"
+                  placeholder="Enter developer(s)"
                 ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Publisher</label>
                 <b-form-input
-                  v-model="publisherName"
-                  placeholder="Enter a publisher"
+                  v-model="searchParameters.publisherName"
+                  placeholder="Enter publisher(s)"
                 ></b-form-input>
               </b-form-group>
             </div>
@@ -124,52 +124,41 @@ import GameService from "../services/GameService";
 export default {
   data() {
     return {
-      title: "",
-      genreName: "",
-      esrbRating: "",
-      year: null,
-      platformName: "",
-      developerName: "",
-      publisherName: "",
-      search: "",
-      ids: [],
-      games: [],
+      searchParameters: {
+        title: "",
+        genreName: "",
+        esrbRating: "",
+        year: null,
+        platformName: "",
+        developerName: "",
+        publisherName: "",
+      },
+
       showAlert: false,
     };
   },
   methods: {
-    push() {
+    searchGames() {
+      // Filters out null and empty string in the query object
+      const filteredSearchParameters = ((obj) => {
+        return Object.fromEntries(
+          Object.entries(obj).filter(
+            ([, value]) => value !== null && value !== ""
+          )
+        );
+      })(this.searchParameters);
+      this.$router.push({
+        name: "search",
+        query: filteredSearchParameters,
+      });
+    },
+    pushToProfile() {
       this.$router.push({
         name: "profile",
         params: { id: this.$store.state.user.userId },
       });
       location.reload();
     },
-    searchGames() {
-      if (this.search) {
-        console.log("reached");
-        this.games.forEach((game) => {
-          if (
-            game.title.toUpperCase().includes(this.search.toUpperCase()) ||
-            game.description.toUpperCase().includes(this.search.toUpperCase())
-          ) {
-            this.ids.push(game.id);
-          }
-        });
-        if (this.ids.length == 0) {
-          this.showAlert = true;
-        } else {
-          let ids = this.ids;
-          this.ids = [];
-          this.$router
-            .push({ name: "search", params: { ids: ids } })
-            .catch(() => {});
-          this.search = "";
-        }
-        this.ids = [];
-      }
-    },
-
     //loading games
     loadGames() {
       GameService.listGames()
@@ -213,4 +202,4 @@ header {
 .navbar-logo {
   width: 75px;
 }
-</style>
+</style>  
