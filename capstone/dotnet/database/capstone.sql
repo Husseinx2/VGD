@@ -34,12 +34,25 @@ CREATE TABLE users (
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 )
 CREATE TABLE review (
+	review_id int IDENTITY (1, 1) NOT NULL,
     game_id int NOT NULL,
-    user_id int NOT NULL,
-    review_detail varchar (MAX) NOT NULL,
-    CONSTRAINT [PK_review] PRIMARY KEY (game_id,user_id),
+    reviewer_id int NOT NULL,
+    review_content varchar (MAX) NOT NULL,
+	review_datetime DATE NOT NULL,
+    CONSTRAINT [PK_review] PRIMARY KEY (review_id),
     CONSTRAINT [FK_review_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id),
-    CONSTRAINT [FK_review_users] FOREIGN KEY (user_id) REFERENCES [users] (user_id)
+    CONSTRAINT [FK_review_users] FOREIGN KEY (reviewer_id) REFERENCES [users] (user_id),
+	CONSTRAINT UQ_UniqueCombination UNIQUE (game_id, reviewer_id)
+)
+CREATE TABLE comment (
+	comment_id int IDENTITY (1, 1) NOT NULL,
+    review_id int NOT NULL,
+    commenter_id int NOT NULL,
+    comment_content varchar (MAX) NOT NULL,
+	comment_datetime DATE NOT NULL,
+    CONSTRAINT [PK_comment] PRIMARY KEY (comment_id),
+    CONSTRAINT [FK_comment_review] FOREIGN KEY (review_id) REFERENCES [review] (review_id),
+    CONSTRAINT [FK_comment_users] FOREIGN KEY (commenter_id) REFERENCES [users] (user_id)
 )
 CREATE TABLE rating (
     game_id int NOT NULL,
