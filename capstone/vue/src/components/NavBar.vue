@@ -5,7 +5,9 @@
         $store.state.user.role == 'user' || $store.state.user.role == 'admin'
       "
     >
-      <b-navbar-brand href="/">VGD</b-navbar-brand>
+      <b-navbar-brand img src="\Images\VGD.jpg" href="/">
+      <img class="navbar-logo" src="./..\Images\logo3.png"/>
+      </b-navbar-brand>
       <b-nav-form v-on:click.prevent>
         <b-form-input
           v-if="!$route.meta.hideNavbar"
@@ -22,7 +24,12 @@
           ><b-icon icon="search"></b-icon>
         </b-button>
       </b-nav-form>
-      <router-link v-if="!$route.meta.hideNavbar" to="/Advancedsearch" style="margin-left:20px">
+      <router-link
+        v-if="!$route.meta.hideNavbar"
+        to="/Advancedsearch"
+        style="margin-left: 20px"
+        v-b-toggle.sidebar-right
+      >
         Advanced search
       </router-link>
       <b-alert v-model="showAlert" variant="danger" dismissible>
@@ -39,21 +46,36 @@
           Add a Game
         </router-link>
         <b-dropdown right text="Settings" variant="primary">
-          <b-dropdown-item  v-bind:to="{ name: 'profile', params: { id: $store.state.user.userId } }">
+          <b-dropdown-item v-on:click="push">
             <b-icon icon="person" aria-hidden="true"></b-icon>
             {{ $store.state.user.username }}
           </b-dropdown-item>
-          <b-dropdown-item to="/profiles" v-show="$store.state.user.role == 'admin'">
-            <b-icon
-              icon="person-lines-fill"
-              aria-hidden="true"
-            ></b-icon>
+          <b-dropdown-item
+            to="/profiles"
+            v-show="$store.state.user.role == 'admin'"
+          >
+            <b-icon icon="person-lines-fill" aria-hidden="true"></b-icon>
             profiles
           </b-dropdown-item>
           <b-dropdown-item to="/logout">
             <b-icon icon="power" aria-hidden="true"></b-icon> Logout
           </b-dropdown-item>
         </b-dropdown>
+  <section class="sidebar-menu">
+    <b-sidebar id="sidebar-right" title="Filter Options" left shadow >
+      <div class="sidebar-work">
+        <b-form-group>
+       <b-form-radio  name="some-radios" value="title">Title</b-form-radio>
+       <b-form-radio  name="some-radios" value="esrbRating">ESRB</b-form-radio>
+       <b-form-radio  name="some-radios" value="year">Year</b-form-radio>
+       <b-form-radio  name="some-radios" value="genreName">Genre</b-form-radio>
+       <b-form-radio  name="some-radios" value="platformName">Platform</b-form-radio>
+       <b-form-radio  name="some-radios" value="developerName">Developer</b-form-radio>
+       <b-form-radio  name="some-radios" value="publisherName">Publisher</b-form-radio>
+    </b-form-group>
+      </div>
+    </b-sidebar>
+  </section>
       </b-navbar-nav>
     </b-navbar>
   </header>
@@ -71,6 +93,13 @@ export default {
     };
   },
   methods: {
+    push() {
+      this.$router.push({
+        name: "profile",
+        params: { id: this.$store.state.user.userId },
+      });
+      location.reload();
+    },
     searchGames() {
       if (this.search) {
         console.log("reached");
@@ -135,5 +164,8 @@ header {
   right: 10px;
   top: 4px;
   font-size: 20px;
+}
+.navbar-logo{
+  width:75px;
 }
 </style>

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Security.Policy;
 using Capstone.DAO.Interfaces;
 using Capstone.Exceptions;
 using Capstone.Models;
@@ -24,6 +26,7 @@ namespace Capstone.DAO
             IList<ReturnUser> users = new List<ReturnUser>();
 
             string sql = "SELECT user_id, username, user_role FROM users";
+
 
             try
             {
@@ -65,7 +68,7 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@user_id", userId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (reader.Read()) 
+                    if (reader.Read())
                     {
                         user = MapRowToUser(reader);
                     }
@@ -134,7 +137,7 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@user_role", role);
 
                     newUserId = Convert.ToInt32(cmd.ExecuteScalar());
-                    
+
                 }
                 newUser = GetUserById(newUserId);
             }
@@ -144,6 +147,32 @@ namespace Capstone.DAO
             }
 
             return newUser;
+        }
+
+        public bool DeleteUser(int userId)
+        {
+            string sqlDeleteUser = "DELETE FROM rating where rating.user_id = @user_id;" +
+                                   "DELETE users WHERE users.user_id = @user_id";
+            bool result = false;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sqlDeleteUser, conn);
+                    cmd.Parameters.AddWithValue("@user_id", userId);
+                    int count = cmd.ExecuteNonQuery();
+                    result = (count >= 1);
+                }
+            }
+            catch (SqlException )
+            {
+                return result;
+            }
+
+            return result;
+
         }
 
         private User MapRowToUser(SqlDataReader reader)

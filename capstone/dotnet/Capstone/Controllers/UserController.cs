@@ -26,7 +26,29 @@ namespace Capstone.Controllers
         [HttpGet("{userId}")]
         public ActionResult<User> GetUserById(int userId)
         {
-            return Ok(userDao.GetUserById(userId));
+            User user = userDao.GetUserById(userId);
+            if (user != null)
+            {
+                return Ok(userDao.GetUserById(userId));
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("{userId}")]
+        public ActionResult<bool> DeleteUser(int userId)
+        {
+            if (userDao.DeleteUser(userId))
+            {
+                return Ok(true);
+            }
+            else
+            {
+                return BadRequest();
+            }
+
         }
     }
 }
