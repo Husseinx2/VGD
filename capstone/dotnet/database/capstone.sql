@@ -33,6 +33,14 @@ CREATE TABLE users (
 	user_role varchar(50) NOT NULL
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 )
+CREATE TABLE review (
+    game_id int NOT NULL,
+    user_id int NOT NULL,
+    review_detail varchar (MAX) NOT NULL,
+    CONSTRAINT [PK_review] PRIMARY KEY (game_id,user_id),
+    CONSTRAINT [FK_review_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id),
+    CONSTRAINT [FK_review_users] FOREIGN KEY (user_id) REFERENCES [users] (user_id)
+)
 CREATE TABLE rating (
     game_id int NOT NULL,
     user_id int NOT NULL,

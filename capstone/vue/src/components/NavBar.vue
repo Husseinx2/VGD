@@ -6,7 +6,7 @@
       "
     >
       <b-navbar-brand img src="\Images\VGD.jpg" href="/">
-      <img class="navbar-logo" src="./..\Images\VGD.png"/>
+      <img class="navbar-logo" src="./..\Images\logo3.png"/>
       </b-navbar-brand>
       <b-nav-form v-on:click.prevent>
         <b-form-input
