@@ -18,7 +18,7 @@
           v-if="!$route.meta.hideNavbar"
           size="sm"
           v-model="search"
-          placeholder="Filter Titles"
+          placeholder="Search Games"
         >
         </b-form-input>
       </b-nav-form>
@@ -50,7 +50,7 @@ export default {
   computed: {
     filteredList() {
       return this.games.filter((game) => {
-        return game.title.toLowerCase().includes(this.search);
+        return game.title.toLowerCase().includes(this.search) || game.description.toLowerCase().includes(this.search) ;
       });
     },
     gameAdded() {
