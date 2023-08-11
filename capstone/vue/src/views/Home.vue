@@ -1,8 +1,5 @@
 <template>
   <div class="home">
-    <p style="color: #8d0cc2; padding-left: 16px; padding-top: 10px">
-      You must be authenticated to see this
-    </p>
     <b-alert :show="gameAdded" variant="success" role="alert" dismissible>
       Game Successfully Added
     </b-alert>
@@ -14,6 +11,19 @@
     <b-alert :show="gameDeleted" variant="success" dismissible role="alert">
       Game Successfully Deleted
     </b-alert>
+
+    <section class="container d-flex justify-content-center">
+      <b-nav-form v-on:click.prevent>
+        <b-form-input
+          v-if="!$route.meta.hideNavbar"
+          size="sm"
+          v-model="search"
+          placeholder="Filter Titles"
+        >
+        </b-form-input>
+      </b-nav-form>
+    </section>
+
     <section>
       <game-card-vue
         v-for="game in filteredList"
@@ -53,7 +63,7 @@ export default {
     },
     gameDeleted() {
       return this.$store.state.gameDeleted;
-    }
+    },
   },
 
   methods: {
