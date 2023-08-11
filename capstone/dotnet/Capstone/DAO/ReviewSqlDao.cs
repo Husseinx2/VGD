@@ -30,7 +30,7 @@ namespace Capstone.DAO
 
         private readonly string sqlDeleteReviewsByGameId = "DELETE review where game_id = @game_id";
 
-        private readonly string sqlDeleteReviewsByReviewerId = "DELETE review where reviewer_id = @reviewer_id";
+        private readonly string sqlDeleteReviewsByReviewId = "DELETE review where review_id = @review_id";
 
         public Review AddReview(Review review)
         {
@@ -59,7 +59,26 @@ namespace Capstone.DAO
 
         public bool DeleteReview(int gameId, int reviewerId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlDeleteReview, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+                        cmd.Parameters.AddWithValue("@reviewer_id", reviewerId);
+
+
+                        int count = cmd.ExecuteNonQuery();
+                        return count == 1;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
         }
 
         public bool DeleteReviewsByGameId(int gameId)
@@ -91,7 +110,32 @@ namespace Capstone.DAO
 
         public Review GetReview(int gameId, int reviewerId)
         {
-            throw new NotImplementedException();
+            Review review = null;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlGetReview, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+                        cmd.Parameters.AddWithValue("@reviewer_id", reviewerId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                review = MapRowToReview(reader);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+
+            return review;
         }
 
         public List<Review> ListReviewsByGameId(int gameId)
@@ -159,7 +203,28 @@ namespace Capstone.DAO
 
         public Review UpdateReview(Review review)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlUpdateReview, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", review.GameId);
+                        cmd.Parameters.AddWithValue("@user_id", review.ReviewerId);
+                        cmd.Parameters.AddWithValue("@review_value", review.ReviewContent);
+                        cmd.Parameters.AddWithValue("@review_datetime", review.ReviewDateTime);
+
+                        int count = cmd.ExecuteNonQuery();
+
+                        return review;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
         }
 
         private Review MapRowToReview(SqlDataReader reader)
