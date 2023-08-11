@@ -18,6 +18,22 @@ namespace Capstone.Controllers
             this.reviewDao = reviewDao;
         }
 
+
+        [HttpGet("{reviewID}")]
+        public ActionResult<Review> GetReview(int reviewId)
+        {
+            Review review = reviewDao.GetReview(reviewId);
+            if (review != null)
+            {
+                return Ok(review);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+
         // Gets a list of reviews for specific game
         [HttpGet("game/{gameId}")]
         public ActionResult<List<Review>> ListReviewsByGameId(int gameId)
@@ -75,38 +91,10 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpDelete("{gameId}/{reviewerId}")]
-        public ActionResult<bool> DeleteReview(int gameId, int reviewerId)
+        [HttpDelete("{reviewId}")]
+        public ActionResult<bool> DeleteReview( int reviewId)
         {
-            bool result = reviewDao.DeleteReview(gameId, reviewerId);
-            if (result)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return StatusCode(400, result);
-            }
-        }
-
-        [HttpDelete("game/{gameId}")]
-        public ActionResult<bool> DeleteReviewsByGameId(int gameId)
-        {
-            bool result = reviewDao.DeleteReviewsByGameId(gameId);
-            if (result)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return StatusCode(400, result);
-            }
-        }
-
-        [HttpDelete("reviewr/{reviewerId}")]
-        public ActionResult<bool> DeleteReviewsByReviewerId(int reviewerId)
-        {
-            bool result = reviewDao.DeleteReviewsByReviewerId(reviewerId);
+            bool result = reviewDao.DeleteReview(reviewId);
             if (result)
             {
                 return Ok(result);
