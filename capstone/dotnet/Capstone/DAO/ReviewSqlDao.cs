@@ -11,14 +11,14 @@ namespace Capstone.DAO
     {
         private readonly string connectionString = "";
 
-        private readonly string sqlListReviewsByGameId = "SELECT  game_id, reviewer_id, review_content, review_datetime FROM review WHERE review.game_id = @game_id;";
+        private readonly string sqlListReviewsByGameId = "SELECT  review_id, game_id, reviewer_id, review_content, review_datetime FROM review WHERE review.game_id = @game_id;";
 
         // (Hussein) NOTE:using in profile, using paramaters in route to call this sql statement
 
-        private readonly string sqlListReviewsByReviewerId = "SELECT  game_id, reviewer_id, review_content, review_datetime FROM review " +
-            "WHERE review.reviewer_id = @reviewer_id;";
+        private readonly string sqlListReviewsByReviewId = "SELECT  review_id, game_id, reviewer_id, review_content, review_datetime FROM review " +
+            "WHERE review.review_id = @review_id;";
 
-        private readonly string sqlGetReview = "SELECT game_id, reviewr_id, review_content, review_datetime FROM review " +
+        private readonly string sqlGetReview = "SELECT review_id, game_id, reviewr_id, review_content, review_datetime FROM review " +
             "WHERE review_id = @review_id";
 
         private readonly string sqlAddReview = "INSERT INTO review (game_id, reviewer_id, review_content, review_datetime) " +
@@ -28,7 +28,7 @@ namespace Capstone.DAO
              "review_datetime=@review_datetime " +
             "WHERE review_id = @review_id";
         //fix this
-        private readonly string sqlDeleteReview= "DELETE review where review_id = @review_id";
+        private readonly string sqlDeleteReview= "DELETE review WHERE review_id = @review_id";
 
         public ReviewSqlDao(string connectionString)
         {
@@ -44,7 +44,7 @@ namespace Capstone.DAO
                     using (SqlCommand cmd = new SqlCommand(sqlAddReview, conn))
                     {
                         cmd.Parameters.AddWithValue("@game_id", review.GameId);
-                        cmd.Parameters.AddWithValue("@user_id", review.ReviewerId);
+                        cmd.Parameters.AddWithValue("@reviewer_id", review.ReviewerId);
                         cmd.Parameters.AddWithValue("@review_value", review.ReviewContent);
                         cmd.Parameters.AddWithValue("@review_datetime", review.ReviewDateTime);
                         review.ReviewId = (int)cmd.ExecuteScalar();
@@ -143,7 +143,7 @@ namespace Capstone.DAO
             return reviews;
         }
 
-        public List<Review> ListReviewsByReviewerId(int reviewerId)
+        public List<Review> ListReviewsByReviewId(int reviewId)
         {
             List<Review> reviews = new List<Review>();
 
@@ -152,9 +152,9 @@ namespace Capstone.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlListReviewsByReviewerId, conn))
+                    using (SqlCommand cmd = new SqlCommand(sqlListReviewsByReviewId, conn))
                     {
-                        cmd.Parameters.AddWithValue("@reviewer_id", reviewerId);
+                        cmd.Parameters.AddWithValue("@review_id", reviewId);
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
@@ -184,7 +184,7 @@ namespace Capstone.DAO
                     using (SqlCommand cmd = new SqlCommand(sqlUpdateReview, conn))
                     {
                         cmd.Parameters.AddWithValue("@game_id", review.GameId);
-                        cmd.Parameters.AddWithValue("@user_id", review.ReviewerId);
+                        cmd.Parameters.AddWithValue("@reviewer_id", review.ReviewerId);
                         cmd.Parameters.AddWithValue("@review_value", review.ReviewContent);
                         cmd.Parameters.AddWithValue("@review_datetime", review.ReviewDateTime);
 
@@ -205,6 +205,7 @@ namespace Capstone.DAO
 
             Review review = new Review();
 
+            review.ReviewId = Convert.ToInt32(reader["review_id"]);
             review.GameId = Convert.ToInt32(reader["game_id"]);
             review.ReviewerId = Convert.ToInt32(reader["reviwer_id"]);
             review.ReviewContent = Convert.ToString(reader["review_content"]);
