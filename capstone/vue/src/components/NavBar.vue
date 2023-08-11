@@ -15,7 +15,7 @@
           v-model="searchParameters.title"
           placeholder="Search Games"
         >
-        </b-form-input> 
+        </b-form-input>
         <b-button
           v-if="!$route.meta.hideNavbar"
           v-on:click="searchGames"
@@ -125,27 +125,31 @@ export default {
   data() {
     return {
       searchParameters: {
-      title: "",
-      genreName: "",
-      esrbRating: "",
-      year: null,
-      platformName: "",
-      developerName: "",
-      publisherName: "",
+        title: "",
+        genreName: "",
+        esrbRating: "",
+        year: null,
+        platformName: "",
+        developerName: "",
+        publisherName: "",
       },
 
       showAlert: false,
-      
     };
   },
   methods: {
     searchGames() {
-      if (!this.searchParameters.year) {
-        this.searchParameters.year = 0;
-      }
+      // Filters out null and empty string in the query object
+      const filteredSearchParameters = ((obj) => {
+        return Object.fromEntries(
+          Object.entries(obj).filter(
+            ([, value]) => value !== null && value !== ""
+          )
+        );
+      })(this.searchParameters);
       this.$router.push({
         name: "search",
-        query: this.searchParameters,
+        query: filteredSearchParameters,
       });
     },
     pushToProfile() {
@@ -154,7 +158,7 @@ export default {
         params: { id: this.$store.state.user.userId },
       });
       location.reload();
-    }, 
+    },
     //loading games
     loadGames() {
       GameService.listGames()
