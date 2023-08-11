@@ -30,7 +30,7 @@ namespace Capstone.DAO
 
         private readonly string sqlDeleteReviewsByGameId = "DELETE review where game_id = @game_id";
 
-        private readonly string sqlDeleteReviewsByReviewId = "DELETE review where review_id = @review_id";
+        private readonly string sqlDeleteReviewsByReviewerId = "DELETE review where reviewer_id = @reviewer_id";
 
         public Review AddReview(Review review)
         {
