@@ -5,13 +5,9 @@
         $store.state.user.role == 'user' || $store.state.user.role == 'admin'
       "
     >
-<<<<<<< HEAD
-      <b-navbar-brand href="/">VGD</b-navbar-brand>
-=======
       <b-navbar-brand img src="\Images\VGD.jpg" href="/">
         <img class="navbar-logo" src="./..\Images\logo1.png" />
       </b-navbar-brand>
->>>>>>> 31279f1d17fafe49d8174283f141a7511a7902b0
       <b-nav-form v-on:click.prevent>
         <b-form-input
           v-if="!$route.meta.hideNavbar"
@@ -28,15 +24,11 @@
           ><b-icon icon="search"></b-icon>
         </b-button>
       </b-nav-form>
-<<<<<<< HEAD
-      <router-link v-if="!$route.meta.hideNavbar" to="/Advancedsearch">
-=======
       <b-button
         v-if="!$route.meta.hideNavbar"
         style="margin-left: 20px"
         v-b-toggle.sidebar-right
       >
->>>>>>> 31279f1d17fafe49d8174283f141a7511a7902b0
         Advanced search
       </b-button>
       <b-alert v-model="showAlert" variant="danger" dismissible>
@@ -53,23 +45,21 @@
           Add a Game
         </router-link>
         <b-dropdown right text="Settings" variant="primary">
-          <b-dropdown-item  v-bind:to="{ name: 'profile', params: { id: $store.state.user.userId } }">
+          <b-dropdown-item v-on:click="push">
             <b-icon icon="person" aria-hidden="true"></b-icon>
             {{ $store.state.user.username }}
           </b-dropdown-item>
-          <b-dropdown-item to="/profiles" v-show="$store.state.user.role == 'admin'">
-            <b-icon
-              icon="person-lines-fill"
-              aria-hidden="true"
-            ></b-icon>
+          <b-dropdown-item
+            to="/profiles"
+            v-show="$store.state.user.role == 'admin'"
+          >
+            <b-icon icon="person-lines-fill" aria-hidden="true"></b-icon>
             profiles
           </b-dropdown-item>
           <b-dropdown-item to="/logout">
             <b-icon icon="power" aria-hidden="true"></b-icon> Logout
           </b-dropdown-item>
         </b-dropdown>
-<<<<<<< HEAD
-=======
         <section class="sidebar-menu">
           <b-sidebar
             backdrop
@@ -124,7 +114,6 @@
             </div>
           </b-sidebar>
         </section>
->>>>>>> 31279f1d17fafe49d8174283f141a7511a7902b0
       </b-navbar-nav>
     </b-navbar>
   </header>
@@ -149,6 +138,13 @@ export default {
     };
   },
   methods: {
+    push() {
+      this.$router.push({
+        name: "profile",
+        params: { id: this.$store.state.user.userId },
+      });
+      location.reload();
+    },
     searchGames() {
       if (this.search) {
         console.log("reached");
@@ -214,10 +210,7 @@ header {
   top: 4px;
   font-size: 20px;
 }
-<<<<<<< HEAD
-=======
 .navbar-logo {
   width: 75px;
 }
->>>>>>> 31279f1d17fafe49d8174283f141a7511a7902b0
 </style>
