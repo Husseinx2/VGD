@@ -9,9 +9,9 @@ export default {
     return axios.get(`/game/${id}`);
   },
 
-  addGame(newGame) {
-    console.log(newGame)
-    return axios.post("/game", newGame);
+  addGame(game) {
+    console.log(game)
+    return axios.post("/game", game);
   },
   editGame(game) {
     console.log(game)
@@ -19,6 +19,9 @@ export default {
   },
   deleteGame(id) {
     return axios.delete(`/game/${id}`)
+  },
+  search(searchParameters) {
+    return axios.post("/game/search", searchParameters);
   },
 
 };
