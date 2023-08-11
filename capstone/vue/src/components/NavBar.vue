@@ -45,7 +45,7 @@
           Add a Game
         </router-link>
         <b-dropdown right text="Settings" variant="primary">
-          <b-dropdown-item v-on:click="push">
+          <b-dropdown-item v-on:click="pushToProfile">
             <b-icon icon="person" aria-hidden="true"></b-icon>
             {{ $store.state.user.username }}
           </b-dropdown-item>
@@ -135,41 +135,18 @@ export default {
       ids: [],
       games: [],
       showAlert: false,
+      
     };
   },
   methods: {
-    push() {
+
+    pushToProfile() {
       this.$router.push({
         name: "profile",
         params: { id: this.$store.state.user.userId },
       });
       location.reload();
-    },
-    searchGames() {
-      if (this.search) {
-        console.log("reached");
-        this.games.forEach((game) => {
-          if (
-            game.title.toUpperCase().includes(this.search.toUpperCase()) ||
-            game.description.toUpperCase().includes(this.search.toUpperCase())
-          ) {
-            this.ids.push(game.id);
-          }
-        });
-        if (this.ids.length == 0) {
-          this.showAlert = true;
-        } else {
-          let ids = this.ids;
-          this.ids = [];
-          this.$router
-            .push({ name: "search", params: { ids: ids } })
-            .catch(() => {});
-          this.search = "";
-        }
-        this.ids = [];
-      }
-    },
-
+    }, 
     //loading games
     loadGames() {
       GameService.listGames()
