@@ -151,6 +151,7 @@ export default {
         name: "search",
         query: filteredSearchParameters,
       });
+    location.reload();
     },
     pushToProfile() {
       this.$router.push({
