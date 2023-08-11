@@ -24,7 +24,11 @@
           ><b-icon icon="search"></b-icon>
         </b-button>
       </b-nav-form>
-      <router-link v-if="!$route.meta.hideNavbar" to="/Advancedsearch" style="margin-left:20px">
+      <router-link
+        v-if="!$route.meta.hideNavbar"
+        to="/Advancedsearch"
+        style="margin-left: 20px"
+      >
         Advanced search
       </router-link>
       <b-alert v-model="showAlert" variant="danger" dismissible>
@@ -41,15 +45,15 @@
           Add a Game
         </router-link>
         <b-dropdown right text="Settings" variant="primary">
-          <b-dropdown-item  v-bind:to="{ name: 'profile', params: { id: $store.state.user.userId } }">
+          <b-dropdown-item v-on:click="push">
             <b-icon icon="person" aria-hidden="true"></b-icon>
             {{ $store.state.user.username }}
           </b-dropdown-item>
-          <b-dropdown-item to="/profiles" v-show="$store.state.user.role == 'admin'">
-            <b-icon
-              icon="person-lines-fill"
-              aria-hidden="true"
-            ></b-icon>
+          <b-dropdown-item
+            to="/profiles"
+            v-show="$store.state.user.role == 'admin'"
+          >
+            <b-icon icon="person-lines-fill" aria-hidden="true"></b-icon>
             profiles
           </b-dropdown-item>
           <b-dropdown-item to="/logout">
@@ -73,6 +77,13 @@ export default {
     };
   },
   methods: {
+    push() {
+      this.$router.push({
+        name: "profile",
+        params: { id: this.$store.state.user.userId },
+      });
+      location.reload();
+    },
     searchGames() {
       if (this.search) {
         console.log("reached");
