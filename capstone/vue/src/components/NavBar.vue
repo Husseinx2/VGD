@@ -87,28 +87,28 @@
                 <label>Genre</label>
                 <b-form-input
                   v-model="genreName"
-                  placeholder="Enter genre(s)"
+                  placeholder="Enter a genre"
                 ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Platform</label>
                 <b-form-input
                   v-model="platformName"
-                  placeholder="Enter platform(s)"
+                  placeholder="Enter a platform"
                 ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Developer</label>
                 <b-form-input
                   v-model="developerName"
-                  placeholder="Enter developer(s)"
+                  placeholder="Enter a developer"
                 ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Publisher</label>
                 <b-form-input
                   v-model="publisherName"
-                  placeholder="Enter publisher(s)"
+                  placeholder="Enter a publisher"
                 ></b-form-input>
               </b-form-group>
             </div>
