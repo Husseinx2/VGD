@@ -42,7 +42,7 @@ export default {
           // Request was *not* made
           console.log("Error getting game: make request");
         }
-        this.$router.push("/*");
+        this.$router.push({ name: "notFound" });
       });
    
   },

@@ -24,7 +24,7 @@
           ><b-icon icon="search"></b-icon>
         </b-button>
       </b-nav-form>
-      <router-link v-if="!$route.meta.hideNavbar" to="/Advancedsearch">
+      <router-link v-if="!$route.meta.hideNavbar" to="/Advancedsearch" style="margin-left:20px">
         Advanced search
       </router-link>
       <b-alert v-model="showAlert" variant="danger" dismissible>

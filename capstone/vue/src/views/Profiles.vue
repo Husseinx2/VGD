@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 style="margin-left:50px; margin-top:12px; margin-bottom:10px; font-family: Georgia, 'Times New Roman', Times, serif;">Admin Only</h1>
+    <h1 style="color: #3e75e2; margin-left:20px; margin-top:12px; margin-bottom:10px; font-family: Georgia, 'Times New Roman', Times, serif; fontWeight:600;">Admin Only</h1>
     <b-table style="font-family: Georgia, 'Times New Roman', Times, serif; width: 50%; text-align:center; margin-left: 25%; background-color: #e9f4ff;" select-mode="single" striped selectable hover :items="users"  @row-selected="onRowSelected"> </b-table>
   </div>
 </template>
