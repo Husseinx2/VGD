@@ -71,10 +71,10 @@
             <div class="sidebar-work">
               <b-form-group>
                 <label>ESRB</label>
-                <b-form-tags
+                <b-form-input
                   v-model="esrbRating"
                   placeholder="Enter a rating"
-                ></b-form-tags>
+                ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Year</label>
@@ -85,31 +85,31 @@
               </b-form-group>
               <b-form-group>
                 <label>Genre</label>
-                <b-form-tags
+                <b-form-input
                   v-model="genreName"
                   placeholder="Enter genre(s)"
-                ></b-form-tags>
+                ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Platform</label>
-                <b-form-tags
+                <b-form-input
                   v-model="platformName"
                   placeholder="Enter platform(s)"
-                ></b-form-tags>
+                ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Developer</label>
-                <b-form-tags
+                <b-form-input
                   v-model="developerName"
                   placeholder="Enter developer(s)"
-                ></b-form-tags>
+                ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Publisher</label>
-                <b-form-tags
+                <b-form-input
                   v-model="publisherName"
                   placeholder="Enter publisher(s)"
-                ></b-form-tags>
+                ></b-form-input>
               </b-form-group>
             </div>
           </b-sidebar>
@@ -125,12 +125,12 @@ export default {
   data() {
     return {
       title: "",
-      genreName: [],
-      esrbRating: [],
+      genreName: "",
+      esrbRating: "",
       year: null,
-      platformName: [],
-      developerName: [],
-      publisherName: [],
+      platformName: "",
+      developerName: "",
+      publisherName: "",
       search: "",
       ids: [],
       games: [],
