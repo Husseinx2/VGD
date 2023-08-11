@@ -45,7 +45,7 @@
           Add a Game
         </router-link>
         <b-dropdown right text="Settings" variant="primary">
-          <b-dropdown-item v-on:click="push">
+          <b-dropdown-item v-on:click="pushToProfile">
             <b-icon icon="person" aria-hidden="true"></b-icon>
             {{ $store.state.user.username }}
           </b-dropdown-item>
