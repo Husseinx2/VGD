@@ -1,33 +1,33 @@
 <template>
   <div>
-      <game-card v-for="game in games" v-bind:key="game.id" v-bind:item="game" />
+      <search-result v-bind:item="searchParameters"/>
   </div>
 </template>
 
 <script>
-import GameCard from '../components/GameCard.vue';
-import GameService from '../services/GameService';
+import SearchResult from '../components/SearchResult.vue';
 export default {
-  components: { GameCard },
+  components: { SearchResult },
   data() {
     return {
-      games: [],
+      searchParameters: "",
     };
   },
   created() {
-      if (this.$route.params.ids.length > 1) {
-    this.$route.params.ids.forEach((id) => {
-        GameService.getGame(id).then((response) => {
-           this.games.push(response.data);
-        })
-    });
-      }
-      else  {
-          GameService.getGame(this.$route.params.ids).then((response) => {
-           this.games.push(response.data);
-        })
-      }
+    this.searchParameters = this.getSearchParamsObject();
   },
+  methods: {
+    getSearchParamsObject() {
+      const searchParams = new URLSearchParams(this.$route.fullPath.split('?')[1]);
+      const searchParamsObject = {};
+      for (const [key, value] of searchParams.entries()) {
+        searchParamsObject[key] = value;
+      }
+      console.log(searchParamsObject);
+      return searchParamsObject;
+      
+    }
+  }
 };
 </script>
 

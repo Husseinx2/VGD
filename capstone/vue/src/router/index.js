@@ -103,6 +103,9 @@ const router = new Router({
       path: '/search',
       name: 'search',
       component: search,
+      props: (route) => ({
+        queryParams: route.query.key
+      }),
       meta: {
         requiresAuth: true,
         hideNavbar: false
