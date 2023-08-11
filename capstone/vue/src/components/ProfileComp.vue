@@ -1,6 +1,6 @@
 <template>
   <section class="ProfileComp">
-    <h1>{{ user.username }}</h1>
+    <h1>User: {{ user.username }}</h1>
     <profile-rating-section v-bind:item="item" />
   </section>
 </template>
