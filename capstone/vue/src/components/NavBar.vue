@@ -6,7 +6,7 @@
       "
     >
       <b-navbar-brand img src="\Images\VGD.jpg" href="/">
-      <img class="navbar-logo" src="./..\Images\logo1.png"/>
+        <img class="navbar-logo" src="./..\Images\logo1.png" />
       </b-navbar-brand>
       <b-nav-form v-on:click.prevent>
         <b-form-input
@@ -24,14 +24,13 @@
           ><b-icon icon="search"></b-icon>
         </b-button>
       </b-nav-form>
-      <router-link
+      <b-button
         v-if="!$route.meta.hideNavbar"
-        to="/Advancedsearch"
         style="margin-left: 20px"
         v-b-toggle.sidebar-right
       >
         Advanced search
-      </router-link>
+      </b-button>
       <b-alert v-model="showAlert" variant="danger" dismissible>
         Not Found!
       </b-alert>
@@ -61,36 +60,60 @@
             <b-icon icon="power" aria-hidden="true"></b-icon> Logout
           </b-dropdown-item>
         </b-dropdown>
-  <section class="sidebar-menu">
-    <b-sidebar id="sidebar-right" title="Filter Options" right shadow >
-      <div class="sidebar-work">
-        <b-form-group>
-          <label>ESRB</label>
-       <b-form-tags v-model="esrbRating" placeholder="Enter a rating"></b-form-tags>
-        </b-form-group>
-        <b-form-group>
-        <label>Year</label>
-       <b-form-input v-model="year" placeholder="Enter a year"></b-form-input>
-        </b-form-group>
-        <b-form-group>
-       <label>Genre</label>
-       <b-form-tags v-model="genreName" placeholder="Enter genre(s)"></b-form-tags>
-        </b-form-group>
-        <b-form-group>
-       <label>Platform</label>
-       <b-form-tags v-model="platformName" placeholder="Enter platform(s)"></b-form-tags>
-        </b-form-group>
-        <b-form-group>
-       <label>Developer</label>
-       <b-form-tags v-model="developerName" placeholder="Enter developer(s)"></b-form-tags>
-        </b-form-group>
-        <b-form-group>
-       <label>Publisher</label>
-       <b-form-tags v-model="publisherName" placeholder="Enter publisher(s)"></b-form-tags>
-    </b-form-group>
-      </div>
-    </b-sidebar>
-    </section>
+        <section class="sidebar-menu">
+          <b-sidebar
+            backdrop
+            id="sidebar-right"
+            title="Filter Options"
+            right
+            shadow
+          >
+            <div class="sidebar-work">
+              <b-form-group>
+                <label>ESRB</label>
+                <b-form-tags
+                  v-model="esrbRating"
+                  placeholder="Enter a rating"
+                ></b-form-tags>
+              </b-form-group>
+              <b-form-group>
+                <label>Year</label>
+                <b-form-input
+                  v-model="year"
+                  placeholder="Enter a year"
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group>
+                <label>Genre</label>
+                <b-form-tags
+                  v-model="genreName"
+                  placeholder="Enter genre(s)"
+                ></b-form-tags>
+              </b-form-group>
+              <b-form-group>
+                <label>Platform</label>
+                <b-form-tags
+                  v-model="platformName"
+                  placeholder="Enter platform(s)"
+                ></b-form-tags>
+              </b-form-group>
+              <b-form-group>
+                <label>Developer</label>
+                <b-form-tags
+                  v-model="developerName"
+                  placeholder="Enter developer(s)"
+                ></b-form-tags>
+              </b-form-group>
+              <b-form-group>
+                <label>Publisher</label>
+                <b-form-tags
+                  v-model="publisherName"
+                  placeholder="Enter publisher(s)"
+                ></b-form-tags>
+              </b-form-group>
+            </div>
+          </b-sidebar>
+        </section>
       </b-navbar-nav>
     </b-navbar>
   </header>
@@ -101,13 +124,13 @@ import GameService from "../services/GameService";
 export default {
   data() {
     return {
-        title:"",
-        genreName:[],
-        esrbRating:[],
-        year: null,
-        platformName: [],
-        developerName: [],
-        publisherName: [],
+      title: "",
+      genreName: [],
+      esrbRating: [],
+      year: null,
+      platformName: [],
+      developerName: [],
+      publisherName: [],
       search: "",
       ids: [],
       games: [],
@@ -187,8 +210,7 @@ header {
   top: 4px;
   font-size: 20px;
 }
-.navbar-logo{
-  width:75px;
+.navbar-logo {
+  width: 75px;
 }
-
 </style>
