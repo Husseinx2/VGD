@@ -17,6 +17,7 @@ if(currentToken != null) {
 
 export default new Vuex.Store({
   state: {
+    reviewAdded: false,
     gameDeleted: false,
     gameEdited: false,
     gameAdded: false,
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     user: currentUser || {},
   },
   mutations: {
+    REVIEW_ADDED(state,payload){
+      state.reviewAdded = payload;
+    },
     GAME_DELETED(state,payload){
       state.gameDeleted = payload;
     },
