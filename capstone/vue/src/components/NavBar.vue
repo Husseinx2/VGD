@@ -68,7 +68,17 @@
             right
             shadow
           >
-            <div class="sidebar-work">
+            <div class="sidebar-work container">
+              <b-form-group>
+               
+                  <label>Title</label>
+                  <b-form-input
+                    v-model="searchParameters.title"
+                    placeholder="Enter a title"
+                  >
+                  </b-form-input>
+    
+              </b-form-group>
               <b-form-group>
                 <label>ESRB</label>
                 <b-form-input
@@ -111,6 +121,14 @@
                   placeholder="Enter publisher(s)"
                 ></b-form-input>
               </b-form-group>
+               <b-button
+                    v-if="!$route.meta.hideNavbar"
+                    v-on:click="searchGames"
+                    size="sm"
+                    type="submit"
+                    ><b-icon icon="search"></b-icon>
+                    Advanced Search
+                  </b-button>
             </div>
           </b-sidebar>
         </section>
@@ -151,6 +169,7 @@ export default {
         name: "search",
         query: filteredSearchParameters,
       });
+      location.reload();
     },
     pushToProfile() {
       this.$router.push({
