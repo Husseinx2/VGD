@@ -3,13 +3,13 @@
           <aside id="sidebar-right" title="Filter Options" left shadow >
       <div class="sidebar-work">
         <b-form-group>
-       <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="title">Title</b-form-radio>
-       <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="esrbRating">ESRB</b-form-radio>
-       <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="year">Year</b-form-radio>
-       <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="genreName">Genre</b-form-radio>
-       <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="platformName">Platform</b-form-radio>
-       <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="developerName">Developer</b-form-radio>
-       <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="publisherName">Publisher</b-form-radio>
+       <b-form-radio v-model="selected"  name="some-radios" value="title">Title</b-form-radio>
+       <b-form-radio v-model="selected"  name="some-radios" value="esrbRating">ESRB</b-form-radio>
+       <b-form-radio v-model="selected"  name="some-radios" value="year">Year</b-form-radio>
+       <b-form-radio v-model="selected"  name="some-radios" value="genreName">Genre</b-form-radio>
+       <b-form-radio v-model="selected"  name="some-radios" value="platformName">Platform</b-form-radio>
+       <b-form-radio v-model="selected"  name="some-radios" value="developerName">Developer</b-form-radio>
+       <b-form-radio v-model="selected"  name="some-radios" value="publisherName">Publisher</b-form-radio>
     </b-form-group>
       </div>
     </aside>
@@ -27,10 +27,13 @@
 <script>
 import GameCardVue from "../components/GameCard.vue";
 import gameService from "../services/GameService.js";
+
 export default {
+  selected: "",
   name: "home",
   data() {
     return {
+      selected: {},
       newGame: {},
       search: "",
       games: [],
@@ -106,11 +109,5 @@ export default {
 main{
   min-height: 100vh;
 }
-aside{
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  overflow: hidden;
-  padding: 1rem;
-}
+
 </style>

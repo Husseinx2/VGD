@@ -6,13 +6,13 @@
       "
     >
       <b-navbar-brand img src="\Images\VGD.jpg" href="/">
-      <img class="navbar-logo" src="./..\Images\logo3.png"/>
+      <img class="navbar-logo" src="./..\Images\logo1.png"/>
       </b-navbar-brand>
       <b-nav-form v-on:click.prevent>
         <b-form-input
           v-if="!$route.meta.hideNavbar"
           size="sm"
-          v-model="search"
+          v-model="title"
           placeholder="Search Games"
         >
         </b-form-input>
@@ -62,20 +62,35 @@
           </b-dropdown-item>
         </b-dropdown>
   <section class="sidebar-menu">
-    <b-sidebar id="sidebar-right" title="Filter Options" left shadow >
+    <b-sidebar id="sidebar-right" title="Filter Options" right shadow >
       <div class="sidebar-work">
         <b-form-group>
-       <b-form-radio  name="some-radios" value="title">Title</b-form-radio>
-       <b-form-radio  name="some-radios" value="esrbRating">ESRB</b-form-radio>
-       <b-form-radio  name="some-radios" value="year">Year</b-form-radio>
-       <b-form-radio  name="some-radios" value="genreName">Genre</b-form-radio>
-       <b-form-radio  name="some-radios" value="platformName">Platform</b-form-radio>
-       <b-form-radio  name="some-radios" value="developerName">Developer</b-form-radio>
-       <b-form-radio  name="some-radios" value="publisherName">Publisher</b-form-radio>
+          <label>ESRB</label>
+       <b-form-tags v-model="esrbRating" placeholder="Enter a rating"></b-form-tags>
+        </b-form-group>
+        <b-form-group>
+        <label>Year</label>
+       <b-form-input v-model="year" placeholder="Enter a year"></b-form-input>
+        </b-form-group>
+        <b-form-group>
+       <label>Genre</label>
+       <b-form-tags v-model="genreName" placeholder="Enter genre(s)"></b-form-tags>
+        </b-form-group>
+        <b-form-group>
+       <label>Platform</label>
+       <b-form-tags v-model="platformName" placeholder="Enter platform(s)"></b-form-tags>
+        </b-form-group>
+        <b-form-group>
+       <label>Developer</label>
+       <b-form-tags v-model="developerName" placeholder="Enter developer(s)"></b-form-tags>
+        </b-form-group>
+        <b-form-group>
+       <label>Publisher</label>
+       <b-form-tags v-model="publisherName" placeholder="Enter publisher(s)"></b-form-tags>
     </b-form-group>
       </div>
     </b-sidebar>
-  </section>
+    </section>
       </b-navbar-nav>
     </b-navbar>
   </header>
@@ -86,6 +101,13 @@ import GameService from "../services/GameService";
 export default {
   data() {
     return {
+        title:"",
+        genreName:[],
+        esrbRating:[],
+        year: null,
+        platformName: [],
+        developerName: [],
+        publisherName: [],
       search: "",
       ids: [],
       games: [],
@@ -168,4 +190,5 @@ header {
 .navbar-logo{
   width:75px;
 }
+
 </style>
