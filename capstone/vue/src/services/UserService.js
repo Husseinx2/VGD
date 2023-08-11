@@ -6,6 +6,9 @@ export default {
   },
   GetUser(id) {
     return axios.get(`/user/${id}`)
+  },
+  DeleteUser(id) {
+    return axios.delete(`user/${id}`);
   }
 };
  
