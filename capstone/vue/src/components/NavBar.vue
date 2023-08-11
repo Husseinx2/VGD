@@ -5,7 +5,9 @@
         $store.state.user.role == 'user' || $store.state.user.role == 'admin'
       "
     >
-      <b-navbar-brand href="/">VGD</b-navbar-brand>
+      <b-navbar-brand img src="\Images\VGD.jpg" href="/">
+      <img class="navbar-logo" src="./..\Images\VGD.png"/>
+      </b-navbar-brand>
       <b-nav-form v-on:click.prevent>
         <b-form-input
           v-if="!$route.meta.hideNavbar"
@@ -135,5 +137,8 @@ header {
   right: 10px;
   top: 4px;
   font-size: 20px;
+}
+.navbar-logo{
+  width:75px;
 }
 </style>
