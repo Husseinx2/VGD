@@ -65,13 +65,13 @@
     <b-sidebar id="sidebar-right" title="Filter Options" left shadow >
       <div class="sidebar-work">
         <b-form-group>
-       <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="title">Title</b-form-radio>
-       <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="esrbRating">ESRB</b-form-radio>
-       <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="year">Year</b-form-radio>
-       <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="genreName">Genre</b-form-radio>
-       <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="platformName">Platform</b-form-radio>
-       <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="developerName">Developer</b-form-radio>
-       <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="publisherName">Publisher</b-form-radio>
+       <b-form-radio  name="some-radios" value="title">Title</b-form-radio>
+       <b-form-radio  name="some-radios" value="esrbRating">ESRB</b-form-radio>
+       <b-form-radio  name="some-radios" value="year">Year</b-form-radio>
+       <b-form-radio  name="some-radios" value="genreName">Genre</b-form-radio>
+       <b-form-radio  name="some-radios" value="platformName">Platform</b-form-radio>
+       <b-form-radio  name="some-radios" value="developerName">Developer</b-form-radio>
+       <b-form-radio  name="some-radios" value="publisherName">Publisher</b-form-radio>
     </b-form-group>
       </div>
     </b-sidebar>
