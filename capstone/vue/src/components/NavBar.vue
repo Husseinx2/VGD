@@ -12,10 +12,10 @@
         <b-form-input
           v-if="!$route.meta.hideNavbar"
           size="sm"
-          v-model="title"
+          v-model="searchParameters.title"
           placeholder="Search Games"
         >
-        </b-form-input>
+        </b-form-input> 
         <b-button
           v-if="!$route.meta.hideNavbar"
           v-on:click="searchGames"
@@ -72,42 +72,42 @@
               <b-form-group>
                 <label>ESRB</label>
                 <b-form-input
-                  v-model="esrbRating"
+                  v-model="searchParameters.esrbRating"
                   placeholder="Enter a rating"
                 ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Year</label>
                 <b-form-input
-                  v-model="year"
+                  v-model="searchParameters.year"
                   placeholder="Enter a year"
                 ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Genre</label>
                 <b-form-input
-                  v-model="genreName"
+                  v-model="searchParameters.genreName"
                   placeholder="Enter genre(s)"
                 ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Platform</label>
                 <b-form-input
-                  v-model="platformName"
+                  v-model="searchParameters.platformName"
                   placeholder="Enter platform(s)"
                 ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Developer</label>
                 <b-form-input
-                  v-model="developerName"
+                  v-model="searchParameters.developerName"
                   placeholder="Enter developer(s)"
                 ></b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>Publisher</label>
                 <b-form-input
-                  v-model="publisherName"
+                  v-model="searchParameters.publisherName"
                   placeholder="Enter publisher(s)"
                 ></b-form-input>
               </b-form-group>
@@ -124,6 +124,7 @@ import GameService from "../services/GameService";
 export default {
   data() {
     return {
+      searchParameters: {
       title: "",
       genreName: "",
       esrbRating: "",
@@ -131,15 +132,22 @@ export default {
       platformName: "",
       developerName: "",
       publisherName: "",
-      search: "",
-      ids: [],
-      games: [],
+      },
+
       showAlert: false,
       
     };
   },
   methods: {
-
+    searchGames() {
+      if (!this.searchParameters.year) {
+        this.searchParameters.year = 0;
+      }
+      this.$router.push({
+        name: "search",
+        query: this.searchParameters,
+      });
+    },
     pushToProfile() {
       this.$router.push({
         name: "profile",
