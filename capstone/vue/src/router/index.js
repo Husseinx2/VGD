@@ -15,6 +15,9 @@ import search from '../views/Search.vue'
 import AdvancedSearch from '../views/AdvancedSearch.vue'
 import Profile from '../views/Profile.vue'
 import Profiles from '../views/Profiles.vue'
+import AboutUs from '../views/AboutUs.vue'
+import FAQ from '../views/FAQ.vue'
+import Features from '../views/Features.vue'
 
 Vue.use(Router)
 
@@ -150,6 +153,30 @@ const router = new Router({
       meta:{
         requiresAuth: true,
         adminOnly: true,
+      }
+    },
+    {
+      path:"/About",
+      name: "About",
+      component: AboutUs,
+      meta:{
+        requiresAuth: false,
+      }
+    },
+    {
+      path: "/FAQ",
+      name: "FAQ",
+      component: FAQ,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/Features",
+      name: "Features",
+      component: Features,
+      meta: {
+        requiresAuth: false
       }
     }
   ]
