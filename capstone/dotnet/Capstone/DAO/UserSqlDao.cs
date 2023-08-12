@@ -151,8 +151,7 @@ namespace Capstone.DAO
 
         public bool DeleteUser(int userId)
         {
-            string sqlDeleteUser = "DELETE FROM rating where rating.user_id = @user_id;" +
-                                   "DELETE users WHERE users.user_id = @user_id";
+            string sqlDeleteUser = "DELETE users WHERE users.user_id = @user_id";
             bool result = false;
             try
             {
