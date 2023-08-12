@@ -17,13 +17,12 @@ export default {
         return axios.put('comment', comment);
     },
     deleteComment(id){
-        return axios.put( `comment/${id}`);
+        return axios.delete( `comment/${id}`);
     },
     deleteCommentByReviewId(id){
-        return axios.put( `comment/review/${id}`);
+        return axios.delete( `comment/review/${id}`);
     },
     deleteCommentByCommenterId(id){
-        return axios.put( `comment/commenter/${id}`);
+        return axios.delete( `comment/commenter/${id}`);
     }
-
 };
