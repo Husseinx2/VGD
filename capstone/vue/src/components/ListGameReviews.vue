@@ -1,7 +1,9 @@
 <template>
   <section>
 <b-card-group class="list-reviews-card">
-<b-card-header>{{}} </b-card-header>
+<b-card-header>{{}} </b-card-header> <!--Username-->
+<b-card-body>{{review.content}}</b-card-body>
+<b-card-footer>{{review.date}}</b-card-footer>
 </b-card-group>
   </section>
 </template>
