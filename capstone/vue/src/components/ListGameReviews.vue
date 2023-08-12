@@ -1,7 +1,7 @@
 <template>
   <section>
 <b-card-group class="list-reviews-card">
-<b-card-header>{{}} </b-card-header> <!--Username-->
+<b-card-header>{{username}} </b-card-header> <!--Username-->
 <b-card-body>{{review.review_content}}</b-card-body>
 <b-card-footer>{{review.datetime}}</b-card-footer>
 </b-card-group>
@@ -15,15 +15,15 @@ export default {
     data(){
         return{
             reviews:[],
-            usernames: []
+            username: ""
         }
     },
     methods: {
-     getUsernames(){
+     getUsernames(userId){
         userService
-            .GetUser()
+            .GetUser(userId)
             .then(response => {
-                this.usernames = response;
+                this.username = response;
             })
      },
      loadReviews() {
