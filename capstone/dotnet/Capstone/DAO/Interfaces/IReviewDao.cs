@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Capstone.DAO.Interfaces
 {
-    public interface IReviewDAO
+    public interface IReviewDao
     {
         public List<Review> ListReviewsByGameId(int gameId);
 
