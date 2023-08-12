@@ -16,8 +16,6 @@ namespace Capstone.DAO.Interfaces
 
         public Review UpdateReview(Review review);
 
-        public List<Review> ListReviewsByReviewId(int reviewId);
-
         public bool DeleteReview(int reviewId);
 
         public bool DeleteReviewsByGameId(int gameId);
