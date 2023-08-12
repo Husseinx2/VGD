@@ -50,7 +50,6 @@ export default {
         return;
       }
       this.addReview();
-      this.reset();
     },
     //reactively validates review form
     validateState(state) {
@@ -63,7 +62,6 @@ export default {
           .then(() => {
             this.review = {};
             this.$store.commit("REVIEW_ADDED", true);
-            location.reload();
           })
           .catch(() => {
             console.log("error adding review");
@@ -71,9 +69,6 @@ export default {
           });
       }
     },
-    reset(){
-      this.review.reviewContent= "";
-    }
   }
 
 }
