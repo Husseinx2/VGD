@@ -41,7 +41,6 @@ export default {
   name: "home",
   data() {
     return {
-      newGame: {},
       search: "",
       games: [],
     };
@@ -67,31 +66,6 @@ export default {
   },
 
   methods: {
-    createNewGame() {
-      if (this.newGame.title) {
-        gameService
-          .addGame(this.newGame)
-          .then(() => {
-            this.newOwner = {};
-            this.loadGames();
-          })
-          .catch((error) => {
-            if (error.response) {
-              // error.response exists
-              // Request was made, but response has error status (4xx or 5xx)
-              console.log("Error adding game: ", error.response.status);
-            } else if (error.request) {
-              // There is no error.response, but error.request exists
-              // Request was made, but no response was received
-              console.log("Error adding game: unable to communicate to server");
-            } else {
-              // Neither error.response and error.request exist
-              // Request was *not* made
-              console.log("Error adding game: make request");
-            }
-          });
-      }
-    },
     loadGames() {
       gameService
         .listGames()
