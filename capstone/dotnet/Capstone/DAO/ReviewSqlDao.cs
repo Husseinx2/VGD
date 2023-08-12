@@ -11,6 +11,9 @@ namespace Capstone.DAO
     {
         private readonly string connectionString = "";
 
+        private readonly string sqlListReviewsByReviewerId = "SELECT  review_id, game_id, reviewer_id, review_content, review_datetime FROM review WHERE review.reviewer_id = @reviewer_id;";
+
+
         private readonly string sqlListReviewsByGameId = "SELECT  review_id, game_id, reviewer_id, review_content, review_datetime FROM review WHERE review.game_id = @game_id;";
 
         // (Hussein) NOTE:using in profile, using paramaters in route to call this sql statement
@@ -173,7 +176,36 @@ namespace Capstone.DAO
 
             return reviews;
         }
+        public List<Review> ListReviewsByReviewerId(int reviewerId)
+        {
+            List<Review> reviews = new List<Review>();
 
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlListReviewsByReviewerId, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@reviewer_id", reviewerId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Review review = MapRowToReview(reader);
+                                reviews.Add(review);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+
+            return reviews;
+        }
         public Review UpdateReview(Review review)
         {
             try
