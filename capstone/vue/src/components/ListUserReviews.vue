@@ -4,7 +4,7 @@
         v-for="review in reviews"
         v-bind:key="review.id"
         v-bind:item="review" class="list-reviews-card">
-<b-card-header>{{}} </b-card-header> <!--game title -->
+<b-card-header>{{gameTitle}} </b-card-header> <!--game title -->
 <b-card-body>{{review.review_content}}</b-card-body>
 <b-card-footer>{{review.datetime}}</b-card-footer>
 </b-card-group>
@@ -12,16 +12,22 @@
 </template>
 
 <script>
+import gameService from "../services/GameService.js"
 import reviewService from "../services/ReviewService.js";
 export default {
     data(){
         return{
-            reviews:[]
+            reviews:[],
+            gameTitle: ""
         }
     },
     methods: {
-    getGameTitle(){
-        
+    getGameTitle(gameId){
+        gameService
+            .getGame(gameId)
+            .then(response => {
+                this.gameTitle = response;
+            })
         },
     loadReviews() {
       reviewService
