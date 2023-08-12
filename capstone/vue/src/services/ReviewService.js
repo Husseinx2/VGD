@@ -17,13 +17,13 @@ export default {
         return axios.put('review', review);
     },
     deleteReview(id){
-        return axios.put( `review/${id}`);
+        return axios.delete( `review/${id}`);
     },
     deleteReviewByGameId(id){
-        return axios.put( `review/game/${id}`);
+        return axios.delete( `review/game/${id}`);
     },
     deleteReviewByReviewerId(id){
-        return axios.put( `review/reviewer/${id}`);
+        return axios.delete( `review/reviewer/${id}`);
     }
 
 };

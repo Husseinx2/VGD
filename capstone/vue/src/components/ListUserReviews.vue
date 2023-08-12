@@ -1,65 +1,65 @@
 <template>
   <section>
-<b-card-group
-        v-for="review in reviews"
-        v-bind:key="review.id"
-        v-bind:item="review" class="list-reviews-card">
-<b-card-header>{{gameTitle}} </b-card-header> <!--game title -->
-<b-card-body>{{review.review_content}}</b-card-body>
-<b-card-footer>{{review.datetime}}</b-card-footer>
-</b-card-group>
+    <b-card class="list-reviews-card">
+      <b-card-header>Game: {{ game.title }} </b-card-header>
+      <!--game title -->
+      <b-card-body class="body">
+        <b-card-text> Review: <br />{{ item.reviewContent }} </b-card-text>
+        <br />
+        <b-card-text>
+          Date:
+          {{ new Date(item.reviewDateTime).toLocaleString("en", options) }}
+        </b-card-text>
+        <button
+          class="btn btn-danger"
+          v-b-modal="`${item.reviewContent}`"
+          v-bind:key="item.reviewId"
+        >
+          Delete <b-icon icon="trash" />
+        </button>
+
+        <b-modal
+          ok-variant="danger"
+          ok-title="DELETE"
+          cancel-title="CANCEL"
+          @ok="deleteReview"
+          v-bind:id="item.reviewContent"
+        >
+          Are you sure you want to delete This review?
+        </b-modal>
+      </b-card-body>
+    </b-card>
   </section>
 </template>
 
 <script>
-import gameService from "../services/GameService.js"
-import reviewService from "../services/ReviewService.js";
+import gameService from "../services/GameService.js";
+import ReviewService from "../services/ReviewService.js";
 export default {
-    data(){
-        return{
-            reviews:[],
-            gameTitle: ""
-        }
-    },
-    methods: {
-    getGameTitle(gameId){
-        gameService
-            .getGame(gameId)
-            .then(response => {
-                this.gameTitle = response;
-            })
-        },
-    loadReviews() {
-      reviewService
-        .getUserReviews()
-        .then((response) => {
-          console.log("Reached created in ListUserReviews.vue");
-          console.log(response);
-          this.reviews = response.data;
-        })
-        .catch((error) => {
-          if (error.response) {
-            // error.response exists
-            // Request was made, but response has error status (4xx or 5xx)
-            console.log("Error loading reviews: ", error.response.status);
-          } else if (error.request) {
-            // There is no error.response, but error.request exists
-            // Request was made, but no response was received
-            console.log("Error loading reviews: unable to communicate to server");
-          } else {
-            // Neither error.response and error.request exist
-            // Request was *not* made
-            console.log("Error loading reviews: make request");
-          }
-        });
-    },
-    },
-    created() {
-        this.loadReviews();
+  props: ["item"],
+  data() {
+    return {
+      game: {},
+      options: { year: "numeric", month: "long", day: "numeric" },
+    };
   },
-}
+  methods: {
+    getGameTitle() {
+      gameService.getGame(this.item.gameId).then((response) => {
+        this.game = response.data;
+      });
+    },
+    deleteReview() {
+      ReviewService.deleteReview(this.item.reviewId).then(() => {
+        location.reload();
+      });
+    },
+  },
+  created() {
+    this.getGameTitle();
+  },
+};
 </script>
 
-<style>
-
+<style scoped>
 </style>

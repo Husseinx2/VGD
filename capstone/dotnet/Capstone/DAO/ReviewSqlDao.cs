@@ -1,6 +1,5 @@
 ﻿using Capstone.DAO.Interfaces;
 using Capstone.Models;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -13,13 +12,8 @@ namespace Capstone.DAO
 
         private readonly string sqlListReviewsByGameId = "SELECT  review_id, game_id, reviewer_id, review_content, review_datetime FROM review WHERE review.game_id = @game_id;";
 
-        private readonly string sqlListReviewsByReviewerId = "SELECT  review_id, game_id, reviewer_id, review_content, review_datetime FROM review WHERE review.reviewer_id = @reviewer_id;";
-
-
-        // (Hussein) NOTE:using in profile, using paramaters in route to call this sql statement
-
-        private readonly string sqlListReviewsByReviewId = "SELECT  review_id, game_id, reviewer_id, review_content, review_datetime FROM review " +
-            "WHERE review.review_id = @review_id;";
+        private readonly string sqlListReviewsByReviewerId = "SELECT review_id, game_id, reviewer_id, review_content, review_datetime FROM review " +
+            "WHERE review.reviewer_id = @reviewer_id;";
 
         private readonly string sqlGetReview = "SELECT review_id, game_id, reviewer_id, review_content, review_datetime FROM review " +
             "WHERE review_id = @review_id";
@@ -30,9 +24,9 @@ namespace Capstone.DAO
 
         private readonly string sqlUpdateReview = "UPDATE review SET review_content=@review_content, " +
              "review_datetime=@review_datetime " +
-            "WHERE review_id = @review_id";
-        //fix this
-        private readonly string  sqlDeleteReviewByGameId = "DELETE review WHERE game_id = @game_id;";
+            "WHERE review_id = @review_id AND game_id = @game_id AND reviewer_id = @reviewer_id;";
+     
+        private readonly string sqlDeleteReviewByGameId = "DELETE review WHERE game_id = @game_id;";
         private readonly string sqlDeleteReviewByReviewerId = "DELETE review WHERE reviewer_id = @reviewer_id;";
         private readonly string sqlDeleteReview= "DELETE review WHERE review_id = @review_id";
 
@@ -40,6 +34,100 @@ namespace Capstone.DAO
         {
             this.connectionString = connectionString;
         }
+  
+        public List<Review> ListReviewsByGameId(int gameId)
+        {
+            List<Review> reviews = new List<Review>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlListReviewsByGameId, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Review review = MapRowToReview(reader);
+                                reviews.Add(review);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+
+            return reviews;
+        }
+
+        public List<Review> ListReviewsByReviewerId(int reviewerId)
+        {
+            List<Review> reviews = new List<Review>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlListReviewsByReviewerId, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@reviewer_id", reviewerId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Review review = MapRowToReview(reader);
+                                reviews.Add(review);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+
+            return reviews;
+        }
+
+        public Review GetReview(int reviewId)
+        {
+            Review review = null;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlGetReview, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@review_id", reviewId);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                review = MapRowToReview(reader);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+
+            return review;
+        }
+
         public Review AddReview(Review review)
         {
             Review newReview = null;
@@ -70,6 +158,32 @@ namespace Capstone.DAO
             return newReview;
         }
 
+        public Review UpdateReview(Review review)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlUpdateReview, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@review_id", review.ReviewId);
+                        cmd.Parameters.AddWithValue("@game_id", review.GameId);
+                        cmd.Parameters.AddWithValue("@reviewer_id", review.ReviewerId);
+                        cmd.Parameters.AddWithValue("@review_content", review.ReviewContent);
+                        cmd.Parameters.AddWithValue("@review_datetime", review.ReviewDateTime);
+
+                        int count = cmd.ExecuteNonQuery();
+                        return count == 1 ? review : null;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+        }
+
         public bool DeleteReview(int reviewId)
         {
             try
@@ -90,7 +204,6 @@ namespace Capstone.DAO
                 return false;
             }
         }
-
 
         public bool DeleteReviewsByGameId(int gameId)
         {
@@ -133,159 +246,8 @@ namespace Capstone.DAO
             }
         }
 
-
-        public Review GetReview(int reviewId)
-        {
-            Review review = null;
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlGetReview, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@review_id", reviewId);
-                        
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                review = MapRowToReview(reader);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                return null;
-            }
-
-            return review;
-        }
-
-        public List<Review> ListReviewsByGameId(int gameId)
-        {
-            List<Review> reviews = new List<Review>();
-
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlListReviewsByGameId, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@game_id", gameId);
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                Review review = MapRowToReview(reader);
-                                reviews.Add(review);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                return null;
-            }
-
-            return reviews;
-        }
-
-        public List<Review> ListReviewsByReviewId(int reviewId)
-        {
-            List<Review> reviews = new List<Review>();
-
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlListReviewsByReviewId, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@review_id", reviewId);
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                Review review = MapRowToReview(reader);
-                                reviews.Add(review);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                return null;
-            }
-
-            return reviews;
-        }
-        public List<Review> ListReviewsByReviewerId(int reviewerId)
-        {
-            List<Review> reviews = new List<Review>();
-
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlListReviewsByReviewerId, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@reviewer_id", reviewerId);
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                Review review = MapRowToReview(reader);
-                                reviews.Add(review);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                return null;
-            }
-
-            return reviews;
-        }
-        public Review UpdateReview(Review review)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlUpdateReview, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@review_id", review.ReviewId);
-                        cmd.Parameters.AddWithValue("@game_id", review.GameId);
-                        cmd.Parameters.AddWithValue("@reviewer_id", review.ReviewerId);
-                        cmd.Parameters.AddWithValue("@review_content", review.ReviewContent);
-                        cmd.Parameters.AddWithValue("@review_datetime", review.ReviewDateTime);
-
-                        int count = cmd.ExecuteNonQuery();
-
-                        return review;
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                return null;
-            }
-        }
-
         private Review MapRowToReview(SqlDataReader reader)
         {
-
             Review review = new Review();
 
             review.ReviewId = Convert.ToInt32(reader["review_id"]);

@@ -164,8 +164,7 @@ namespace Capstone.DAO
                         cmd.Parameters.AddWithValue("@rating_datetime", rating.RatingDateTime);
 
                         int count = cmd.ExecuteNonQuery();
-
-                        return rating;
+                        return count == 1 ? rating : null;
                     }
                 }
             }
