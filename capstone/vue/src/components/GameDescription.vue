@@ -90,6 +90,11 @@ export default {
       containsId: false,
     };
   },
+  computed:{
+    addReview(){
+      return this.$store.state.reviewAdded;
+    },
+  },
   methods: {
     push() {
       this.$router.push("/");
@@ -132,19 +137,6 @@ export default {
             console.log("Error loading reviews: make request");
           }
         });
-    },
-    addReview() {
-      if (this.review) {
-        reviewService
-          .addReview(this.review)
-          .then(() => {
-            this.review = {};
-            this.$store.commit("REVIEW_ADDED", true);
-          })
-          .catch(() => {
-            console.log("error adding review");
-          });
-      }
     },
   },
   created() {
