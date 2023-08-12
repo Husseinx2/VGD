@@ -6,7 +6,7 @@
     <div class="container mt-2">
       <span v-show="$store.state.user.role == 'admin'">
         <div class="b-btn-toolbar float-right">
-          <b-button-group class="mx-1">
+          <b-button-group class="mx-1 float-right">
             <b-button
               class="btn btn-warning"
               v-bind:to="{ name: 'edit', params: { id: item.id } }"
@@ -14,7 +14,7 @@
               Edit <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
             </b-button>
           </b-button-group>
-          <b-button-group class="mx-1">
+          <b-button-group class="mx-1-float-right">
             <b-button class="btn btn-danger" v-b-modal.my-modal
               >Delete <b-icon icon="trash" aria-hidden="true"></b-icon
             ></b-button>
@@ -45,21 +45,18 @@
           </section>
         </td>
         <td>
-          <b-button @click="showAddReview = !showAddReview"
-            >Add Review</b-button
-          >
-          <b-form-group v-show="showAddReview">
-            <add-review-form />
-            <b-button type="submit">Submit</b-button>
-          </b-form-group>
-        </td>
-        <td>
           <section class="rating">
             <ratings-card v-bind:item="id" />
           </section>
         </td>
       </tbody>
     </table>
+    <section>
+    <b-button style="width:13%" @click="showAddReview = !showAddReview">Add Review</b-button>
+    <b-form-group v-show="showAddReview">
+      <add-review-form />
+    </b-form-group>
+    </section>
     <list-game-reviews
       v-for="review in reviews"
       v-bind:key="review.reviewId"

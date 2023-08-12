@@ -1,11 +1,14 @@
 <template>
   <section>
     <b-card-group
-      class="list-reviews-card"
       >
-      <b-card-header>{{user.username}}:</b-card-header>
+      <b-card class="list-reviews-card">
+      <b-card-header>
+      <h6 class="mb-0">{{user.username}}</h6>
+      </b-card-header>
       <b-card-body>{{ item.reviewContent }}</b-card-body>
-      <b-card-footer>{{ item.reviewDateTime }}</b-card-footer>
+      <b-card-footer class="card-footer">Posted: {{ new Date(item.reviewDateTime).toLocaleString("en", options) }}</b-card-footer>
+      </b-card>
     </b-card-group>
   </section>
 </template>
@@ -17,7 +20,7 @@ export default {
   data() {
     
     return {
- 
+      options: { year: "numeric", month: "long", day: "numeric" },
       user: "",
     };
   },
@@ -34,5 +37,11 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.card-footer{
+    font-size:10px
+}
+.list-reviews-card{
+    width: 50%;    
+}
 </style>
