@@ -21,13 +21,13 @@ export default {
     },
     methods: {
     getGameTitle(){
-
+        
         },
     loadReviews() {
       reviewService
         .getUserReviews()
         .then((response) => {
-          console.log("Reached created in UserReviews.vue");
+          console.log("Reached created in ListUserReviews.vue");
           console.log(response);
           this.reviews = response.data;
         })

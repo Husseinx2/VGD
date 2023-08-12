@@ -15,22 +15,22 @@ export default {
     data(){
         return{
             reviews:[],
-            username: []
+            usernames: []
         }
     },
     methods: {
      getUsernames(){
         userService
-            .GetUser(review.reviewer_id)
+            .GetUser()
             .then(response => {
-                this.
+                this.usernames = response;
             })
      },
      loadReviews() {
       reviewService
         .getGameReviews()
         .then((response) => {
-          console.log("Reached created in GameReviews.vue");
+          console.log("Reached created in ListGameReviews.vue");
           console.log(response);
           this.reviews = response.data;
         })
