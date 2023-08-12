@@ -60,6 +60,12 @@
         </td>
       </tbody>
     </table>
+    <list-game-reviews
+      v-for="review in reviews"
+      v-bind:key="review.reviewId"
+      v-bind:item="review"
+      class="list-reviews-card"
+    />
   </div>
 </template>
 
@@ -69,14 +75,16 @@ import addReviewForm from "../components/AddReviewForm.vue";
 import RatingsCard from "../components/RatingsCard.vue";
 import gameService from "../services/GameService";
 import GameDetails from "../components/GameDetails.vue";
+import ListGameReviews from "./ListGameReviews.vue";
 export default {
-  components: { GameDetails, RatingsCard, addReviewForm },
+  components: { GameDetails, RatingsCard, addReviewForm, ListGameReviews },
   props: ["item"],
   data() {
     return {
       showAddReview: false,
       id: 0,
       game: {},
+      reviews: [],
     };
   },
   methods: {
@@ -88,6 +96,32 @@ export default {
         this.$store.commit("GAME_DELETED", true);
         this.$router.push("/");
       });
+    },
+    loadReviews() {
+      reviewService
+        .getGameReviews(this.id)
+        .then((response) => {
+          console.log("Reached created in ListGameReviews.vue");
+          console.log(response);
+          this.reviews = response.data;
+        })
+        .catch((error) => {
+          if (error.response) {
+            // error.response exists
+            // Request was made, but response has error status (4xx or 5xx)
+            console.log("Error loading reviews: ", error.response.status);
+          } else if (error.request) {
+            // There is no error.response, but error.request exists
+            // Request was made, but no response was received
+            console.log(
+              "Error loading reviews: unable to communicate to server"
+            );
+          } else {
+            // Neither error.response and error.request exist
+            // Request was *not* made
+            console.log("Error loading reviews: make request");
+          }
+        });
     },
     addReview() {
       if (this.review) {
@@ -129,6 +163,8 @@ export default {
         }
         this.$router.push("/*");
       });
+
+    this.loadReviews();
   },
 };
 </script>
