@@ -175,12 +175,7 @@ namespace Capstone.DAO
                         cmd.Parameters.AddWithValue("@review_datetime", review.ReviewDateTime);
 
                         int count = cmd.ExecuteNonQuery();
-                        if (count != 1)
-                        {
-                            return null;
-                        }
-
-                        return review;
+                        return count == 1 ? review : null;
                     }
                 }
             }
