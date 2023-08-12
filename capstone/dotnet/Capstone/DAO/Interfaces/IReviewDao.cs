@@ -1,6 +1,5 @@
 ﻿using Capstone.Models;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace Capstone.DAO.Interfaces
 {
@@ -15,8 +14,6 @@ namespace Capstone.DAO.Interfaces
         public Review AddReview(Review review);
 
         public Review UpdateReview(Review review);
-
-        public List<Review> ListReviewsByReviewId(int reviewId);
 
         public bool DeleteReview(int reviewId);
 
