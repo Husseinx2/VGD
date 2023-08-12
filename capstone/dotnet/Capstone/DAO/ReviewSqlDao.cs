@@ -11,10 +11,10 @@ namespace Capstone.DAO
     {
         private readonly string connectionString = "";
 
+        private readonly string sqlListReviewsByGameId = "SELECT  review_id, game_id, reviewer_id, review_content, review_datetime FROM review WHERE review.game_id = @game_id;";
+
         private readonly string sqlListReviewsByReviewerId = "SELECT  review_id, game_id, reviewer_id, review_content, review_datetime FROM review WHERE review.reviewer_id = @reviewer_id;";
 
-
-        private readonly string sqlListReviewsByGameId = "SELECT  review_id, game_id, reviewer_id, review_content, review_datetime FROM review WHERE review.game_id = @game_id;";
 
         // (Hussein) NOTE:using in profile, using paramaters in route to call this sql statement
 
@@ -25,6 +25,7 @@ namespace Capstone.DAO
             "WHERE review_id = @review_id";
 
         private readonly string sqlAddReview = "INSERT INTO review (game_id, reviewer_id, review_content, review_datetime) " +
+            "OUTPUT INSERTED.review_id " +
             "VALUES (@game_id, @reviewer_id, @review_content, @review_datetime) ";
 
         private readonly string sqlUpdateReview = "UPDATE review SET review_content=@review_content, " +
@@ -41,6 +42,9 @@ namespace Capstone.DAO
         }
         public Review AddReview(Review review)
         {
+            Review newReview = null;
+
+            int newReviewId = 0;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -50,10 +54,12 @@ namespace Capstone.DAO
                     {
                         cmd.Parameters.AddWithValue("@game_id", review.GameId);
                         cmd.Parameters.AddWithValue("@reviewer_id", review.ReviewerId);
-                        cmd.Parameters.AddWithValue("@review_value", review.ReviewContent);
+                        cmd.Parameters.AddWithValue("@review_content", review.ReviewContent);
                         cmd.Parameters.AddWithValue("@review_datetime", review.ReviewDateTime);
-                        review.ReviewId = (int)cmd.ExecuteScalar();
+                        newReviewId = (int)cmd.ExecuteScalar();
                     }
+
+                    newReview = GetReview(newReviewId);
                 }
             }
             catch (SqlException)
@@ -61,7 +67,7 @@ namespace Capstone.DAO
                 return null;
             }
 
-            return review;
+            return newReview;
         }
 
         public bool DeleteReview(int reviewId)
@@ -259,9 +265,10 @@ namespace Capstone.DAO
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(sqlUpdateReview, conn))
                     {
+                        cmd.Parameters.AddWithValue("@review_id", review.ReviewId);
                         cmd.Parameters.AddWithValue("@game_id", review.GameId);
                         cmd.Parameters.AddWithValue("@reviewer_id", review.ReviewerId);
-                        cmd.Parameters.AddWithValue("@review_value", review.ReviewContent);
+                        cmd.Parameters.AddWithValue("@review_content", review.ReviewContent);
                         cmd.Parameters.AddWithValue("@review_datetime", review.ReviewDateTime);
 
                         int count = cmd.ExecuteNonQuery();
