@@ -2,21 +2,30 @@
   <section>
 <b-card-group class="list-reviews-card">
 <b-card-header>{{}} </b-card-header> <!--Username-->
-<b-card-body>{{review.content}}</b-card-body>
-<b-card-footer>{{review.date}}</b-card-footer>
+<b-card-body>{{review.review_content}}</b-card-body>
+<b-card-footer>{{review.datetime}}</b-card-footer>
 </b-card-group>
   </section>
 </template>
 
 <script>
+import userService from "../services/UserService.js";
 import reviewService from "../services/ReviewService.js";
 export default {
     data(){
         return{
-            reviews:[]
+            reviews:[],
+            username: []
         }
     },
     methods: {
+     getUsernames(){
+        userService
+            .GetUser(review.reviewer_id)
+            .then(response => {
+                this.
+            })
+     },
      loadReviews() {
       reviewService
         .getGameReviews()

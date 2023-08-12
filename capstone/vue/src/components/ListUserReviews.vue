@@ -5,8 +5,8 @@
         v-bind:key="review.id"
         v-bind:item="review" class="list-reviews-card">
 <b-card-header>{{}} </b-card-header> <!--game title -->
-<b-card-body>{{review.content}}</b-card-body>
-<b-card-footer>{{review.date}}</b-card-footer>
+<b-card-body>{{review.review_content}}</b-card-body>
+<b-card-footer>{{review.datetime}}</b-card-footer>
 </b-card-group>
   </section>
 </template>
@@ -20,7 +20,10 @@ export default {
         }
     },
     methods: {
-     loadReviews() {
+    getGameTitle(){
+
+        },
+    loadReviews() {
       reviewService
         .getUserReviews()
         .then((response) => {
