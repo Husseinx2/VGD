@@ -117,6 +117,8 @@ CREATE TABLE game_genre (
 
 
 --populate default data
+
+
 --game
 INSERT INTO game (title, description, esrb_rating, release_date, image_url) VALUES ('Super Mario Bros','Super Mario Bros. is a platform game. In the game, Mario must race through the Mushroom Kingdom and save Princess Toadstool (later Princess Peach) from Bowser. Mario jumps, runs, and walks across each level. The worlds are full of enemies and platforms, and open holes.','E','09/13/1985','https://img-grouvee-com.b-cdn.net/upload/cache/28/d1/28d1a59b8cc9631f5fe0141dc6c06542.jpg');
 INSERT INTO game (title, description, esrb_rating, release_date, image_url) VALUES ('Grand Theft Auto V','Grand Theft Auto V is an action-adventure game played from either a third-person or first-person perspective. Players complete missions—linear scenarios with set objectives—to progress through the story. Outside of the missions, players may freely roam the open world.','M','09/17/2013', 'https://img-grouvee-com.b-cdn.net/upload/cache/ed/42/ed42cf726c8299b8ee36e0b34754ad61.jpg');
@@ -125,6 +127,14 @@ INSERT INTO game (title, description, esrb_rating, release_date, image_url) VALU
 --users
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
+--reviews
+INSERT INTO review (game_id, reviewer_id, review_content, review_datetime) VALUES (1,1,'Really Enjoyed this game', '08/09/2023');
+INSERT INTO review (game_id, reviewer_id, review_content, review_datetime) VALUES (1,2,'It Was Meh, could be better', '08/12/2023');
+INSERT INTO review (game_id, reviewer_id, review_content, review_datetime) VALUES (2,2,'Grew up on this really like it', '08/10/2023');
+---Comments
+INSERT INTO comment (review_id,commenter_id,comment_content,comment_datetime) values (1,2,'this review sucks go open your eyes','08/09/2023');
+INSERT INTO comment (review_id,commenter_id,comment_content,comment_datetime) values (2,1,'this game is the best what are you talking about?','08/12/2023');
+INSERT INTO comment (review_id,commenter_id,comment_content,comment_datetime) values (2,1,'Maybe if the sped up on the new game I would like it more','08/12/2023');
 --rating
 INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) VALUES (1,1,4, '08/09/2023');
 INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) VALUES (1,2,3, '08/09/2023');
