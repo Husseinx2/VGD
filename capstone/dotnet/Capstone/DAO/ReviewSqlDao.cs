@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace Capstone.DAO
 {
-    public class ReviewSqlDao : IReviewDAO
+    public class ReviewSqlDao : IReviewDao
     {
         private readonly string connectionString = "";
 
@@ -21,7 +21,7 @@ namespace Capstone.DAO
         private readonly string sqlListReviewsByReviewId = "SELECT  review_id, game_id, reviewer_id, review_content, review_datetime FROM review " +
             "WHERE review.review_id = @review_id;";
 
-        private readonly string sqlGetReview = "SELECT review_id, game_id, reviewr_id, review_content, review_datetime FROM review " +
+        private readonly string sqlGetReview = "SELECT review_id, game_id, reviewer_id, review_content, review_datetime FROM review " +
             "WHERE review_id = @review_id";
 
         private readonly string sqlAddReview = "INSERT INTO review (game_id, reviewer_id, review_content, review_datetime) " +
@@ -283,7 +283,7 @@ namespace Capstone.DAO
 
             review.ReviewId = Convert.ToInt32(reader["review_id"]);
             review.GameId = Convert.ToInt32(reader["game_id"]);
-            review.ReviewerId = Convert.ToInt32(reader["reviwer_id"]);
+            review.ReviewerId = Convert.ToInt32(reader["reviewer_id"]);
             review.ReviewContent = Convert.ToString(reader["review_content"]);
             review.ReviewDateTime = Convert.ToDateTime(reader["review_datetime"]);
 
