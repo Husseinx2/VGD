@@ -1,5 +1,5 @@
 <template>
-  <b-card>
+  <b-card class="container">
     <b-card-header>Game: {{ game.title }}</b-card-header>
     <b-card-text> Rating: {{ rating.ratingValue }}</b-card-text>
     <b-card-text
@@ -8,7 +8,7 @@
         new Date(rating.ratingDateTime).toLocaleString("en", options)
       }}</b-card-text
     >
-    <button v-b-modal="`${game.title}`" v-bind:key="game.id">
+    <button class="btn btn-danger" v-b-modal="`${game.title}`" v-bind:key="game.id">
       Delete <b-icon icon="trash" />
     </button>
     <b-modal
