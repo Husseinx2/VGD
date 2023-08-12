@@ -10,9 +10,9 @@ namespace Capstone.Controllers
     [ApiController]
     public class ReviewController : ControllerBase
     {
-        public IReviewDAO reviewDao;
+        public IReviewDao reviewDao;
 
-        public ReviewController(IReviewDAO reviewDao)
+        public ReviewController(IReviewDao reviewDao)
         {
             this.reviewDao = reviewDao;
         }
