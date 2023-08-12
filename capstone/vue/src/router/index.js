@@ -15,6 +15,7 @@ import search from '../views/Search.vue'
 import AdvancedSearch from '../views/AdvancedSearch.vue'
 import Profile from '../views/Profile.vue'
 import Profiles from '../views/Profiles.vue'
+import Review from '../views/Review.vue'
 import AboutUs from '../views/AboutUs.vue'
 import FAQ from '../views/FAQ.vue'
 import Features from '../views/Features.vue'
@@ -156,6 +157,14 @@ const router = new Router({
       meta:{
         requiresAuth: true,
         adminOnly: true,
+      }
+    },
+    {
+      path: "/review/:id",
+      name: "review",
+      component: Review,
+      meta: {
+        requiresAuth:true,
       }
     },
     {
