@@ -1,14 +1,31 @@
 <template>
   <b-card class="container">
     <b-card-header>Game: {{ game.title }}</b-card-header>
-    <b-card-text> Rating: {{ rating.ratingValue }}</b-card-text>
+    <b-card-text>
+      Rating:
+      <b-form-rating
+        size="lg"
+        no-border
+        show-clear
+        class="rating"
+        id="rating-inline-center"
+        inline
+        disabled
+        v-bind:value="rating.ratingValue"
+        color="orange"
+      ></b-form-rating>
+    </b-card-text>
     <b-card-text
       >Date:
       {{
         new Date(rating.ratingDateTime).toLocaleString("en", options)
       }}</b-card-text
     >
-    <button class="btn btn-danger" v-b-modal="`${game.title}`" v-bind:key="game.id">
+    <button
+      class="btn btn-danger"
+      v-b-modal="`${game.title}`"
+      v-bind:key="game.id"
+    >
       Delete <b-icon icon="trash" />
     </button>
     <b-modal

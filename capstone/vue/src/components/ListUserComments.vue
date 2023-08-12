@@ -20,9 +20,7 @@
           Delete <b-icon icon="trash" />
         </button>
 
-        <button class="btn btn-warning">
-          Edit <b-icon icon="pencil-fill" />
-        </button>
+      
 
         <b-modal
           ok-variant="danger"
