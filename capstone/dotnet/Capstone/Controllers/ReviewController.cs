@@ -10,9 +10,9 @@ namespace Capstone.Controllers
     [ApiController]
     public class ReviewController : ControllerBase
     {
-        public IReviewDAO reviewDao;
+        public IReviewDao reviewDao;
 
-        public ReviewController(IReviewDAO reviewDao)
+        public ReviewController(IReviewDao reviewDao)
         {
             this.reviewDao = reviewDao;
         }
@@ -34,7 +34,7 @@ namespace Capstone.Controllers
         }
 
         //Gets a list of reviews by a specific user
-        [HttpGet("review/{reviewerId}")]
+        [HttpGet("reviewer/{reviewerId}")]
         public ActionResult<List<Review>> ListReviewsByReviewerId(int reviewerId)
         {
             List<Review> reviews = reviewDao.ListReviewsByReviewerId(reviewerId);
