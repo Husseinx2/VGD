@@ -8,7 +8,11 @@
       </b-card-header>
       <b-card-body>{{ item.reviewContent }}</b-card-body>
       <b-card-footer class="card-footer">Posted: {{ new Date(item.reviewDateTime).toLocaleString("en", options) }}</b-card-footer>
+        <button v-show="$store.state.user.userId == item.reviewerId">
+        Edit
+      </button>
       </b-card>
+     
     </b-card-group>
   </section>
 </template>

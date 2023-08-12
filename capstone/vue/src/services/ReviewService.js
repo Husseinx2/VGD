@@ -25,5 +25,4 @@ export default {
     deleteReviewByReviewerId(id){
         return axios.delete( `review/reviewer/${id}`);
     }
-
 };
