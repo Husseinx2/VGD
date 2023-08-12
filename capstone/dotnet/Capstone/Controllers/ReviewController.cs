@@ -34,7 +34,7 @@ namespace Capstone.Controllers
         }
 
         //Gets a list of reviews by a specific user
-        [HttpGet("review/{reviewerId}")]
+        [HttpGet("reviewer/{reviewerId}")]
         public ActionResult<List<Review>> ListReviewsByReviewerId(int reviewerId)
         {
             List<Review> reviews = reviewDao.ListReviewsByReviewerId(reviewerId);
