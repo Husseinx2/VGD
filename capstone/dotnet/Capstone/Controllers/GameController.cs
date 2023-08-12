@@ -11,13 +11,15 @@ namespace Capstone.Controllers
     {
         public IGameDao gameDao;
         public IRatingDao ratingDao;
+        public IReviewDao reviewDao;
 
-        public GameController(IGameDao gameDao, IRatingDao ratingDao)
+        public GameController(IGameDao gameDao, IRatingDao ratingDao, IReviewDao reviewDao)
         {
             this.gameDao = gameDao;
             this.ratingDao = ratingDao;
+            this.reviewDao = reviewDao;
         }
-
+        
         [HttpGet()]
         public ActionResult<List<Game>> ListGames()
         {
@@ -65,6 +67,7 @@ namespace Capstone.Controllers
         public ActionResult<bool> DeleteGame(int gameId)
         {
             ratingDao.DeleteRatingsByGameId(gameId);
+            reviewDao.DeleteReviewsByGameId(gameId);
             bool result = gameDao.DeleteGame(gameId);
 
             if (result)
