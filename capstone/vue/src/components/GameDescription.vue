@@ -115,9 +115,7 @@ export default {
           this.reviews.forEach((review) => {
             if (review.reviewerId == this.$store.state.user.userId) {
               this.containsId = true;
-            } else {
-              this.containsId = false;
-            }
+            } 
           });
         })
         .catch((error) => {

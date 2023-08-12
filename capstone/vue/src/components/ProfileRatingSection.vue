@@ -1,6 +1,6 @@
 <template>
   <section class="ProfileRating container">
-    <h1>Ratings: </h1>
+    <h1 v-show="ratings.length > 0">Ratings: </h1>
     <rating-review-card
       v-for="rating in ratings"
       v-bind:key="rating.userId"

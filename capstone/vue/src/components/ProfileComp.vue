@@ -18,7 +18,7 @@
       Are you sure you want to delete {{ user.username }}?
     </b-modal>
     <profile-rating-section v-bind:item="item" />
-    <h1>Reviews:</h1>
+    <h1 v-show="reviews.length > 0">Reviews:</h1>
     <list-user-reviews
       v-for="review in reviews"
       v-bind:key="review.reviewId"
