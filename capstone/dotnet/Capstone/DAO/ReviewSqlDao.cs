@@ -265,9 +265,10 @@ namespace Capstone.DAO
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(sqlUpdateReview, conn))
                     {
+                        cmd.Parameters.AddWithValue("@review_id", review.ReviewId);
                         cmd.Parameters.AddWithValue("@game_id", review.GameId);
                         cmd.Parameters.AddWithValue("@reviewer_id", review.ReviewerId);
-                        cmd.Parameters.AddWithValue("@review_value", review.ReviewContent);
+                        cmd.Parameters.AddWithValue("@review_content", review.ReviewContent);
                         cmd.Parameters.AddWithValue("@review_datetime", review.ReviewDateTime);
 
                         int count = cmd.ExecuteNonQuery();
