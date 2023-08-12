@@ -31,6 +31,8 @@ namespace Capstone.DAO
              "review_datetime=@review_datetime " +
             "WHERE review_id = @review_id";
         //fix this
+        private readonly string  sqlDeleteReviewByGameId = "DELETE review WHERE game_id = @game_id;";
+        private readonly string sqlDeleteReviewByReviewerId = "DELETE review WHERE reviewer_id = @reviewer_id;";
         private readonly string sqlDeleteReview= "DELETE review WHERE review_id = @review_id";
 
         public ReviewSqlDao(string connectionString)
@@ -72,6 +74,48 @@ namespace Capstone.DAO
                     using (SqlCommand cmd = new SqlCommand(sqlDeleteReview, conn))
                     {
                         cmd.Parameters.AddWithValue("@review_id", reviewId);
+                        int count = cmd.ExecuteNonQuery();
+                        return count == 1;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+        }
+
+
+        public bool DeleteReviewsByGameId(int gameId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlDeleteReviewByGameId, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@game_id", gameId);
+                        int count = cmd.ExecuteNonQuery();
+                        return count == 1;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+        }
+        public bool DeleteReviewsByReviewerId(int reviewerId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlDeleteReviewByReviewerId, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@reviewer_id", reviewerId);
                         int count = cmd.ExecuteNonQuery();
                         return count == 1;
                     }
