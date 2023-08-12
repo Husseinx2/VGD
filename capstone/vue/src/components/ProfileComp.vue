@@ -14,19 +14,24 @@
       Are you sure you want to delete {{ user.username }}?
     </b-modal>
     <profile-rating-section v-bind:item="item" />
+    <h1> Reviews:</h1>
+    <list-user-reviews v-for="review in reviews" v-bind:key="review.reviewId" v-bind:item="review" />
   </section>
 </template>
 
 <script>
 import UserService from "../services/UserService";
 import ProfileRatingSection from "./ProfileRatingSection.vue";
+import reviewService from "../services/ReviewService.js";
+import ListUserReviews from './ListUserReviews.vue';
 export default {
-  components: { ProfileRatingSection },
+  components: { ProfileRatingSection,ListUserReviews },
   props: ["item"],
   name: "profileComp",
   data() {
     return {
       user: {},
+      reviews:[]
     };
   },
   methods: {
@@ -35,6 +40,7 @@ export default {
       UserService.GetUser(this.item)
         .then((response) => {
           this.user = response.data;
+          this.loadReviews();
         })
         .catch(() => {
           this.$router.push({ name: "notFound" });
@@ -44,7 +50,31 @@ export default {
       UserService.DeleteUser(this.item).then(() => {
            this.$router.push("/profiles");
       })
-    }
+    },
+     loadReviews() {
+      reviewService
+        .getUserReviews(this.user.userId)
+        .then((response) => {
+          console.log("Reached created in ListUserReviews.vue");
+          console.log(response);
+          this.reviews = response.data;
+        })
+        .catch((error) => {
+          if (error.response) {
+            // error.response exists
+            // Request was made, but response has error status (4xx or 5xx)
+            console.log("Error loading reviews: ", error.response.status);
+          } else if (error.request) {
+            // There is no error.response, but error.request exists
+            // Request was made, but no response was received
+            console.log("Error loading reviews: unable to communicate to server");
+          } else {
+            // Neither error.response and error.request exist
+            // Request was *not* made
+            console.log("Error loading reviews: make request");
+          }
+        });
+    },
   },
   created() {
     this.GetUser();
