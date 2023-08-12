@@ -2,7 +2,6 @@
 using Capstone.DAO.Interfaces;
 using Capstone.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
 using System.Collections.Generic;
 
 namespace Capstone.Controllers
@@ -16,21 +15,6 @@ namespace Capstone.Controllers
         public ReviewController(IReviewDAO reviewDao)
         {
             this.reviewDao = reviewDao;
-        }
-
-
-        [HttpGet("{reviewID}")]
-        public ActionResult<Review> GetReview(int reviewId)
-        {
-            Review review = reviewDao.GetReview(reviewId);
-            if (review != null)
-            {
-                return Ok(review);
-            }
-            else
-            {
-                return BadRequest();
-            }
         }
 
 
@@ -50,10 +34,10 @@ namespace Capstone.Controllers
         }
 
         //Gets a list of reviews by a specific user
-        [HttpGet("review/{reviewId}")]
-        public ActionResult<List<Review>> ListReviewsByReviewId(int reviewId)
+        [HttpGet("review/{reviewerId}")]
+        public ActionResult<List<Review>> ListReviewsByReviewerId(int reviewerId)
         {
-            List<Review> reviews = reviewDao.ListReviewsByReviewId(reviewId);
+            List<Review> reviews = reviewDao.ListReviewsByReviewerId(reviewerId);
             if (reviews != null)
             {
                 return Ok(reviews);
@@ -63,6 +47,21 @@ namespace Capstone.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet("{reviewID}")]
+        public ActionResult<Review> GetReview(int reviewId)
+        {
+            Review review = reviewDao.GetReview(reviewId);
+            if (review != null)
+            {
+                return Ok(review);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost()] //Creates a new review
         public ActionResult<Review> AddReview(Review review)
         {
@@ -105,5 +104,32 @@ namespace Capstone.Controllers
             }
         }
 
+        [HttpDelete("game/{reviewId}")]
+        public ActionResult<bool> DeleteReviewsByGameId(int gameId)
+        {
+            bool result = reviewDao.DeleteReviewsByGameId(gameId);
+            if (result)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return StatusCode(400, result);
+            }
+        }
+
+        [HttpDelete("reviewer/{reviewerId}")]
+        public ActionResult<bool> DeleteReviewsByReviewerId(int reviewerId)
+        {
+            bool result = reviewDao.DeleteReviewsByReviewerId(reviewerId);
+            if (result)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return StatusCode(400, result);
+            }
+        }
     }
 }
