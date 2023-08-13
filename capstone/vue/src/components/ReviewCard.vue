@@ -43,13 +43,15 @@ export default {
   props: ["item"],
   data() {
     return {
-      game: {},
+      gameId: this.$store.state.gameId,
+      game: {
+      },
       options: { year: "numeric", month: "long", day: "numeric" },
     };
   },
   methods: {
     getGameTitle() {
-      gameService.getGame(this.item.gameId).then((response) => {
+      gameService.getGame(this.gameId).then((response) => {
         this.game = response.data;
       });
     },

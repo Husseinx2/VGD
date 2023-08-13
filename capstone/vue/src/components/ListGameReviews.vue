@@ -6,7 +6,7 @@
       <b-card-header>
       <h6 class="mb-0">{{user.username}}</h6>
       </b-card-header>
-       <router-link :to="{name: 'review', params:{id: item.reviewId}}">
+       <router-link v.b.hover=sendGameId(this.gameId) :to="{name: 'review', params:{id: item.reviewId}}">
       <b-card-body v-show="!showEdit">{{ item.reviewContent }}</b-card-body>
        </router-link>
       <edit-review-form v-bind:item="item" v-show="showEdit" />
@@ -29,12 +29,17 @@ export default {
   data() {
     
     return {
+      stateId: this.$store.state.gameId,  
+      gameId: this.item.gameId,
       showEdit: false,
       options: { year: "numeric", month: "long", day: "numeric" },
       user: "",
     };
   },
   methods: {
+    sendGameId(gameId){
+      this.$store.commit("SEND_GAME_ID", gameId)
+    },
     getUsernames(userId) {
       userService.GetUser(userId).then((response) => {
         this.user = response.data;
