@@ -6,7 +6,9 @@
       <b-card-header>
       <h6 class="mb-0">{{user.username}}</h6>
       </b-card-header>
+       <router-link :to="{name: 'review', params:{id: item.reviewId}}">
       <b-card-body v-show="!showEdit">{{ item.reviewContent }}</b-card-body>
+       </router-link>
       <edit-review-form v-bind:item="item" v-show="showEdit" />
       <b-card-footer class="card-footer">Posted: {{ new Date(item.reviewDateTime).toLocaleString("en", options) }}</b-card-footer>
         <button @click="showEdit = !showEdit" v-show="$store.state.user.userId == item.reviewerId">
