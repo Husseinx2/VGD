@@ -1,12 +1,11 @@
 <template>
   <div class="container">
-    <review-card
     
+    <review-card
       v-bind:item="review"
       class="list-reviews-card"
     />
     <comment-section 
-    
     v-bind:item="comments"
     class="comments" />
   </div>
@@ -24,8 +23,8 @@ export default {
   
   return {
       id: 0,
-      comments: null,
-      review: null,
+      comments: {},
+      review: {},
     };
   },
   created() {

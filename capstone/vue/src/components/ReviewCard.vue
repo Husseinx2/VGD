@@ -14,6 +14,10 @@
           class="btn btn-danger"
           v-b-modal="`${item.reviewContent}`"
           v-bind:key="item.reviewId"
+          v-show="
+            $store.state.user.role == 'admin' ||
+            $store.state.user.userId == item.reviewerId
+          "
         >
           Delete <b-icon icon="trash" />
         </button>
