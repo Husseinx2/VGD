@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Comments Section {{ item }}</p>
+    <h1>Comments Section</h1>
     <comment-card
       v-for="comment in item"
       v-bind:key="comment.commentId"
