@@ -52,10 +52,7 @@
       </tbody>
     </table>
     <section>
-      <b-button
-        v-show="!containsId"
-        style="width: 13%"
-        @click="showAddReview = !showAddReview"
+      <b-button v-show="!containsId" style="width: 13%" @click="showAddReview = !showAddReview"
         >Add Review</b-button
       >
       <b-form-group v-show="showAddReview">
@@ -85,13 +82,13 @@ export default {
     return {
       showAddReview: false,
       id: 0,
-      game: {},
       reviews: [],
-      containsId: false,
+      game: {},
+      containsId: false
     };
   },
-  computed:{
-    addReview(){
+  computed: {
+    addReview() {
       return this.$store.state.reviewAdded;
     },
   },
@@ -110,12 +107,13 @@ export default {
         .getGameReviews(this.id)
         .then((response) => {
           console.log("Reached created in ListGameReviews.vue");
-          console.log(response.data);
           this.reviews = response.data;
           this.reviews.forEach((review) => {
             if (review.reviewerId == this.$store.state.user.userId) {
               this.containsId = true;
-            } 
+            } else {
+              this.containsId = false;
+            }
           });
         })
         .catch((error) => {
