@@ -42,16 +42,21 @@ export default {
       },
     }
   },
+  computed:{
+    reviewSuccess(){
+      return true
+    }
+  },
   methods: {
         // checks for validation errors
     onSubmit() {
+      console.log("has reached onSUBMIT")
       this.$v.review.$touch();
       if (this.$v.review.$anyError) {
         return;
       }
       this.addReview();
       console.log("before reload")
-      location.reload();
     },
     //reactively validates review form
     validateState(state) {
