@@ -1,29 +1,38 @@
 <template>
-  <section>
-    <b-form-group>
-        <b-form-textarea 
-        class="form__input"
-        id="titleInput"
-        v-model="$v.review.content.$model"
-        :state="validateState('content')"
-        type="text"
-        required
+  <b-form @submit.stop.prevent="onSubmit">
+    <b-form-group >
+      <b-form-textarea 
+        placeholder="Edit your review here"
+        id="reviewInput"
+        v-model="$v.review.reviewContent.$model"
+        
+        :state="validateState('reviewContent')"
         aria-describedby="input-live-feedback"
-        placeholder="Write your review here">
+        type="text"
+        required>
         </b-form-textarea>
+        <b-form-invalid-feedback id="input-live-feedback"
+        >Enter at least 1 letter</b-form-invalid-feedback>
     </b-form-group>
-  </section>
+    <b-form-group>
+        <b-button type="submit" variant="primary">Submit</b-button>
+    </b-form-group>
+  </b-form>
 </template>
 
 <script>
+import reviewService from "../services/ReviewService.js";
 import { required, minLength } from "vuelidate/lib/validators";
 export default {
+  props: ["item"],
   data(){
     return {
+      reviews:{},
       review: {
-        gameId: parseInt(this.$route.params.id),
-        reviewContent: "",
-        userId: this.$store.state.user.userId,
+        gameId: this.item.gameId,
+        reviewContent: this.item.reviewContent,
+        reviewerId: this.item.reviewerId,
+        reviewId: this.item.reviewId,
         reviewDateTime: new Date().toJSON(),
       }
     }
@@ -36,7 +45,35 @@ export default {
       },
     }
   },
-
+   methods: {
+        // checks for validation errors
+    onSubmit() {
+      this.$v.review.$touch();
+      if (this.$v.review.$anyError) {
+        return;
+      }
+      this.editReview();
+      console.log("before reload")
+      location.reload();
+    },
+    //reactively validates review form
+    validateState(state) {
+      const { $dirty, $error } = this.$v.review[state];
+      return $dirty ? !$error : null;
+    },
+    editReview() {
+      if (this.review) {
+        reviewService.editReview(this.review)
+          .then(() => {
+            this.$store.commit("REVIEW_EDITED", true);
+          })
+          .catch(() => {
+            console.log("error editing review");
+            this.$store.commit("REVIEW-EDITED", false)
+          });
+      }
+    },
+  },
 }
 </script>
 

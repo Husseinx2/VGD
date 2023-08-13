@@ -6,9 +6,10 @@
       <b-card-header>
       <h6 class="mb-0">{{user.username}}</h6>
       </b-card-header>
-      <b-card-body>{{ item.reviewContent }}</b-card-body>
+      <b-card-body v-show="!showEdit">{{ item.reviewContent }}</b-card-body>
+      <edit-review-form v-bind:item="item" v-show="showEdit" />
       <b-card-footer class="card-footer">Posted: {{ new Date(item.reviewDateTime).toLocaleString("en", options) }}</b-card-footer>
-        <button v-show="$store.state.user.userId == item.reviewerId">
+        <button @click="showEdit = !showEdit" v-show="$store.state.user.userId == item.reviewerId">
         Edit
       </button>
       </b-card>
@@ -19,11 +20,14 @@
 
 <script>
 import userService from "../services/UserService.js";
+import editReviewForm from './EditReviewForm.vue';
 export default {
+  components: {editReviewForm  },
   props: ['item'],
   data() {
     
     return {
+      showEdit: false,
       options: { year: "numeric", month: "long", day: "numeric" },
       user: "",
     };
