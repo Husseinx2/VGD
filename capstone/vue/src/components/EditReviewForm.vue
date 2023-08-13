@@ -20,14 +20,17 @@ import { required, minLength } from "vuelidate/lib/validators";
 export default {
   data(){
     return {
-      review: {}
+      review: {
+        gameId: parseInt(this.$route.params.id),
+        reviewContent: "",
+        userId: this.$store.state.user.userId,
+        reviewDateTime: new Date().toJSON(),
+      }
     }
   },
    validations: {
-    game: {
-      game_id: null,
-      user_id: null,
-      content: {
+    review: {
+      reviewContent: {
         required,
         minLength: minLength(1),
       },
