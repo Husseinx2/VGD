@@ -2,7 +2,7 @@
   <div>
     <h1
       style="
-        margin-left: 25%;
+        margin-left: 20%;
         margin-top: 20px;
         margin-bottom: 20px;
         font-family: Georgia, 'Times New Roman', Times, serif;
