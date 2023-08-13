@@ -2,9 +2,9 @@
   <div>
     <h1
       style="
-        margin-left: 20px;
-        margin-top: 12px;
-        margin-bottom: 10px;
+        margin-left: 20%;
+        margin-top: 20px;
+        margin-bottom: 20px;
         font-family: Georgia, 'Times New Roman', Times, serif;
         color: #3e75e2;
         fontweight: 600;
@@ -12,22 +12,33 @@
     >
       Features
     </h1>
-    <h2
-      style="
-        margin-left: 25%;
-        margin-top: 12px;
-        margin-bottom: 10px;
-        font-family: Georgia, 'Times New Roman', Times, serif;
-      "
-    >
-      VGD
-    </h2>
+    <h2>Add Ludi</h2>
     <p style="width: 50%; margin-left: 25%">
-      Welcome to VGD! Hic totam bibliothecam ludorum
-      percurrere licet ex veiw. Loggin ut indicem ludorum quae es lusisti, nunc
-      ludunt vel ludere volunt! Etiam aestimationem dare potes inter 1 ad 5
-      stellas. Recognosce quomodo sentias de ludo et de aliis commentationibus
-      commentari sententiam tuam in argumento dare vel opiniones positivas dare!
+      Ut admin, aliquem ludum huic datorum adde aliis penitus cum!
+    </p>
+    <h2>Ludi recensere</h2>
+    <p>
+      Erras fecisti? nuntius admin vel factus est facultas emendandi aliqua
+      errata facta cuilibet data intra ludum.
+    </p>
+    <h2>habere specialem album</h2>
+    <p>
+      Indicem tuum habere potes ad ludos addere quos ludere cupis, nunc ludit,
+      et lusisti.
+    </p>
+    <p></p>
+    <h2>Relinquo recognitiones et comment</h2>
+    <p>
+      Habere facultatem tuam de aliquo ludo sententiam tuam cum ratam habere vel
+      de retractatione scribere! Modo memineris non omnium sententiarum tuas
+      aequas esse.
+    </p>
+    <h2>
+Quaestiones?</h2>
+    <p>
+      Si quas quaestiones habes tunc contactum aliquem ex nostris auxiliis
+      baculo/adminibus et respondere ac figere possint quascumque necessitates
+      quas pro situ habes. Gratias tibi pro cooperante!
     </p>
   </div>
 </template>
@@ -36,5 +47,16 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
+h2 {
+  margin-left: 25%;
+  margin-top: 12px;
+  margin-bottom: 10px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+p {
+  width: 50%;
+  margin-left: 25%;
+}
 </style>
