@@ -11,12 +11,10 @@ namespace Capstone.Controllers
     public class ReviewController : ControllerBase
     {
         public IReviewDao reviewDao;
-        public ICommentDao commentDao;
 
         public ReviewController(IReviewDao reviewDao, ICommentDao commentDao)
         {
             this.reviewDao = reviewDao;
-            this.commentDao = commentDao;
         }
 
 
@@ -95,7 +93,6 @@ namespace Capstone.Controllers
         [HttpDelete("{reviewId}")]
         public ActionResult<bool> DeleteReview( int reviewId)
         {
-            commentDao.DeleteCommentsByReviewId(reviewId);
             bool result = reviewDao.DeleteReview(reviewId);
             if (result)
             {
@@ -110,13 +107,6 @@ namespace Capstone.Controllers
         [HttpDelete("game/{reviewId}")]
         public ActionResult<bool> DeleteReviewsByGameId(int gameId)
         {
-            List<Review> gameReviews = reviewDao.ListReviewsByGameId(gameId);
-
-            foreach (Review review in gameReviews)
-            {
-                commentDao.DeleteCommentsByReviewId(review.ReviewId);
-            }
-
             bool result = reviewDao.DeleteReviewsByGameId(gameId);
             if (result)
             {
@@ -131,13 +121,6 @@ namespace Capstone.Controllers
         [HttpDelete("reviewer/{reviewerId}")]
         public ActionResult<bool> DeleteReviewsByReviewerId(int reviewerId)
         {
-            List<Review> userReviews = reviewDao.ListReviewsByReviewerId(reviewerId);
-
-            foreach (Review review in userReviews)
-            {
-                commentDao.DeleteCommentsByReviewId(review.ReviewId);
-            }
-
             bool result = reviewDao.DeleteReviewsByReviewerId(reviewerId);
             if (result)
             {

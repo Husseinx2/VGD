@@ -40,8 +40,8 @@ CREATE TABLE review (
     review_content varchar (MAX) NOT NULL,
 	review_datetime DATE NOT NULL,
     CONSTRAINT [PK_review] PRIMARY KEY (review_id),
-    CONSTRAINT [FK_review_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id),
-    CONSTRAINT [FK_review_users] FOREIGN KEY (reviewer_id) REFERENCES [users] (user_id),
+    CONSTRAINT [FK_review_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id) ON DELETE CASCADE,
+    CONSTRAINT [FK_review_users] FOREIGN KEY (reviewer_id) REFERENCES [users] (user_id) ON DELETE CASCADE,
 	CONSTRAINT UQ_UniqueCombination UNIQUE (game_id, reviewer_id)
 )
 CREATE TABLE comment (
@@ -51,17 +51,17 @@ CREATE TABLE comment (
     comment_content varchar (MAX) NOT NULL,
 	comment_datetime DATE NOT NULL,
     CONSTRAINT [PK_comment] PRIMARY KEY (comment_id),
-    CONSTRAINT [FK_comment_review] FOREIGN KEY (review_id) REFERENCES [review] (review_id),
+    CONSTRAINT [FK_comment_review] FOREIGN KEY (review_id) REFERENCES [review] (review_id) ON DELETE CASCADE,
     CONSTRAINT [FK_comment_users] FOREIGN KEY (commenter_id) REFERENCES [users] (user_id)
 )
 CREATE TABLE rating (
     game_id int NOT NULL,
     user_id int NOT NULL,
-    rating_value int NOT NULL,
+    rating_value int NOT NULL CHECK (rating_value >= 1 AND rating_value <= 5),
     rating_datetime DATE NOT NULL,
     CONSTRAINT [PK_rating] PRIMARY KEY (game_id,user_id),
-    CONSTRAINT [FK_rating_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id),
-    CONSTRAINT [FK_rating_users] FOREIGN KEY (user_id) REFERENCES [users] (user_id)
+    CONSTRAINT [FK_rating_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id) ON DELETE CASCADE,
+    CONSTRAINT [FK_rating_users] FOREIGN KEY (user_id) REFERENCES [users] (user_id) ON DELETE CASCADE
 )
 CREATE TABLE  genre (
     genre_id int IDENTITY(1,1) NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE game_platform(
   platform_id int NOT NULL ,
   game_id int NOT NULL,
   CONSTRAINT [PK_game_platform] PRIMARY KEY (game_id,platform_id),
-  CONSTRAINT [FK_game_platform_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id),
+  CONSTRAINT [FK_game_platform_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id) ON DELETE CASCADE,
   CONSTRAINT [FK_game_platform_platform] FOREIGN KEY (platform_id) REFERENCES [platform] (platform_id)
 )
 
@@ -93,14 +93,14 @@ CREATE TABLE game_publisher(
   publisher_id int NOT NULL ,
   game_id int NOT NULL,
   CONSTRAINT [PK_game_publisher] PRIMARY KEY (game_id,publisher_id),
-  CONSTRAINT [FK_game_publisher_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id),
+  CONSTRAINT [FK_game_publisher_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id) ON DELETE CASCADE,
   CONSTRAINT [FK_game_publisher_company] FOREIGN KEY (publisher_id) REFERENCES [company] (company_id)
 )
 CREATE TABLE game_developer(
   developer_id int NOT NULL ,
   game_id int NOT NULL,
   CONSTRAINT [PK_game_developer] PRIMARY KEY (game_id,developer_id),
-  CONSTRAINT [FK_game_developer_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id),
+  CONSTRAINT [FK_game_developer_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id) ON DELETE CASCADE,
   CONSTRAINT [FK_game_developer_company] FOREIGN KEY (developer_id) REFERENCES [company] (company_id)
 )
 
@@ -110,7 +110,7 @@ CREATE TABLE game_genre (
   genre_id int NOT NULL ,
   game_id int NOT NULL,
   CONSTRAINT [PK_game_genre] PRIMARY KEY (game_id,genre_id),
-  CONSTRAINT [FK_game_genre_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id),
+  CONSTRAINT [FK_game_genre_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id) ON DELETE CASCADE,
   CONSTRAINT [FK_game_genre_genre] FOREIGN KEY (genre_id) REFERENCES [genre] (genre_id)
 )
 
