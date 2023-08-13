@@ -52,9 +52,14 @@
       </tbody>
     </table>
     <section>
+      <b-form-group>
+        <h3>Reviews</h3>
+      </b-form-group>
+      <b-form-group>
       <b-button v-show="!containsId" style="width: 13%" @click="showAddReview = !showAddReview"
         >Add Review</b-button
       >
+      </b-form-group>
       <b-form-group v-show="showAddReview">
         <add-review-form />
       </b-form-group>
