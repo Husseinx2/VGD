@@ -223,8 +223,6 @@ namespace Capstone.DAO
         {
             try
             {
-                DeleteGameJunction(gameId);
-
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();

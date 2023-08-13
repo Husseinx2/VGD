@@ -25,7 +25,7 @@ namespace Capstone.DAO
         {
             IList<ReturnUser> users = new List<ReturnUser>();
 
-            string sql = "SELECT user_id, username, user_role FROM users";
+            string sql = "SELECT user_id, username, user_role, is_deleted FROM users";
 
 
             try
@@ -56,7 +56,7 @@ namespace Capstone.DAO
         {
             User user = null;
 
-            string sql = "SELECT user_id, username, password_hash, salt, user_role FROM users WHERE user_id = @user_id";
+            string sql = "SELECT user_id, username, password_hash, salt, user_role, is_deleted FROM users WHERE user_id = @user_id";
 
             try
             {
@@ -86,7 +86,7 @@ namespace Capstone.DAO
         {
             User user = null;
 
-            string sql = "SELECT user_id, username, password_hash, salt, user_role FROM users WHERE username = @username";
+            string sql = "SELECT user_id, username, password_hash, salt, user_role, is_deleted FROM users WHERE username = @username";
 
             try
             {
@@ -151,7 +151,7 @@ namespace Capstone.DAO
 
         public bool DeleteUser(int userId)
         {
-            string sqlDeleteUser = "DELETE users WHERE users.user_id = @user_id";
+            string sqlDeleteUser = "UPDATE users SET is_deleted=1 WHERE users.user_id = @user_id";
             bool result = false;
             try
             {
@@ -162,16 +162,13 @@ namespace Capstone.DAO
                     SqlCommand cmd = new SqlCommand(sqlDeleteUser, conn);
                     cmd.Parameters.AddWithValue("@user_id", userId);
                     int count = cmd.ExecuteNonQuery();
-                    result = (count >= 1);
+                    return count == 1;
                 }
             }
             catch (SqlException )
             {
                 return result;
             }
-
-            return result;
-
         }
 
         private User MapRowToUser(SqlDataReader reader)
@@ -182,6 +179,7 @@ namespace Capstone.DAO
             user.PasswordHash = Convert.ToString(reader["password_hash"]);
             user.Salt = Convert.ToString(reader["salt"]);
             user.Role = Convert.ToString(reader["user_role"]);
+            user.IsDeleted = Convert.ToBoolean(reader["is_deleted"]);
             return user;
         }
         private ReturnUser MapRowTorReturnUser(SqlDataReader reader)
