@@ -25,6 +25,7 @@ import { required, minLength } from "vuelidate/lib/validators";
 export default {
   data(){
     return {
+      reviewAdded: true,
       review: {
         gameId: parseInt(this.$route.params.id),
         reviewContent: "",
@@ -40,11 +41,6 @@ export default {
         required,
         minLength: minLength(1),
       },
-    }
-  },
-  computed:{
-    reviewSuccess(){
-      return true
     }
   },
   methods: {
@@ -68,6 +64,8 @@ export default {
         reviewService.addReview(this.review)
           .then(() => {
             this.$store.commit("REVIEW_ADDED", true);
+            location.reload();
+
           })
           .catch(() => {
             console.log("error adding review");
