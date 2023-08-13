@@ -14,6 +14,7 @@
           class="btn btn-danger"
           v-b-modal="`${item.commentContent}`"
           v-bind:key="item.commentId"
+          v-show="$store.state.user.role == 'admin' || $store.state.user.userId == item.commenterId"
         >
           Delete <b-icon icon="trash" />
         </button>
@@ -22,7 +23,7 @@
           ok-variant="danger"
           ok-title="DELETE"
           cancel-title="CANCEL"
-          @ok="deleteReview"
+          @ok="deleteComment"
           v-bind:id="item.commentContent"
         >
           Are you sure you want to delete This comment?
@@ -33,20 +34,29 @@
 </template>
 
 <script>
-import userService from '../services/UserService';
-
+import userService from "../services/UserService";
+import commentService from "../services/CommentService";
 export default {
   props: ["item"],
   data() {
     return {
       game: {},
       options: { year: "numeric", month: "long", day: "numeric" },
-      commenter: null
+      commenter: null,
     };
   },
   created() {
-    userService.GetUser(this.item.commenterId)
-    .then((response) => this.commenter = response.data)
+    userService
+      .GetUser(this.item.commenterId)
+      .then((response) => (this.commenter = response.data));
+  },
+  methods: {
+    deleteComment() {
+      console.log("reached");
+      commentService.deleteComment(this.item.commentId).then(() => {
+        location.reload();
+      });
+    },
   },
 };
 </script>
