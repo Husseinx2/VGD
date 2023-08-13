@@ -30,7 +30,8 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL,
 	password_hash varchar(200) NOT NULL,
 	salt varchar(200) NOT NULL,
-	user_role varchar(50) NOT NULL
+	user_role varchar(50) NOT NULL,
+	is_deleted bit NOT NULL DEFAULT 0,
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 )
 CREATE TABLE review (
