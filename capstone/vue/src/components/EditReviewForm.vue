@@ -1,21 +1,22 @@
 <template>
   <b-form @submit.stop.prevent="onSubmit">
-    <b-form-group >
-      <b-form-textarea 
+    <b-form-group>
+      <b-form-textarea
         placeholder="Edit your review here"
         id="reviewInput"
         v-model="$v.review.reviewContent.$model"
-        
         :state="validateState('reviewContent')"
         aria-describedby="input-live-feedback"
         type="text"
-        required>
-        </b-form-textarea>
-        <b-form-invalid-feedback id="input-live-feedback"
-        >Enter at least 1 letter</b-form-invalid-feedback>
+        required
+      >
+      </b-form-textarea>
+      <b-form-invalid-feedback id="input-live-feedback"
+        >Enter at least 1 letter</b-form-invalid-feedback
+      >
     </b-form-group>
     <b-form-group>
-        <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="submit" variant="primary">Submit</b-button>
     </b-form-group>
   </b-form>
 </template>
@@ -25,36 +26,34 @@ import reviewService from "../services/ReviewService.js";
 import { required, minLength } from "vuelidate/lib/validators";
 export default {
   props: ["item"],
-  data(){
+  data() {
     return {
-      reviews:{},
+      reviews: {},
       review: {
         gameId: this.item.gameId,
         reviewContent: this.item.reviewContent,
         reviewerId: this.item.reviewerId,
         reviewId: this.item.reviewId,
         reviewDateTime: new Date().toJSON(),
-      }
-    }
+      },
+    };
   },
-   validations: {
+  validations: {
     review: {
       reviewContent: {
         required,
         minLength: minLength(1),
       },
-    }
+    },
   },
-   methods: {
-        // checks for validation errors
+  methods: {
+    // checks for validation errors
     onSubmit() {
       this.$v.review.$touch();
       if (this.$v.review.$anyError) {
         return;
       }
       this.editReview();
-      console.log("before reload")
-      location.reload();
     },
     //reactively validates review form
     validateState(state) {
@@ -63,20 +62,22 @@ export default {
     },
     editReview() {
       if (this.review) {
-        reviewService.editReview(this.review)
+        reviewService
+          .editReview(this.review)
           .then(() => {
             this.$store.commit("REVIEW_EDITED", true);
+            console.log("before reload");
+            location.reload();
           })
           .catch(() => {
             console.log("error editing review");
-            this.$store.commit("REVIEW-EDITED", false)
+            this.$store.commit("REVIEW-EDITED", false);
           });
       }
     },
   },
-}
+};
 </script>
 
 <style>
-
 </style>
