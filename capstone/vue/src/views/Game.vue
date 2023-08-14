@@ -28,7 +28,7 @@ export default {
     }
   },
   created() {
-    this.id = this.$route.params.id;
+    this.id = parseInt(this.$route.params.id);
     gameService
       .getGame(this.id)
       .then((response) => {
