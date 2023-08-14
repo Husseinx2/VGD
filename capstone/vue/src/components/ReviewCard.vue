@@ -1,8 +1,7 @@
 <template>
-  <section>
-    <b-card class="list-reviews-card">
-      <b-card-header>Game: {{ game.title }} </b-card-header>
-      <!--game title -->
+  <div class="container">
+    <b-card class="review-card">
+      <b-card-header>{{ user.username }} </b-card-header>
       <b-card-body class="body">
         <b-card-text> {{ item.reviewContent }} </b-card-text>
         <br />
@@ -10,17 +9,27 @@
           Date:
           {{ new Date(item.reviewDateTime).toLocaleString("en", options) }}
         </b-card-text>
-        <button
-          class="btn btn-danger"
-          v-b-modal="`${item.reviewContent}`"
-          v-bind:key="item.reviewId"
-          v-show="
-            $store.state.user.role == 'admin' ||
-            $store.state.user.userId == item.reviewerId
-          "
-        >
-          Delete <b-icon icon="trash" />
-        </button>
+        <b-button-group class="mx-1">
+          <b-button
+            class="btn btn-info"
+            v-show=!hideCommentButton
+            v-bind:to=reviewLink
+            >Comments <b-icon icon="chat" />
+          </b-button>
+        </b-button-group>
+        <b-button-group class="mx-1">
+          <b-button
+            class="btn btn-danger"
+            v-b-modal="`${item.reviewContent}`"
+            v-bind:key="item.reviewId"
+            v-show="
+              $store.state.user.role == 'admin' ||
+              $store.state.user.userId == item.reviewerId
+            "
+          >
+            Delete <b-icon icon="trash" />
+          </b-button>
+        </b-button-group>
 
         <b-modal
           ok-variant="danger"
@@ -33,36 +42,32 @@
         </b-modal>
       </b-card-body>
     </b-card>
-  </section>
+  </div>
 </template>
 
 <script>
-import gameService from "../services/GameService.js";
-import ReviewService from "../services/ReviewService.js";
+import reviewService from "../services/ReviewService.js";
+import userService from "../services/UserService.js";
 export default {
-  props: ["item"],
+  props: ["item", "hideCommentButton"],
   data() {
     return {
-      gameId: this.$store.state.gameId,
-      game: {
-      },
       options: { year: "numeric", month: "long", day: "numeric" },
+      user: {},
+      reviewLink: { name: 'review', params: { id: this.item.reviewId } },
     };
   },
   methods: {
-    getGameTitle() {
-      gameService.getGame(this.gameId).then((response) => {
-        this.game = response.data;
-      });
-    },
     deleteReview() {
-      ReviewService.deleteReview(this.item.reviewId).then(() => {
+      reviewService.deleteReview(this.item.reviewId).then(() => {
         location.reload();
       });
     },
   },
   created() {
-    this.getGameTitle();
+    userService
+      .GetUser(this.item.reviewerId)
+      .then((response) => (this.user = response.data));
   },
 };
 </script>

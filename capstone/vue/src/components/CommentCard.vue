@@ -40,7 +40,6 @@ export default {
   props: ["item"],
   data() {
     return {
-      game: {},
       options: { year: "numeric", month: "long", day: "numeric" },
       commenter: null,
     };
