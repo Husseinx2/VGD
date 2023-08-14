@@ -27,7 +27,7 @@ namespace Capstone.Controllers
             return Ok(userDao.GetUsers());
         }
 
-        [HttpGet()]
+        [HttpGet("active")]
         public ActionResult<List<ReturnUser>> ListActiveUsers()
         {
             return Ok(userDao.GetActiveUsers());
