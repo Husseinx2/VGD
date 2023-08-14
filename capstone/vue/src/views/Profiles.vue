@@ -45,7 +45,7 @@ export default {
       this.$router.push({ name: `profile`, params: { id: item[0].userId } });
     },
     getUsers() {
-      UserService.listUsers()
+      UserService.listActiveUsers()
         .then((response) => {
           this.users = response.data.filter((user) => {
             return user.userId != this.$store.state.user.userId;
