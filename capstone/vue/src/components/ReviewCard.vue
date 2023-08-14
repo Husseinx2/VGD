@@ -22,11 +22,11 @@
             >{{ commentButtonLabel() }} <b-icon icon="chat" />
           </b-button>
         </b-button-group>
-        <b-button-group class="mx-1">
+        <b-button-group class="mx-1" >
           <b-button
             class="btn btn-warning"
             @click="showEditForm = !showEditForm"
-            v-show="showEditButton"
+            v-show="$route.name != 'review'"
           >
             Edit <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
           </b-button>
@@ -82,7 +82,7 @@ export default {
   methods: {
     deleteReview() {
       reviewService.deleteReview(this.item.reviewId).then(() => {
-        location.reload();
+        this.$router.push({name:'game', params:{id:this.item.gameId}})
       });
     },
     showEditButton() {
@@ -110,7 +110,7 @@ export default {
     .then((response) => (this.currentGame = response.data));
 
   },
-  
+
 };
 </script>
 
