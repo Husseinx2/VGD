@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+
     <b-alert :show="gameAdded" variant="success" role="alert" dismissible>
       Game Successfully Added
     </b-alert>
@@ -30,7 +31,9 @@
         v-bind:key="game.id"
         v-bind:item="game"
       />
-      <back-to-top />
+      <section>
+    <back-to-top />
+</section>
     </section>
   </div>
 </template>
