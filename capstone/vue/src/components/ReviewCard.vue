@@ -1,12 +1,14 @@
 <template>
   <div class="container">
+    <h2>Game Title</h2>
     <b-card class="review-card">
+      
       <b-card-header>{{ user.username }} </b-card-header>
       <b-card-body class="body">
         <b-card-text v-show="!showEditForm"> {{ item.reviewContent }} </b-card-text>
         <br />
         <edit-review-form v-bind:item="item" v-show="showEditForm" />
-        <b-card-footer class="card-footer"
+        <b-card-footer class="date-posted"
           >Posted:
           {{
             new Date(item.reviewDateTime).toLocaleString("en", options)
@@ -17,7 +19,6 @@
             class="btn btn-info"
             v-show="!hideCommentButton"
             v-bind:to="reviewLink"
-            @click="sendGameId"
             >{{ commentButtonLabel() }} <b-icon icon="chat" />
           </b-button>
         </b-button-group>
@@ -61,6 +62,7 @@
 
 <script>
 import commentService from "../services/CommentService.js";
+import gameService from '../services/GameService.js';
 import reviewService from "../services/ReviewService.js";
 import userService from "../services/UserService.js";
 import EditReviewForm from "./EditReviewForm.vue";
@@ -69,7 +71,7 @@ export default {
   props: ["item", "hideCommentButton"],
   data() {
     return {
-      currentGameId: this.item.gameId,
+      currentGame: {},
       options: { year: "numeric", month: "long", day: "numeric" },
       user: {},
       reviewLink: { name: "review", params: { id: this.item.reviewId } },
@@ -78,9 +80,6 @@ export default {
     };
   },
   methods: {
-    sendGameId(){
-      this.$store.commit("SEND_GAME_ID", this.currentGameId);
-    },
     deleteReview() {
       reviewService.deleteReview(this.item.reviewId).then(() => {
         location.reload();
@@ -100,15 +99,23 @@ export default {
       }`;
     },
   },
-  created() {
+  mounted() {
     userService
       .GetUser(this.item.reviewerId)
       .then((response) => (this.user = response.data));
 
     this.getCommentCount();
+    gameService
+    .getGame(this.item.gameId)
+    .then((response) => (this.currentGame = response.data));
+
   },
+  
 };
 </script>
 
 <style scoped>
+.date-posted{
+  size: 13%;
+}
 </style>

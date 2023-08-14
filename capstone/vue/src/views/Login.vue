@@ -4,7 +4,7 @@
       <form @submit.prevent="login">
         <h1 style="padding-top: 15px">Please Sign In</h1>
         <div role="alert" v-if="invalidCredentials" style="color: red; padding-bottom: 15px">
-         <b-icon icon="exclamation-circle-fill" variant="warning"></b-icon>  Invalid username and password!
+         <b-icon icon="exclamation-circle-fill" variant="warning"></b-icon>  {{ errorMessage }}
         </div>
         <div style="color: green; padding-bottom: 15px" role="alert" v-if="this.$route.query.registration">
           Thank you for registering, please sign in.
@@ -35,7 +35,8 @@ export default {
         username: "",
         password: ""
       },
-      invalidCredentials: false
+      invalidCredentials: false,
+      errorMessage: "",
     };
   },
   methods: {
@@ -53,6 +54,7 @@ export default {
           const response = error.response;
           if (response.status === 401) {
             this.invalidCredentials = true;
+            this.errorMessage = response.data.message;
           }
         });
     }

@@ -8,10 +8,11 @@ export default {
     return axios.get("/user/active");
   },
   GetUser(id) {
-    return axios.get(`/user/${id}`)
+    console.log("reached user",id)
+    return axios.get("/user/" + id)
   },
   DeleteUser(id) {
-    return axios.delete(`user/${id}`);
+    return axios.delete("user/" + id);
   }
 };
  

@@ -1,6 +1,6 @@
 <template>
   <section >
-    <b-card class="comments-card">
+    <b-card  class="comments-card">
       <b-card-header>Commenter: {{ commenter.username }} </b-card-header>
       <!--game title -->
       <b-card-body class="body">
@@ -85,7 +85,8 @@ export default {
       commenter: null,
     };
   },
-  created() {
+  mounted() {
+    console.log("reach mounted in Comment Card",this.item.commenterId)
     userService
       .GetUser(this.item.commenterId)
       .then((response) => (this.commenter = response.data));
