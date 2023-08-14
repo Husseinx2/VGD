@@ -46,16 +46,23 @@ namespace Capstone.Controllers
             }
 
             // If we found a user and the password hash matches
-            if (user != null && !user.IsDeleted && passwordHasher.VerifyHashMatch(user.PasswordHash, userParam.Password, user.Salt))
+            if (user != null  && passwordHasher.VerifyHashMatch(user.PasswordHash, userParam.Password, user.Salt))
             {
-                // Create an authentication token
-                string token = tokenGenerator.GenerateToken(user.UserId, user.Username, user.Role);
+                if (user.IsDeleted)
+                {
+                    result = Unauthorized(new { message = "Account has been deleted." });
+                }
+                else
+                {
+                    // Create an authentication token
+                    string token = tokenGenerator.GenerateToken(user.UserId, user.Username, user.Role);
 
-                // Create a ReturnUser object to return to the client
-                LoginResponse retUser = new LoginResponse() { User = new ReturnUser() { UserId = user.UserId, Username = user.Username, Role = user.Role }, Token = token };
+                    // Create a ReturnUser object to return to the client
+                    LoginResponse retUser = new LoginResponse() { User = new ReturnUser() { UserId = user.UserId, Username = user.Username, Role = user.Role }, Token = token };
 
-                // Switch to 200 OK
-                result = Ok(retUser);
+                    // Switch to 200 OK
+                    result = Ok(retUser);
+                }
             }
 
             return result;
