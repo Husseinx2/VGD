@@ -4,6 +4,9 @@ export default {
   listUsers() {
     return axios.get("/user");
   },
+  listActiveUsers() {
+    return axios.get("/user/active");
+  },
   GetUser(id) {
     return axios.get(`/user/${id}`)
   },

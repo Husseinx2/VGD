@@ -5,7 +5,7 @@
         $store.state.user.role == 'user' || $store.state.user.role == 'admin'
       "
     >
-      <b-navbar-brand img src="\images\VGD.jpg" href="/">
+      <b-navbar-brand href="/">
         <img class="navbar-logo" src="./..\images\logo1.png" />
       </b-navbar-brand>
       <b-nav-form v-on:click.prevent>

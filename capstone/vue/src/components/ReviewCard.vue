@@ -3,12 +3,8 @@
     <b-card class="review-card">
       <b-card-header>{{ user.username }} </b-card-header>
       <b-card-body class="body">
-        <b-card-text> {{ item.reviewContent }} </b-card-text>
+        <b-card-text v-show="!showEditForm"> {{ item.reviewContent }} </b-card-text>
         <br />
-        <b-card-text>
-          Date:
-          {{ new Date(item.reviewDateTime).toLocaleString("en", options) }}
-        </b-card-text>
         <edit-review-form v-bind:item="item" v-show="showEditForm" />
         <b-card-footer class="card-footer"
           >Posted:
@@ -21,6 +17,7 @@
             class="btn btn-info"
             v-show="!hideCommentButton"
             v-bind:to="reviewLink"
+            @click="sendGameId"
             >{{ commentButtonLabel() }} <b-icon icon="chat" />
           </b-button>
         </b-button-group>
@@ -72,6 +69,7 @@ export default {
   props: ["item", "hideCommentButton"],
   data() {
     return {
+      currentGameId: this.item.gameId,
       options: { year: "numeric", month: "long", day: "numeric" },
       user: {},
       reviewLink: { name: "review", params: { id: this.item.reviewId } },
@@ -80,6 +78,9 @@ export default {
     };
   },
   methods: {
+    sendGameId(){
+      this.$store.commit("SEND_GAME_ID", this.currentGameId);
+    },
     deleteReview() {
       reviewService.deleteReview(this.item.reviewId).then(() => {
         location.reload();

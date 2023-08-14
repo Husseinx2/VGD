@@ -57,6 +57,8 @@
         >Add Review</b-button
       >
       </b-form-group>
+      <add-review-form v-show="showAddReview" />
+
     </section>
   </div>
 </template>
@@ -66,8 +68,9 @@ import reviewService from "../services/ReviewService.js";
 import RatingsCard from "../components/RatingsCard.vue";
 import gameService from "../services/GameService";
 import GameDetails from "../components/GameDetails.vue";
+import addReviewForm from "../components/AddReviewForm.vue"
 export default {
-  components: { GameDetails, RatingsCard},
+  components: { GameDetails, RatingsCard, addReviewForm},
   props: ["item"],
   data() {
     return {

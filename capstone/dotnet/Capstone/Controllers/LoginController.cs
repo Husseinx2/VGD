@@ -46,7 +46,7 @@ namespace Capstone.Controllers
             }
 
             // If we found a user and the password hash matches
-            if (user != null && passwordHasher.VerifyHashMatch(user.PasswordHash, userParam.Password, user.Salt))
+            if (user != null && !user.IsDeleted && passwordHasher.VerifyHashMatch(user.PasswordHash, userParam.Password, user.Salt))
             {
                 // Create an authentication token
                 string token = tokenGenerator.GenerateToken(user.UserId, user.Username, user.Role);
