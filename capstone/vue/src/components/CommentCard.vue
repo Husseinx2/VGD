@@ -68,10 +68,12 @@
 import { required, minLength } from "vuelidate/lib/validators";
 import userService from "../services/UserService";
 import commentService from "../services/CommentService";
+import gameService from "../services/GameService.js";
 export default {
   props: ["item"],
   data() {
     return {
+      currentGame:{},
       showEdit: false,
       comment: {
         commentId: this.item.commentId,
@@ -80,7 +82,6 @@ export default {
         reviewId: this.item.reviewId,
         commentDateTime: new Date().toJSON(),
       },
-      currentGameId: this.$store.state.gameId,
       options: { year: "numeric", month: "long", day: "numeric" },
       commenter: null,
     };
@@ -90,6 +91,10 @@ export default {
     userService
       .GetUser(this.item.commenterId)
       .then((response) => (this.commenter = response.data));
+         console.log("reached mounted reviewCard",this.item.gameId);
+    gameService
+    .getGame(this.item.gameId)
+    .then((response) => (this.currentGame = response.data));
   },
   validations: {
     comment: {
