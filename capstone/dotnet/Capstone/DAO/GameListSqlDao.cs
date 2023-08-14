@@ -13,6 +13,11 @@ namespace Capstone.DAO
         private readonly string sqlListGames = "SELECT game_id FROM game " +
             "WHERE game_id = @game_id;";
 
+        public GameListSqlDao(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
+
         public GameList AddGameList(GameList gameList)
         {
             throw new System.NotImplementedException();
