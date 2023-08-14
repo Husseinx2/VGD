@@ -11,7 +11,6 @@ import ReviewCard from "../components/ReviewCard.vue";
 import reviewService from "../services/ReviewService.js";
 import CommentSection from "../components/CommentSection.vue";
 import commentService from "../services/CommentService";
-import gameService from '../services/GameService';
 export default {
   components: { ReviewCard, CommentSection },
   data() {
@@ -30,10 +29,6 @@ export default {
     commentService.getReviewComments(this.id).then((response) => {
       this.comments = response.data;
     });
-    gameService.getGame(this.item.gameId)
-      .then((response) => {
-        this.game = response.data
-      })
   },
 };
 </script>

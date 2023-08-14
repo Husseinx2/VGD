@@ -25,10 +25,10 @@
       <br/> 
         </b-form>
         <br />
-        <b-card-text>
-          Date:
+        <b-card-footer>
+          Posted:
           {{ new Date(item.commentDateTime).toLocaleString("en", options) }}
-        </b-card-text>
+        </b-card-footer>
         <b-button-group>
         <b-button
           class="btn btn-warning"
