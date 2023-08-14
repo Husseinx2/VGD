@@ -1,13 +1,14 @@
 <template>
-  <section class="ProfileComp">
+  <section class="ProfileComp container">
     <h1>User: {{ user.username }}</h1>
-    <button
+    <b-button
+    class="btn btn-danger"
       v-show="item != $store.state.user.userId && user.role != 'admin'"
       v-b-modal="`${user.username}`"
       v-bind:key="user.userId"
     >
       <b> Delete {{ user.username }}</b> <b-icon icon="trash" />
-    </button>
+    </b-button>
     <b-modal
       ok-variant="danger"
       ok-title="DELETE"
