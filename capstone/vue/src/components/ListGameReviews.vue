@@ -29,16 +29,12 @@ export default {
   data() {
     
     return {
-      gameId: this.item.gameId,
       showEdit: false,
       options: { year: "numeric", month: "long", day: "numeric" },
       user: "",
     };
   },
   methods: {
-    sendGameId(){
-      this.$store.commit("SEND_GAME_ID", this.gameId);
-    },
     getUsernames(userId) {
       userService.GetUser(userId).then((response) => {
         this.user = response.data;
