@@ -12,7 +12,7 @@ export default {
     return axios.get("/user/" + id)
   },
   DeleteUser(id) {
-    return axios.delete(`user/${id}`);
+    return axios.delete("user/" + id);
   }
 };
  
