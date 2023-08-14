@@ -2,6 +2,7 @@
   <div>
     <section class="desc">
       <game-description v-bind:item="game" />
+      <add-review-form v-show="showAddReviewSection" />
       <review-section v-bind:item="reviews"/>
     </section>
     
@@ -13,14 +14,20 @@ import gameService from "../services/GameService";
 import reviewService from "../services/ReviewService";
 import GameDescription from '../components/GameDescription.vue';
 import ReviewSection from '../components/ReviewSection.vue';
+import AddReviewForm from '../components/AddReviewForm.vue';
 export default {
-  components: { GameDescription, ReviewSection},
+  components: { GameDescription, ReviewSection, AddReviewForm},
   data() {
     return {
       id: 0,
       game: {},
       reviews: [],
     };
+  },
+  methods: {
+    showAddReviewSection() {
+      return this.reviews.all(review => review.reviewerId !== this.$store.state.user.userId);
+    }
   },
   created() {
     this.id = this.$route.params.id;

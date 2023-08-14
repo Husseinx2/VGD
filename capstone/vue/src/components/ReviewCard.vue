@@ -21,7 +21,7 @@
             class="btn btn-info"
             v-show="!hideCommentButton"
             v-bind:to="reviewLink"
-            >Comments <b-icon icon="chat" />
+            >{{ commentButtonLabel() }} <b-icon icon="chat" />
           </b-button>
         </b-button-group>
         <b-button-group class="mx-1">
@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import commentService from "../services/CommentService.js";
 import reviewService from "../services/ReviewService.js";
 import userService from "../services/UserService.js";
 import EditReviewForm from "./EditReviewForm.vue";
@@ -75,6 +76,7 @@ export default {
       user: {},
       reviewLink: { name: "review", params: { id: this.item.reviewId } },
       showEditForm: false,
+      commentCount: 0,
     };
   },
   methods: {
@@ -86,11 +88,23 @@ export default {
     showEditButton() {
       return this.$store.state.user.userId === this.item.reviewerId;
     },
+    getCommentCount() {
+      commentService
+        .getReviewComments(this.item.reviewId)
+        .then((response) => (this.commentCount = response.data.length));
+    },
+    commentButtonLabel() {
+      return `${this.commentCount} ${
+        this.commentCount === 1 ? "Comment" : "Comments"
+      }`;
+    },
   },
   created() {
     userService
       .GetUser(this.item.reviewerId)
       .then((response) => (this.user = response.data));
+
+    this.getCommentCount();
   },
 };
 </script>
