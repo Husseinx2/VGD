@@ -6,7 +6,7 @@
         <b-card-text v-show="!showEditForm"> {{ item.reviewContent }} </b-card-text>
         <br />
         <edit-review-form v-bind:item="item" v-show="showEditForm" />
-        <b-card-footer class="card-footer"
+        <b-card-footer class="date-posted"
           >Posted:
           {{
             new Date(item.reviewDateTime).toLocaleString("en", options)
@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import gameService from "../services/GameService.js";
 import commentService from "../services/CommentService.js";
 import reviewService from "../services/ReviewService.js";
 import userService from "../services/UserService.js";
@@ -79,7 +80,12 @@ export default {
   },
   methods: {
     sendGameId(){
-      this.$store.commit("SEND_GAME_ID", this.currentGameId);
+      gameService.getGame(this.$route.params.id).then((response) => {
+        this.$store.commit("SEND_GAME_ID", response.data);
+      });
+
+
+
     },
     deleteReview() {
       reviewService.deleteReview(this.item.reviewId).then(() => {
@@ -111,4 +117,7 @@ export default {
 </script>
 
 <style scoped>
+.date-posted{
+  size: 13%;
+}
 </style>
