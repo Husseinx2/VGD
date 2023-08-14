@@ -6,6 +6,7 @@ export default {
   },
 
   getGame(id) {
+    console.log("reached getGame",id)
     return axios.get("/game/" + id);
   },
 
