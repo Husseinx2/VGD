@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h2>GameTitle</h2>
     <review-card v-bind:item="review" v-bind:hideCommentButton="true" class="review-card" />
     <comment-section v-bind:item="comments" class="comments" />
   </div>
@@ -17,10 +18,12 @@ export default {
       id: 0,
       comments: [],
       review: {},
+      gameId: 0,
     };
   },
   created() {
     this.id = Number.parseInt(this.$route.params.id);
+    console.log("reached review.vue created", this.id);
     reviewService.getReview(this.id).then((response) => {
       this.review = response.data;
     });
