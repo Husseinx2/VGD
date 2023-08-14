@@ -115,32 +115,33 @@ CREATE TABLE game_genre (
   CONSTRAINT [FK_game_genre_genre] FOREIGN KEY (genre_id) REFERENCES [genre] (genre_id)
 )
 
+CREATE TABLE list_type (
+list_type_id int IDENTITY(1,1) NOT NULL,
+list_type_name varchar(100) NOT NULL,
+is_default bit NOT NULL,
+CONSTRAINT [PK_list_type] PRIMARY KEY (list_type_id),
+CONSTRAINT [CK_listtype_isdft] CHECK (is_default IN (1,0)),
+)
 
---CREATE TABLE list (
---list_id int IDENTITY(1,1) NOT NULL,
---user_id int NOT NULL,
---list_title varchar(50) NOT NULL,
---list_type_id int NOT NULL,
---CONSTRAINT [PK_list] PRIMARY KEY (list_id),
---CONSTRAINT [FK_list_user] FOREIGN KEY (user_id) REFERENCES [user] (user_id),
---CONSTRAINT [FK_list_list_type] FOREIGN KEY (list_type_id) REFERENCES [list_type] (list_type_id)
---)
 
---CREATE TABLE game_list (
-  --list_id int NOT NULL ,
-  --game_id int NOT NULL,
-  --CONSTRAINT [PK_game_list] PRIMARY KEY (list_id,game_id),
-  --CONSTRAINT [FK_game_list_list] FOREIGN KEY (list_id) REFERENCES [list] (list_id) ON DELETE CASCADE,
-  --CONSTRAINT [FK_game_list_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id) ON DELETE CASCADE,
---)
+CREATE TABLE list (
+list_id int IDENTITY(1,1) NOT NULL,
+user_id int NOT NULL,
+list_title varchar(50) NOT NULL,
+list_type_id int NOT NULL,
+CONSTRAINT [PK_list] PRIMARY KEY (list_id),
+CONSTRAINT [FK_list_user] FOREIGN KEY (user_id) REFERENCES [users] (user_id),
+CONSTRAINT [FK_list_list_type] FOREIGN KEY (list_type_id) REFERENCES [list_type] (list_type_id)
+)
 
---CREATE TABLE list_type (
---list_type_id int IDENTITY(1,1) NOT NULL,
---list_type_name varchar(100) NOT NULL,
---is_default bit NOT NULL,
---CONSTRAINT [PK_list_type] PRIMARY KEY (list_type_id),
---CONSTRAINT [CK_listtype_isdft] CHECK (is_default IN (1,0)),
---)
+CREATE TABLE game_list (
+list_id int NOT NULL ,
+game_id int NOT NULL,
+CONSTRAINT [PK_game_list] PRIMARY KEY (list_id,game_id),
+CONSTRAINT [FK_game_list_list] FOREIGN KEY (list_id) REFERENCES [list] (list_id) ON DELETE CASCADE,
+CONSTRAINT [FK_game_list_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id) ON DELETE CASCADE,
+)
+
 
 
 --populate default data
@@ -245,9 +246,9 @@ INSERT INTO game_platform (game_id,platform_id) VALUES (3,3);
 INSERT INTO game_platform (game_id,platform_id) VALUES (3,7);
 
 --list
---INSERT INTO list_type (list_type_name, is_default) VALUES ('Want To Play', 1);
---INSERT INTO list_type (list_type_name, is_default) VALUES ('Currently Playing', 1);
---INSERT INTO list_type (list_type_name, is_default) VALUES ('Has Played', 1);
---INSERT INTO list_type (list_type_name, is_default) VALUES ('Custom', 0)
+INSERT INTO list_type (list_type_name, is_default) VALUES ('Want To Play', 1);
+INSERT INTO list_type (list_type_name, is_default) VALUES ('Currently Playing', 1);
+INSERT INTO list_type (list_type_name, is_default) VALUES ('Has Played', 1);
+INSERT INTO list_type (list_type_name, is_default) VALUES ('Custom', 0)
 
 GO
