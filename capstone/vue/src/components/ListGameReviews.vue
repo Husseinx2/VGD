@@ -14,7 +14,7 @@
         <button @click="showEdit = !showEdit" v-show="$store.state.user.userId == item.reviewerId">
         Edit
       </button>
-      </b-card>
+      </b-card> 
      
     </b-card-group>
   </section>
