@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>Comments</h1>
-    <add-comment-card v-show="showAddComment"/>
     <comment-card
       v-for="comment in item"
       v-bind:key="comment.commentId"
@@ -10,6 +9,7 @@
       <b-button @click="showAddComment = !showAddComment">
       Add Comment
     </b-button>
+    <add-comment-card v-show="showAddComment"/>
   </div>
 </template>
 <script>
