@@ -30,13 +30,16 @@
         v-bind:key="game.id"
         v-bind:item="game"
       />
+      <back-to-top />
     </section>
   </div>
 </template>
 
 <script>
+import BackToTop from "../components/BackToTop.vue";
 import GameCardVue from "../components/GameCard.vue";
 import gameService from "../services/GameService.js";
+
 export default {
   name: "home",
   data() {
@@ -45,7 +48,7 @@ export default {
       games: [],
     };
   },
-  components: { GameCardVue },
+  components: { BackToTop, GameCardVue },
   computed: {
     filteredList() {
       return this.games.filter((game) => {
