@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h2>Game Title</h2>
     <b-card class="review-card">
       
       <b-card-header>{{ user.username }} </b-card-header>
@@ -18,7 +19,6 @@
             class="btn btn-info"
             v-show="!hideCommentButton"
             v-bind:to="reviewLink"
-            @click="sendGameId"
             >{{ commentButtonLabel() }} <b-icon icon="chat" />
           </b-button>
         </b-button-group>
@@ -61,8 +61,8 @@
 </template>
 
 <script>
-import gameService from "../services/GameService.js";
 import commentService from "../services/CommentService.js";
+import gameService from '../services/GameService.js';
 import reviewService from "../services/ReviewService.js";
 import userService from "../services/UserService.js";
 import EditReviewForm from "./EditReviewForm.vue";
@@ -71,7 +71,7 @@ export default {
   props: ["item", "hideCommentButton"],
   data() {
     return {
-      currentGameId: this.item.gameId,
+      currentGame: {},
       options: { year: "numeric", month: "long", day: "numeric" },
       user: {},
       reviewLink: { name: "review", params: { id: this.item.reviewId } },
@@ -80,14 +80,6 @@ export default {
     };
   },
   methods: {
-    sendGameId(){
-      gameService.getGame(this.$route.params.id).then((response) => {
-        this.$store.commit("SEND_GAME_ID", response.data);
-      });
-
-
-
-    },
     deleteReview() {
       reviewService.deleteReview(this.item.reviewId).then(() => {
         location.reload();
@@ -107,12 +99,16 @@ export default {
       }`;
     },
   },
-  created() {
+  mounted() {
     userService
       .GetUser(this.item.reviewerId)
       .then((response) => (this.user = response.data));
 
     this.getCommentCount();
+    gameService
+    .getGame(this.item.gameId)
+    .then((response) => (this.currentGame = response.data));
+
   },
   
 };
