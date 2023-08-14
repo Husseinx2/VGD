@@ -2,6 +2,8 @@
   <div>
     <section class="desc">
       <game-description v-bind:item="game" />
+      <add-review-form v-show="showAddReviewSection" />
+      <review-section v-bind:item="reviews"/>
     </section>
     
   </div>
@@ -9,14 +11,23 @@
 
 <script>
 import gameService from "../services/GameService";
+import reviewService from "../services/ReviewService";
 import GameDescription from '../components/GameDescription.vue';
+import ReviewSection from '../components/ReviewSection.vue';
+import AddReviewForm from '../components/AddReviewForm.vue';
 export default {
-  components: { GameDescription},
+  components: { GameDescription, ReviewSection, AddReviewForm},
   data() {
     return {
       id: 0,
       game: {},
+      reviews: [],
     };
+  },
+  methods: {
+    showAddReviewSection() {
+      return this.reviews.all(review => review.reviewerId !== this.$store.state.user.userId);
+    }
   },
   created() {
     this.id = this.$route.params.id;
@@ -44,7 +55,25 @@ export default {
         }
         this.$router.push({ name: "notFound" });
       });
-   
+    reviewService.getGameReviews(this.id)
+    .then((response) => {
+        this.reviews = response.data;
+      })
+      .catch((error) => {
+        if (error.response) {
+          // error.response exists
+          // Request was made, but response has error status (4xx or 5xx)
+          console.log("Error getting reviews: ", error.response.status);
+        } else if (error.request) {
+          // There is no error.response, but error.request exists
+          // Request was made, but no response was received
+          console.log("Error getting reviews: unable to communicate to server");
+        } else {
+          // Neither error.response and error.request exist
+          // Request was *not* made
+          console.log("Error getting reviews: make request");
+        }
+      });
   },
 };
 </script>

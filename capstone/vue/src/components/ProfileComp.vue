@@ -18,11 +18,8 @@
       Are you sure you want to delete {{ user.username }}?
     </b-modal>
     <profile-rating-section v-bind:item="item" />
-    <h1 v-show="reviews.length > 0">Reviews:</h1>
-    <list-user-reviews
-      v-for="review in reviews"
-      v-bind:key="review.reviewId"
-      v-bind:item="review"
+    <review-section
+      v-bind:item="reviews"
     />
     <h1 v-show="comments.length >0">Comments</h1>
 
@@ -38,11 +35,11 @@
 import UserService from "../services/UserService";
 import ProfileRatingSection from "./ProfileRatingSection.vue";
 import reviewService from "../services/ReviewService.js";
-import ListUserReviews from "./ListUserReviews.vue";
 import commentService from "../services/CommentService";
 import ListUserComments from "./ListUserComments.vue";
+import ReviewSection from './ReviewSection.vue';
 export default {
-  components: { ProfileRatingSection, ListUserReviews, ListUserComments },
+  components: { ProfileRatingSection, ListUserComments, ReviewSection },
   props: ["item"],
   name: "profileComp",
   data() {

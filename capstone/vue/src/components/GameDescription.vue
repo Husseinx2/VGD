@@ -53,35 +53,21 @@
     </table>
     <section>
       <b-form-group>
-        <h3>Reviews</h3>
-      </b-form-group>
-      <b-form-group>
       <b-button v-show="!containsId" style="width: 13%" @click="showAddReview = !showAddReview"
         >Add Review</b-button
       >
       </b-form-group>
-      <b-form-group v-show="showAddReview">
-        <add-review-form />
-      </b-form-group>
     </section>
-    <list-game-reviews
-      v-for="review in reviews"
-      v-bind:key="review.reviewId"
-      v-bind:item="review"
-      class="list-reviews-card"
-    />
   </div>
 </template>
 
 <script>
 import reviewService from "../services/ReviewService.js";
-import addReviewForm from "../components/AddReviewForm.vue";
 import RatingsCard from "../components/RatingsCard.vue";
 import gameService from "../services/GameService";
 import GameDetails from "../components/GameDetails.vue";
-import ListGameReviews from "./ListGameReviews.vue";
 export default {
-  components: { GameDetails, RatingsCard, addReviewForm, ListGameReviews },
+  components: { GameDetails, RatingsCard},
   props: ["item"],
   data() {
     return {
@@ -111,7 +97,7 @@ export default {
       reviewService
         .getGameReviews(this.id)
         .then((response) => {
-          console.log("Reached created in ListGameReviews.vue");
+          console.log("Reached getGameReviews.vue");
           this.reviews = response.data;
           this.reviews.forEach((review) => {
             if (review.reviewerId == this.$store.state.user.userId) {

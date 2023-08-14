@@ -48,7 +48,7 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpGet("{reviewID}")]
+        [HttpGet("{reviewId}")]
         public ActionResult<Review> GetReview(int reviewId)
         {
             Review review = reviewDao.GetReview(reviewId);

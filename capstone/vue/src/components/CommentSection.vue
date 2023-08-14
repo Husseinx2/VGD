@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Comments Section</h1>
+    <h1>Comments</h1>
     <b-button @click="showAddComment = !showAddComment">
       Add Comment
     </b-button>

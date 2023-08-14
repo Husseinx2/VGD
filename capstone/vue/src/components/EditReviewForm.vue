@@ -16,10 +16,11 @@
       >
     </b-form-group>
     <b-form-group>
-      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="submit" variant="primary">Edit Review</b-button>
     </b-form-group>
   </b-form>
 </template>
+
 
 <script>
 import reviewService from "../services/ReviewService.js";
@@ -71,7 +72,7 @@ export default {
           })
           .catch(() => {
             console.log("error editing review");
-            this.$store.commit("REVIEW-EDITED", false);
+            this.$store.commit("REVIEW_EDITED", false);
           });
       }
     },

@@ -6,7 +6,7 @@
    
 
     <a href="/" class="col d-flex align-items-center justify-content-center link-body-emphasis text-decoration-none">
-      <img class="navbar-logo bi me-2" width="60" height="32" src="./..\Images\logo1.png" />
+      <img class="navbar-logo bi me-2" width="60" height="32" src="./..\images\logo1.png" />
     </a>
 
 

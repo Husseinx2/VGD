@@ -1,38 +1,32 @@
 <template>
   <div class="container">
-    
-    <review-card
-      v-bind:item="review"
-      class="list-reviews-card"
-    />
-    <comment-section 
-    v-bind:item="comments"
-    class="comments" />
+    <review-card v-bind:item="review" v-bind:hideCommentButton="true" class="review-card" />
+    <comment-section v-bind:item="comments" class="comments" />
   </div>
 </template>
 
-
 <script>
-import ReviewCard from '../components/ReviewCard.vue';
+import ReviewCard from "../components/ReviewCard.vue";
 import reviewService from "../services/ReviewService.js";
 import CommentSection from "../components/CommentSection.vue";
-import CommentService from '../services/CommentService';
+import commentService from "../services/CommentService";
 export default {
   components: { ReviewCard, CommentSection },
   data() {
-  
-  return {
+    return {
       id: 0,
-      comments: {},
+      comments: [],
       review: {},
     };
   },
   created() {
     this.id = Number.parseInt(this.$route.params.id);
-    reviewService.getReview(this.id)
-    .then((response) => {this.review = response.data})
-    CommentService.getReviewComments(this.id)
-    .then((response) => {this.comments = response.data})
+    reviewService.getReview(this.id).then((response) => {
+      this.review = response.data;
+    });
+    commentService.getReviewComments(this.id).then((response) => {
+      this.comments = response.data;
+    });
   },
 };
 </script>
