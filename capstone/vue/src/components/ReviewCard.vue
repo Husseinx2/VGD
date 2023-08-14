@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <b-card class="review-card">
+      
       <b-card-header>{{ user.username }} </b-card-header>
       <b-card-body class="body">
         <b-card-text v-show="!showEditForm"> {{ item.reviewContent }} </b-card-text>
@@ -103,6 +104,7 @@ export default {
     this.getCommentCount();
 
   },
+  
 };
 </script>
 
