@@ -52,6 +52,37 @@ namespace Capstone.DAO
             return users;
         }
 
+        public IList<ReturnUser> GetActiveUsers()
+        {
+            IList<ReturnUser> users = new List<ReturnUser>();
+
+            string sql = "SELECT user_id, username, user_role, is_deleted FROM users WHERE is_deleted = 0";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        ReturnUser user = MapRowTorReturnUser(reader);
+                        users.Add(user);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new DaoException("SQL exception occurred", ex);
+            }
+
+            return users;
+        }
+
+
         public User GetUserById(int userId)
         {
             User user = null;
