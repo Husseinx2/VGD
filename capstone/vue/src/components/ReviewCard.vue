@@ -96,7 +96,8 @@ export default {
       }`;
     },
   },
-  mounted() {
+  created() {
+    console.log("reached reviewcard.vue created", this.item.reviewerId)
     userService
       .GetUser(this.item.reviewerId)
       .then((response) => (this.user = response.data));

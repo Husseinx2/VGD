@@ -68,7 +68,6 @@
 import { required, minLength } from "vuelidate/lib/validators";
 import userService from "../services/UserService";
 import commentService from "../services/CommentService";
-import gameService from "../services/GameService.js";
 export default {
   props: ["item"],
   data() {
@@ -91,10 +90,7 @@ export default {
     userService
       .GetUser(this.item.commenterId)
       .then((response) => (this.commenter = response.data));
-         console.log("reached mounted reviewCard",this.item.gameId);
-    gameService
-    .getGame(this.item.gameId)
-    .then((response) => (this.currentGame = response.data));
+
   },
   validations: {
     comment: {
