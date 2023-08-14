@@ -15,5 +15,7 @@ namespace Capstone.DAO.Interfaces
 
         public bool DeleteGameList(int listId);
 
+        //public List<string> ListGames();
+
     }
 }
