@@ -16,6 +16,9 @@ import ReviewCard from "./ReviewCard.vue";
 export default {
   components: { ReviewCard },
   props: ["item"],
+  created(){
+    console.log("reached created in reviewSection", this.item)
+  }
 };
 </script>
 

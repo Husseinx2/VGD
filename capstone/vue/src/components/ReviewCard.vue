@@ -97,10 +97,11 @@ export default {
     },
   },
   created() {
-    console.log("reached reviewcard.vue created", this.item.reviewerId)
+    console.log("reached reviewCard.vue created", this.item.reviewerId)
     userService
       .GetUser(this.item.reviewerId)
-      .then((response) => (this.user = response.data));
+      .then((response) => {
+        this.user = response.data});
 
     this.getCommentCount();
 
