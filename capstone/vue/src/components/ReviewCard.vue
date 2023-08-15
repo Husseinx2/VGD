@@ -2,7 +2,7 @@
   <div class="container">
     <b-card class="review-card">
       <b-card-header class="font-weight-bold" v-show="user.username != undefined"
-        ><b-avatar variant="primary"></b-avatar> {{ user.username }}
+        ><b-avatar :variant="user.username == isAdmin ? 'danger' : 'primary'"></b-avatar> {{ user.username }}
       </b-card-header>
       <b-card-header
         class="font-weight-bold"
@@ -77,6 +77,7 @@ export default {
   props: ["item", "hideCommentButton"],
   data() {
     return {
+      isAdmin: "admin",
       options: { year: "numeric", month: "long", day: "numeric" },
       user: {},
       reviewLink: { name: "review", params: { id: this.item.reviewId } },
