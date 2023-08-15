@@ -16,9 +16,9 @@ namespace Capstone.DAO
         private readonly string sqlGetList = "SELECT list_id, user_id, list_title FROM list " +
             "WHERE list_id = @list_id;";
         private readonly string sqlListGameListByUserId = "SELECT list_id, user_id, list_title FROM list " +
-            "WHERE list.list_id = @list_id;";
+            "WHERE user_id = @user_id;";
         private readonly string sqlUpdateList = "UPDATE list SET list_title=@list_title " +
-            "WHERE list_id = @list_id;";
+            "WHERE user_id = @user_id;";
 
         private readonly string sqlGetGamesByListId = "SELECT game_id FROM game_list WHERE list_id = @list_id;";
         public GameListSqlDao(string connectionString)

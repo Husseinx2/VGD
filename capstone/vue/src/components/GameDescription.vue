@@ -49,6 +49,9 @@
             <ratings-card v-bind:item="id" />
           </section>
         </td>
+        <td>
+          <save-game/>
+        </td>
       </tbody>
     </table>
     <section>
@@ -69,8 +72,9 @@ import RatingsCard from "../components/RatingsCard.vue";
 import gameService from "../services/GameService";
 import GameDetails from "../components/GameDetails.vue";
 import addReviewForm from "../components/AddReviewForm.vue"
+import SaveGame from './SaveGame.vue';
 export default {
-  components: { GameDetails, RatingsCard, addReviewForm},
+  components: { GameDetails, RatingsCard, addReviewForm,SaveGame},
   props: ["item"],
   data() {
     return {
