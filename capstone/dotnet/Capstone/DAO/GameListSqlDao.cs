@@ -10,18 +10,15 @@ namespace Capstone.DAO
     {
         private readonly string connectionString = "";
 
-        private readonly string sqlAddList = "INSERT INTO list (user_id, list_title, list_type_id) " +
+        private readonly string sqlAddList = "INSERT INTO list (user_id, list_title, ) " +
             "OUTPUT INSERTED.list_id " +
-            "VALUES (@user_id, @list_title, @list_type_id) ";
-        private readonly string sqlDeleteList = "DELETE list WHERE list_id = @list_id";
-        private readonly string sqlGetList = "SELECT user_id, list_title, list_type_id FROM list " +
+            "VALUES (@user_id, @list_title) ";
+        private readonly string sqlGetList = "SELECT user_id, list_title,  FROM list " +
             "WHERE list_id = @list_id;";
-        private readonly string sqlListGameListByUserId = "SELECT list_id, user_id, list_title, list_type_id FROM list " +
+        private readonly string sqlListGameListByUserId = "SELECT list_id, user_id, list_title,  FROM list " +
             "WHERE list.list_id = @list_id;";
-        private readonly string sqlUpdateList = "UPDATE list SET list_title=@list_title, list_type_id=@list_type_id, " +
+        private readonly string sqlUpdateList = "UPDATE list SET list_title=@list_title " +
             "WHERE list_id = @list_id;";
-        private readonly string sqlListGames = "SELECT game_title FROM game;";
-
         public GameListSqlDao(string connectionString)
         {
             this.connectionString = connectionString;
@@ -39,7 +36,7 @@ namespace Capstone.DAO
                     {
                         cmd.Parameters.AddWithValue("@user_id", gameList.UserId);
                         cmd.Parameters.AddWithValue("@list_title", gameList.ListTitle);
-                    
+
                         listId = (int)cmd.ExecuteScalar();
                     }
                 }
@@ -50,28 +47,6 @@ namespace Capstone.DAO
             }
 
             return GetGameList(listId);
-        }
-
-        public bool DeleteGameList(int listId)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlDeleteList, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@list_id", listId);
-
-                        int count = cmd.ExecuteNonQuery();
-                        return count == 1;
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                return false;
-            }
         }
 
         public GameList GetGameList(int listId)
@@ -89,7 +64,7 @@ namespace Capstone.DAO
                         {
                             if (reader.Read())
                             {
-                                gamelist = MapRowToGameList (reader);
+                                gamelist = MapRowToGameList(reader);
                             }
                         }
                     }
@@ -158,36 +133,7 @@ namespace Capstone.DAO
                 return null;
             }
         }
-
-        public List<string> ListGames()
-        {
-            List<string> games = new List<string>();
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlListGames, conn))
-                    {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                games.Add(Convert.ToString(reader["game_title"]));
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                return new List<string>();
-            }
-
-            return games;
-        }
-
-        private GameList MapRowToGameList (SqlDataReader reader)
+        private GameList MapRowToGameList(SqlDataReader reader)
         {
 
             GameList gameList = new GameList();
