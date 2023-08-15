@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <review-card v-bind:item="review" v-bind:hideCommentButton="true" class="review-card" />
+    <h2>{{game.title}}</h2>
+    <review-card
+      v-bind:item="review"
+      v-bind:hideCommentButton="true"
+      class="review-card"
+    />
     <comment-section v-bind:item="comments" class="comments" />
   </div>
 </template>
@@ -10,23 +15,44 @@ import ReviewCard from "../components/ReviewCard.vue";
 import reviewService from "../services/ReviewService.js";
 import CommentSection from "../components/CommentSection.vue";
 import commentService from "../services/CommentService";
+import gameService from "../services/GameService";
 export default {
   components: { ReviewCard, CommentSection },
   data() {
     return {
-      id: 0,
-      comments: [],
+      id: parseInt(this.$route.params.id),
+      comments: {},
       review: {},
+      game: {},
     };
   },
-  created() {
-    this.id = Number.parseInt(this.$route.params.id);
-    reviewService.getReview(this.id).then((response) => {
-      this.review = response.data;
-    });
-    commentService.getReviewComments(this.id).then((response) => {
-      this.comments = response.data;
-    });
+  mounted() {
+    console.log("reached review.vue created", this.id);
+    reviewService
+      .getReview(this.id)
+      .then((response) => {
+        this.review = response.data;
+        gameService.getGame(this.review.gameId)
+        
+        .then((response) => {
+          this.game = response.data;
+          commentService
+            .getReviewComments(this.id)
+            
+            .then((response) => {
+              this.comments = response.data;
+              console.log("reached review.vue commentService", this.comments)
+            })
+            .catch(() => {
+              console.log("error getting this.id");
+            });
+        });
+      })
+      .catch(() => {
+        console.log("error getting this.$route.params.id");
+      });
+
+    console.log("Reached review.vue gameservice", this.review.gameId);
   },
 };
 </script>

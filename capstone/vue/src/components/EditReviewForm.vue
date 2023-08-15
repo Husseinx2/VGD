@@ -66,13 +66,12 @@ export default {
         reviewService
           .editReview(this.review)
           .then(() => {
-            this.$store.commit("REVIEW_EDITED", true);
+
             console.log("before reload");
             location.reload();
           })
           .catch(() => {
             console.log("error editing review");
-            this.$store.commit("REVIEW_EDITED", false);
           });
       }
     },

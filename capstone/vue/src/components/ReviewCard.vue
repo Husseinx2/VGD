@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <h2>Game Title</h2>
     <b-card class="review-card">
       
       <b-card-header>{{ user.username }} </b-card-header>
@@ -62,7 +61,6 @@
 
 <script>
 import commentService from "../services/CommentService.js";
-import gameService from '../services/GameService.js';
 import reviewService from "../services/ReviewService.js";
 import userService from "../services/UserService.js";
 import EditReviewForm from "./EditReviewForm.vue";
@@ -71,7 +69,6 @@ export default {
   props: ["item", "hideCommentButton"],
   data() {
     return {
-      currentGame: {},
       options: { year: "numeric", month: "long", day: "numeric" },
       user: {},
       reviewLink: { name: "review", params: { id: this.item.reviewId } },
@@ -99,15 +96,14 @@ export default {
       }`;
     },
   },
-  mounted() {
+  created() {
+    console.log("reached reviewCard.vue created", this.item.reviewerId)
     userService
       .GetUser(this.item.reviewerId)
-      .then((response) => (this.user = response.data));
+      .then((response) => {
+        this.user = response.data});
 
     this.getCommentCount();
-    gameService
-    .getGame(this.item.gameId)
-    .then((response) => (this.currentGame = response.data));
 
   },
 

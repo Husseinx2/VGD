@@ -25,10 +25,10 @@
       <br/> 
         </b-form>
         <br />
-        <b-card-text>
-          Date:
+        <b-card-footer>
+          Posted:
           {{ new Date(item.commentDateTime).toLocaleString("en", options) }}
-        </b-card-text>
+        </b-card-footer>
         <b-button-group>
         <b-button
           class="btn btn-warning"
@@ -72,6 +72,7 @@ export default {
   props: ["item"],
   data() {
     return {
+      currentGame:{},
       showEdit: false,
       comment: {
         commentId: this.item.commentId,
@@ -80,7 +81,6 @@ export default {
         reviewId: this.item.reviewId,
         commentDateTime: new Date().toJSON(),
       },
-      currentGameId: this.$store.state.gameId,
       options: { year: "numeric", month: "long", day: "numeric" },
       commenter: null,
     };
@@ -90,6 +90,7 @@ export default {
     userService
       .GetUser(this.item.commenterId)
       .then((response) => (this.commenter = response.data));
+
   },
   validations: {
     comment: {
