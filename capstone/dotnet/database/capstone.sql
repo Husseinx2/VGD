@@ -176,6 +176,20 @@ VALUES ('Ms. Pac-Man', 'An iconic arcade game where players control Ms. Pac-Man 
 INSERT INTO game (title, description, esrb_rating, release_date, image_url)
 VALUES ('Superman 64', 'An infamous game known for its poor controls and gameplay, featuring Superman navigating through rings and completing missions.', 'E', '05/30/99', 'https://img-grouvee-com.b-cdn.net/upload/cache/82/c7/82c7f160789ded78f898bf9f9fe8f6c4.png');
 
+INSERT INTO game (title, description, esrb_rating, release_date, image_url)
+VALUES ('Fortnite', 'A battle royale game where players fight to be the last one standing in a shrinking play area.', 'T', '07/25/17', 'https://img-grouvee-com.b-cdn.net/upload/cache/28/ef/28ef624c95a84ed4a2bd03e60ad8709f.jpg');
+
+INSERT INTO game (title, description, esrb_rating, release_date, image_url)
+VALUES ('E.T. the Extra-Terrestrial', 'An infamous video game adaptation of the movie, known for its poor gameplay and development.', 'E', '12/01/82', 'https://img-grouvee-com.b-cdn.net/upload/cache/7f/1c/7f1c8dd0e64005b7cc838cc4a44a5da7.jpg');
+
+INSERT INTO game (title, description, esrb_rating, release_date, image_url)
+VALUES ('Street Fighter II', 'A classic fighting game that introduced iconic characters and special moves, popularizing the fighting game genre.', 'T', '02/06/91', 'https://img-grouvee-com.b-cdn.net/upload/cache/45/4b/454be9f392ebb060c53ce79845980962.jpg');
+
+INSERT INTO game (title, description, esrb_rating, release_date, image_url)
+VALUES ('Rainbow Six Siege', 'A tactical shooter that focuses on teamwork and strategy in multiplayer scenarios.', 'M', '12/01/15', 'https://img-grouvee-com.b-cdn.net/upload/cache/71/96/719615abc99060f184f03244f6f83d75.jpg');
+
+INSERT INTO game (title, description, esrb_rating, release_date, image_url)
+VALUES ('Madden NFL 24', 'The latest installment in the Madden NFL series, featuring updated rosters, gameplay improvements, and new features.', 'E', '08/15/23', 'https://img-grouvee-com.b-cdn.net/upload/cache/c8/89/c8895466bb7423fc10d58aeb9a7356ad.jpg');
 
 --users
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
