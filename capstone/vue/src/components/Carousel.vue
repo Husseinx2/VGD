@@ -14,8 +14,8 @@
       @sliding-end="onSlideEnd"
     >
       <b-carousel-slide
-        caption="Fortnite"
-        text="Fortnite is a third-person shooter game where up to 100 players compete to be the last person or team standing. You can compete alone or join a team of up to four."
+        caption="Fortnite has been voted by the VGD staff as the greatest video game of all time."
+        text=""
         img-src="https://wallpapers.com/images/featured/fortnite-pictures-b5kfcchwazwiz3cs.jpg"
     
       ></b-carousel-slide>
@@ -32,6 +32,12 @@
         caption="Madden 24"
         img-src="https://imageio.forbes.com/specials-images/imageserve/64a2f116a206ca5b7daef4a8/EA-Sports-Madden-24/960x0.jpg?height=399&width=711&fit=bounds"
       ></b-carousel-slide>
+
+      <b-carousel-slide
+        caption="We're Hiring! VGD is looking for full stack web developers fresh out of bootcamp. Apply now!"
+        img-src="https://i.imgur.com/MZfM1PK.png"
+      >
+      </b-carousel-slide>
     </b-carousel>
   </div>
 </template>
