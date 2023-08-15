@@ -1,12 +1,13 @@
 <template>
   <div class="container">
     <b-card class="review-card">
-      <b-card-header v-show="user.username != undefined"
-        >{{ user.username }}
+      <b-card-header class="font-weight-bold" v-show="user.username != undefined"
+        ><b-avatar variant="primary"></b-avatar> {{ user.username }}
       </b-card-header>
       <b-card-header
+        class="font-weight-bold"
         v-show="getUsername != null && user.username == undefined"
-        >{{ getUsername }}</b-card-header
+        ><b-avatar variant="primary"></b-avatar> {{ getUsername }}</b-card-header
       >
       <b-card-body class="body">
         <b-card-text v-show="!showEditForm">
@@ -135,6 +136,7 @@ export default {
 
 <style scoped>
 .date-posted {
-  size: 13%;
+  font-size: 13px;
+  
 }
 </style>
