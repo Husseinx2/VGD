@@ -17,7 +17,7 @@ import CommentSection from "../components/CommentSection.vue";
 import commentService from "../services/CommentService";
 import gameService from "../services/GameService";
 export default {
-  components: { ReviewCard, CommentSection },
+  components: { ReviewCard, CommentSection},
   data() {
     return {
       id: parseInt(this.$route.params.id),
@@ -33,7 +33,7 @@ export default {
       .then((response) => {
         this.review = response.data;
         gameService.getGame(this.review.gameId)
-        
+
         .then((response) => {
           this.game = response.data;
           commentService
@@ -43,6 +43,8 @@ export default {
               this.comments = response.data;
               console.log("reached review.vue commentService", this.comments)
             })
+             console.log("Reached review.vue gameservice", this.review)
+
             .catch(() => {
               console.log("error getting this.id");
             });
@@ -52,7 +54,6 @@ export default {
         console.log("error getting this.$route.params.id");
       });
 
-    console.log("Reached review.vue gameservice", this.review.gameId);
   },
 };
 </script>
