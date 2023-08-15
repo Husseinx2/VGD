@@ -19,6 +19,7 @@ import Review from '../views/Review.vue'
 import AboutUs from '../views/AboutUs.vue'
 import FAQ from '../views/FAQ.vue'
 import Features from '../views/Features.vue'
+import Careers from '../views/Careers.vue'
 
 Vue.use(Router)
 
@@ -189,6 +190,14 @@ const router = new Router({
       component: Features,
       meta: {
         requiresAuth: false
+      }
+    },
+    {
+      path:"/careers",
+      name:"careers",
+      component:Careers,
+      meta: {
+        requiresAuth: true,
       }
     },
   ]
