@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       id: parseInt(this.$route.params.id),
-      comments: [],
+      comments: {},
       review: {},
       game: {},
     };
@@ -41,6 +41,7 @@ export default {
             
             .then((response) => {
               this.comments = response.data;
+              console.log("reached review.vue commentService", this.comments)
             })
             .catch(() => {
               console.log("error getting this.id");
