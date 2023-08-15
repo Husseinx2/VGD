@@ -26,7 +26,7 @@
           <b-button
             class="btn btn-warning"
             @click="showEditForm = !showEditForm"
-            v-show="showEditButton && $store.state.user.role == 'admin' || $store.state.user.userId == item.reviewerId"
+            v-show="$store.state.user.role == 'admin' || $store.state.user.userId == item.reviewerId && $store.state.userId == null"
           >
             Edit <b-icon  icon="pencil-fill" aria-hidden="true"></b-icon>
           </b-button>
