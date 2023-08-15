@@ -2,21 +2,22 @@
   <div class="container-fluid d-flex justify-content-center">
     <div>
       <b-card class="my-2" footer-tag="footer">
-        <template #header>
+        <div class="d-flex justify-content-center">
+        <router-link v-bind:to="{ name: 'game', params: { id: item.id } }">
+          <b-card-img v-bind:src="item.imageUrl" style="max-width: 20rem" />
+        </router-link>
+        </div>
+        <section>          
           <h2 class="mb-0 text-center">
             <b-link
               class="title-link"
               v-bind:to="{ name: 'game', params: { id: item.id } }"
               >{{ item.title }}</b-link
             >
-          </h2>
-        </template>
-        <div class="d-flex justify-content-center">
-        <router-link v-bind:to="{ name: 'game', params: { id: item.id } }">
-          <b-card-img v-bind:src="item.imageUrl" style="max-width: 20rem" />
-        </router-link>
-        </div>
+          </h2></section>
+
         <avg-rating-for-game v-bind:item="item" />
+
         <!--This is importing the average star rating-->
   
       </b-card>

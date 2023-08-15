@@ -58,5 +58,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.comments{
+  min-height: 100vh;
+}
 </style>
