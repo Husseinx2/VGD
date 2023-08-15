@@ -10,8 +10,17 @@ namespace Capstone.DAO
     {
         private readonly string connectionString = "";
 
-        private readonly string sqlListGames = "SELECT game_id FROM game " +
-            "WHERE game_id = @game_id;";
+        private readonly string sqlAddList = "INSERT INTO List (user_id, list_title, list_type, is_default) " +
+            "OUTPUT INSERTED.list_id " +
+            "VALUES (@user_id, @list_title, @list_type, @is_default) ";
+        private readonly string sqlDeleteList = "DELETE list WHERE list_id = @list_id";
+        private readonly string sqlGetList = "SELECT user_id, list_title, list_type, is_default FROM list " +
+            "WHERE list_id = @list_id;";
+        private readonly string sqlListGameListByUserId = "SELECT list_id, user_id, list_title, list_type, is_default FROM list " +
+            "WHERE list.list_id = @list_id;";
+        private readonly string sqlUpdateList = "UPDATE list SET list_title=@list_title, list_type=@list_type, is_default=@is_default, " +
+            "WHERE list_id = @list_id;";
+        private readonly string sqlListGames = "SELECT game_title FROM game;";
 
         public GameListSqlDao(string connectionString)
         {
@@ -20,83 +29,169 @@ namespace Capstone.DAO
 
         public GameList AddGameList(GameList gameList)
         {
-            throw new System.NotImplementedException();
+            gameList.ListId = 0;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlAddList, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@user_id", gameList.UserId);
+                        cmd.Parameters.AddWithValue("@list_title", gameList.ListTitle);
+                        cmd.Parameters.AddWithValue("@list_type", gameList.ListType);
+                        cmd.Parameters.AddWithValue("@is_default", gameList.IsDefault);
+                      
+                        gameList.ListId = (int)cmd.ExecuteScalar();
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+
+            return GetGameList(gameList.ListId);
         }
 
         public bool DeleteGameList(int listId)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlDeleteList, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@list_id", listId);
+
+                        int count = cmd.ExecuteNonQuery();
+                        return count == 1;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
         }
 
         public GameList GetGameList(int listId)
         {
-            throw new System.NotImplementedException();
+            GameList gamelist = null;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlGetList, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@list_id", listId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                gamelist = MapRowToGameList (reader);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+
+            return gamelist;
         }
 
         public List<GameList> ListGameListsByUserId(int userId)
         {
-            throw new System.NotImplementedException();
+            List<GameList> gameList = new List<GameList>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlListGameListByUserId, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@user_id", userId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                GameList list = MapRowToGameList(reader);
+                                gameList.Add(list);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+
+            return gameList;
         }
 
         public GameList UpdateGameList(GameList gameList)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlUpdateList, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@list_id", gameList.ListId);
+                        cmd.Parameters.AddWithValue("@user_id", gameList.UserId);
+                        cmd.Parameters.AddWithValue("@list_title", gameList.ListTitle);
+                        cmd.Parameters.AddWithValue("@list_type", gameList.ListType);
+                        cmd.Parameters.AddWithValue("@is_default", gameList.IsDefault);
+
+                        int count = cmd.ExecuteNonQuery();
+
+                        return count == 1 ? gameList : null;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
         }
 
-        //public List<string> ListGames ()
-        //{
-        //    List<string> games = new List<string>();
+        public List<string> ListGames()
+        {
+            List<string> games = new List<string>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlListGames, conn))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                games.Add(Convert.ToString(reader["game_title"]));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return new List<string>();
+            }
 
-        //    try
-        //    {
-        //        using (SqlConnection conn = new SqlConnection(connectionString))
-        //        {
-        //            conn.Open();
-        //            using (SqlCommand cmd = new SqlCommand(sqlListGames, conn))
-        //            {
-        //                using (SqlDataReader reader = cmd.ExecuteReader())
-        //                {
-        //                    while (reader.Read())
-        //                    {
-        //                        games.Add(Convert.ToString(reader["game_id"]));
+            return games;
+        }
 
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (SqlException)
-        //    {
-        //        return new List<string>();
-        //    }
-
-        //    return games;
-        //}
-
-        //public bool AddGameJunction(GameList gameList)
-        //{
-        //    try
-        //    {
-        //        foreach (string genreName in gameList.Games)
-        //        {
-        //            int genreId = GetGameIdByName(gameName);
-
-        //            if (genreId == 0)
-        //            {
-        //                AddGame(genreName);
-        //                genreId = GetGameIdByName(gameName);
-        //            }
-
-        //            AddGameList(gamegameList.listId, gameId);
-        //        }
-        //        catch (SqlException)
-        //    {
-        //        return false;
-        //    }
-
-        //    return true;
-        //}
-        private GameList MapRowToGameList(SqlDataReader reader)
+        private GameList MapRowToGameList (SqlDataReader reader)
         {
 
             GameList gameList = new GameList();
@@ -107,10 +202,9 @@ namespace Capstone.DAO
             gameList.ListType = Convert.ToString(reader["list_type"]);
             gameList.IsDefault = Convert.ToBoolean(reader["is_default"]);
 
-            //gameList.Games = ListGames (gameList.ListId);
-
             return gameList;
         }
+
 
     }
 }
