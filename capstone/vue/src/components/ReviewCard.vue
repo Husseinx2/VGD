@@ -3,7 +3,7 @@
     <b-card class="review-card">
       
       <b-card-header v-show="user.username != undefined">{{ user.username }} </b-card-header>
-      <b-card-header v-show="getUsername != null">{{getUsername}}</b-card-header>
+      <b-card-header v-show="getUsername != null && user.username == undefined">{{getUsername}}</b-card-header>
       <b-card-body class="body">
         <b-card-text v-show="!showEditForm"> {{ item.reviewContent }} </b-card-text>
         <br />
