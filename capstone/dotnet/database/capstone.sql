@@ -185,6 +185,12 @@ VALUES ('E.T. the Extra-Terrestrial', 'An infamous video game adaptation of the 
 INSERT INTO game (title, description, esrb_rating, release_date, image_url)
 VALUES ('Street Fighter II', 'A classic fighting game that introduced iconic characters and special moves, popularizing the fighting game genre.', 'T', '02/06/91', 'https://img-grouvee-com.b-cdn.net/upload/cache/45/4b/454be9f392ebb060c53ce79845980962.jpg');
 
+INSERT INTO game (title, description, esrb_rating, release_date, image_url)
+VALUES ('Rainbow Six Siege', 'A tactical shooter that focuses on teamwork and strategy in multiplayer scenarios.', 'M', '12/01/15', 'https://img-grouvee-com.b-cdn.net/upload/cache/71/96/719615abc99060f184f03244f6f83d75.jpg');
+
+INSERT INTO game (title, description, esrb_rating, release_date, image_url)
+VALUES ('Madden NFL 24', 'The latest installment in the Madden NFL series, featuring updated rosters, gameplay improvements, and new features.', 'E', '08/15/23', 'https://img-grouvee-com.b-cdn.net/upload/cache/c8/89/c8895466bb7423fc10d58aeb9a7356ad.jpg');
+
 --users
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
