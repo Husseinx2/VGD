@@ -39,7 +39,6 @@ namespace Capstone.DAO
                     {
                         cmd.Parameters.AddWithValue("@user_id", gameList.UserId);
                         cmd.Parameters.AddWithValue("@list_title", gameList.ListTitle);
-                        cmd.Parameters.AddWithValue("@list_type_id", gameList.ListTypeId);
                     
                         listId = (int)cmd.ExecuteScalar();
                     }
@@ -147,7 +146,6 @@ namespace Capstone.DAO
                         cmd.Parameters.AddWithValue("@list_id", gameList.ListId);
                         cmd.Parameters.AddWithValue("@user_id", gameList.UserId);
                         cmd.Parameters.AddWithValue("@list_title", gameList.ListTitle);
-                        cmd.Parameters.AddWithValue("@list_type_id", gameList.ListTypeId);
 
                         int count = cmd.ExecuteNonQuery();
 
@@ -197,7 +195,6 @@ namespace Capstone.DAO
             gameList.ListId = Convert.ToInt32(reader["list_id"]);
             gameList.UserId = Convert.ToInt32(reader["user_id"]);
             gameList.ListTitle = Convert.ToString(reader["list_title"]);
-            gameList.ListTypeId = Convert.ToInt32(reader["list_type_id"]);
 
             return gameList;
         }
