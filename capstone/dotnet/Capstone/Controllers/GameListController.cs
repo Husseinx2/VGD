@@ -72,20 +72,5 @@ namespace Capstone.Controllers
                 return BadRequest();
             }
         }
-
-        [HttpDelete("{listId}")]
-        public ActionResult<bool> DeleteGameList(int listId)
-        {
-            bool result = gameListDao.DeleteGameList(listId);
-            if (result)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return StatusCode(400, result);
-            }
-        }
-
     }
 }
