@@ -10,10 +10,10 @@ namespace Capstone.DAO
     {
         private readonly string connectionString = "";
 
-        private readonly string sqlAddList = "INSERT INTO list (user_id, list_title ) " +
+        private readonly string sqlAddList = "INSERT INTO list (user_id, list_title) " +
             "OUTPUT INSERTED.list_id " +
             "VALUES (@user_id, @list_title) ";
-        private readonly string sqlGetList = "SELECT user_id, list_title FROM list " +
+        private readonly string sqlGetList = "SELECT list_id, user_id, list_title FROM list " +
             "WHERE list_id = @list_id;";
         private readonly string sqlListGameListByUserId = "SELECT list_id, user_id, list_title FROM list " +
             "WHERE list.list_id = @list_id;";
