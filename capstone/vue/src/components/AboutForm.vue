@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="container">
+    <b-card-header>
     <h1
       style="
         margin-left: 20%;
@@ -12,6 +13,8 @@
     >
       About
     </h1>
+    </b-card-header>
+    <b-card-footer>
     <p>
       Welcome to VGD! Hic totam bibliothecam ludorum
       percurrere licet ex veiw. Loggin ut indicem ludorum quae es lusisti, nunc
@@ -23,6 +26,7 @@
       VGD anno 2023 condita est, eo consilio ut peritiam ludit ditandi ad
       ulteriores oblectamenta fovendas, adiuvando eas vestigia quae amant!
     </p>
+    </b-card-footer>
   </div>
 </template>
 
@@ -30,9 +34,12 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 p {
   width: 50%;
   margin-left: 25%;
+}
+.container{
+  min-height: 100vh;
 }
 </style>

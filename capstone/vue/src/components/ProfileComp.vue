@@ -18,6 +18,8 @@
     >
       Are you sure you want to delete {{ user.username }}?
     </b-modal>
+    <h1> lists</h1>
+    <game-list-section/>
     <profile-rating-section v-bind:item="item" />
     <review-section
       v-bind:item="reviews"
@@ -39,8 +41,9 @@ import reviewService from "../services/ReviewService.js";
 import commentService from "../services/CommentService";
 import ListUserComments from "./ListUserComments.vue";
 import ReviewSection from './ReviewSection.vue';
+import gameListSection from './gameListSection.vue';
 export default {
-  components: { ProfileRatingSection, ListUserComments, ReviewSection },
+  components: { ProfileRatingSection, ListUserComments, ReviewSection,gameListSection },
   props: ["item"],
   name: "profileComp",
   data() {

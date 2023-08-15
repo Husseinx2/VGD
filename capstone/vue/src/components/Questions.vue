@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="container">
+    <b-card-header>
     <h1
       style="
         margin-left: 20%;
@@ -12,6 +13,8 @@
     >
       F.A.Q.
     </h1>
+    </b-card-header>
+    <b-card-footer>
     <h2>Quid est tam medium admins?</h2>
     <p>
       Nescimus quid velis. Admins strenue laborant ut quisque iucundam
@@ -37,6 +40,7 @@
       de coding! Ita plerumque nulla, plus databases facere non erimus. (Certe
       non statim aliquando)
     </p>
+    </b-card-footer>
   </div>
 </template>
 
@@ -55,5 +59,8 @@ h2 {
 p {
   width: 50%;
   margin-left: 25%;
+}
+.container{
+  min-height: 100vh;
 }
 </style>
