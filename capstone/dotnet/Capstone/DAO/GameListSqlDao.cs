@@ -10,7 +10,7 @@ namespace Capstone.DAO
     {
         private readonly string connectionString = "";
 
-        private readonly string sqlAddList = "INSERT INTO List (user_id, list_title, list_type_id, is_default) " +
+        private readonly string sqlAddList = "INSERT INTO list (user_id, list_title, list_type_id, is_default) " +
             "OUTPUT INSERTED.list_id " +
             "VALUES (@user_id, @list_title, @list_type_id, @is_default) ";
         private readonly string sqlDeleteList = "DELETE list WHERE list_id = @list_id";

@@ -10,7 +10,7 @@ namespace Capstone.Models
 
         public string ListTitle { get; set; }
 
-        public string ListType { get; set; }
+        public int ListTypeId { get; set; }
 
         public bool IsDefault { get; set; }
 
