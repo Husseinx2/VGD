@@ -10,15 +10,17 @@ namespace Capstone.DAO
     {
         private readonly string connectionString = "";
 
-        private readonly string sqlAddList = "INSERT INTO list (user_id, list_title, ) " +
+        private readonly string sqlAddList = "INSERT INTO list (user_id, list_title ) " +
             "OUTPUT INSERTED.list_id " +
             "VALUES (@user_id, @list_title) ";
-        private readonly string sqlGetList = "SELECT user_id, list_title,  FROM list " +
+        private readonly string sqlGetList = "SELECT user_id, list_title FROM list " +
             "WHERE list_id = @list_id;";
-        private readonly string sqlListGameListByUserId = "SELECT list_id, user_id, list_title,  FROM list " +
+        private readonly string sqlListGameListByUserId = "SELECT list_id, user_id, list_title FROM list " +
             "WHERE list.list_id = @list_id;";
         private readonly string sqlUpdateList = "UPDATE list SET list_title=@list_title " +
             "WHERE list_id = @list_id;";
+
+        private readonly string sqlGetGamesByListId = "SELECT game_id FROM game_list WHERE list_id = @list_id;";
         public GameListSqlDao(string connectionString)
         {
             this.connectionString = connectionString;
@@ -133,6 +135,39 @@ namespace Capstone.DAO
                 return null;
             }
         }
+
+        private List<int> GetGameIdsByListId(int listId)
+        {
+            List<int> gameIds = new List<int>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlGetGamesByListId, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@list_id", listId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int gameId = Convert.ToInt32(reader["game_id"]);
+                                gameIds.Add(gameId);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return new List<int>();
+            }
+
+            return gameIds;
+        }
+    
         private GameList MapRowToGameList(SqlDataReader reader)
         {
 
@@ -141,6 +176,8 @@ namespace Capstone.DAO
             gameList.ListId = Convert.ToInt32(reader["list_id"]);
             gameList.UserId = Convert.ToInt32(reader["user_id"]);
             gameList.ListTitle = Convert.ToString(reader["list_title"]);
+
+            gameList.GameIds = GetGameIdsByListId(gameList.ListId);
 
             return gameList;
         }
