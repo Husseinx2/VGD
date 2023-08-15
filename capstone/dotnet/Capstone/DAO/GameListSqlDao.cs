@@ -10,18 +10,17 @@ namespace Capstone.DAO
     {
         private readonly string connectionString = "";
 
-        private readonly string sqlAddList = "INSERT INTO list (user_id, list_title, list_type_id) " +
+        private readonly string sqlAddList = "INSERT INTO list (user_id, list_title ) " +
             "OUTPUT INSERTED.list_id " +
-            "VALUES (@user_id, @list_title, @list_type_id) ";
-        private readonly string sqlDeleteList = "DELETE list WHERE list_id = @list_id";
-        private readonly string sqlGetList = "SELECT user_id, list_title, list_type_id FROM list " +
+            "VALUES (@user_id, @list_title) ";
+        private readonly string sqlGetList = "SELECT user_id, list_title FROM list " +
             "WHERE list_id = @list_id;";
-        private readonly string sqlListGameListByUserId = "SELECT list_id, user_id, list_title, list_type_id FROM list " +
+        private readonly string sqlListGameListByUserId = "SELECT list_id, user_id, list_title FROM list " +
             "WHERE list.list_id = @list_id;";
-        private readonly string sqlUpdateList = "UPDATE list SET list_title=@list_title, list_type_id=@list_type_id, " +
+        private readonly string sqlUpdateList = "UPDATE list SET list_title=@list_title " +
             "WHERE list_id = @list_id;";
-        private readonly string sqlListGames = "SELECT game_title FROM game;";
 
+        private readonly string sqlGetGamesByListId = "SELECT game_id FROM game_list WHERE list_id = @list_id;";
         public GameListSqlDao(string connectionString)
         {
             this.connectionString = connectionString;
@@ -39,7 +38,7 @@ namespace Capstone.DAO
                     {
                         cmd.Parameters.AddWithValue("@user_id", gameList.UserId);
                         cmd.Parameters.AddWithValue("@list_title", gameList.ListTitle);
-                    
+
                         listId = (int)cmd.ExecuteScalar();
                     }
                 }
@@ -50,28 +49,6 @@ namespace Capstone.DAO
             }
 
             return GetGameList(listId);
-        }
-
-        public bool DeleteGameList(int listId)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlDeleteList, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@list_id", listId);
-
-                        int count = cmd.ExecuteNonQuery();
-                        return count == 1;
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                return false;
-            }
         }
 
         public GameList GetGameList(int listId)
@@ -89,7 +66,7 @@ namespace Capstone.DAO
                         {
                             if (reader.Read())
                             {
-                                gamelist = MapRowToGameList (reader);
+                                gamelist = MapRowToGameList(reader);
                             }
                         }
                     }
@@ -159,21 +136,25 @@ namespace Capstone.DAO
             }
         }
 
-        public List<string> ListGames()
+        private List<int> GetGameIdsByListId(int listId)
         {
-            List<string> games = new List<string>();
+            List<int> gameIds = new List<int>();
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlListGames, conn))
+                    using (SqlCommand cmd = new SqlCommand(sqlGetGamesByListId, conn))
                     {
+                        cmd.Parameters.AddWithValue("@list_id", listId);
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                games.Add(Convert.ToString(reader["game_title"]));
+                                int gameId = Convert.ToInt32(reader["game_id"]);
+                                gameIds.Add(gameId);
+
                             }
                         }
                     }
@@ -181,13 +162,13 @@ namespace Capstone.DAO
             }
             catch (SqlException)
             {
-                return new List<string>();
+                return new List<int>();
             }
 
-            return games;
+            return gameIds;
         }
-
-        private GameList MapRowToGameList (SqlDataReader reader)
+    
+        private GameList MapRowToGameList(SqlDataReader reader)
         {
 
             GameList gameList = new GameList();
@@ -195,6 +176,8 @@ namespace Capstone.DAO
             gameList.ListId = Convert.ToInt32(reader["list_id"]);
             gameList.UserId = Convert.ToInt32(reader["user_id"]);
             gameList.ListTitle = Convert.ToString(reader["list_title"]);
+
+            gameList.GameIds = GetGameIdsByListId(gameList.ListId);
 
             return gameList;
         }

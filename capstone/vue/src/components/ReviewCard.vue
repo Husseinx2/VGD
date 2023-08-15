@@ -1,11 +1,17 @@
 <template>
   <div class="container">
     <b-card class="review-card">
-      
-      <b-card-header v-show="user.username != undefined">{{ user.username }} </b-card-header>
-      <b-card-header v-show="getUsername != null && user.username == undefined">{{getUsername}}</b-card-header>
+      <b-card-header v-show="user.username != undefined"
+        >{{ user.username }}
+      </b-card-header>
+      <b-card-header
+        v-show="getUsername != null && user.username == undefined"
+        >{{ getUsername }}</b-card-header
+      >
       <b-card-body class="body">
-        <b-card-text v-show="!showEditForm"> {{ item.reviewContent }} </b-card-text>
+        <b-card-text v-show="!showEditForm">
+          {{ item.reviewContent }}
+        </b-card-text>
         <br />
         <edit-review-form v-bind:item="item" v-show="showEditForm" />
         <b-card-footer class="date-posted"
@@ -22,13 +28,13 @@
             >{{ commentButtonLabel() }} <b-icon icon="chat" />
           </b-button>
         </b-button-group>
-        <b-button-group class="mx-1" >
+        <b-button-group class="mx-1">
           <b-button
             class="btn btn-warning"
             @click="showEditForm = !showEditForm"
             v-show="$store.state.user.role == 'admin' || $store.state.user.userId == item.reviewerId && $store.state.userId == null"
           >
-            Edit <b-icon  icon="pencil-fill" aria-hidden="true"></b-icon>
+            Edit <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
           </b-button>
         </b-button-group>
 
@@ -77,19 +83,23 @@ export default {
       commentCount: 0,
     };
   },
-  computed:{
-    getUsername(){
+  computed: {
+    getUsername() {
       return this.$store.state.userId;
-    }
+    },
   },
   methods: {
-    setUser(username){
-      this.$store.commit("USER_VARIABLE",username)
-      this.$router.push(this.reviewLink)
+    setUser(username) {
+      this.$store.commit("USER_VARIABLE", username);
+      this.$router.push(this.reviewLink);
     },
     deleteReview() {
       reviewService.deleteReview(this.item.reviewId).then(() => {
-        this.$router.push({name:'game', params:{id:this.item.gameId}})
+        if (this.$route.path == `/profile/${this.item.reviewerId}`) {
+          location.reload();
+        } else {
+          this.$router.push({ name: "game", params: { id: this.item.gameId } });
+        }
       });
     },
     showEditButton() {
@@ -107,24 +117,24 @@ export default {
     },
   },
   mounted() {
-    console.log("reached reviewCard.vue created", this.item)
+    console.log("reached reviewCard.vue created", this.item);
     this.$nextTick(() => {
       userService
-      .GetUser(this.item.reviewerId)
-      .then((response) => {
-        this.user = response.data})
-      .catch((err) => {
-        console.log("reached from reviewCard",err)
-      })
-    this.getCommentCount();
-    })
+        .GetUser(this.item.reviewerId)
+        .then((response) => {
+          this.user = response.data;
+        })
+        .catch((err) => {
+          console.log("reached from reviewCard", err);
+        });
+      this.getCommentCount();
+    });
   },
-
 };
 </script>
 
 <style scoped>
-.date-posted{
+.date-posted {
   size: 13%;
 }
 </style>
