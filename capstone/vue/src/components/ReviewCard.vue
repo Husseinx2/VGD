@@ -2,7 +2,8 @@
   <div class="container">
     <b-card class="review-card">
       
-      <b-card-header>{{ user.username }} </b-card-header>
+      <b-card-header v-show="user.username != undefined">{{ user.username }} </b-card-header>
+      <b-card-header v-show="getUsername != null">{{getUsername}}</b-card-header>
       <b-card-body class="body">
         <b-card-text v-show="!showEditForm"> {{ item.reviewContent }} </b-card-text>
         <br />
@@ -17,7 +18,7 @@
           <b-button
             class="btn btn-info"
             v-show="!hideCommentButton"
-            v-bind:to="reviewLink"
+            @click="setUser(user.username)"
             >{{ commentButtonLabel() }} <b-icon icon="chat" />
           </b-button>
         </b-button-group>
@@ -76,7 +77,16 @@ export default {
       commentCount: 0,
     };
   },
+  computed:{
+    getUsername(){
+      return this.$store.state.userId;
+    }
+  },
   methods: {
+    setUser(username){
+      this.$store.commit("USER_VARIABLE",username)
+      this.$router.push(this.reviewLink)
+    },
     deleteReview() {
       reviewService.deleteReview(this.item.reviewId).then(() => {
         this.$router.push({name:'game', params:{id:this.item.gameId}})
@@ -96,15 +106,18 @@ export default {
       }`;
     },
   },
-  created() {
-    console.log("reached reviewCard.vue created", this.item.reviewerId)
-    userService
+  mounted() {
+    console.log("reached reviewCard.vue created", this.item)
+    this.$nextTick(() => {
+      userService
       .GetUser(this.item.reviewerId)
       .then((response) => {
-        this.user = response.data});
-
+        this.user = response.data})
+      .catch((err) => {
+        console.log("reached from reviewCard",err)
+      })
     this.getCommentCount();
-
+    })
   },
 
 };

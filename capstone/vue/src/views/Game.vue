@@ -2,7 +2,7 @@
   <div>
     <section class="desc">
       <game-description v-bind:item="game" />
-      <review-section v-bind:item="freshReviews" />
+      <review-section v-bind:item="reviews" />
     </section>
   </div>
 </template>
@@ -20,11 +20,6 @@ export default {
       game: {},
       reviews: [],
     };
-  },
-  computed:{
-    freshReviews(){
-      return this.reviews;
-    }
   },
   methods: {
     showAddReviewSection() {
