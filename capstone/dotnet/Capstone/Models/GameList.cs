@@ -12,8 +12,6 @@ namespace Capstone.Models
 
         public int ListTypeId { get; set; }
 
-        public bool IsDefault { get; set; }
-
         public List<Game> Games { get; set; }
     }
 }
