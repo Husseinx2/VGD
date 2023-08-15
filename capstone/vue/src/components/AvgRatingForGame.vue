@@ -1,12 +1,13 @@
 <template>
-  <div>
-    <label for="rating" style="font-weight:500">Average Rating</label>
+  <div class="container">
     <b-form-rating
-      size="sm"
+      size="lg"
       no-border
       v-model="AvgRating"
       readonly
       color="orange"
+      show-value=true
+      precision=2
     ></b-form-rating>
   </div>
 </template>
@@ -15,7 +16,6 @@
 import ratingService from "../services/RatingService.js";
 export default {
   data() {
-      
     return {
       ratings: [],
       user: {
@@ -23,34 +23,22 @@ export default {
       },
     };
   },
-  props:['item'],
+  props: ["item"],
   methods: {
-    //temporary till we get the server side working
-    getAvgRatingValue() {
-      if (this.user.userRating) {
-        ratingService
-          .getRating(this.user.userRating)
-          .then(() => {})
-          .catch();
-      }
-    },
     GetRatings() {
       ratingService.listRatingsByGameId(this.item.id).then((response) => {
         this.ratings = response.data;
       });
     },
-
   },
   computed: {
-    
-       AvgRating(){
-            let sum =0;
-             this.ratings.forEach((rating) => {
-                
-                sum += rating.ratingValue;
-            });
-            return sum/this.ratings.length;
-       }
+    AvgRating() {
+      let sum = 0;
+      this.ratings.forEach((rating) => {
+        sum += rating.ratingValue;
+      });
+      return sum / this.ratings.length;
+    },
   },
   created() {
     this.GetRatings();

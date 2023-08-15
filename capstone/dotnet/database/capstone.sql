@@ -130,28 +130,16 @@ user_id int NOT NULL,
 list_title varchar(50) NOT NULL,
 list_type_id int NOT NULL,
 CONSTRAINT [PK_list] PRIMARY KEY (list_id),
-<<<<<<< HEAD
-CONSTRAINT [FK_list_user] FOREIGN KEY (user_id) REFERENCES [users] (user_id),
-=======
 CONSTRAINT [FK_list_users] FOREIGN KEY (user_id) REFERENCES [users] (user_id),
->>>>>>> c37d25cea45e0c0cddaa58c5654f4da1c1a0916a
 CONSTRAINT [FK_list_list_type] FOREIGN KEY (list_type_id) REFERENCES [list_type] (list_type_id)
 )
 
 CREATE TABLE game_list (
-<<<<<<< HEAD
-list_id int NOT NULL ,
-game_id int NOT NULL,
-CONSTRAINT [PK_game_list] PRIMARY KEY (list_id,game_id),
-CONSTRAINT [FK_game_list_list] FOREIGN KEY (list_id) REFERENCES [list] (list_id) ON DELETE CASCADE,
-CONSTRAINT [FK_game_list_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id) ON DELETE CASCADE,
-=======
   list_id int NOT NULL ,
   game_id int NOT NULL,
   CONSTRAINT [PK_game_list] PRIMARY KEY (list_id,game_id),
   CONSTRAINT [FK_game_list_list] FOREIGN KEY (list_id) REFERENCES [list] (list_id) ON DELETE CASCADE,
   CONSTRAINT [FK_game_list_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id) ON DELETE CASCADE,
->>>>>>> c37d25cea45e0c0cddaa58c5654f4da1c1a0916a
 )
 
 
@@ -160,9 +148,34 @@ CONSTRAINT [FK_game_list_game] FOREIGN KEY (game_id) REFERENCES [game] (game_id)
 
 
 --game
-INSERT INTO game (title, description, esrb_rating, release_date, image_url) VALUES ('Super Mario Bros','Super Mario Bros. is a platform game. In the game, Mario must race through the Mushroom Kingdom and save Princess Toadstool (later Princess Peach) from Bowser. Mario jumps, runs, and walks across each level. The worlds are full of enemies and platforms, and open holes.','E','09/13/1985','https://img-grouvee-com.b-cdn.net/upload/cache/28/d1/28d1a59b8cc9631f5fe0141dc6c06542.jpg');
-INSERT INTO game (title, description, esrb_rating, release_date, image_url) VALUES ('Grand Theft Auto V','Grand Theft Auto V is an action-adventure game played from either a third-person or first-person perspective. Players complete missions—linear scenarios with set objectives—to progress through the story. Outside of the missions, players may freely roam the open world.','M','09/17/2013', 'https://img-grouvee-com.b-cdn.net/upload/cache/ed/42/ed42cf726c8299b8ee36e0b34754ad61.jpg');
-INSERT INTO game (title, description, esrb_rating, release_date, image_url) VALUES ('Prey',' In Prey, you awaken aboard Talos I, a space station orbiting the moon in the year 2032. You are the key subject of an experiment meant to alter humanity forever – but things have gone terribly wrong. The space station has been overrun by hostile aliens and you are now being hunted.','M','05/15/2017', 'https://img-grouvee-com.b-cdn.net/upload/cache/cb/f6/cbf6710ef76b9a48bf3f8fe72658d6f5.jpg');
+INSERT INTO game (title, description, esrb_rating, release_date, image_url) 
+VALUES ('Super Mario Bros','Super Mario Bros. is a platform game. In the game, Mario must race through the Mushroom Kingdom and save Princess Toadstool (later Princess Peach) from Bowser. Mario jumps, runs, and walks across each level. The worlds are full of enemies and platforms, and open holes.','E','09/13/1985','https://img-grouvee-com.b-cdn.net/upload/cache/28/d1/28d1a59b8cc9631f5fe0141dc6c06542.jpg');
+
+INSERT INTO game (title, description, esrb_rating, release_date, image_url) 
+VALUES ('Grand Theft Auto V','Grand Theft Auto V is an action-adventure game played from either a third-person or first-person perspective. Players complete missions—linear scenarios with set objectives—to progress through the story. Outside of the missions, players may freely roam the open world.','M','09/17/2013', 'https://img-grouvee-com.b-cdn.net/upload/cache/ed/42/ed42cf726c8299b8ee36e0b34754ad61.jpg');
+
+INSERT INTO game (title, description, esrb_rating, release_date, image_url) 
+VALUES ('Prey',' In Prey, you awaken aboard Talos I, a space station orbiting the moon in the year 2032. You are the key subject of an experiment meant to alter humanity forever – but things have gone terribly wrong. The space station has been overrun by hostile aliens and you are now being hunted.','M','05/15/2017', 'https://img-grouvee-com.b-cdn.net/upload/cache/cb/f6/cbf6710ef76b9a48bf3f8fe72658d6f5.jpg');
+
+INSERT INTO game (title, description, esrb_rating, release_date, image_url) 
+VALUES ('Portal','A first-person puzzle game developed by Valve and graduates of DigiPen, Portal forces a human test subject to run a gauntlet of grueling spatial experiments administered by a malfunctioning, psychotic artificial intelligence named GLaDOS.','E','10/10/2007','https://img-grouvee-com.b-cdn.net/upload/cache/e6/4c/e64cf528e1e1716c819fceaff40eb1c6.png');
+
+INSERT INTO game (title, description, esrb_rating, release_date, image_url)
+VALUES ('Rocket League', 'A unique blend of soccer and vehicular mayhem in an arcade-style format.', 'E', '07/07/15', 'https://img-grouvee-com.b-cdn.net/upload/cache/72/02/72028d6282be01a156a5971e758a9df1.jpg');
+
+INSERT INTO game (title, description, esrb_rating, release_date, image_url)
+VALUES ('Animal Crossing: New Horizons', 'A life simulation game where players build 
+and customize their own island paradise.', 'E', '03/20/20', 'https://img-grouvee-com.b-cdn.net/upload/cache/8c/8c/8c8c4003b0fc19daa318ecdb32b911e6.png');
+
+INSERT INTO game (title, description, esrb_rating, release_date, image_url)
+VALUES ('Tetris', 'A classic puzzle game where players arrange falling blocks to complete lines and score points.', 'E', '06/06/84', 'https://img-grouvee-com.b-cdn.net/upload/cache/0d/bf/0dbf9d8e753dc7f0249fdb1bad6cfe8b.jpg');
+
+INSERT INTO game (title, description, esrb_rating, release_date, image_url)
+VALUES ('Ms. Pac-Man', 'An iconic arcade game where players control Ms. Pac-Man as she navigates mazes, eats pellets, and avoids ghosts.', 'E', '02/03/82', 'https://img-grouvee-com.b-cdn.net/upload/cache/c4/e4/c4e4f60d0b8d288e182488de229c6c00.jpg');
+
+INSERT INTO game (title, description, esrb_rating, release_date, image_url)
+VALUES ('Superman 64', 'An infamous game known for its poor controls and gameplay, featuring Superman navigating through rings and completing missions.', 'E', '05/30/99', 'https://img-grouvee-com.b-cdn.net/upload/cache/82/c7/82c7f160789ded78f898bf9f9fe8f6c4.png');
+
 
 --users
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
