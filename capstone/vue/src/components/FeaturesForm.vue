@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="container">
+    <b-card-header>
     <h1
       style="
         margin-left: 20%;
@@ -12,6 +13,8 @@
     >
       Features
     </h1>
+    </b-card-header>
+    <b-card-footer>
     <h2>Add Ludi</h2>
     <p style="width: 50%; margin-left: 25%">
       Ut admin, aliquem ludum huic datorum adde aliis penitus cum!
@@ -40,6 +43,7 @@ Quaestiones?</h2>
       baculo/adminibus et respondere ac figere possint quascumque necessitates
       quas pro situ habes. Gratias tibi pro cooperante!
     </p>
+    </b-card-footer>
   </div>
 </template>
 
@@ -58,5 +62,8 @@ h2 {
 p {
   width: 50%;
   margin-left: 25%;
+}
+.container{
+  min-height: 100vh;
 }
 </style>
