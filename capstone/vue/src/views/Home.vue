@@ -12,20 +12,21 @@
     <b-alert :show="gameDeleted" variant="success" dismissible role="alert">
       Game Successfully Deleted
     </b-alert>
-
+    <carousel />
     <what-to-play />
     <back-to-top />
-    
+
   </div>
 </template>
 
 <script>
 import BackToTop from "../components/BackToTop.vue";
+import Carousel from '../components/Carousel.vue';
 import WhatToPlay from '../components/WhatToPlay.vue';
 
 export default {
   name: "home",
-   components: { BackToTop, WhatToPlay },
+   components: { BackToTop, WhatToPlay, Carousel },
   computed: {
     filteredList() {
       return this.games.filter((game) => {
