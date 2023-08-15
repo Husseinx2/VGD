@@ -1,7 +1,7 @@
 <template>
-  <div class="container text-center">
+  <div class="container">
     <b-collapse id="collapseJumbotron" visible>
-      <b-jumbotron header="We're Hiring!" class="jumbotron">
+      <b-jumbotron container-fluid header="We're Hiring!" class="jumbotron">
         <b-button
           class="close-button"
           v-b-toggle.collapseJumbotron
@@ -20,8 +20,12 @@
 .jumbotron {
   position: relative;
   background-color: #c5e2ff;
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
-
+.container{
+  text-align:center;
+}
 .close-button {
   position: absolute;
   top: 0.5rem;

@@ -14,12 +14,9 @@ const currentUser = JSON.parse(localStorage.getItem('user'));
 if(currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
 }
-import userService from "../services/UserService.js";
-import reviewService from "../services/ReviewService.js";
 export default new Vuex.Store({
   state: {
     users: {},
-    reviews: {},
     userId: null,
     reviewEdited: false,
     reviewAdded: false,
@@ -66,13 +63,4 @@ export default new Vuex.Store({
       axios.defaults.headers.common = {};
     }
   },
-  created(){
-    reviewService.getGameReviews()
-    .then((response) => {
-      this.reviews = response.data;})
-      userService.listUsers()
-      .then((response) => {
-        this.users = response.data;
-      })
-  }
 })
