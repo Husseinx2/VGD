@@ -10,7 +10,7 @@
           <span aria-hidden="true">&times;</span>
         </b-button>
         <p>Looking for full stack web developers fresh out of bootcamp.</p>
-        <b-button variant="primary" href="#">Apply now</b-button>
+        <b-button variant="primary" v-bind:to="{name:'careers'}">Apply now</b-button>
       </b-jumbotron>
     </b-collapse>
   </div>
