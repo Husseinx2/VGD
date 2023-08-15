@@ -15,49 +15,32 @@
     >
       <!-- Text slides with image -->
       <b-carousel-slide
-        caption="First slide"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-        img-src="https://picsum.photos/1024/480/?image=52"
+        caption="Fortnite"
+        text="Fortnite is a third-person shooter game where up to 100 players compete to be the last person or team standing. You can compete alone or join a team of up to four."
+        img-src="https://wallpapers.com/images/featured/fortnite-pictures-b5kfcchwazwiz3cs.jpg"
+    
       ></b-carousel-slide>
 
       <!-- Slides with custom text -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-        <h1>Hello world!</h1>
+      <b-carousel-slide
+        text="Tom Clancy's Rainbow Six® Siege is an elite, tactical team-based shooter where superior planning and execution triumph."
+        caption="Rainbow Six Siege"
+        img-src="https://cdn.akamai.steamstatic.com/steam/apps/359550/capsule_616x353.jpg?t=1690498575"
+      >
       </b-carousel-slide>
 
       <!-- Slides with image only -->
       <b-carousel-slide
-        img-src="https://picsum.photos/1024/480/?image=58"
+        text="Experience the newest iteration of FieldSENSE™ in Madden NFL 24. More realistic character movement and smarter AI gives you control to play out your gameplay strategy with the confidence to dominate any opponent"
+        caption="Madden 24"
+        img-src="https://imageio.forbes.com/specials-images/imageserve/64a2f116a206ca5b7daef4a8/EA-Sports-Madden-24/960x0.jpg?height=399&width=711&fit=bounds"
       ></b-carousel-slide>
-
-      <!-- Slides with img slot -->
-      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-      <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid w-100"
-            width="1024"
-            height="480"
-            src="https://picsum.photos/1024/480/?image=55"
-            alt="image slot"
-          />
-        </template>
-      </b-carousel-slide>
-
-      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-      <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          eros felis, tincidunt a tincidunt eget, convallis vel est. Ut
-          pellentesque ut lacus vel interdum.
-        </p>
-      </b-carousel-slide>
     </b-carousel>
 
-    <p class="mt-4">
+    <!-- <p class="mt-4">
       Slide #: {{ slide }}<br />
       Sliding: {{ sliding }}
-    </p>
+    </p> -->
   </div>
 </template>
 
