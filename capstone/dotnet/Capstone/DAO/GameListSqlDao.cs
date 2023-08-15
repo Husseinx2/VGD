@@ -10,15 +10,15 @@ namespace Capstone.DAO
     {
         private readonly string connectionString = "";
 
-        private readonly string sqlAddList = "INSERT INTO list (user_id, list_title, list_type_id, is_default) " +
+        private readonly string sqlAddList = "INSERT INTO list (user_id, list_title, list_type_id) " +
             "OUTPUT INSERTED.list_id " +
-            "VALUES (@user_id, @list_title, @list_type_id, @is_default) ";
+            "VALUES (@user_id, @list_title, @list_type_id) ";
         private readonly string sqlDeleteList = "DELETE list WHERE list_id = @list_id";
-        private readonly string sqlGetList = "SELECT user_id, list_title, list_type_id, is_default FROM list " +
+        private readonly string sqlGetList = "SELECT user_id, list_title, list_type_id FROM list " +
             "WHERE list_id = @list_id;";
-        private readonly string sqlListGameListByUserId = "SELECT list_id, user_id, list_title, list_type_id, is_default FROM list " +
+        private readonly string sqlListGameListByUserId = "SELECT list_id, user_id, list_title, list_type_id FROM list " +
             "WHERE list.list_id = @list_id;";
-        private readonly string sqlUpdateList = "UPDATE list SET list_title=@list_title, list_type_id=@list_type_id, is_default=@is_default, " +
+        private readonly string sqlUpdateList = "UPDATE list SET list_title=@list_title, list_type_id=@list_type_id, " +
             "WHERE list_id = @list_id;";
         private readonly string sqlListGames = "SELECT game_title FROM game;";
 
@@ -29,7 +29,7 @@ namespace Capstone.DAO
 
         public GameList AddGameList(GameList gameList)
         {
-            gameList.ListId = 0;
+            int listId = 0;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -39,10 +39,8 @@ namespace Capstone.DAO
                     {
                         cmd.Parameters.AddWithValue("@user_id", gameList.UserId);
                         cmd.Parameters.AddWithValue("@list_title", gameList.ListTitle);
-                        cmd.Parameters.AddWithValue("@list_type_id", gameList.ListTypeId);
-                        cmd.Parameters.AddWithValue("@is_default", gameList.IsDefault);
-                      
-                        gameList.ListId = (int)cmd.ExecuteScalar();
+                    
+                        listId = (int)cmd.ExecuteScalar();
                     }
                 }
             }
@@ -51,7 +49,7 @@ namespace Capstone.DAO
                 return null;
             }
 
-            return GetGameList(gameList.ListId);
+            return GetGameList(listId);
         }
 
         public bool DeleteGameList(int listId)
@@ -148,8 +146,6 @@ namespace Capstone.DAO
                         cmd.Parameters.AddWithValue("@list_id", gameList.ListId);
                         cmd.Parameters.AddWithValue("@user_id", gameList.UserId);
                         cmd.Parameters.AddWithValue("@list_title", gameList.ListTitle);
-                        cmd.Parameters.AddWithValue("@list_type_id", gameList.ListTypeId);
-                        cmd.Parameters.AddWithValue("@is_default", gameList.IsDefault);
 
                         int count = cmd.ExecuteNonQuery();
 
@@ -199,8 +195,6 @@ namespace Capstone.DAO
             gameList.ListId = Convert.ToInt32(reader["list_id"]);
             gameList.UserId = Convert.ToInt32(reader["user_id"]);
             gameList.ListTitle = Convert.ToString(reader["list_title"]);
-            gameList.ListTypeId = Convert.ToInt32(reader["list_type_id"]);
-            gameList.IsDefault = Convert.ToBoolean(reader["is_default"]);
 
             return gameList;
         }
