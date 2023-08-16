@@ -13,8 +13,8 @@
         class="font-weight-bold"
         v-show="getUsername != null && user.username == undefined"
       >
-        <router-link class="link"
-          v-bind:to="{ name: 'profile', params: { id: item.reviewId } }"
+        <router-link class="profile-link"
+          v-bind:to="{ name: 'profile', params: { id: item.reviewerId } }"
         >
           <b-avatar
             :variant="user.username == isAdmin ? 'danger' : 'primary'"
@@ -157,7 +157,7 @@ export default {
 .date-posted {
   font-size: 13px;
 }
-.link {
+.profile-link {
   color: black;
 }
 </style>
