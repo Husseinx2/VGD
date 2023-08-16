@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="game in games" :key="game.gameId">
+    <div v-for="game in games" :key="game.gameId">  
       <game-card :item="game" />
     </div>
   </div>
@@ -17,6 +17,7 @@ export default {
       games: {},
     };
   },
+
   methods: {
     getGames() {
       this.games = [];
@@ -31,12 +32,10 @@ export default {
   },
   created() {
     this.getGames();
-  },
+   },
 };
 </script>
 
 <style>
-.gamecard {
-  height: 250px;
-}
+
 </style>

@@ -25,7 +25,7 @@
 
       <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
-     <b-button block v-b-toggle.accordion-1 variant="info">Toggle Ratings</b-button>
+     <b-button block v-b-toggle.accordion-1 variant="info">Toggle Rating</b-button>
         </b-card-header>
      <b-collapse id="accordion-1" accordion="my-accordion" role ="tabpanel">
     <profile-rating-section v-bind:item="item" />
@@ -53,12 +53,12 @@
       v-bind:key="comment.commentId"
       v-bind:item="comment"
     />
+
     </b-collapse>
     </b-card>
     </div>
   </section>
 </template>
-
 <script>
 import UserService from "../services/UserService";
 import ProfileRatingSection from "./ProfileRatingSection.vue";
@@ -67,7 +67,6 @@ import commentService from "../services/CommentService";
 import ListUserComments from "./ListUserComments.vue";
 import ReviewSection from "./ReviewSection.vue";
 import GameListSection from './GameListSection.vue';
-
 export default {
   components: { ProfileRatingSection, ListUserComments, ReviewSection, GameListSection },
   props: ["item"],

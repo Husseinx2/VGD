@@ -4,6 +4,7 @@
       v-bind:pressed="isPlayed"
       v-b-popover.hover.top="'Played'"
       v-on:click="togglePlayedButton"
+      variant="outline-secondary"
     >
       <b-icon-check-square />
     </b-button>
@@ -11,6 +12,7 @@
       v-bind:pressed="isCurrentlyPlaying"
       v-on:click="toggleCurrentlyPlayingButton"
       v-b-popover.hover.top="'Currently Playing'"
+      variant="outline-secondary"
     >
       <b-icon-controller />
     </b-button>
@@ -19,6 +21,7 @@
       v-bind:pressed="isWantToPlay"
       v-on:click="toggleWantToPlayButton"
       v-b-popover.hover.top="'Want to play'"
+      variant="outline-secondary"
     >
       <b-icon-list />
     </b-button>
@@ -88,7 +91,9 @@ export default {
       };
       gameListService
         .deleteGameFromList(entry)
-        .catch((error) => console.error("Error deleting game from list", error));
+        .catch((error) =>
+          console.error("Error deleting game from list", error)
+        );
     },
     getIsPlayed() {
       const gameListType = "Played";
@@ -131,11 +136,11 @@ export default {
     this.getIsCurrentlyPlaying();
     this.getIsWantToPlay();
   },
-  created(){
+  created() {
     this.getWantToPlayList();
     this.getCurrentlyPlayingList();
     this.getPlayedList();
-  }
+  },
 };
 </script>
 
