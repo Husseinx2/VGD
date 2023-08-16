@@ -1,5 +1,4 @@
 <template>
-<section class="section-area">
   <div class="container">
     <div class="main d-flex justify-content-center">
       <img
@@ -11,7 +10,6 @@
       developers to develop this very page.
     </h1>
   </div>
-  </section>
 </template>
 
 <script>
@@ -19,7 +17,7 @@ export default {};
 </script>
 
 <style scoped>
-.section-area {
-  min-height: 100hv;
+.container {
+  min-height: 100vh;
 }
 </style>
