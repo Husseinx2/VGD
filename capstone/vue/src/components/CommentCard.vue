@@ -8,7 +8,7 @@
           </b-avatar> 
           </td>
           <td>
-          <p class="username" :class="isItalics" v-text="isDeleted" ></p>
+          <p class="username" :class="isItalics" :style="changeFont" v-text="isDeleted" ></p>
           </td>
         </table>
           </b-card-header>
@@ -97,9 +97,17 @@ export default {
     };
   },
   computed:{
+    changeFont(){
+        if(this.commenter.isDeleted){
+         return "font-size:13px"
+      }
+      else{
+        return ""
+      }
+    },
     isItalics(){
       if(this.commenter.isDeleted){
-        return "font-weight-normal font-italic"
+        return "font-weight-normal font-italic font-size:13px"
       }
       else{
         return ""
@@ -107,7 +115,7 @@ export default {
     },
     isDeleted(){
       if(this.commenter.isDeleted){
-        return "User has been deactivated"
+        return "Profile has been deactivated"
       }
       else{
         return this.commenter.username
