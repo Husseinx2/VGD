@@ -7,21 +7,30 @@
     >
       <b-icon-check-square />
     </b-button>
-    <b-button v-bind:pressed="isOnWantToPlayList"  v-on:click="toggleWantToPlayButton"  v-b-popover.hover.top="'Want to play'">
+    <b-button
+      v-bind:pressed="isOnWantToPlayList"
+      v-on:click="toggleWantToPlayButton"
+      v-b-popover.hover.top="'Want to play'"
+    >
       <b-icon-list />
     </b-button>
-    <b-button  v-bind:pressed="isOnCurrentlyPlayingList"  v-on:click="toggleCurrentlyPlayingButton"   v-b-popover.hover.top="'Currently Playing'">
+    <b-button
+      v-bind:pressed="isOnCurrentlyPlayingList"
+      v-on:click="toggleCurrentlyPlayingButton"
+      v-b-popover.hover.top="'Currently Playing'"
+    >
       <b-icon-controller />
     </b-button>
   </b-button-group>
 </template>
 
 <script>
+import GameListService from "../services/GameListService";
 export default {
   data() {
     return {
       isOnPlayedList: false,
-      isOnWantToPlayList: true,
+      isOnWantToPlayList: false,
       isOnCurrentlyPlayingList: false,
     };
   },
@@ -46,6 +55,43 @@ export default {
       } else {
         this.isOnCurrentlyPlayingList = true;
       }
+    },
+    ///api calls
+    getCurrentlyPlayingList() {
+      GameListService.getGameList(
+        this.$store.state.user.userId,
+        "Currently Playing"
+      ).then((response) => {
+        response.data.gameIds.forEach((id) => {
+          if (id == this.$route.params.id) {
+            this.isOnCurrentlyPlayingList = true;
+          }
+         
+        });
+      });
+    },
+    getPlayedList() {
+      GameListService.getGameList(this.$store.state.user.userId, "Played").then((response) => {
+        response.data.gameIds.forEach((id) => {
+          if (id == this.$route.params.id) {
+            this.isOnPlayedList = true;
+          }
+         
+        });
+      });
+    },
+    getWantToPlayList() {
+      GameListService.getGameList(
+        this.$store.state.user.userId,
+        "Want To Play"
+      ).then((response) => {
+        response.data.gameIds.forEach((id) => {
+          if (id == this.$route.params.id) {
+            this.isOnWantToPlayList = true;
+          }
+         
+        });
+      });
     },
   },
 };
