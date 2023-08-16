@@ -205,4 +205,7 @@ export default {
 .date-posted {
   font-size: 13px;
 }
+.profile-link {
+  color: black;
+}
 </style>
