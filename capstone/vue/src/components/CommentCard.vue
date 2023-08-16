@@ -1,7 +1,17 @@
 <template>
   <section >
     <b-card  class="comments-card">
-      <b-card-header class="font-weight-bold"><b-avatar  :variant="commenter.username == isAdmin ? 'danger' : 'primary'"></b-avatar> {{ commenter.username }} </b-card-header>
+      <b-card-header class="font-weight-bold">
+        <table>
+          <td>
+        <b-avatar  :variant="commenter.username == isAdmin ? 'danger' : 'primary'">
+          </b-avatar> 
+          </td>
+          <td>
+          <p class="username" :class="isItalics" v-text="isDeleted" ></p>
+          </td>
+        </table>
+          </b-card-header>
       <!--game title -->
       <b-card-body class="body">
         <b-card-text
@@ -86,7 +96,24 @@ export default {
       commenter: null,
     };
   },
-
+  computed:{
+    isItalics(){
+      if(this.commenter.isDeleted){
+        return "font-weight-normal font-italic"
+      }
+      else{
+        return ""
+      }
+    },
+    isDeleted(){
+      if(this.commenter.isDeleted){
+        return "User has been deactivated"
+      }
+      else{
+        return this.commenter.username
+      }
+    }
+  },
   mounted() {
     console.log("reach mounted in Comment Card",this.item.commenterId)
     userService
