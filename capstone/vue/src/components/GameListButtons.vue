@@ -66,19 +66,19 @@ export default {
           if (id == this.$route.params.id) {
             this.isOnCurrentlyPlayingList = true;
           }
-         
         });
       });
     },
     getPlayedList() {
-      GameListService.getGameList(this.$store.state.user.userId, "Played").then((response) => {
-        response.data.gameIds.forEach((id) => {
-          if (id == this.$route.params.id) {
-            this.isOnPlayedList = true;
-          }
-         
-        });
-      });
+      GameListService.getGameList(this.$store.state.user.userId, "Played").then(
+        (response) => {
+          response.data.gameIds.forEach((id) => {
+            if (id == this.$route.params.id) {
+              this.isOnPlayedList = true;
+            }
+          });
+        }
+      );
     },
     getWantToPlayList() {
       GameListService.getGameList(
@@ -89,11 +89,15 @@ export default {
           if (id == this.$route.params.id) {
             this.isOnWantToPlayList = true;
           }
-         
         });
       });
     },
   },
+  created(){
+    this.getWantToPlayList();
+    this.getCurrentlyPlayingList();
+    this.getPlayedList();
+  }
 };
 </script>
 
