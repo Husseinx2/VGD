@@ -1,11 +1,16 @@
 <template>
   <div class="container">
+    <br />
+    <b-form-group>
     <h2>{{game.title}}</h2>
+    </b-form-group>
+    <b-form-group>
     <review-card
       v-bind:item="review"
       v-bind:hideCommentButton="true"
       class="review-card"
     />
+    </b-form-group>
     <comment-section v-bind:item="comments" class="comments" />
   </div>
 </template>
