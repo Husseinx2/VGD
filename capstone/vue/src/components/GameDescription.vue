@@ -50,7 +50,7 @@
           </section>
         </td>
         <td>
-          <save-game/>
+          <game-list-buttons />
         </td>
       </tbody>
     </table>
@@ -72,9 +72,9 @@ import RatingsCard from "../components/RatingsCard.vue";
 import gameService from "../services/GameService";
 import GameDetails from "../components/GameDetails.vue";
 import AddReviewForm from "../components/AddReviewForm.vue"
-import SaveGame from './SaveGame.vue';
+import GameListButtons from './GameListButtons.vue';
 export default {
-  components: { GameDetails, RatingsCard, AddReviewForm,SaveGame},
+  components: { GameDetails, RatingsCard, AddReviewForm, GameListButtons},
   props: ["item"],
   data() {
     return {

@@ -1,16 +1,13 @@
 import axios from 'axios';
 
 export default {
-   listGameListsByUserId(id){
-      return axios.get(`gamelist/user/${id}`);
+   getGameList(userId, gameListType ) {
+      return axios.get(`gamelist/${userId}/${gameListType}`);
    },
-   getGameList(id) {
-      return axios.get(`gamelist/${id}`);
+   addGameToList(entry) {
+      return axios.post(`gamelist`, entry);
    },
-   addGameList(gameList) {
-      return axios.post(`gamelist`, gameList);
-   },
-   updateGameList(gameList) {
-      return axios.put(`gamelist`, gameList);
+   deleteGameFromList(entry) {
+      return axios.delete(`gamelist`, entry);
    },
 };
