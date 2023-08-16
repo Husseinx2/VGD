@@ -40,7 +40,7 @@ namespace Capstone.Controllers
             return BadRequest();
         }
 
-        [HttpDelete()]
+        [HttpPut()]
         public ActionResult<bool> DeleteGameFromList(GameListEntry entry)
         {
             bool result = gameListDao.DeleteGameFromList(entry);

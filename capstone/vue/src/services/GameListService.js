@@ -8,6 +8,6 @@ export default {
       return axios.post(`gamelist`, entry);
    },
    deleteGameFromList(entry) {
-      return axios.delete(`gamelist`, entry);
+      return axios.put(`gamelist`, entry);
    },
 };

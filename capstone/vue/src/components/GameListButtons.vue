@@ -84,15 +84,52 @@ export default {
         gameId: this.gameId,
         userId: this.currentUserId,
         gameListType: gameListType,
+        gameListDatetime: new Date().toJSON(),
       };
       gameListService
         .deleteGameFromList(entry)
-        .catch(() => console.log("Error deleting game from list"));
+        .catch((error) => console.error("Error deleting game from list", error));
+    },
+    getIsPlayed() {
+      const gameListType = "Played";
+      gameListService
+        .getGameList(this.$store.state.user.userId, gameListType)
+        .then((response) => {
+          this.isPlayed = response.data.some(
+            (entry) => this.gameId === entry.gameId
+          );
+        })
+        .catch(() => console.log("Error getting isPlayed"));
+    },
+    getIsCurrentlyPlaying() {
+      const gameListType = "Currently Playing";
+      gameListService
+        .getGameList(this.$store.state.user.userId, gameListType)
+        .then((response) => {
+          this.isCurrentlyPlaying = response.data.some(
+            (entry) => this.gameId === entry.gameId
+          );
+        })
+        .catch(() => console.log("Error getting isCurrentlyPlaying"));
+    },
+    getIsWantToPlay() {
+      const gameListType = "Want To Play";
+      gameListService
+        .getGameList(this.$store.state.user.userId, gameListType)
+        .then((response) => {
+          this.isWantToPlay = response.data.some(
+            (entry) => this.gameId === entry.gameId
+          );
+        })
+        .catch(() => console.log("Error getting WantToPlay"));
     },
   },
   mounted() {
     this.gameId = this.item;
     this.currentUserId = this.$store.state.user.userId;
+    this.getIsPlayed();
+    this.getIsCurrentlyPlaying();
+    this.getIsWantToPlay();
   },
 };
 </script>
