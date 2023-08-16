@@ -14,9 +14,7 @@
     <section>
     <carousel />
     </section>
-    <br />
     <jumbotron class="my-5" />
-    <br />
     <what-to-play />
     <back-to-top />
   </div>
