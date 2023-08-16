@@ -5,13 +5,10 @@ namespace Capstone.DAO.Interfaces
 {
     public interface IGameListDao
     {
-        public List<GameList> ListGameListsByUserId(int userId);
+        public List<GameListEntry> GetGameList(int userId, string gameListType);
 
-        public GameList GetGameList(int listId);
+        public bool AddGameToList(GameListEntry entry);
 
-        public GameList AddGameList(GameList gameList);
-
-        public GameList UpdateGameList(GameList gameList);
-
+        public bool DeleteGameFromList(GameListEntry entry);
     }
 }
