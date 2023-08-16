@@ -21,6 +21,7 @@
           v-on:click="searchGames"
           size="sm"
           type="submit"
+          variant="primary"
           ><b-icon icon="search"></b-icon>
         </b-button>
       </b-nav-form>
@@ -28,6 +29,7 @@
         v-if="!$route.meta.hideNavbar"
         style="margin-left: 20px"
         v-b-toggle.sidebar-right
+        variant="primary"
       >
         Advanced search
       </b-button>
@@ -39,6 +41,7 @@
         v-if="!$route.meta.hideNavbar"
         style="margin-left: 10px"
         v-b-toggle.dark
+        variant="dark"
       >
       Theme
       </b-button>
@@ -222,6 +225,7 @@ header {
   right: 10px;
   top: 4px;
   font-size: 20px;
+  color: black;
 }
 .navbar-logo {
   width: 75px;
