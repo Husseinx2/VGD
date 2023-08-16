@@ -1,14 +1,28 @@
 <template>
   <div class="container">
     <b-card class="review-card">
-      <b-card-header class="font-weight-bold" v-show="user.username != undefined"
-        ><b-avatar :variant="user.username == isAdmin ? 'danger' : 'primary'"></b-avatar> {{ user.username }}
+      <b-card-header
+        class="font-weight-bold"
+        v-show="user.username != undefined"
+        ><b-avatar
+          :variant="user.username == isAdmin ? 'danger' : 'primary'"
+        ></b-avatar>
+        {{ user.username }}
       </b-card-header>
       <b-card-header
         class="font-weight-bold"
         v-show="getUsername != null && user.username == undefined"
-        ><b-avatar :variant="user.username == isAdmin ? 'danger' : 'primary'"></b-avatar> {{ getUsername }}</b-card-header
       >
+        <router-link class="link"
+          v-bind:to="{ name: 'profile', params: { id: item.reviewId } }"
+        >
+          <b-avatar
+            :variant="user.username == isAdmin ? 'danger' : 'primary'"
+          ></b-avatar>
+          {{ getUsername }}</router-link
+        ></b-card-header
+      >
+
       <b-card-body class="body">
         <b-card-text v-show="!showEditForm">
           {{ item.reviewContent }}
@@ -33,7 +47,11 @@
           <b-button
             class="btn btn-warning"
             @click="showEditForm = !showEditForm"
-            v-show="$store.state.user.role == 'admin' || $store.state.user.userId == item.reviewerId && $store.state.userId == null"
+            v-show="
+              $store.state.user.role == 'admin' ||
+              ($store.state.user.userId == item.reviewerId &&
+                $store.state.userId == null)
+            "
           >
             Edit <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
           </b-button>
@@ -138,6 +156,8 @@ export default {
 <style scoped>
 .date-posted {
   font-size: 13px;
-  
+}
+.link {
+  color: black;
 }
 </style>
