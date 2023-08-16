@@ -1,6 +1,5 @@
 ﻿using Capstone.DAO.Interfaces;
 using Capstone.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -16,24 +15,10 @@ namespace Capstone.Controllers
             this.gameListDao = gameListDao;
         }
 
-        [HttpGet("user/{userId}")]
-        public ActionResult<List<GameList>> ListGameListsByUserId(int userId)
+        [HttpGet("{userId}/{gameListType}")]
+        public ActionResult<List<GameListEntry>> GetGameList(int userId, string gameListType)
         {
-            List<GameList> gameLists = gameListDao.ListGameListsByUserId(userId);
-            if (gameLists != null)
-            {
-                return Ok(gameLists);
-            }
-            else
-            {
-                return BadRequest();
-            }
-        }
-
-        [HttpGet("{listId}")]
-        public ActionResult<List<GameList>> GetGameList(int listId)
-        {
-            GameList gameList = gameListDao.GetGameList(listId);
+            List<GameListEntry> gameList = gameListDao.GetGameList(userId, gameListType);
             if (gameList != null)
             {
                 return Ok(gameList);
@@ -44,33 +29,26 @@ namespace Capstone.Controllers
             }
         }
 
-
-        [HttpPost()] //Creates a new game list
-        public ActionResult<GameList> AddGameList(GameList gameList)
+        [HttpPost()]
+        public ActionResult<bool> AddGameToList(GameListEntry entry)
         {
-            GameList newGameList = gameListDao.AddGameList(gameList);
-            if (newGameList != null)
+            bool result = gameListDao.AddGameToList(entry);
+            if (result)
             {
-                return Ok(newGameList);
+                return Ok(result);
             }
-            else
-            {
-                return BadRequest();
-            }
+            return BadRequest();
         }
 
-        [HttpPut()] //Edits a specific game list
-        public ActionResult<GameList> UpdateGameList(GameList gameList)
+        [HttpPut()]
+        public ActionResult<bool> DeleteGameFromList(GameListEntry entry)
         {
-            GameList newGameList = gameListDao.UpdateGameList(gameList);
-            if (newGameList != null)
+            bool result = gameListDao.DeleteGameFromList(entry);
+            if (result)
             {
-                return Ok(newGameList);
+                return Ok(result);
             }
-            else
-            {
-                return BadRequest();
-            }
+            return BadRequest();
         }
     }
 }

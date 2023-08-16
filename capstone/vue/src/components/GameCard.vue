@@ -1,26 +1,27 @@
 <template>
   <div class="container-fluid d-flex justify-content-center">
     <div>
-      <b-card class="my-2" footer-tag="footer">
-        <div class="d-flex justify-content-center">
-        <router-link v-bind:to="{ name: 'game', params: { id: item.id } }">
-          <b-card-img v-bind:src="item.imageUrl" style="max-width: 20rem" />
-        </router-link>
-        </div>
-        <section>          
-          <h2 class="mb-0 text-center">
-            <b-link
-              class="title-link"
-              v-bind:to="{ name: 'game', params: { id: item.id } }"
-              >{{ item.title }}</b-link
-            >
-          </h2></section>
+      <b-card-group deck class="my-2">
+        <b-card 
+          class="ct-body"
+          v-bind:img-src="item.imageUrl"
+          style="max-width: 20rem"
+          img-top
+        >
+          <b-card-text >
+            <h3 class="mb-0 text-center">
+              <b-link
+                class="title-link"
+                v-bind:to="{ name: 'game', params: { id: item.id } }"
+                >{{ item.title }}</b-link
+              >
+            </h3>
 
-        <avg-rating-for-game v-bind:item="item" />
-
-        <!--This is importing the average star rating-->
-  
-      </b-card>
+            <avg-rating-for-game v-bind:item="item" />
+          </b-card-text>
+          <!--This is importing the average star rating-->
+        </b-card>
+      </b-card-group>
     </div>
   </div>
 </template>
@@ -48,8 +49,18 @@ export default {
 </script>
 
 <style scoped>
-
 .title-link {
   color: black;
+  font-family:fantasy
 }
+.ct-body{
+  background-color: #d2d3db;
+}
+.my-2:hover{
+  transform: scale(1.05, 1.05);
+}
+.title-link:hover{
+  color:grey
+}
+
 </style>

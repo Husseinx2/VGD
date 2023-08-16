@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="d-flex justify-content-center">
+    <div class="main d-flex justify-content-center">
       <img
         src="https://fg-a.com/under-construction/2021-under-construction-transparent-background.png"
       />
@@ -16,6 +16,8 @@
 export default {};
 </script>
 
-<style>
-
+<style scoped>
+.container {
+  min-height: 100vh;
+}
 </style>

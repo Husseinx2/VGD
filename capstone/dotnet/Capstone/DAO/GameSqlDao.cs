@@ -1,11 +1,8 @@
 ﻿using Capstone.DAO.Interfaces;
 using Capstone.Models;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Security.Policy;
 
 namespace Capstone.DAO
 {

@@ -27,5 +27,9 @@ export default {
 div {
   background-color:whitesmoke;
 }
+* {
+    background-color:whitesmoke;
+    min-height: 100hv;
+}
 
 </style>

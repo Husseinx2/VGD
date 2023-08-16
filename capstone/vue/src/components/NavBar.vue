@@ -21,6 +21,7 @@
           v-on:click="searchGames"
           size="sm"
           type="submit"
+          variant="primary"
           ><b-icon icon="search"></b-icon>
         </b-button>
       </b-nav-form>
@@ -28,6 +29,7 @@
         v-if="!$route.meta.hideNavbar"
         style="margin-left: 20px"
         v-b-toggle.sidebar-right
+        variant="primary"
       >
         Advanced search
       </b-button>
@@ -35,6 +37,17 @@
         Not Found!
       </b-alert>
 
+<<<<<<< HEAD
+=======
+      <b-button
+        v-if="!$route.meta.hideNavbar"
+        style="margin-left: 10px"
+        v-b-toggle.dark
+        variant="dark"
+      >
+      Theme
+      </b-button>
+>>>>>>> 7a94bdd988dc90d99777d1153f087dc23785d06c
       <b-navbar-nav class="ml-auto">
         <router-link
           class="addGame"
@@ -215,6 +228,7 @@ header {
   right: 10px;
   top: 4px;
   font-size: 20px;
+  color: black;
 }
 .navbar-logo {
   width: 75px;

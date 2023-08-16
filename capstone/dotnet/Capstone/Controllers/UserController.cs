@@ -11,14 +11,10 @@ namespace Capstone.Controllers
     public class UserController : ControllerBase
     {
         public IUserDao userDao;
-        public IRatingDao ratingDao;
-        public IReviewDao reviewDao;
 
-        public UserController(IUserDao userDao, IRatingDao ratingDao, IReviewDao reviewDao)
+        public UserController(IUserDao userDao)
         {
             this.userDao = userDao;
-            this.ratingDao = ratingDao;
-            this.reviewDao = reviewDao;
         }
 
         [HttpGet()]
@@ -50,8 +46,6 @@ namespace Capstone.Controllers
         [HttpDelete("{userId}")]
         public ActionResult<bool> DeleteUser(int userId)
         {
-            ratingDao.DeleteRatingsByUserId(userId);
-            reviewDao.DeleteReviewsByReviewerId(userId);
             bool result = userDao.DeleteUser(userId);
             if (result)
             {
