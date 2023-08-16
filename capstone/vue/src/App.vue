@@ -29,7 +29,7 @@ div {
 }
 * {
     background-color:whitesmoke;
-
+    min-height: 100hv;
 }
 
 </style>

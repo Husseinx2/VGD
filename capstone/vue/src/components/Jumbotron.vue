@@ -22,6 +22,7 @@
   background-color: #c5e2ff;
   padding-top: 1%;
   padding-bottom: 1%;
+  max-width: 70%;
 }
 .container{
   text-align:center;
