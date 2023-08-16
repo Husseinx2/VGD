@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="container">
     <section>
     <label for="rating-inline-center">How would you rate this game?</label>
     </section>
-    <div v-on:click="updateRating">
+    <div v-on:click="updateRating" >
       <b-form-rating
         size="lg"
         no-border
@@ -80,7 +80,7 @@ export default {
 
 <style scoped>
 .rating{
-    background-color: #e9f4ff;
+    background-color: white;
     
 }
 </style>

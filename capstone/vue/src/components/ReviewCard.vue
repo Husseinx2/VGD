@@ -1,14 +1,59 @@
 <template>
   <div class="container">
     <b-card class="review-card">
-      <b-card-header class="font-weight-bold" v-show="user.username != undefined"
-        ><b-avatar :variant="user.username == isAdmin ? 'danger' : 'primary'"></b-avatar> {{ user.username }}
+      <b-card-header
+        class="font-weight-bold"
+        v-show="user.username != undefined"
+      >
+        <router-link
+          :is="isCurrentUserAdmin ? 'router-link' : 'div'"
+          class="profile-link"
+          v-bind:to="{ name: 'profile', params: { id: item.reviewerId } }"
+        >
+          <table>
+            <td>
+              <b-avatar
+                :variant="user.username == isAdmin ? 'danger' : 'primary'"
+              >
+              </b-avatar>
+            </td>
+            <td>
+              <p
+                class="username"
+                :class="isItalics"
+                :style="changeFont"
+                v-text="isDeleted"
+              ></p>
+            </td>
+          </table>
+        </router-link>
       </b-card-header>
       <b-card-header
         class="font-weight-bold"
         v-show="getUsername != null && user.username == undefined"
-        ><b-avatar :variant="user.username == isAdmin ? 'danger' : 'primary'"></b-avatar> {{ getUsername }}</b-card-header
       >
+        <router-link
+          :is="isCurrentUserAdmin ? 'router-link' : 'div'"
+          class="profile-link"
+          v-bind:to="{ name: 'profile', params: { id: item.reviewerId } }"
+        >
+          <table>
+            <td>
+              <b-avatar
+                :variant="getUsername == isAdmin ? 'danger' : 'primary'"
+              >
+              </b-avatar>
+            </td>
+            <td>
+              <p
+                class="username"
+                :class="isItalics"
+                :style="changeFont"
+                v-text="isDeleted2"
+              ></p>
+            </td>
+          </table> </router-link
+      ></b-card-header>
       <b-card-body class="body">
         <b-card-text v-show="!showEditForm">
           {{ item.reviewContent }}
@@ -33,7 +78,11 @@
           <b-button
             class="btn btn-warning"
             @click="showEditForm = !showEditForm"
-            v-show="$store.state.user.role == 'admin' || $store.state.user.userId == item.reviewerId && $store.state.userId == null"
+            v-show="
+              $store.state.user.role == 'admin' ||
+              ($store.state.user.userId == item.reviewerId &&
+                $store.state.userId == null)
+            "
           >
             Edit <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
           </b-button>
@@ -89,6 +138,37 @@ export default {
     getUsername() {
       return this.$store.state.userId;
     },
+    changeFont() {
+      if (this.user.isDeleted) {
+        return "font-size:13px";
+      } else {
+        return "";
+      }
+    },
+    isItalics() {
+      if (this.user.isDeleted) {
+        return "font-weight-normal font-italic font-size:13px";
+      } else {
+        return "";
+      }
+    },
+    isDeleted2() {
+      if (this.user.isDeleted) {
+        return "Profile has been deactivated";
+      } else {
+        return this.getUsername;
+      }
+    },
+    isDeleted() {
+      if (this.user.isDeleted) {
+        return "Profile has been deactivated";
+      } else {
+        return this.user.username;
+      }
+    },
+    isCurrentUserAdmin() {
+      return this.$store.state.user.role == 'admin';
+    },
   },
   methods: {
     setUser(username) {
@@ -138,6 +218,8 @@ export default {
 <style scoped>
 .date-posted {
   font-size: 13px;
-  
+}
+.profile-link {
+  color: black;
 }
 </style>

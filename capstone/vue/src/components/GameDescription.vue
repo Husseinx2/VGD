@@ -50,7 +50,7 @@
           </section>
         </td>
         <td>
-          <game-list-buttons />
+          <game-list-buttons v-bind:item="id"/>
         </td>
       </tbody>
     </table>
@@ -166,4 +166,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

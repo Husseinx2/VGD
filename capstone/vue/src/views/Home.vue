@@ -11,10 +11,10 @@
     <b-alert :show="gameDeleted" variant="success" dismissible role="alert">
       Game Successfully Deleted
     </b-alert>
+    <section>
     <carousel />
-    <br />
-    <jumbotron />
-    <br />
+    </section>
+    <jumbotron class="my-5" />
     <what-to-play />
     <back-to-top />
   </div>
@@ -38,9 +38,21 @@ export default {
         );
       });
     },
+    gameAdded(){
+      return this.$store.state.gameAdded;
+    },
+    gameEdited(){
+      return this.$store.state.gameEdited;
+    },
+    gameDeleted(){
+      return this.$store.state.gameDeleted;
+    }
   },
 };
 </script>
 
 <style scoped>
+.my-5{
+  margin-left: 15%;
+}
 </style>

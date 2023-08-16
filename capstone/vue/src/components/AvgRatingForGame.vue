@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <b-form-rating
+    style="background-color: #d2d3db"
       size="lg"
       no-border
       v-model="AvgRating"

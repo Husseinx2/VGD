@@ -20,17 +20,42 @@
     </b-modal>
     <h1> lists</h1>
     <game-list-section/>
+
+    <div class="accordion" role="tablist">
+
+      <b-card no-body class="mb-1">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+     <b-button block v-b-toggle.accordion-1 variant="info">Toggle Ratings</b-button>
+        </b-card-header>
+     <b-collapse id="accordion-1" accordion="my-accordion" role ="tabpanel">
     <profile-rating-section v-bind:item="item" />
-    <review-section
-      v-bind:item="reviews"
-    />
-    <h1 v-show="comments.length >0">Comments</h1>
+     </b-collapse>
+     </b-card>
+
+    <b-card no-body class="mb-1">
+      <b-card-header header-tag="header" class="p-1" role="tab">
+    <b-button block v-b-toggle.accordion-2 variant="info">Toggle Reviews</b-button>
+      </b-card-header>
+    <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+    <review-section v-bind:item="reviews"/>
+     </b-collapse>
+    </b-card>
+
+    <b-card no-body class="mb-1">
+      <b-card-header header-tag="header" class="p-1" role="tab">
+    <b-button block v-b-toggle.accordion-3 variant="info" role="tab">Toggle Comments</b-button>
+      </b-card-header>
+    <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
+    <h1 v-show="comments.length >0">Comments:</h1>
 
     <list-user-comments
       v-for="comment in comments"
       v-bind:key="comment.commentId"
       v-bind:item="comment"
     />
+    </b-collapse>
+    </b-card>
+    </div>
   </section>
 </template>
 
@@ -130,16 +155,4 @@ export default {
 </script>
 
 <style scoped>
-section.Profile {
-  flex-wrap: wrap;
-  display: inline-block;
-  height: 120px;
-  min-width: 300px;
-  border: 2px solid black;
-  border-radius: 10px;
-  margin: 20px;
-}
-button:hover {
-  background-color: red;
-}
 </style>

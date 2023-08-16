@@ -1,28 +1,37 @@
 <template>
- <game-card class="gamecard"  v-bind:item="game" v-bind:key="game.id"/>
+  <div>
+    <div v-for="game in games" :key="game.gameId">
+      <game-card :item="game" />
+    </div>
+  </div>
 </template>
 
 <script>
-import GameService from "../services/GameService";
-import GameCard from './GameCard.vue';
+import GameCard from "./GameCard.vue";
+import gameService from "../services/GameService";
 export default {
-  components: { GameCard },
+  components: {GameCard},
   props: ["item"],
   data() {
     return {
-      game: {},
+      games: {},
     };
   },
   methods: {
-    getGame() {
-      GameService.getGame(this.item).then((response) => {
-        this.game = response.data;
+    getGames() {
+      this.games = [];
+      this.item.forEach((entry) => {
+        gameService.getGame(entry.gameId).then((response) => {
+          const game = response.data;
+          console.log(game);
+          this.games.push(game);
+        });
       });
     },
   },
-  created(){
-      this.getGame();
-  }
+  created() {
+    this.getGames();
+  },
 };
 </script>
 
