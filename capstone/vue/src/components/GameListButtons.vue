@@ -86,7 +86,6 @@ export default {
         gameListType: gameListType,
         gameListDatetime: new Date().toJSON(),
       };
-      console.log(entry);
       gameListService
         .deleteGameFromList(entry)
         .catch((error) => console.error("Error deleting game from list", error));
