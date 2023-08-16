@@ -3,7 +3,7 @@
     <section>
     <label for="rating-inline-center">How would you rate this game?</label>
     </section>
-    <div v-on:click="updateRating">
+    <div v-on:click="updateRating" >
       <b-form-rating
         size="lg"
         no-border
