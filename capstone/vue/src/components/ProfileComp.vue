@@ -41,9 +41,9 @@ import reviewService from "../services/ReviewService.js";
 import commentService from "../services/CommentService";
 import ListUserComments from "./ListUserComments.vue";
 import ReviewSection from './ReviewSection.vue';
-import gameListSection from './gameListSection.vue';
+import GameListSection from './GameListSection.vue';
 export default {
-  components: { ProfileRatingSection, ListUserComments, ReviewSection,gameListSection },
+  components: { ProfileRatingSection, ListUserComments, ReviewSection, GameListSection },
   props: ["item"],
   name: "profileComp",
   data() {
