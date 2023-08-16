@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import addCommentCard from '../components/AddCommentCard.vue'
+import AddCommentCard from '../components/AddCommentCard.vue'
 export default {
-components: {addCommentCard}
+components: {AddCommentCard}
 }
 </script>
 

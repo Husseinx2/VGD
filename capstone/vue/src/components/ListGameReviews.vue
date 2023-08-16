@@ -22,9 +22,9 @@
 
 <script>
 import userService from "../services/UserService.js";
-import editReviewForm from './EditReviewForm.vue';
+import EditReviewForm from './EditReviewForm.vue';
 export default {
-  components: {editReviewForm  },
+  components: {EditReviewForm  },
   props: ['item'],
   data() {
     

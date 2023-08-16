@@ -1,7 +1,7 @@
 <template>
   <section >
     <b-card  class="comments-card">
-      <b-card-header>Commenter: {{ commenter.username }} </b-card-header>
+      <b-card-header class="font-weight-bold"><b-avatar  :variant="commenter.username == isAdmin ? 'danger' : 'primary'"></b-avatar> {{ commenter.username }} </b-card-header>
       <!--game title -->
       <b-card-body class="body">
         <b-card-text
@@ -25,7 +25,7 @@
       <br/> 
         </b-form>
         <br />
-        <b-card-footer>
+        <b-card-footer class="footer">
           Posted:
           {{ new Date(item.commentDateTime).toLocaleString("en", options) }}
         </b-card-footer>
@@ -72,6 +72,7 @@ export default {
   props: ["item"],
   data() {
     return {
+      isAdmin: 'admin',
       currentGame:{},
       showEdit: false,
       comment: {
@@ -85,12 +86,13 @@ export default {
       commenter: null,
     };
   },
+
   mounted() {
     console.log("reach mounted in Comment Card",this.item.commenterId)
     userService
       .GetUser(this.item.commenterId)
-      .then((response) => (this.commenter = response.data));
-
+      .then((response) => {
+        this.commenter = response.data})
   },
   validations: {
     comment: {
@@ -101,6 +103,12 @@ export default {
     },
   },
   methods: {
+    Users(){
+      userService.listUsers()
+      .then((response) => {
+        this.users = response.data
+      })
+    },
     deleteComment() {
       console.log("reached");
       commentService.deleteComment(this.item.commentId).then(() => {
@@ -137,4 +145,7 @@ export default {
 </script>
 
 <style scoped>
+.footer{
+  font-size: 13px;
+}
 </style>

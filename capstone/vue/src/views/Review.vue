@@ -58,5 +58,14 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.comments{
+  min-height: 100vh;
+}
+.container{
+  background-color: #e4e5f1
+}
+*{
+  background-color: #e4e5f1;
+}
 </style>

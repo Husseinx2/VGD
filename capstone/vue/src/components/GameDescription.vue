@@ -49,6 +49,9 @@
             <ratings-card v-bind:item="id" />
           </section>
         </td>
+        <td>
+          <game-list-buttons />
+        </td>
       </tbody>
     </table>
     <section>
@@ -68,9 +71,10 @@ import reviewService from "../services/ReviewService.js";
 import RatingsCard from "../components/RatingsCard.vue";
 import gameService from "../services/GameService";
 import GameDetails from "../components/GameDetails.vue";
-import addReviewForm from "../components/AddReviewForm.vue"
+import AddReviewForm from "../components/AddReviewForm.vue"
+import GameListButtons from './GameListButtons.vue';
 export default {
-  components: { GameDetails, RatingsCard, addReviewForm},
+  components: { GameDetails, RatingsCard, AddReviewForm, GameListButtons},
   props: ["item"],
   data() {
     return {

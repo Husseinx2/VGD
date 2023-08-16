@@ -10,6 +10,6 @@ namespace Capstone.Models
 
         public string ListTitle { get; set; }
 
-        public List<Game> Games { get; set; }
+        public List<int> GameIds { get; set; }
     }
 }
