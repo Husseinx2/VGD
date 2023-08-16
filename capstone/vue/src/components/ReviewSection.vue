@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h1 v-show="item.length >0">Reviews</h1>
+  <div>
+    <h1 v-show="item.length >0">Reviews:</h1>
     <div class="container">
       <review-card
         v-for="review in item"

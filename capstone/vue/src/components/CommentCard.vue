@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="container">
     <b-card class="comments-card">
       <b-card-header class="font-weight-bold">
         <router-link

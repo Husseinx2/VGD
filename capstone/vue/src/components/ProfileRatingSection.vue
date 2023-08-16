@@ -1,5 +1,5 @@
 <template>
-  <section class="ProfileRating container">
+  <section class="container">
     <h1 v-show="ratings.length > 0">Ratings: </h1>
     <rating-review-card
       v-for="rating in ratings"

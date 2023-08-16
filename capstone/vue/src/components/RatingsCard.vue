@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <section>
     <label for="rating-inline-center">How would you rate this game?</label>
     </section>

@@ -20,17 +20,27 @@
     </b-modal>
     <h1> lists</h1>
     <game-list-section/>
+
+     <b-button v-b-toggle.collapse-3 class="m-1">Toggle ratings</b-button>
+     <b-collapse id="collapse-3">
     <profile-rating-section v-bind:item="item" />
+     </b-collapse>
+    <b-button v-b-toggle.collapse-1 class="m-1">Toggle reviews</b-button>
+    <b-collapse id="collapse-1">
     <review-section
       v-bind:item="reviews"
     />
-    <h1 v-show="comments.length >0">Comments</h1>
+    </b-collapse>
+    <b-button v-b-toggle.collapse-2 class="m-1">Toggle comments</b-button>
+    <b-collapse id="collapse-2">
+    <h1 v-show="comments.length >0">Comments:</h1>
 
     <list-user-comments
       v-for="comment in comments"
       v-bind:key="comment.commentId"
       v-bind:item="comment"
     />
+    </b-collapse>
   </section>
 </template>
 
