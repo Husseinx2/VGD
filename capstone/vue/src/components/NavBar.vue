@@ -37,14 +37,6 @@
         Not Found!
       </b-alert>
 
-      <b-button
-        v-if="!$route.meta.hideNavbar"
-        style="margin-left: 10px"
-        v-b-toggle.dark
-        variant="dark"
-      >
-      Theme
-      </b-button>
       <b-navbar-nav class="ml-auto">
         <router-link
           class="addGame"

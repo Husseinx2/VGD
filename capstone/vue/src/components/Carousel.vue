@@ -12,8 +12,7 @@
       @sliding-end="onSlideEnd"
     >
       <b-carousel-slide
-        img-src="https://wallpapers.com/images/featured/fortnite-pictures-b5kfcchwazwiz3cs.jpg"
-    
+        img-src="https://i.imgur.com/8at4tcA.jpeg"
       >Fortnite has been voted by the VGD staff as the greatest video game of all time.</b-carousel-slide>
 
       <b-carousel-slide
