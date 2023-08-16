@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h1 v-show="item.length >0">Reviews:</h1>
     <div class="container">
       <review-card
