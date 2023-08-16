@@ -32,7 +32,7 @@ export default {
   methods: {
     getLists() {
       gameListservice
-        .ListGameListsByUserId(this.$route.params.id)
+        .listGameListsByUserId(this.$route.params.id)
         .then((response) => {
           this.lists = response.data;
         });
