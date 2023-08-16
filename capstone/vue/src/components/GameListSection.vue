@@ -20,7 +20,7 @@
   </section>
 </template>
 <script>
-import listservice from "../services/ListService";
+import gameListservice from "../services/GameListService";
 import GameList from "./GameList.vue";
 export default {
   components: { GameList },
@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     getLists() {
-      listservice
+      gameListservice
         .ListGameListsByUserId(this.$route.params.id)
         .then((response) => {
           this.lists = response.data;
