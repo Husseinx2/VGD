@@ -2,7 +2,7 @@
   <b-button-group>
     <b-button
       v-bind:pressed="isPlayed"
-      v-b-popover.hover.top="'Already Played'"
+      v-b-popover.hover.top="'Played'"
       v-on:click="togglePlayedButton"
     >
       <b-icon-check-square />
@@ -12,14 +12,15 @@
       v-on:click="toggleCurrentlyPlayingButton"
       v-b-popover.hover.top="'Currently Playing'"
     >
-      <b-button
-        v-bind:pressed="isWantToPlay"
-        v-on:click="toggleWantToPlayButton"
-        v-b-popover.hover.top="'Want to play'"
-      >
-        <b-icon-list />
-      </b-button>
       <b-icon-controller />
+    </b-button>
+
+    <b-button
+      v-bind:pressed="isWantToPlay"
+      v-on:click="toggleWantToPlayButton"
+      v-b-popover.hover.top="'Want to play'"
+    >
+      <b-icon-list />
     </b-button>
   </b-button-group>
 </template>
