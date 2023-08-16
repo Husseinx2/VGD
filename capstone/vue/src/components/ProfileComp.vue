@@ -21,18 +21,31 @@
     <h1> lists</h1>
     <game-list-section/>
 
-     <b-button v-b-toggle.collapse-3 class="m-1">Toggle ratings</b-button>
-     <b-collapse id="collapse-3">
+    <div class="accordion" role="tablist">
+
+      <b-card no-body class="mb-1">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+     <b-button block v-b-toggle.accordion-1 variant="info">Toggle Ratings</b-button>
+        </b-card-header>
+     <b-collapse id="accordion-1" accordion="my-accordion" role ="tabpanel">
     <profile-rating-section v-bind:item="item" />
      </b-collapse>
-    <b-button v-b-toggle.collapse-1 class="m-1">Toggle reviews</b-button>
-    <b-collapse id="collapse-1">
-    <review-section
-      v-bind:item="reviews"
-    />
-    </b-collapse>
-    <b-button v-b-toggle.collapse-2 class="m-1">Toggle comments</b-button>
-    <b-collapse id="collapse-2">
+     </b-card>
+
+    <b-card no-body class="mb-1">
+      <b-card-header header-tag="header" class="p-1" role="tab">
+    <b-button block v-b-toggle.accordion-2 variant="info">Toggle Reviews</b-button>
+      </b-card-header>
+    <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+    <review-section v-bind:item="reviews"/>
+     </b-collapse>
+    </b-card>
+
+    <b-card no-body class="mb-1">
+      <b-card-header header-tag="header" class="p-1" role="tab">
+    <b-button block v-b-toggle.accordion-3 variant="info" role="tab">Toggle Comments</b-button>
+      </b-card-header>
+    <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
     <h1 v-show="comments.length >0">Comments:</h1>
 
     <list-user-comments
@@ -41,6 +54,8 @@
       v-bind:item="comment"
     />
     </b-collapse>
+    </b-card>
+    </div>
   </section>
 </template>
 
@@ -140,16 +155,4 @@ export default {
 </script>
 
 <style scoped>
-section.Profile {
-  flex-wrap: wrap;
-  display: inline-block;
-  height: 120px;
-  min-width: 300px;
-  border: 2px solid black;
-  border-radius: 10px;
-  margin: 20px;
-}
-button:hover {
-  background-color: red;
-}
 </style>
