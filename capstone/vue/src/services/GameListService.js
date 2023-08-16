@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default {
-   getGameList(userId, gameListType ) {
+   getGameList(userId, gameListType) {
       return axios.get(`gamelist/${userId}/${gameListType}`);
    },
    addGameToList(entry) {

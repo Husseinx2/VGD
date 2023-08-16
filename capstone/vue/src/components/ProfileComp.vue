@@ -19,7 +19,7 @@
       Are you sure you want to delete {{ user.username }}?
     </b-modal>
     <h1> lists</h1>
-    <game-list-section/>
+    <game-list-section v-bind:item="item" />
     <profile-rating-section v-bind:item="item" />
     <review-section
       v-bind:item="reviews"

@@ -2,6 +2,7 @@
   <div class="container-fluid d-flex justify-content-center">
     <div>
       <b-card-group deck class="my-2">
+        <router-link class="router-link-reset" v-bind:to="{ name: 'game', params: { id: item.id } }">
         <b-card 
           class="ct-body"
           v-bind:img-src="item.imageUrl"
@@ -9,7 +10,7 @@
           img-top
         >
           <b-card-text >
-            <h3 class="mb-0 text-center">
+            <h3 class="mb-0 text-center title-link">
               <b-link
                 class="title-link"
                 v-bind:to="{ name: 'game', params: { id: item.id } }"
@@ -21,6 +22,7 @@
           </b-card-text>
           <!--This is importing the average star rating-->
         </b-card>
+        </router-link>
       </b-card-group>
     </div>
   </div>
@@ -50,8 +52,8 @@ export default {
 
 <style scoped>
 .title-link {
+  font-family:fantasy;
   color: black;
-  font-family:fantasy
 }
 .ct-body{
   background-color: #d2d3db;
@@ -62,5 +64,10 @@ export default {
 .title-link:hover{
   color:grey
 }
+.router-link-reset {
+  color: inherit; 
+  text-decoration: none; 
+}
+
 
 </style>
