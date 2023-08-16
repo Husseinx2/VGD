@@ -35,6 +35,13 @@
         Not Found!
       </b-alert>
 
+      <b-button
+        v-if="!$route.meta.hideNavbar"
+        style="margin-left: 10px"
+        v-b-toggle.dark
+      >
+      Theme
+      </b-button>
       <b-navbar-nav class="ml-auto">
         <router-link
           class="addGame"
@@ -70,14 +77,12 @@
           >
             <div class="sidebar-work container">
               <b-form-group>
-               
-                  <label>Title</label>
-                  <b-form-input
-                    v-model="searchParameters.title"
-                    placeholder="Enter a title"
-                  >
-                  </b-form-input>
-    
+                <label>Title</label>
+                <b-form-input
+                  v-model="searchParameters.title"
+                  placeholder="Enter a title"
+                >
+                </b-form-input>
               </b-form-group>
               <b-form-group>
                 <label>ESRB</label>
@@ -121,14 +126,14 @@
                   placeholder="Enter publisher(s)"
                 ></b-form-input>
               </b-form-group>
-               <b-button
-                    v-if="!$route.meta.hideNavbar"
-                    v-on:click="searchGames"
-                    size="sm"
-                    type="submit"
-                    ><b-icon icon="search"></b-icon>
-                    Advanced Search
-                  </b-button>
+              <b-button
+                v-if="!$route.meta.hideNavbar"
+                v-on:click="searchGames"
+                size="sm"
+                type="submit"
+                ><b-icon icon="search"></b-icon>
+                Advanced Search
+              </b-button>
             </div>
           </b-sidebar>
         </section>
