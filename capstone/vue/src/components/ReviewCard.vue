@@ -4,16 +4,23 @@
       <b-card-header
         class="font-weight-bold"
         v-show="user.username != undefined"
-        ><b-avatar
-          :variant="user.username == isAdmin ? 'danger' : 'primary'"
-        ></b-avatar>
-        {{ user.username }}
+      >
+        <router-link
+          class="profile-link"
+          v-bind:to="{ name: 'profile', params: { id: item.reviewerId } }"
+        >
+          <b-avatar
+            :variant="user.username == isAdmin ? 'danger' : 'primary'"
+          ></b-avatar>
+          {{ user.username }}
+        </router-link>
       </b-card-header>
       <b-card-header
         class="font-weight-bold"
         v-show="getUsername != null && user.username == undefined"
       >
-        <router-link class="profile-link"
+        <router-link
+          class="profile-link"
           v-bind:to="{ name: 'profile', params: { id: item.reviewerId } }"
         >
           <b-avatar
