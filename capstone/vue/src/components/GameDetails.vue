@@ -1,7 +1,7 @@
 <template>
   <div class= "container">
     <table class="table-secondary">
-      <tbody style="background-color: #e9f4ff">
+      <tbody style="background-color: white">
         <tr>
           <th scope="row">Release Date</th>
           <td>{{ new Date(item.releaseDate).toLocaleString("en", options)  }}</td>
@@ -43,5 +43,7 @@ export default {
 </script>
 
 <style scoped>
-
+.table-secondary{
+  background-color: white;
+}
 </style>
