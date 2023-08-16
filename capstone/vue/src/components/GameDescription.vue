@@ -71,10 +71,10 @@ import reviewService from "../services/ReviewService.js";
 import RatingsCard from "../components/RatingsCard.vue";
 import gameService from "../services/GameService";
 import GameDetails from "../components/GameDetails.vue";
-import addReviewForm from "../components/AddReviewForm.vue"
+import AddReviewForm from "../components/AddReviewForm.vue"
 import SaveGame from './SaveGame.vue';
 export default {
-  components: { GameDetails, RatingsCard, addReviewForm,SaveGame},
+  components: { GameDetails, RatingsCard, AddReviewForm,SaveGame},
   props: ["item"],
   data() {
     return {

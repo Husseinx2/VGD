@@ -1,13 +1,13 @@
 <template>
   <div>
-<edit-game-form-vue class="editGame" />
+<edit-game-form class="editGame" />
  </div>
 </template>
 
 <script>
-import EditGameFormVue from '../components/EditGameForm.vue'
+import EditGameForm from '../components/EditGameForm.vue'
 export default {
-components: {EditGameFormVue}
+components: {EditGameForm}
 }
 </script>
 

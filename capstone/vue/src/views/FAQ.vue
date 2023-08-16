@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import questions from '../components/Questions.vue'
+import Questions from '../components/Questions.vue'
 export default {
-  components: { questions },
+  components: { Questions },
 
 }
 </script>

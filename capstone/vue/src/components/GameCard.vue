@@ -26,10 +26,10 @@
 </template>
 
 <script>
-import avgRatingForGame from "../components/AvgRatingForGame.vue";
+import AvgRatingForGame from "../components/AvgRatingForGame.vue";
 import gameService from "../services/GameService";
 export default {
-  components: { avgRatingForGame },
+  components: { AvgRatingForGame },
   props: ["item"],
   data() {
     return {

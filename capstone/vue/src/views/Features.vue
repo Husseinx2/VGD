@@ -1,13 +1,13 @@
 <template>
   <div>
-      <features class="features" />
+      <features-form class="features" />
   </div>
 </template>
 
 <script>
-import features from '../components/FeaturesForm.vue'
+import FeaturesForm from '../components/FeaturesForm.vue'
 export default {
-components: { features },
+components: { FeaturesForm },
 }
 </script>
 

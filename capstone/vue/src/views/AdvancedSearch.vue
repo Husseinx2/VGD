@@ -14,7 +14,7 @@
       </div>
     </aside>
     <section>
-      <game-card-vue
+      <game-card
         v-for="game in filteredList"
         v-bind:key="game.id"
         v-bind:item="game"
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import GameCardVue from "../components/GameCard.vue";
+import GameCard from "../components/GameCard.vue";
 import gameService from "../services/GameService.js";
 
 export default {
@@ -39,7 +39,7 @@ export default {
       games: [],
     };
   },
-  components: { GameCardVue },
+  components: { GameCard },
   computed: {
     filteredList() {
       return this.games.filter((game) => {
