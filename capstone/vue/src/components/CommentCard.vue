@@ -3,6 +3,7 @@
     <b-card class="comments-card">
       <b-card-header class="font-weight-bold">
         <router-link
+         :is="isCurrentUserAdmin ? 'router-link': 'div'"
           class="profile-link"
           v-bind:to="{ name: 'profile', params: { id: item.commenterId } }"
         >
@@ -136,6 +137,9 @@ export default {
       } else {
         return this.commenter.username;
       }
+    },
+    isCurrentUserAdmin() {
+      return this.$store.state.user.role == 'admin';
     },
   },
   mounted() {

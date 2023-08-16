@@ -5,55 +5,55 @@
         class="font-weight-bold"
         v-show="user.username != undefined"
       >
-       <router-link
+        <router-link
+          :is="isCurrentUserAdmin ? 'router-link' : 'div'"
           class="profile-link"
           v-bind:to="{ name: 'profile', params: { id: item.reviewerId } }"
         >
-        <table>
-          <td>
-            <b-avatar
-              :variant="user.username == isAdmin ? 'danger' : 'primary'"
-            >
-            </b-avatar>
-          </td>
-          <td>
-            <p
-              class="username"
-              :class="isItalics"
-              :style="changeFont"
-              v-text="isDeleted"
-            ></p>
-          </td>
-        </table>
-        </router-link
-        >
+          <table>
+            <td>
+              <b-avatar
+                :variant="user.username == isAdmin ? 'danger' : 'primary'"
+              >
+              </b-avatar>
+            </td>
+            <td>
+              <p
+                class="username"
+                :class="isItalics"
+                :style="changeFont"
+                v-text="isDeleted"
+              ></p>
+            </td>
+          </table>
+        </router-link>
       </b-card-header>
       <b-card-header
         class="font-weight-bold"
         v-show="getUsername != null && user.username == undefined"
       >
-       <router-link
+        <router-link
+          :is="isCurrentUserAdmin ? 'router-link' : 'div'"
           class="profile-link"
           v-bind:to="{ name: 'profile', params: { id: item.reviewerId } }"
         >
-        <table>
-          <td>
-            <b-avatar
-              :variant="getUsername == isAdmin ? 'danger' : 'primary'"
-            >
-            </b-avatar>
-          </td>
-          <td>
-            <p
-              class="username"
-              :class="isItalics"
-              :style="changeFont"
-              v-text="isDeleted2"
-            ></p>
-          </td></table
-      >
-      </router-link
-        ></b-card-header>
+          <table>
+            <td>
+              <b-avatar
+                :variant="getUsername == isAdmin ? 'danger' : 'primary'"
+              >
+              </b-avatar>
+            </td>
+            <td>
+              <p
+                class="username"
+                :class="isItalics"
+                :style="changeFont"
+                v-text="isDeleted2"
+              ></p>
+            </td>
+          </table> </router-link
+      ></b-card-header>
       <b-card-body class="body">
         <b-card-text v-show="!showEditForm">
           {{ item.reviewContent }}
@@ -135,7 +135,7 @@ export default {
     };
   },
   computed: {
-        getUsername() {
+    getUsername() {
       return this.$store.state.userId;
     },
     changeFont() {
@@ -166,9 +166,11 @@ export default {
         return this.user.username;
       }
     },
+    isCurrentUserAdmin() {
+      return this.$store.state.user.role == 'admin';
+    },
   },
   methods: {
-
     setUser(username) {
       this.$store.commit("USER_VARIABLE", username);
       this.$router.push(this.reviewLink);
