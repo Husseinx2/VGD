@@ -80,7 +80,7 @@ export default {
 
 <style scoped>
 .rating{
-    background-color: #e9f4ff;
+    background-color: white;
     
 }
 </style>
