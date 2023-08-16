@@ -7,7 +7,7 @@
       <b-card-header
         class="font-weight-bold"
         v-show="getUsername != null && user.username == undefined"
-        ><b-avatar variant="primary"></b-avatar> {{ getUsername }}</b-card-header
+        ><b-avatar :variant="user.username == isAdmin ? 'danger' : 'primary'"></b-avatar> {{ getUsername }}</b-card-header
       >
       <b-card-body class="body">
         <b-card-text v-show="!showEditForm">
