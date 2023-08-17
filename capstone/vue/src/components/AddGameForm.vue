@@ -74,14 +74,22 @@
         :state="validateState('imageUrl')"
         aria-describedby="input-live-feedback2"
         type="text"
-        placeholder="Image Url"
+        placeholder="Add Url"
         required
       ></b-form-input>
       <b-form-invalid-feedback id="input-live-feedback2"
         >Please use the correct url format</b-form-invalid-feedback
       >
     </b-form-group>
-
+    <!-- Trailer-->
+    <b-form-group id="trailer-url" label="Trailer Url (Optional)" label-for="trailer-url">
+      <b-form-input
+        id="trailer-url"
+        v-model="game.trailerUrl"
+        type="text"
+        placeholder="Must be an embeded url to work">
+      </b-form-input>
+    </b-form-group>
     <!-- genre -->
     <b-form-group>
       <label for="genre">Select genre(s):</label>

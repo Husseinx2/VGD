@@ -82,6 +82,21 @@
       >
     </b-form-group>
 
+    <!-- Trailer-->
+    <b-form-group
+      id="trailer-url"
+      label="Trailer Url (Optional)"
+      label-for="trailer-url"
+    >
+      <b-form-input
+        id="trailer-url"
+        v-model="game.trailerUrl"
+        type="text"
+        placeholder="Must be an embeded url to work"
+      >
+      </b-form-input>
+    </b-form-group>
+
     <!-- genre -->
     <b-form-group>
       <label for="genre">Select genre(s):</label>
@@ -100,10 +115,7 @@
 
     <b-form-group>
       <!-- platforms -->
-      <label for="platforms"
-        >Type a new platform and press enter
-       </label
-      >
+      <label for="platforms">Type a new platform and press enter </label>
       <b-form-tags
         input-id="platforms"
         placeholder="Add platform.."
@@ -231,12 +243,10 @@ export default {
     },
     submitEdit() {
       console.log("Reached");
-      if (
-        this.game
-      ) {
+      if (this.game) {
         gameService.editGame(this.game).then(() => {
           gameService.listGames();
-          this.$store.commit("GAME_EDITED",true);
+          this.$store.commit("GAME_EDITED", true);
           this.$router.push("/");
         });
       }
