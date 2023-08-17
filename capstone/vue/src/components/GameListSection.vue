@@ -1,11 +1,7 @@
 <template>
   <div>
     <b-tabs content-class="mt-3">
-      <b-tab
-        v-for="type in gameListTypes"
-        :key="type"
-        :title="type"
-      >
+      <b-tab v-for="type in gameListTypes" :key="type" :title="type">
         <b-card>
           <game-list :item="gameLists[type]" />
         </b-card>
@@ -13,11 +9,9 @@
     </b-tabs>
   </div>
 </template>
-
 <script>
 import gameListService from "../services/GameListService";
 import GameList from "./GameList.vue";
-
 export default {
   components: { GameList },
   data() {
@@ -25,6 +19,7 @@ export default {
       userId: 0,
       gameListTypes: ["Played", "Currently Playing", "Want To Play"],
       gameLists: {},
+      games: [],
     };
   },
   methods: {
@@ -35,7 +30,7 @@ export default {
           .then((response) => {
             const gameList = response.data;
             this.gameLists[type] = gameList;
-             console.log('fsa');
+            console.log("fsa");
             console.log(gameList);
           })
           .catch((error) => {
@@ -44,10 +39,12 @@ export default {
           });
       });
     },
+
   },
   created() {
     this.userId = this.$route.params.id;
     this.getLists();
+    this.getGames();
   },
 };
 </script>

@@ -17,7 +17,6 @@ export default {
       games: {},
     };
   },
-
   methods: {
     getGames() {
       this.games = [];

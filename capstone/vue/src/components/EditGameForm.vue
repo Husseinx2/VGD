@@ -102,10 +102,7 @@
       <!-- platforms -->
       <label for="platforms"
         >Type a new platform and press enter
-        <span class="bracket"
-          >(NES, Xbox 360, Xbox one, PlayStation 3, PlayStation 4, PlayStation
-          5, PC, Nintendo 64, GameCube, Xbox X/S)</span
-        ></label
+       </label
       >
       <b-form-tags
         input-id="platforms"

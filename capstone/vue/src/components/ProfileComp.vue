@@ -18,7 +18,7 @@
     >
       Are you sure you want to delete {{ user.username }}?
     </b-modal>
-    <h1> lists</h1>
+    <h1>Lists:</h1>
     <game-list-section/>
 
     <div class="accordion" role="tablist">
