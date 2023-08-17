@@ -41,6 +41,7 @@
           <b-tab title="Trailer">
             <div>
               <iframe
+                v-show="item.trailerUrl != hasTrailer"
                 width="560"
                 height="315"
                 v-bind:src="item.trailerUrl"
@@ -100,6 +101,7 @@ export default {
   props: ["item"],
   data() {
     return {
+      hasTrailer: "",
       showAddReview: false,
       id: 0,
       reviews: [],

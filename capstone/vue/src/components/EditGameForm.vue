@@ -174,6 +174,7 @@ export default {
         esrbRating: null,
         releaseDate: "",
         imageUrl: "",
+        trailerUrl: "",
         genres: [],
         platforms: [],
         developers: [],
