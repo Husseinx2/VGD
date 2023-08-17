@@ -181,6 +181,7 @@ export default {
           location.reload();
         } else {
           this.$router.push({ name: "game", params: { id: this.item.gameId } });
+          location.reload();
         }
       });
     },
