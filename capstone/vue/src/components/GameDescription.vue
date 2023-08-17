@@ -38,10 +38,9 @@
           <b-tab title="Cover" active>
             <b-img :src="item.imageUrl" fluid alt=""></b-img>
           </b-tab>
-          <b-tab title="Trailer">
+          <b-tab :disabled="isTrailer" title="Trailer">
             <div>
               <iframe
-                v-show="item.trailerUrl != hasTrailer"
                 width="560"
                 height="315"
                 v-bind:src="item.trailerUrl"
@@ -113,6 +112,9 @@ export default {
     addReview() {
       return this.$store.state.reviewAdded;
     },
+    isTrailer(){
+      return this.item.trailerUrl === this.hasTrailer
+    }
   },
   methods: {
     push() {
