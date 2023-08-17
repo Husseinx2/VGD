@@ -74,7 +74,7 @@ namespace Capstone.DAO
 
         private readonly string sqlListCompanies = "SELECT company_name FROM company;";
 
-        private readonly string sqlSearch = "SELECT DISTINCT game.game_id, title, description, esrb_rating, release_date, image_url FROM game " +
+        private readonly string sqlSearch = "SELECT DISTINCT game.game_id, title, description, esrb_rating, release_date, image_url, trailer_url FROM game " +
             "JOIN game_genre ON game.game_id = game_genre.game_id " +
             "JOIN genre ON game_genre.genre_id = genre.genre_id " +
             "JOIN game_platform ON game.game_id = game_platform.game_id " +

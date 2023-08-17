@@ -36,6 +36,7 @@ export default {
   props: ["item"],
   data() {
     return {
+      show:false,
       options: { year: "numeric", month: "long", day: "numeric" },
     };
   },
