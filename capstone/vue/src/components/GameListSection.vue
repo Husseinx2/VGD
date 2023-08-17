@@ -48,7 +48,7 @@ export default {
     }
   },
   created() {
-    this.userId = this.$route.params.id;
+    this.userId = Number.parseInt(this.$route.params.id);
     this.getLists();
     this.logGameIds();
   },
