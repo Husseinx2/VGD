@@ -111,9 +111,6 @@ export default {
     addReview() {
       return this.$store.state.reviewAdded;
     },
-    getTrailer() {
-      return this.item.trailerUrl;
-    },
   },
   methods: {
     push() {
