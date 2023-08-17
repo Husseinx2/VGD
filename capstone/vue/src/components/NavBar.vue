@@ -56,7 +56,7 @@
             v-show="$store.state.user.role == 'admin'"
           >
             <b-icon icon="person-lines-fill" aria-hidden="true"></b-icon>
-            profiles
+            Profiles
           </b-dropdown-item>
           <b-dropdown-item to="/logout">
             <b-icon icon="power" aria-hidden="true"></b-icon> Logout
