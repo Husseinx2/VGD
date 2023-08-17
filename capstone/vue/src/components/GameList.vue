@@ -5,7 +5,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import GameCard from "./GameCard.vue";
 import gameService from "../services/GameService";
@@ -17,6 +16,7 @@ export default {
       games: {},
     };
   },
+  
   methods: {
     getGames() {
       this.games = [];

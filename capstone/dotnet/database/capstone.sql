@@ -178,14 +178,29 @@ VALUES ('Madden NFL 24', 'The latest installment in the Madden NFL series, featu
 --users
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
+INSERT users ( username, password_hash, salt, user_role, is_deleted) VALUES ( N'zak', N'R52Qda8Fo6bVPwPI7VLTniQzUfY=', N'bb9nMvnZB0A=', N'user', 0)
+INSERT users ( username, password_hash, salt, user_role, is_deleted) VALUES ( N'hussein', N'1h8qPpbdni2MHfA6EfTQgDvZ2SI=', N'i4fH6OEEgiM=', N'user', 0)
 --reviews
-INSERT INTO review (game_id, reviewer_id, review_content, review_datetime) VALUES (1,1,'Really Enjoyed this game', '08/09/2023');
-INSERT INTO review (game_id, reviewer_id, review_content, review_datetime) VALUES (1,2,'It Was Meh, could be better', '08/12/2023');
-INSERT INTO review (game_id, reviewer_id, review_content, review_datetime) VALUES (2,2,'Grew up on this really like it', '08/10/2023');
+SET IDENTITY_INSERT [dbo].[review] ON 
+
+INSERT [dbo].[review] ([review_id], [game_id], [reviewer_id], [review_content], [review_datetime]) VALUES (1, 1, 1, N'Really Enjoyed this game', CAST(N'2023-08-09' AS Date))
+INSERT [dbo].[review] ([review_id], [game_id], [reviewer_id], [review_content], [review_datetime]) VALUES (2, 1, 2, N'It Was Meh, could be better', CAST(N'2023-08-12' AS Date))
+INSERT [dbo].[review] ([review_id], [game_id], [reviewer_id], [review_content], [review_datetime]) VALUES (3, 2, 2, N'Grew up on this really like it', CAST(N'2023-08-10' AS Date))
+INSERT [dbo].[review] ([review_id], [game_id], [reviewer_id], [review_content], [review_datetime]) VALUES (4, 14, 2, N'Tried Madden 24, it was said to be "the make it or break it" for EA and I must say, its the same game. Madden 21,22,23,24 are practically all the same, they add a couple of new animations and sell us "new games". The madden franchise needs To start from scratch because at this point I''ll stop buying this illogical game.', CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[review] ([review_id], [game_id], [reviewer_id], [review_content], [review_datetime]) VALUES (5, 10, 4, N'This game has been lame since 2019', CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[review] ([review_id], [game_id], [reviewer_id], [review_content], [review_datetime]) VALUES (6, 13, 4, N'Kind of hard to get into but fun once you get the hang of it', CAST(N'2023-08-15' AS Date))
+SET IDENTITY_INSERT [dbo].[review] OFF
 ---Comments
-INSERT INTO comment (review_id,commenter_id,comment_content,comment_datetime) values (1,2,'this review sucks go open your eyes','08/09/2023');
-INSERT INTO comment (review_id,commenter_id,comment_content,comment_datetime) values (2,1,'this game is the best what are you talking about?','08/12/2023');
-INSERT INTO comment (review_id,commenter_id,comment_content,comment_datetime) values (2,1,'Maybe if the sped up on the new game I would like it more','08/12/2023');
+SET IDENTITY_INSERT [dbo].[comment] ON 
+
+INSERT [dbo].[comment] ([comment_id], [review_id], [commenter_id], [comment_content], [comment_datetime]) VALUES (1, 1, 2, N'this review sucks go open your eyes', CAST(N'2023-08-09' AS Date))
+INSERT [dbo].[comment] ([comment_id], [review_id], [commenter_id], [comment_content], [comment_datetime]) VALUES (2, 2, 1, N'this game is the best what are you talking about?', CAST(N'2023-08-12' AS Date))
+INSERT [dbo].[comment] ([comment_id], [review_id], [commenter_id], [comment_content], [comment_datetime]) VALUES (3, 2, 1, N'Maybe if the sped up on the new game I would like it more', CAST(N'2023-08-12' AS Date))
+INSERT [dbo].[comment] ([comment_id], [review_id], [commenter_id], [comment_content], [comment_datetime]) VALUES (4, 4, 1, N'I agree, it''s a joke at this point. Don''t get me started on the ratings. the super-star XFactor abilities have been the same forever with generic abilities not designed for the player. Myles Garret was a 99 overall player last year and got 16 sacks but went down 4 overall? This game isn''t serious dude', CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[comment] ([comment_id], [review_id], [commenter_id], [comment_content], [comment_datetime]) VALUES (5, 4, 3, N'I live and breathe madden. if madden has 99 enemies i have 99 enemies. if madden has only one fan that''s me and if madden has no fans then im probably dead. don''t talk about madden like you understand it. The developers are working hard and using new latest edge technology to give us realistic gameplay with AI who are smart and know how to block. the blocking system was changed and also 99 new animations and Cornerbacks not giving up easy catches anymore. Open your eyes', CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[comment] ([comment_id], [review_id], [commenter_id], [comment_content], [comment_datetime]) VALUES (6, 4, 2, N'Yes so by enhancing the blocking they''re rendering D-Lineman useless. and allowing corners to get beat on go routes. Year after Year this game decides to implement No logic.', CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[comment] ([comment_id], [review_id], [commenter_id], [comment_content], [comment_datetime]) VALUES (7, 4, 4, N'Yea 100%, could''ve been way better', CAST(N'2023-08-15' AS Date))
+SET IDENTITY_INSERT [dbo].[comment] OFF
 --rating
 INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) VALUES (1,1,4, '08/09/2023');
 INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) VALUES (1,2,3, '08/09/2023');
@@ -193,80 +208,269 @@ INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) VALUES (2,1
 INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) VALUES (3,2,5, '08/08/2023');
 
 --genre 
-INSERT INTO genre (genre_name) VALUES ('Platformer');
-INSERT INTO genre (genre_name) VALUES ('Third-Person Shooter');
-INSERT INTO genre (genre_name) VALUES ('First-Person Shooter');
-INSERT INTO genre (genre_name) VALUES ('Action');
-INSERT INTO genre (genre_name) VALUES ('Adventure');
-INSERT INTO genre (genre_name) VALUES ('Puzzle');
-INSERT INTO genre (genre_name) VALUES ('Open-World');
-INSERT INTO genre (genre_name) VALUES ('Horror');
-INSERT INTO genre (genre_name) VALUES ('Sports');
-INSERT INTO genre (genre_name) VALUES ('Role-Playing');
-INSERT INTO genre (genre_name) VALUES ('Fighting');
+INSERT [dbo].[genre] ([genre_name]) VALUES ( N'Platformer')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Third-Person Shooter')
+INSERT [dbo].[genre] ([genre_name]) VALUES ( N'First-Person Shooter')
+INSERT [dbo].[genre] ([genre_name]) VALUES ( N'Action')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Adventure')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Puzzle')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Open-World')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Horror')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Sports')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Role-Playing')
+INSERT [dbo].[genre] ([genre_name]) VALUES ( N'Fighting')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'First-Person')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'3D')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Singleplayer')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Sci-fi')
+INSERT [dbo].[genre] ([genre_name]) VALUES ( N'Comedy')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Female Protagonist')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Funny')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Physics')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Story')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Rich')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Classic')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Science')
+INSERT [dbo].[genre] ([genre_name]) VALUES ( N'Atmospheric')
+INSERT [dbo].[genre] ([genre_name]) VALUES ( N'FPS')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Dark Humor')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Short Adventure')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Driving')
+INSERT [dbo].[genre] ( [genre_name]) VALUES (N'Soccer')
+INSERT [dbo].[genre] ([genre_name]) VALUES ( N'Adventure game')
+INSERT [dbo].[genre] ([genre_name]) VALUES ( N'Simulation Game')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Social simulation game')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Strategy')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Action-adventure game')
+INSERT [dbo].[genre] ([genre_name]) VALUES ( N'battle-royale')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'shooting')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'third-person')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'PvP')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'eSports')
+INSERT [dbo].[genre] ([genre_name]) VALUES ( N'Multiplayer')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Shooter')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Tactical')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Competitive')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Online')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Co-Op')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Hero')
+INSERT [dbo].[genre] ( [genre_name]) VALUES (N'Team-Based')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Military War')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Realistic')
+INSERT [dbo].[genre] ( [genre_name]) VALUES (N'Destruction')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Difficult')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Simulation')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Football (American)')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'PvP Co-op')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Local Co-Op')
+INSERT [dbo].[genre] ( [genre_name]) VALUES ( N'Local Multiplayer')
+INSERT [dbo].[genre] ([genre_name]) VALUES ( N'Multiplayer Singleplayer')
 
-INSERT INTO game_genre (game_id,genre_id) VALUES (1,1);
-INSERT INTO game_genre (game_id,genre_id) VALUES (2,2);
-INSERT INTO game_genre (game_id,genre_id) VALUES (2,3);
-INSERT INTO game_genre (game_id,genre_id) VALUES (2,4);
-INSERT INTO game_genre (game_id,genre_id) VALUES (2,5);
-INSERT INTO game_genre (game_id,genre_id) VALUES (2,6);
-INSERT INTO game_genre (game_id,genre_id) VALUES (2,7);
-INSERT INTO game_genre (game_id,genre_id) VALUES (3,3);
-INSERT INTO game_genre (game_id,genre_id) VALUES (3,5);
+
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (1, 1)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (2, 2)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (3, 2)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (4, 2)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (5, 2)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (6, 2)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (7, 2)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (3, 3)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (5, 3)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (1, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (4, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (6, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (12, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (13, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (14, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (15, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (16, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (17, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (18, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (19, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (20, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (21, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (22, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (23, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (24, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (25, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (26, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (27, 4)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (9, 5)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (28, 5)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (29, 5)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (30, 6)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (31, 6)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (32, 6)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (33, 7)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (33, 8)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (34, 9)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (4, 10)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (35, 10)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (36, 10)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (37, 10)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (5, 11)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (11, 12)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (4, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (12, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (13, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (25, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (33, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (38, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (39, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (40, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (41, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (42, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (43, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (44, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (45, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (46, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (47, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (48, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (49, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (50, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (51, 13)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (9, 14)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (33, 14)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (52, 14)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (53, 14)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (54, 14)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (55, 14)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (56, 14)
+INSERT [dbo].[game_genre] ([genre_id], [game_id]) VALUES (57, 14)
+
 
 
 --company
-INSERT INTO company (company_name) VALUES ('Nintendo');
-INSERT INTO company (company_name) VALUES ('Rockstar Games')
-INSERT INTO company (company_name) VALUES ('Arkane Studios')
-INSERT INTO company (company_name) VALUES ('2K')
-INSERT INTO company (company_name) VALUES ('Bungie')
-INSERT INTO company (company_name) VALUES ('Activision')
-INSERT INTO company (company_name) VALUES ('Arc System Works')
-INSERT INTO company (company_name) VALUES ('Artoon')
-INSERT INTO company (company_name) VALUES ('Bethesda')
-INSERT INTO company (company_name) VALUES ('BioWare')
-INSERT INTO company (company_name) VALUES ('Capcom')
-INSERT INTO company (company_name) VALUES ('Epic Games')
-INSERT INTO company (company_name) VALUES ('Ubisoft')
-INSERT INTO company (company_name) VALUES ('Sega')
-INSERT INTO company (company_name) VALUES ('Microsoft')
-INSERT INTO company (company_name) VALUES ('Square Enix')
-INSERT INTO company (company_name) VALUES ('Ark System Works')
+SET IDENTITY_INSERT [dbo].[company] ON 
 
-INSERT INTO game_developer (game_id,developer_id) VALUES (1,1);
-INSERT INTO game_developer (game_id,developer_id) VALUES (2,2);
-INSERT INTO game_developer (game_id,developer_id) VALUES (3,3);
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (1, N'Nintendo')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (2, N'Rockstar Games')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (3, N'Arkane Studios')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (4, N'2K')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (5, N'Bungie')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (6, N'Activision')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (7, N'Arc System Works')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (8, N'Artoon')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (9, N'Bethesda')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (10, N'BioWare')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (11, N'Capcom')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (12, N'Epic Games')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (13, N'Ubisoft')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (14, N'Sega')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (15, N'Microsoft')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (16, N'Square Enix')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (17, N'Ark System Works')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (18, N'Valve')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (19, N'Psyonix')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (20, N'Mike Ault')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (21, N'Namco')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (22, N'Titus Interactive')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (23, N'Atari, Inc.')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (24, N'Ubisoft Montreal')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (25, N'Tiburon')
+INSERT [dbo].[company] ([company_id], [company_name]) VALUES (26, N'Electronic Arts')
+SET IDENTITY_INSERT [dbo].[company] OFF
 
-INSERT INTO game_publisher (game_id,publisher_id) VALUES (1,1);
-INSERT INTO game_publisher (game_id,publisher_id) VALUES (2,2);
-INSERT INTO game_publisher (game_id,publisher_id) VALUES (3,9);
+INSERT [dbo].[game_developer] ([developer_id], [game_id]) VALUES (1, 1)
+INSERT [dbo].[game_developer] ([developer_id], [game_id]) VALUES (2, 2)
+INSERT [dbo].[game_developer] ([developer_id], [game_id]) VALUES (3, 3)
+INSERT [dbo].[game_developer] ([developer_id], [game_id]) VALUES (18, 4)
+INSERT [dbo].[game_developer] ([developer_id], [game_id]) VALUES (19, 5)
+INSERT [dbo].[game_developer] ([developer_id], [game_id]) VALUES (1, 6)
+INSERT [dbo].[game_developer] ([developer_id], [game_id]) VALUES (1, 7)
+INSERT [dbo].[game_developer] ([developer_id], [game_id]) VALUES (21, 8)
+INSERT [dbo].[game_developer] ([developer_id], [game_id]) VALUES (1, 9)
+INSERT [dbo].[game_developer] ([developer_id], [game_id]) VALUES (12, 10)
+INSERT [dbo].[game_developer] ([developer_id], [game_id]) VALUES (23, 11)
+INSERT [dbo].[game_developer] ([developer_id], [game_id]) VALUES (11, 12)
+INSERT [dbo].[game_developer] ([developer_id], [game_id]) VALUES (24, 13)
+INSERT [dbo].[game_developer] ([developer_id], [game_id]) VALUES (25, 14)
+
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (1, 1)
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (2, 2)
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (9, 3)
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (18, 4)
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (20, 5)
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (1, 6)
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (1, 7)
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (15, 7)
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (21, 8)
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (22, 9)
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (12, 10)
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (23, 11)
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (11, 12)
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (13, 13)
+INSERT [dbo].[game_publisher] ([publisher_id], [game_id]) VALUES (26, 14)
 
 --Platform
 
-INSERT INTO platform (platform_name) VALUES ('NES');
-INSERT INTO platform (platform_name) VALUES ('Xbox 360');
-INSERT INTO platform (platform_name) VALUES ('Xbox one');
-INSERT INTO platform (platform_name) VALUES ('PlayStation 3');
-INSERT INTO platform (platform_name) VALUES ('PlayStation 4');
-INSERT INTO platform (platform_name) VALUES ('PlayStation 5');
-INSERT INTO platform (platform_name) VALUES ('PC');
-INSERT INTO platform (platform_name) VALUES ('Nintendo 64');
-INSERT INTO platform (platform_name) VALUES ('GameCube');
-INSERT INTO platform (platform_name) VALUES ('Xbox X/S');
+SET IDENTITY_INSERT [dbo].[platform] ON 
+
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (1, N'NES')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (2, N'Xbox 360')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (3, N'Xbox one')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (4, N'PlayStation 3')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (5, N'PlayStation 4')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (6, N'PlayStation 5')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (7, N'PC')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (8, N'Nintendo 64')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (9, N'GameCube')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (10, N'Xbox X/S')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (11, N'Playstatopm 4')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (12, N'Nintendo')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (13, N'Mobile')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (14, N'macOS[c]')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (15, N'Windows')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (16, N'iOS[c]')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (17, N'Nintendo Switch')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (18, N'Android[c]')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (19, N'Xbox Series X/S')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (20, N'Atari 2600')
+INSERT [dbo].[platform] ([platform_id], [platform_name]) VALUES (21, N'Arcade')
+SET IDENTITY_INSERT [dbo].[platform] OFF
 
 
-INSERT INTO game_platform (game_id,platform_id) VALUES (1,1);
-INSERT INTO game_platform (game_id,platform_id) VALUES (2,3);
-INSERT INTO game_platform (game_id,platform_id) VALUES (2,4);
-INSERT INTO game_platform (game_id,platform_id) VALUES (2,5);
-INSERT INTO game_platform (game_id,platform_id) VALUES (2,6);
-INSERT INTO game_platform (game_id,platform_id) VALUES (2,7);
-INSERT INTO game_platform (game_id,platform_id) VALUES (2,10);
-INSERT INTO game_platform (game_id,platform_id) VALUES (3,5);
-INSERT INTO game_platform (game_id,platform_id) VALUES (3,3);
-INSERT INTO game_platform (game_id,platform_id) VALUES (3,7);
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (1, 1)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (3, 2)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (4, 2)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (5, 2)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (6, 2)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (7, 2)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (10, 2)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (3, 3)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (5, 3)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (7, 3)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (7, 4)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (3, 5)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (7, 5)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (11, 5)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (12, 5)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (12, 6)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (7, 7)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (13, 7)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (7, 8)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (13, 8)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (8, 9)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (3, 10)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (5, 10)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (6, 10)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (14, 10)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (15, 10)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (16, 10)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (17, 10)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (18, 10)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (19, 10)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (20, 11)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (21, 12)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (6, 13)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (7, 13)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (10, 13)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (3, 14)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (5, 14)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (6, 14)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (7, 14)
+INSERT [dbo].[game_platform] ([platform_id], [game_id]) VALUES (10, 14)
+
 
 --game_list
 

@@ -39,12 +39,18 @@ export default {
           });
       });
     },
+    logGameIds(){
+      this.gameListTypes.forEach((type)=> {
+        console.log("reached loggames")
+        console.log(this.gameLists[type]);
 
+      })
+    }
   },
   created() {
     this.userId = this.$route.params.id;
     this.getLists();
-    this.getGames();
+    this.logGameIds();
   },
 };
 </script>
