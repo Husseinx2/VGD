@@ -2,7 +2,7 @@
   <section class="ProfileComp container">
     <h1>User: {{ user.username }}</h1>
     <b-button
-    class="btn btn-danger"
+      class="btn btn-danger"
       v-show="item != $store.state.user.userId && user.role != 'admin'"
       v-b-modal="`${user.username}`"
       v-bind:key="user.userId"
@@ -18,44 +18,58 @@
     >
       Are you sure you want to delete {{ user.username }}?
     </b-modal>
-    <h1>Lists:</h1>
-    <game-list-section/>
 
     <div class="accordion" role="tablist">
+      <b-card no-body class="mb-1">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+          <b-button block v-b-toggle.accordion-1 variant="info"
+            >Toggle Rating</b-button
+          >
+        </b-card-header>
+        <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+          <profile-rating-section v-bind:item="item" />
+        </b-collapse>
+      </b-card>
 
       <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
-     <b-button block v-b-toggle.accordion-1 variant="info">Toggle Rating</b-button>
+          <b-button block v-b-toggle.accordion-2 variant="info"
+            >Toggle Reviews</b-button
+          >
         </b-card-header>
-     <b-collapse id="accordion-1" accordion="my-accordion" role ="tabpanel">
-    <profile-rating-section v-bind:item="item" />
-     </b-collapse>
-     </b-card>
+        <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+          <review-section v-bind:item="reviews" />
+        </b-collapse>
+      </b-card>
 
-    <b-card no-body class="mb-1">
-      <b-card-header header-tag="header" class="p-1" role="tab">
-    <b-button block v-b-toggle.accordion-2 variant="info">Toggle Reviews</b-button>
-      </b-card-header>
-    <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-    <review-section v-bind:item="reviews"/>
-     </b-collapse>
-    </b-card>
+      <b-card no-body class="mb-1">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+          <b-button block v-b-toggle.accordion-3 variant="info" role="tab"
+            >Toggle Comments</b-button
+          >
+        </b-card-header>
+        <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
+          <h1 v-show="comments.length > 0">Comments:</h1>
 
-    <b-card no-body class="mb-1">
-      <b-card-header header-tag="header" class="p-1" role="tab">
-    <b-button block v-b-toggle.accordion-3 variant="info" role="tab">Toggle Comments</b-button>
-      </b-card-header>
-    <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
-    <h1 v-show="comments.length >0">Comments:</h1>
+          <list-user-comments
+            v-for="comment in comments"
+            v-bind:key="comment.commentId"
+            v-bind:item="comment"
+          />
+        </b-collapse>
+      </b-card>
 
-    <list-user-comments
-      v-for="comment in comments"
-      v-bind:key="comment.commentId"
-      v-bind:item="comment"
-    />
-
-    </b-collapse>
-    </b-card>
+      <b-card no-body class="mb-1">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+          <b-button block v-b-toggle.accordion-4 variant="info" role="tab"
+          >Toggle Game Lists</b-button
+          >
+        </b-card-header>
+        <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel">
+          <h1>Lists:</h1>
+          <game-list-section />
+        </b-collapse>
+      </b-card>
     </div>
   </section>
 </template>
@@ -66,9 +80,14 @@ import reviewService from "../services/ReviewService.js";
 import commentService from "../services/CommentService";
 import ListUserComments from "./ListUserComments.vue";
 import ReviewSection from "./ReviewSection.vue";
-import GameListSection from './GameListSection.vue';
+import GameListSection from "./GameListSection.vue";
 export default {
-  components: { ProfileRatingSection, ListUserComments, ReviewSection, GameListSection },
+  components: {
+    ProfileRatingSection,
+    ListUserComments,
+    ReviewSection,
+    GameListSection,
+  },
   props: ["item"],
   name: "profileComp",
   data() {
