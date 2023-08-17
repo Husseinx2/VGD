@@ -33,7 +33,27 @@
       </span>
     </div>
     <div class="p-5 text-center bg-body-tertiary rounded-3">
-      <b-img :src="item.imageUrl" fluid alt=""></b-img>
+      <div>
+        <b-tabs content-class="mt-3">
+          <b-tab title="Cover" active>
+            <b-img :src="item.imageUrl" fluid alt=""></b-img>
+          </b-tab>
+          <b-tab title="Trailer">
+            <div>
+              <iframe
+                width="560"
+                height="315"
+                v-bind:src="item.trailerUrl"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </b-tab>
+        </b-tabs>
+      </div>
+
       <h1>{{ item.title }}</h1>
       <p>{{ item.description }}</p>
     </div>
@@ -50,18 +70,20 @@
           </section>
         </td>
         <td>
-          <game-list-buttons v-bind:item="id"/>
+          <game-list-buttons v-bind:item="id" />
         </td>
       </tbody>
     </table>
     <section>
       <b-form-group>
-      <b-button v-show="!containsId" style="width: 13%" @click="showAddReview = !showAddReview"
-        >Add Review</b-button
-      >
+        <b-button
+          v-show="!containsId"
+          style="width: 13%"
+          @click="showAddReview = !showAddReview"
+          >Add Review</b-button
+        >
       </b-form-group>
       <add-review-form v-show="showAddReview" />
-
     </section>
   </div>
 </template>
@@ -71,10 +93,10 @@ import reviewService from "../services/ReviewService.js";
 import RatingsCard from "../components/RatingsCard.vue";
 import gameService from "../services/GameService";
 import GameDetails from "../components/GameDetails.vue";
-import AddReviewForm from "../components/AddReviewForm.vue"
-import GameListButtons from './GameListButtons.vue';
+import AddReviewForm from "../components/AddReviewForm.vue";
+import GameListButtons from "./GameListButtons.vue";
 export default {
-  components: { GameDetails, RatingsCard, AddReviewForm, GameListButtons},
+  components: { GameDetails, RatingsCard, AddReviewForm, GameListButtons },
   props: ["item"],
   data() {
     return {
@@ -82,12 +104,15 @@ export default {
       id: 0,
       reviews: [],
       game: {},
-      containsId: false
+      containsId: false,
     };
   },
   computed: {
     addReview() {
       return this.$store.state.reviewAdded;
+    },
+    getTrailer() {
+      return this.item.trailerUrl;
     },
   },
   methods: {
@@ -166,5 +191,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
