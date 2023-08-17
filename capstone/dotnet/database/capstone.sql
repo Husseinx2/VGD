@@ -202,10 +202,27 @@ INSERT [dbo].[comment] ([comment_id], [review_id], [commenter_id], [comment_cont
 INSERT [dbo].[comment] ([comment_id], [review_id], [commenter_id], [comment_content], [comment_datetime]) VALUES (7, 4, 4, N'Yea 100%, could''ve been way better', CAST(N'2023-08-15' AS Date))
 SET IDENTITY_INSERT [dbo].[comment] OFF
 --rating
-INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) VALUES (1,1,4, '08/09/2023');
-INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) VALUES (1,2,3, '08/09/2023');
-INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) VALUES (2,1,3, '08/08/2023');
-INSERT INTO rating (game_id, user_id, rating_value, rating_datetime) VALUES (3,2,5, '08/08/2023');
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (1, 1, 4, CAST(N'2023-08-09' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (1, 2, 3, CAST(N'2023-08-09' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (2, 1, 3, CAST(N'2023-08-08' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (2, 2, 5, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (3, 2, 5, CAST(N'2023-08-08' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (4, 4, 5, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (5, 4, 4, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (6, 4, 4, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (7, 4, 4, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (8, 2, 5, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (8, 4, 4, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (9, 4, 4, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (10, 2, 1, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (10, 4, 4, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (11, 4, 3, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (12, 4, 3, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (13, 4, 4, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (14, 1, 5, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (14, 2, 1, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (14, 3, 5, CAST(N'2023-08-15' AS Date))
+INSERT [dbo].[rating] ([game_id], [user_id], [rating_value], [rating_datetime]) VALUES (14, 4, 1, CAST(N'2023-08-15' AS Date))
 
 --genre 
 INSERT [dbo].[genre] ([genre_name]) VALUES ( N'Platformer')
