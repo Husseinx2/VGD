@@ -62,10 +62,11 @@
       <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
           <b-button block v-b-toggle.accordion-4 variant="info" role="tab"
-          >Toggle Game Lists</b-button
+          >Toggle Game Lists [COMING SOON]</b-button
           >
         </b-card-header>
         <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel">
+          <jumbotron2 />
           <h1>Lists:</h1>
           <game-list-section />
         </b-collapse>
@@ -81,12 +82,14 @@ import commentService from "../services/CommentService";
 import ListUserComments from "./ListUserComments.vue";
 import ReviewSection from "./ReviewSection.vue";
 import GameListSection from "./GameListSection.vue";
+import Jumbotron2 from './Jumbotron2.vue';
 export default {
   components: {
     ProfileRatingSection,
     ListUserComments,
     ReviewSection,
     GameListSection,
+    Jumbotron2,
   },
   props: ["item"],
   name: "profileComp",
