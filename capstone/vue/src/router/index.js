@@ -20,6 +20,7 @@ import AboutUs from '../views/AboutUs.vue'
 import FAQ from '../views/FAQ.vue'
 import Features from '../views/Features.vue'
 import Careers from '../views/Careers.vue'
+import OldHomePage from '../views/OldHomePage.vue'
 
 Vue.use(Router)
 
@@ -200,6 +201,11 @@ const router = new Router({
         requiresAuth: true,
       }
     },
+    {
+      path:"/old",
+      name: "old",
+      component: OldHomePage,
+    }
   ]
 })
 
